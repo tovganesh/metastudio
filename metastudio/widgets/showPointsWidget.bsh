@@ -1,0 +1,53 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+
+showPointsWidget() {    
+    panel = getWidgetsPanel(); 
+
+    showPoints = new IDEWidget();
+    showPoints.setWidgetID("showPointsWidget");
+
+    fileToPlay = new JTextField(10);
+    showPoints.add(fileToPlay);
+
+    browse = new JButton("browse");
+    browse.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+            fileChooser.setDialogTitle("Select a file to play...");        
+
+            // add the filters
+            fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+
+            fileChooser.addChoosableFileFilter(new IDEFileFilter("vis",
+                                    "VIS files"));
+
+            // and add the iconic stuff
+            fileChooser.setFileView(new IDEFileView());
+
+            // now show the stuff to the user, and pray he gives good files names ;)
+            if (fileChooser.showOpenDialog(getIDEInstance())
+                        == IDEFileChooser.APPROVE_OPTION) {        
+                fileToPlay.setText(fileChooser.getSelectedFile().getAbsolutePath());
+            }
+        }
+    });
+    showPoints.add(browse);
+
+    show = new JButton("show");
+    show.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            showPoints(fileToPlay.getText());
+        }
+    });
+    showPoints.add(show);
+
+    panel.addWidget(showPoints);
+    panel.updateUI();
+}
+
+showPointsWidget();

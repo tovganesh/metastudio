@@ -1,0 +1,23 @@
+
+xmin = -3.6122;
+ymin = -3.458;
+zmin = -0.6944;
+
+xstep = 0.2408;
+ystep = 0.2305;
+zstep = 0.4973;
+
+nx = ny = nz = 30;
+
+f = openFile("/home/ganesh/tmp/gridNc.txt", "w");
+
+for(i=0, x=xmin; i<nx; i++, x=xmin+(i*xstep)) {
+  for(j=0, y=ymin; j<ny; j++, y=ymin+(j*ystep)) {
+     for(k=0, z=zmin; k<nz; k++, z=zmin+(k*zstep)) {
+        f.write("x " + x + " " + y + " " + z + "\n");
+     }
+  }
+}
+
+
+f.close();

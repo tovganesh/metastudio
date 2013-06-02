@@ -1,0 +1,14 @@
+/**
+ * progressBar() - create instance of JProgressBar
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+progressBar() {
+    return new javax.swing.JProgressBar();
+}
+
+progressBar(int min, int max) {
+    return new javax.swing.JProgressBar(min, max);
+}

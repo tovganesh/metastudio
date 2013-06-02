@@ -1,0 +1,15 @@
+/**
+ * findDistance() - finds distance between two atoms in a molecule.
+ * usage:
+ *   distance = findDistance(molecule, atomIndex1, atomIndex2);
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+findDistance(Molecule molecule, int atomIndex1, int atomIndex2) {
+    atom1 = molecule.getAtom(atomIndex1);
+    atom2 = molecule.getAtom(atomIndex2);
+    
+    return atom1.distanceFrom(atom2);
+}

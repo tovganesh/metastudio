@@ -1,0 +1,29 @@
+import java.io.*;
+import java.net.*;
+
+import org.meta.common.*;
+import org.meta.net.*;
+import org.meta.net.impl.service.*;
+import org.meta.net.impl.consumer.*;
+import org.meta.common.resource.*;
+
+System.out.println(isHandler());
+
+if (isHandler()) {   
+   req = getFederationRequest();
+   fileName = req.receiveString();
+   print("req file name: " + fileName);
+
+   fil = new File(fileName.replace("\\", "/"));
+   requestFile(fileName, getRemoteAppDir() + File.separatorChar + "serv-" + fil.getName(), req);
+   
+   ene = hfscf(readMoleculeFile(getRemoteAppDir() + File.separatorChar + "serv-" + fil.getName()), "631gdp");
+   req.sendDouble(ene);
+
+} else {
+   ser = getFederationRequest();
+   ser.sendString(getRemoteAppDir() + File.separatorChar + "g03.com");
+
+   print("Total energy: " + ser.receiveDouble());
+} // end if
+

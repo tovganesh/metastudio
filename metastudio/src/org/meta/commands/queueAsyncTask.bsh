@@ -1,0 +1,31 @@
+/**
+ * queueAsyncTask() - creates queued asynchronous task
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.parallel.SimpleAsyncTaskQueue;
+import org.meta.parallel.event.AsyncTaskCompletionListener;
+
+queueAsyncTask(Object object, String methodName, Object [] args) {
+     argsClass = new Class[0];
+     if (args != null && args.length > 0) {
+        argsClass = new Class[args.length];
+        for(i=0; i<args.length; i++) argsClass[i] = args.getClass();
+     } // end if
+
+     SimpleAsyncTaskQueue.getInstance().addAsyncTask(object,
+           object.getClass().getMethod(methodName, argsClass), args);
+}
+
+queueAsyncTask(Object object, String methodName, AsyncTaskCompletionListener al, Object [] args) {
+     argsClass = new Class[0];
+     if (args != null && args.length > 0) {
+        argsClass = new Class[args.length];
+        for(i=0; i<args.length; i++) argsClass[i] = args.getClass();
+     } // end if
+
+     SimpleAsyncTaskQueue.getInstance().addAsyncTask(object,
+           object.getClass().getMethod(methodName, argsClass), al, args);
+}

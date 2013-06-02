@@ -1,0 +1,130 @@
+/**
+ * attachProperty() - Attaches a property scene, by reading a property file
+ * to the currently active molecule scene. The file name is quried using a 
+ * IDEFileChooser dialog.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.propertyreader.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.*;
+
+import org.meta.common.resource.CursorResource;
+
+/**
+ * attach a property scene to the active molecule scene, with the user specified
+ * property file.
+ */
+attachProperty() {        
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frame = wsDesktop.getActiveFrame();
+
+    // no active frame?
+    if (frame == null) return;
+
+    // not appropriate instance?
+    if (!(frame instanceof MoleculeViewerFrame)) return;
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of property file...");        
+    // add the filters        
+    fileChooser.addChoosableFileFilter(new IDEFileFilter(
+                new String[] {"esp", "ed", "out", "log", "cub", "cube", "prop"},
+                "Property file formats"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+    
+    // TODO: make the molecule scene chooser dialog
+    
+    // now show the stuff to the user, and pray he gives good files names ;)
+    if (fileChooser.showOpenDialog(ideInstance)
+                    == IDEFileChooser.APPROVE_OPTION) {        
+       String fileName = fileChooser.getSelectedFile().getAbsolutePath();                
+                                                            
+       if (frame.isSelected()) {  // found the one that is active?
+            scenes = frame.getSceneList();            
+
+            // we can handle only one-to-one relations at this time!
+            if (scenes.size() > 1) return;
+
+            System.out.println("Property data will be read from : " + fileName);
+
+            attachProperty(fileName, scenes.get(0), ideInstance);
+       } else {
+            // default the coursor
+            ideInstance.setCursor(
+                           Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+       } // end if                     
+    } else {
+       // default the coursor
+       ideInstance.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    } // end if
+}
+
+attachProperty(String fileName, scene, ideInstance) {
+    // prepare the reader objects
+    Thread loadThread = new Thread() {
+        public void run() {
+            ideInstance.setCursor(
+                           CursorResource.getInstance().getOpeningCursor());
+            status = ideInstance.getStatusBar();
+
+            reader = null;
+            try {                
+                rf = Utility.getDefaultImplFor(PropertyFileReaderFactory.class)
+                            .newInstance();
+                reader = rf.getMostProbableReaderFor(new java.io.File(fileName));
+                prop   = reader.readPropertyFile(fileName);
+
+                status.setStatusText("Reading property file, please wait!");
+
+                System.out.println("The property details are: " + prop);
+                propertyScene = new PropertyScene(scene, prop);
+                scene.addPropertyScene(propertyScene);
+
+                // default the coursor
+                ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+                status.setStatusText("Loaded property file.");
+            } catch(Exception e) {
+                ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));                
+                e.printStackTrace();
+                System.out.println(e.toString());
+                status.setStatusText("Error opening file : " + fileName + "!"
+                      + " Please look into Runtime log for more information.");
+            } // end of try .. catch block
+        }
+    };
+
+    loadThread.setName("Property loading Thread");
+    loadThread.start(); 
+}

@@ -1,0 +1,292 @@
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.ui.Spacer;
+
+import org.jfree.chart.*;
+import org.jfree.chart.axis.*;
+import org.jfree.chart.plot.*;
+import org.jfree.data.category.*;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineRenderer3D;
+
+private MoleculeViewerFrame mvf; 
+
+XYDataset makeLineDataset(values, seriesList, categoryList, type) {           
+        XYSeriesCollection dataset = new XYSeriesCollection();
+
+        if (type.equals(org.meta.molecule.property.vibrational.IntensityType.INFRA_RED))
+           type = "IR";
+        else
+           type = "Raman";
+
+        series = new XYSeries(type);
+        for(i=0; i<values.size(); i++) 
+           series.add(seriesList.get(i), values.get(i));
+        dataset.addSeries(series);
+
+        return dataset;
+}
+
+JFreeChart createLineChart(XYDataset dataset, 
+                       String title, 
+                       String categoryLabel, String valueLabel,
+                       boolean line) {
+        
+        // create the chart...
+        final JFreeChart chart = ChartFactory.createXYLineChart(
+            title,                    // chart title
+            categoryLabel,            // domain axis label
+            valueLabel,               // range axis label
+            dataset,                  // data
+            PlotOrientation.VERTICAL,
+            true,                     // include legend
+            true,                     // tooltips
+            false                     // urls
+        );
+
+        // optional customization..
+        chart.setBackgroundPaint(Color.white);
+
+        // final StandardLegend legend = (StandardLegend) chart.getLegend();
+        // legend.setDisplaySeriesShapes(true);
+        
+        // get a reference to the plot for further customisation...
+        XYPlot plot = chart.getXYPlot();
+        plot.setBackgroundPaint(Color.white);
+        // plot.setAxisOffset(new Spacer(Spacer.ABSOLUTE, 5.0, 5.0, 5.0, 5.0));
+        plot.setDomainGridlinePaint(Color.white);
+        plot.setRangeGridlinePaint(Color.white);
+        
+        if (line) {
+           renderer = new XYLineAndShapeRenderer();
+           renderer.setPaint(Color.black);
+           renderer.setSeriesLinesVisible(0, true);
+           renderer.setSeriesShapesVisible(0, false);
+           renderer.setDrawSeriesLineAsPath(true);
+        } else {
+           renderer = new XYBarRenderer(0.2);         
+           renderer.setPaint(Color.black);     
+        } // end if
+
+        plot.setRenderer(renderer);
+
+        // change the auto tick unit selection to integer units only...
+        // NumberAxis rangeAxis = (NumberAxis) plot.getRangeAxis();
+        // rangeAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+                
+        return chart;        
+}
+
+line(dataset, title, category, value, boolean line) {
+  JFreeChart chart = createLineChart(dataset, title, category, value, line);
+  ChartPanel chartPanel = new ChartPanel(chart, false);
+  chartPanel.setPreferredSize(new Dimension(500, 270));
+
+  JFrame jf = new JFrame();
+
+  jf.setContentPane(chartPanel);
+  jf.pack();
+  jf.setVisible(true);
+}
+
+displaceMol(mol, disp) {
+  m = molecule(mol.getTitle());
+
+  i = 0;
+  for(atm : mol.getAtoms()) { 
+     d = disp.get(i);
+     natm = atom(atm.getSymbol(), atm.getCharge(), 
+                 point(atm.getX()+d.getI(), 
+                       atm.getY()+d.getJ(), 
+                       atm.getZ()+d.getK()));
+     natm.setConnectedList(atm.getConnectedList());
+     m.addAtom(natm);
+
+     i++;
+  }
+
+  return m;
+}
+
+addDisplacements(sl, selectedMol, disp) {
+  m = displaceMol(selectedMol, disp);
+  sl.add(new MoleculeScene(m));
+}
+
+displayFreqAni(selectedMol, disp) {
+  if (mvf == null || !mvf.isVisible()) {
+     mvf = new MoleculeViewerFrame(getIDEInstance());
+     getDesktopInstance().addInternalFrame(mvf);
+  } // end if
+
+  mv = mvf.getMoleculeViewer();
+  
+  // create a new scene list
+  sl = new java.util.Vector();
+  sl.add(new MoleculeScene(selectedMol));
+
+  addDisplacements(sl, selectedMol, disp);
+
+  mv.setSceneList(sl);
+
+  mvf.updateUI();
+
+  mv.setRepeatMovie(true);
+  mv.beginMovie();
+}
+
+freqViewWidget() { 
+   selectedMol = null;
+
+   panel = getWidgetsPanel();
+   freqView = widget("freqViewWidget");
+   freqView.setLayout(layout("verticalflow"));
+
+   selMol = button("select molecule");
+   selMol.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+          selectedMol = showMoleculeListDialog();
+
+          // upadate the freq number list
+          if (selectedMol.isAdditionalInformationAvailable()) {
+             ai = selectedMol.getAdditionalInformation();
+
+             if (ai.isFrequencyDataAvailable()) {
+                vp = ai.getMolecularVibrationalProperty();
+
+                fl = arraylist();
+                for(fi : vp.getFrequencyItems()) {
+                   fl.add(fi.getFrequency() + 
+                          (fi.isImaginary() ? "(I)" : ""));
+                } // end for
+ 
+                freqs.setListData(fl.toArray());
+                freqs.updateUI();
+             } // end if             
+          } // end if
+      }
+   });
+   freqView.add(selMol);
+
+   plotType = combobox(org.meta.molecule.property.vibrational.IntensityType.values());
+   freqView.add(plotType);
+
+   plot1 = button("(line) plot intensity vs freq");
+   plot1.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+         fr = arraylist();
+         in = arraylist();
+
+         ai = selectedMol.getAdditionalInformation();
+         vp = ai.getMolecularVibrationalProperty();
+
+         pltype = plotType.getSelectedItem();
+         for(fi : vp.getFrequencyItems()) {
+            fr.add(fi.getFrequency());
+
+            for(i : fi.getIntensities()) { 
+               if (!i.getType().equals(pltype)) continue;
+
+               in.add(i.getValue());
+            }
+         }
+
+         category = arraylist();
+         category.add("Frequency");
+
+         line(makeLineDataset(in, fr, category, pltype),  
+                          "Intensity vs Freq plot", "Frequency (cm-1)", "Intensity", true);
+      }
+   });
+   freqView.add(plot1);
+
+   plot2 = button("(bar) plot intensity vs freq");
+   plot2.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+         fr = arraylist();
+         in = arraylist();
+
+         ai = selectedMol.getAdditionalInformation();
+         vp = ai.getMolecularVibrationalProperty();
+
+         pltype = plotType.getSelectedItem();
+         for(fi : vp.getFrequencyItems()) {
+            fr.add(fi.getFrequency());
+
+            for(i : fi.getIntensities()) { 
+               if (!i.getType().equals(pltype)) continue;
+
+               in.add(i.getValue());
+            }
+         }
+
+         category = arraylist();
+         category.add("Frequency");
+
+         line(makeLineDataset(in, fr, category, pltype),  
+                          "Intensity vs Freq plot", "Frequency (cm-1)", "Intensity", false);
+      }
+   });
+   freqView.add(plot2);
+
+   freqs = listbox(new Object[0]);
+   freqs.addListSelectionListener(new ListSelectionListener() {
+      public void valueChanged(ListSelectionEvent e) {
+         if (!e.getValueIsAdjusting()) return;
+
+         System.out.println("Selected Freq: " + (i=freqs.getSelectedIndex()));
+         
+         ai = selectedMol.getAdditionalInformation();
+         vp = ai.getMolecularVibrationalProperty();
+
+         ii = 0;
+         for(fi : vp.getFrequencyItems()) {
+            if (ii == i) {
+               disp = fi.getDisplacements();
+                
+               System.out.println("Frequency " + i + " : " + fi.getFrequency());
+               
+               str = "<html><body>" + fi.getFrequency();;
+               if (fi.isImaginary()) str += " is Imaginary.";
+               else str += " is Real.";
+               
+               str += "<br> Correnspoding intensities: <table><tr><th>Intensity</th><th>Type</th></tr>";
+               for(intensity : fi.getIntensities()) 
+                   str += "<tr><td>" + intensity.getValue() + "</td><td>" + intensity.getType() + "</td></tr>";
+
+               str += "</table></body></html>";
+               freqInfo.setText(str);
+
+               displayFreqAni(selectedMol, disp);
+               break;
+            } // end if
+            ii++;
+         } // end for
+      }
+   });
+   freqView.add(new javax.swing.JScrollPane(freqs));
+
+   freqInfo = label("");
+   freqView.add(freqInfo);
+
+   panel.addWidget(freqView);
+   panel.updateUI();
+}
+
+freqViewWidget();

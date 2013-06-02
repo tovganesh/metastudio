@@ -1,0 +1,27 @@
+/**
+ * textbox() - create instance of JTextField, JTextArea, JTextPane or
+ *             JPasswordField
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+textbox() {
+    return textbox("field");
+}
+
+textbox(String type) {
+    type = type.toLowerCase();
+
+    if (type.equals("field")) {
+        return new javax.swing.JTextField();
+    } else if (type.equals("area")) {
+        return new javax.swing.JTextArea();
+    } else if (type.equals("pane")) {
+        return new javax.swing.JTextPane();
+    } else if (type.equals("password")) {
+        return new javax.swing.JPasswordField();
+    } else {
+        return new javax.swing.JTextField();
+    } 
+}

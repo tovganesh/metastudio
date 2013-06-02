@@ -1,0 +1,12 @@
+import org.meta.net.*;
+import org.meta.net.impl.consumer.talk.FederationServiceVoiceTalkConsumer;
+Thread t = new Thread() {
+  public void run() {
+     f=new FederationServiceVoiceTalkConsumer();
+     r=f.discover(java.net.InetAddress.getByName("127.0.0.1"));
+     f.consume(r);
+  }
+};
+
+t.start();
+t.join();

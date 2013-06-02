@@ -1,0 +1,31 @@
+//
+// nuclearVr.bsh
+//
+// Compute only the nuclear part of the V(r)
+//
+// @author V. Ganesh  for Suresh
+// @version 0.1  
+//
+
+DISTANCE_CUTOFF = 1.0e-6;
+
+nuclearVr(molecule, point) {
+   nvr = 0.0;
+
+   ai = org.meta.config.impl.AtomInfo.getInstance();
+
+   for(atom : molecule.getAtoms()) {
+       dist = atom.getAtomCenter().distanceFrom(point);
+
+       if (dist < DISTANCE_CUTOFF) continue;
+
+       nvr += ai.getAtomicNumber(atom.getSymbol()) / dist;
+   } // end for
+
+   return nvr;
+}
+
+// usage:
+mol = readMultiMoleculeFile("/home/ganesh/Documents/bnnt/bnnt_6_6.log");
+mol = mol.get(mol.size()-1); // get last geometry
+print("Nuclear contribution to Vr is: " + nuclearVr(mol, point(1.0, 1.0, 1.0)));

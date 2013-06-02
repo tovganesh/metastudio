@@ -1,0 +1,19 @@
+/**
+ * printInAngstrom() - default angstrom printing of molecule coordinates
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+printInAngstrom(Molecule molecule) {    
+    atoms = molecule.getAtoms();
+    
+    print("Molecule coordinates in angstrom units are as follows: ");
+    
+    for ( atom : atoms ) {
+        print(atom.getSymbol() + " " + atom.getAtomCenter());
+    }
+}

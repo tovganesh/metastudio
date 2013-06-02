@@ -1,0 +1,10 @@
+/**
+ * widget() - create a new widget object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+widget(String id) {
+    return new org.meta.shell.idebeans.IDEWidget(id);
+}

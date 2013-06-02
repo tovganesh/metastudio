@@ -1,0 +1,28 @@
+showPoints(f) {
+  f = openFile(f);
+
+  m = molecule("points only!");
+
+  f.readLine(); f.readLine();
+
+  i = 0;
+  while(true) {
+     line = f.readLine();
+
+     if (line == null || line == "") break;
+
+     if (line.equals("$end")) break;
+
+     words = line.trim().split("\\s+");
+
+     at = atom(words[0], 0.0, point(Double.parseDouble(words[1]), 
+                                         Double.parseDouble(words[2]),
+                                         Double.parseDouble(words[3])));
+     at.setIndex(i++);
+     m.addAtom(at);
+  } // end while
+
+  f.close();
+
+  showMolecule(m);
+}

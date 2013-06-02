@@ -1,0 +1,52 @@
+/**
+ * render() - renders a RIB file.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.apache.commons.cli.*;
+
+import org.jrman.util.Format;
+import org.jrman.parser.Parser;
+import org.jrman.options.JRManStringResource;
+
+prepareOptions() {
+    Options options= new Options();                
+
+    OptionBuilder.withLongOpt("quality");
+    OptionBuilder.withDescription("higher rendering " +
+                                  "quality (slightly slower)");
+    options.addOption(OptionBuilder.create('q'));
+
+    return options;
+}
+
+render(String fileName) {
+    render(fileName, false);
+}
+
+render(String fileName, boolean waitFor) {
+    // set JRMan framebuffer class
+    JRManStringResource.getInstance().setFramebufferClass(
+             "org.meta.shell.idebeans.IDEJRManFramebufferImpl");
+
+    renderThread = new Thread() {
+        public void run() {       
+            opts= prepareOptions();        
+            // parse command line
+            commandLine = new BasicParser().parse(opts, new String[]{"-q"});
+
+            Parser parser = new Parser(commandLine);
+            parser.begin(fileName);
+            parser.parse(fileName);
+            parser.end();            
+        }
+    };
+
+    renderThread.setName("Rendering Thread");
+    renderThread.start();
+
+    if (waitFor) renderThread.join();
+}
+

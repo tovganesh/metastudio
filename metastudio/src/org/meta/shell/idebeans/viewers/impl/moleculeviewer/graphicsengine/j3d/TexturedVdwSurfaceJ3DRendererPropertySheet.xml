@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : TexturedVdwSurfaceRendererPropertySheet.xml
+    Created on : January 2, 2006, 11:35 PM
+    Author     : Ganesh
+    Description:
+        Defines property sheet for TexturedVdwSurfaceRenderer.
+-->
+
+<propertysheet title="Textured vdW surface renderer settings">
+    <propertygroup name="General">
+      <property name="fillPolygons"
+                displayName="Fill Polygons :"
+                mnemonicChar="F"
+                tooltipText="Specify if you want to fill the polygons."
+                get="true"
+                set="true"
+                defaultUI="true" />              
+      <property name="fillTransperency"
+                displayName="Fill Transperency :"
+                mnemonicChar="T"
+                tooltipText="Specify the transperency if fill polygons is true."
+                get="true"
+                set="true"
+                defaultUI="false" />
+    </propertygroup>
+    <propertygroup name="RIB Generation">
+      <property name="numberOfSphereDivisions"
+                displayName="Number of sphere divisions for RIB :"
+                mnemonicChar="N"
+                tooltipText="Specifies number of sphere divisions to be used when exporting to a RIB file."
+                get="true"
+                set="true"
+                defaultUI="true" />             
+      <property name="largeMoleculeSize"
+                displayName="Large molecule size (number of atoms, for RIB) :"
+                mnemonicChar="L"
+                tooltipText="A finer sphere division will only be used for molecules smaller than the one specified here."
+                get="true"
+                set="true"
+                defaultUI="true" />       
+    </propertygroup>
+</propertysheet>   

@@ -1,0 +1,23 @@
+/**
+ * save the supplied molecule to the specified stream in XYZ format
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.util.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+saveAsXYZ(Molecule molecule, fos) {
+    fos.write(molecule.getNumberOfAtoms() + "\n");
+    fos.write(molecule.getTitle() + "\n");
+    
+    Iterator atoms = molecule.getAtoms();       
+    
+    for(atom : atoms) {          
+      fos.write(atom.getSymbol() + " " + atom.getAtomCenter() + "\n");
+    } // end for
+}

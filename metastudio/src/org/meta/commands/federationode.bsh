@@ -1,0 +1,21 @@
+/**
+ * federationode() - Wrapper for generating FederationNode instances.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import java.net.*;
+import org.meta.net.*;
+
+federationode(String nodeName) {
+  return federationode(nodeName, 1);
+}
+
+federationode(String nodeName, int noOfProcessors) {
+  fNode = new FederationNode(InetAddress.getByName(nodeName));
+  fNode.setNoOfProcessors(noOfProcessors);
+
+  return fNode;
+}
+

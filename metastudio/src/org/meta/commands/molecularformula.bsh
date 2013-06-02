@@ -1,0 +1,17 @@
+/**
+ * molecularformula() - creates an instance of MoleculearFormula class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.molecule.*;
+import org.meta.fragment.*;
+
+MolecularFormula molecularformula(Molecule molecule) {
+    return new MolecularFormula(molecule);
+}
+
+MolecularFormula molecularformula(Fragment fragment) {
+    return new MolecularFormula(fragment);
+}

@@ -1,0 +1,25 @@
+/**
+ * requestFile() - request a file using federation framework
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.net.*;
+
+import org.meta.common.*;
+import org.meta.net.*;
+import org.meta.net.impl.service.*;
+import org.meta.net.impl.consumer.*;
+
+requestFile(String fileToRequest, String fileToSave, String metaHostName) {
+    FederationServiceConsumer consumer = new FederationServiceFileTransferConsumer(fileToRequest, fileToSave);
+    FederationRequest fedRequest = consumer.discover(InetAddress.getByName(metaHostName));
+    consumer.consume(fedRequest);
+}
+
+requestFile(String fileToRequest, String fileToSave, FederationRequest req) {
+    FederationServiceConsumer consumer = new FederationServiceFileTransferConsumer(fileToRequest, fileToSave);
+    FederationRequest fedRequest = consumer.discover(req.getFederationConnection().getInetAddress());
+    consumer.consume(fedRequest);
+}

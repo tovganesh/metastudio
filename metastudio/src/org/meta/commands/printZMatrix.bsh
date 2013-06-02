@@ -1,0 +1,62 @@
+/**
+ * printZMatrix() - build ZMatrix for molecule object, and then print it!
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.text.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.moleculebuilder.*;
+
+printZMatrix(Molecule mn) {
+    printZMatrix(mn, false);
+}
+
+printZMatrix(Molecule mn, boolean oneIndex) {
+    addIdx = 0;
+    if (oneIndex) addIdx = 1;    
+
+    if (!mn.isZMatrixComputed()) {
+        print("Z-Matrix is not computed!");
+        print("You may use MoleculeBuilder.makeZMatrix() to generate one.");
+        return;
+    } // end if
+
+    f = new DecimalFormat("#.###");
+
+    for(e:mn.getAtoms()) {  
+        if (e.getIndex() == 0) {
+            print(e.getSymbol());
+        } else if (e.getIndex() == 1) {
+            l = e.getLengthReference().getReferenceAtom();
+            print(e.getSymbol() + " " + 
+                  (l.getIndex()+addIdx) + " " 
+                  + f.format(e.getLengthReference().getValue()));
+        } else if (e.getIndex() == 2) {
+            l = e.getLengthReference().getReferenceAtom();
+            a = e.getAngleReference().getReferenceAtom();
+            print(e.getSymbol() + " " +
+                  (l.getIndex()+addIdx) + " " 
+                  + f.format(e.getLengthReference().getValue())
+                  + " " + 
+                  (a.getIndex()+addIdx) + " "
+                  + f.format(e.getAngleReference().getValue()));
+        } else { 
+            l = e.getLengthReference().getReferenceAtom();
+            a = e.getAngleReference().getReferenceAtom();
+            d = e.getDihedralReference().getReferenceAtom();
+            print(e.getSymbol() + " " +
+                  (l.getIndex()+addIdx) + " " 
+                  + f.format(e.getLengthReference().getValue())
+                  + " " +
+                  (a.getIndex()+addIdx) + " "
+                  + f.format(e.getAngleReference().getValue())
+                  + " " +
+                  (d.getIndex()+addIdx) + " " 
+                  + f.format(e.getDihedralReference().getValue()));
+        } // end if
+    }
+} // end of printZMatrix()

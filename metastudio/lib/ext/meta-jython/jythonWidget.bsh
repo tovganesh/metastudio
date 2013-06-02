@@ -1,0 +1,558 @@
+// 
+// jythonWidget.bsh
+//
+// Jython widget for MeTA Studio, allowing for full Python integration with
+// MeTA Studio
+//
+// @author V. Ganesh
+//
+// March 27, 2009
+//
+
+import java.awt.event.*;
+
+import java.io.File;
+import org.meta.shell.ide.MeTA;
+import org.meta.common.Utility;
+import org.meta.common.resource.StringResource;
+import org.meta.shell.idebeans.IDEFileChooser;
+import org.meta.shell.idebeans.IDEFileFilter;
+import org.meta.shell.idebeans.IDEFileView;
+import org.meta.shell.idebeans.editors.impl.BshIDEditor;
+
+import org.syntax.jedit.*;
+import org.syntax.jedit.tokenmarker.*;
+
+import org.python.util.PythonInterpreter;
+
+import javax.swing.text.Segment;
+
+private class JythonTokenMarker extends CTokenMarker {
+    
+    public JythonTokenMarker() {
+        super(false, getKeywords());
+    }
+    
+    public static KeywordMap getKeywords() {
+        if(jythonKeywords == null) {
+            jythonKeywords = new KeywordMap(false);            
+            jythonKeywords.add("break",Token.KEYWORD1);
+            jythonKeywords.add("continue",Token.KEYWORD1);
+            jythonKeywords.add("else",Token.KEYWORD1);
+            jythonKeywords.add("for",Token.KEYWORD1);
+            jythonKeywords.add("in",Token.KEYWORD1);
+            jythonKeywords.add("if",Token.KEYWORD1);
+            jythonKeywords.add("as",Token.KEYWORD1);
+            jythonKeywords.add("return",Token.KEYWORD1);
+            jythonKeywords.add("while",Token.KEYWORD1);
+            jythonKeywords.add("throw",Token.KEYWORD1);
+            jythonKeywords.add("try",Token.KEYWORD1);
+            jythonKeywords.add("import",Token.KEYWORD1);
+            jythonKeywords.add("except",Token.KEYWORD1);
+            jythonKeywords.add("from",Token.KEYWORD1);
+            jythonKeywords.add("def",Token.KEYWORD1);
+            jythonKeywords.add("self",Token.KEYWORD1);
+            jythonKeywords.add("None",Token.KEYWORD1);
+            jythonKeywords.add("super",Token.KEYWORD1);            
+        }
+        return jythonKeywords;
+    }
+    
+    public byte markTokensImpl(byte token, Segment line, int lineIndex) {
+        char[] array = line.array;
+        int offset = line.offset;
+        lastOffset = offset;
+        lastKeyword = offset;
+        int length = line.count + offset;
+        boolean backslash = false;
+        
+        loop: for(int i = offset; i < length; i++) {
+            int i1 = (i+1);
+            
+            char c = array[i];
+            if(c == '\\') {
+                backslash = !backslash;
+                continue;
+            }
+            
+            switch(token) {
+                case Token.NULL:
+                    switch(c) {
+                        case '#':
+                            if(backslash)
+                                backslash = false;                            
+                            break;
+                        case '"':
+                            doKeyword(line,i,c);
+                            if(backslash)
+                                backslash = false;
+                            else {
+                                addToken(i - lastOffset,token);
+                                token = Token.LITERAL1;
+                                lastOffset = lastKeyword = i;
+                            }
+                            break;
+                        case '\'':
+                            doKeyword(line,i,c);
+                            if(backslash)
+                                backslash = false;
+                            else {
+                                addToken(i - lastOffset,token);
+                                token = Token.LITERAL2;
+                                lastOffset = lastKeyword = i;
+                            }
+                            break;
+                        case ':':
+                            if(lastKeyword == offset) {
+                                if(doKeyword(line,i,c))
+                                    break;
+                                backslash = false;
+                                addToken(i1 - lastOffset,Token.LABEL);
+                                lastOffset = lastKeyword = i1;
+                            }
+                            else if(doKeyword(line,i,c))
+                                break;
+                            break;
+                        case ';':
+                            backslash = false;
+                            doKeyword(line,i,c);
+                            if(length - i > 1) {                                
+                                addToken(i - lastOffset,token);
+                                addToken(length - i,Token.COMMENT1);
+                                lastOffset = lastKeyword = length;
+                                break loop;
+                            }
+                            break;
+                        default:
+                            backslash = false;
+                            if(!Character.isLetterOrDigit(c)
+                            && c != '_')
+                                doKeyword(line,i,c);
+                            break;
+                    }
+                    break;
+                case Token.COMMENT1:
+                case Token.COMMENT2:
+                    backslash = false;                    
+                    i++;
+                    addToken((i+1) - lastOffset,token);
+                    token = Token.NULL;
+                    lastOffset = lastKeyword = i+1;                        
+                    break;
+                case Token.LITERAL1:
+                    if(backslash)
+                        backslash = false;
+                    else if(c == '"') {
+                        addToken(i1 - lastOffset,token);
+                        token = Token.NULL;
+                        lastOffset = lastKeyword = i1;
+                    }
+                    break;
+                case Token.LITERAL2:
+                    if(backslash)
+                        backslash = false;
+                    else if(c == '\'') {
+                        addToken(i1 - lastOffset,Token.LITERAL1);
+                        token = Token.NULL;
+                        lastOffset = lastKeyword = i1;
+                    }
+                    break;
+                default:
+                    throw new InternalError("Invalid state: "
+                    + token);
+            }
+        }
+        
+        if(token == Token.NULL)
+            doKeyword(line,length,'\0');
+        
+        switch(token) {
+            case Token.LITERAL1:
+            case Token.LITERAL2:
+                addToken(length - lastOffset,Token.INVALID);
+                token = Token.NULL;
+                break;
+            case Token.KEYWORD2:
+                addToken(length - lastOffset,token);
+                if(!backslash)
+                    token = Token.NULL;
+            default:
+                addToken(length - lastOffset,token);
+                break;
+        }
+        
+        return token;
+    }
+
+    // private members
+    private static KeywordMap jythonKeywords;
+}
+
+private class JythonIDEditor extends BshIDEditor {
+    private final static String THE_TITLE = "Jython IDEditor";
+
+    public JythonIDEditor(MeTA ideInstance) {
+        super(ideInstance);
+                
+        initThisEditor();
+    } 
+
+    private void initThisEditor() {
+        setTitle(THE_TITLE);
+
+        // modify coloring scheme
+        editorPane.setTokenMarker(null);
+
+        // modify "open" button
+        list = openFile.getActionListeners();
+        for(l : list) { openFile.removeActionListener(l); }
+        openFile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {  
+                if (dirty) {
+                    int option = JOptionPane.showConfirmDialog(JythonIDEditor.this,
+                    "Do you want to save changes in the file ["
+                    + ((fileName == null) ? "Untitled " : fileName) + "] ?",
+                    "Save changes?", JOptionPane.YES_NO_CANCEL_OPTION);
+                    
+                    switch(option) {
+                        case JOptionPane.CANCEL_OPTION:                            
+                            return;
+                        case JOptionPane.YES_OPTION:
+                            saveFile.doClick();                            
+                            break;
+                        case JOptionPane.NO_OPTION:                            
+                            break;
+                    }
+                } // end if
+
+                IDEFileChooser fileChooser = new IDEFileChooser();
+
+                fileChooser.setDialogTitle("Open a Jython script file...");
+
+                IDEFileFilter fileFilter = new IDEFileFilter("py", 
+                                                      "Jython script files");
+                
+                // and add the file filter
+                fileChooser.addChoosableFileFilter(fileFilter);
+                // and add the iconic stuff
+                fileChooser.setFileView(new IDEFileView());              
+
+                if (fileChooser.showOpenDialog(JythonIDEditor.this)
+                     == IDEFileChooser.APPROVE_OPTION) {
+                   if (!fileChooser.getSelectedFile().exists()) return;
+
+                   open(fileChooser.getSelectedFile().getAbsolutePath());
+                } // end if
+
+                editorPane.initUndoManager();
+                editorPane.repaint();  
+                undoableEditHappened(null);
+            }
+        });
+        openFile.setToolTipText("Opens an existing Jython file");
+
+        // modify "save" button
+        list = saveFile.getActionListeners();
+        for(l : list) { saveFile.removeActionListener(l); }
+        saveFile.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) { 
+                if (fileName != null) {
+                   save(fileName);
+                   return;
+                } // end if
+
+                IDEFileChooser fileChooser = new IDEFileChooser();
+        
+                fileChooser.setDialogTitle("Save the Jython script file...");
+
+                IDEFileFilter fileFilter = new IDEFileFilter("py", 
+                                                      "Jython script files");
+               
+                // and add the file filter
+                fileChooser.addChoosableFileFilter(fileFilter);
+                // and add the iconic stuff
+                fileChooser.setFileView(new IDEFileView());
+
+                if (fileChooser.showSaveDialog(JythonIDEditor.this)
+                     == IDEFileChooser.APPROVE_OPTION) {
+                  String theFileName = fileChooser.getSelectedFile()
+                                                  .getAbsolutePath();
+
+                  if (!theFileName.endsWith(".py")) theFileName += ".py";
+
+                  save(theFileName);
+                } // end if
+
+                editorPane.initUndoManager();
+                editorPane.repaint();
+                updateBshEditorUI();
+            }
+        });
+        saveFile.setToolTipText("Saves the current Jython file");
+
+
+        // modify "make plugin" button
+        list = savePlugin.getActionListeners();
+        for(l : list) { savePlugin.removeActionListener(l); }
+        savePlugin.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                if ((fileName == null) || dirty) {
+                    JOptionPane.showMessageDialog(JythonIDEditor.this, 
+                            "You need to save the script first!", "Need saving",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } // end if
+                                    
+                File pluginFile = new File(fileName);
+                String pluginDir = StringResource.getInstance().getPluginDir();
+                
+                savePluginFile(pluginDir + File.separatorChar 
+                                         + pluginFile.getName());                                
+            }
+        });
+
+        // modify "make plugin" button
+        list = saveWidget.getActionListeners();
+        for(l : list) { saveWidget.removeActionListener(l); }
+        saveWidget.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) {
+                if ((fileName == null) || dirty) {
+                    JOptionPane.showMessageDialog(JythonIDEditor.this, 
+                            "You need to save the script first!", "Need saving",
+                            JOptionPane.INFORMATION_MESSAGE);
+                    return;
+                } // end if
+                                    
+                File widgetFile = new File(fileName);
+                String widgetDir = StringResource.getInstance().getWidgetsDir();
+                
+                savePluginFile(widgetDir + File.separatorChar 
+                                         + widgetFile.getName());
+                
+                // generate a beanshell stub, all the code is essientially 
+                // beanshell
+
+                stub = new File(Utility.getFileNamesSansExtension(widgetFile) + ".bsh");
+                sf = openFile(widgetDir + File.separatorChar + stub.getName(), "w");
+                code =  "import org.meta.common.resource.StringResource; import java.io.File; import org.python.util.PythonInterpreter; \n"                        
+                        + "File pluginDir = new File(StringResource.getInstance().getPluginDir());"
+                        + "Properties props = new Properties();" 
+                        + "props.setProperty(\"python.home\", \"../lib/ext/meta-jython\");"
+                        + "props.setProperty(\"python.cachedir\", StringResource.getInstance().getRemoteAppDir());"
+                        + "props.setProperty(\"python.path\", \"../lib/ext/meta-jython\" "
+                        + " + File.pathSeparatorChar + pluginDir.getName());"                   
+                        + "PythonInterpreter.initialize(System.getProperties(), props, new String[] {\"\"});"  
+                        + "PythonInterpreter pyInterpreter = new PythonInterpreter();"
+                        + "pyInterpreter.setOut(System.out);"
+                        + "pyInterpreter.setErr(System.err);"
+                        + "pyInterpreter.execfile(\"" + widgetDir + File.separatorChar + widgetFile.getName() + "\");\n";                    
+                sf.write(code);             
+                sf.close();
+
+                ideInstance.getStartupScriptEngine().sourceWidget(
+                        widgetDir + File.separatorChar 
+                                         + stub.getName());      
+            }
+        });
+
+        // modify event on "run" button
+        list = run.getActionListeners();
+        for(l : list) { run.removeActionListener(l); }
+        run.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent ae) { 
+                if (run.getText().equals("Run")) {
+                    runJythonScript();
+                } else {
+                    if (runScriptThread != null) {
+                        try {
+                            runScriptThread.wait();
+                        } catch(InterruptedException ignored) { } 
+                        runScriptThread.interrupt();                        
+                    } // end if
+                    
+                    run.setText("Run");
+                    run.setToolTipText("Execute the current script in Bsh interpreter");
+                } // end if
+            }
+        });
+
+        // and then add a new action listener
+    }
+
+    public void undoableEditHappened(UndoableEditEvent e) {        
+        boolean canUndo = editorPane.canUndo();
+        boolean canRedo = editorPane.canRedo();
+        
+        undo.setEnabled(canUndo);        
+        redo.setEnabled(canRedo);
+        undoMenu.setEnabled(canUndo);        
+        redoMenu.setEnabled(canRedo);
+
+        dirty = canUndo;
+
+        saveFile.setEnabled(dirty);
+
+        if (dirty) {
+            setTitle(THE_TITLE + " - [" + 
+                     ((fileName == null) ? "Untitled " : fileName)
+                     + " *]");
+        } else {
+            setTitle(THE_TITLE + " - [" + 
+                     ((fileName == null) ? "Untitled" : fileName)
+                     + "]");
+        } // end if
+    }
+
+    public void open(String fileName) {
+        this.fileName = fileName;
+
+        try {
+            BufferedReader br = new BufferedReader(
+                          new InputStreamReader(new FileInputStream(fileName),
+                                                    "UTF-8"));
+            String theLine;
+            StringBuffer theLines = new StringBuffer();
+
+            while(true) {
+                theLine = br.readLine();
+
+                if (theLine == null) break;
+
+                theLines.append(theLine + "\n");
+            } // end while
+
+            br.close();
+
+            editorPane.setText(theLines.toString());
+
+            setTitle(THE_TITLE + " - [" + fileName + "]");
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                        "Error opening file : " + e.toString(),
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+        } // end try .. catch block
+    }
+
+    public void save(String fileName) {
+        this.fileName = fileName;
+
+        try { 
+            OutputStreamWriter fos = new OutputStreamWriter(
+                                      new FileOutputStream(fileName), "UTF-8");
+
+            fos.write(editorPane.getText());
+
+            fos.close();         
+            
+            // update undo manager, and UI
+            editorPane.initUndoManager();
+            setTitle(THE_TITLE + " - [" + fileName + "]");
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                        "Error saving file : " + e.toString(),
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+        } // end try .. catch block
+    }
+
+    public void savePluginFile(String fileName) {
+        try {
+            FileOutputStream fos = new FileOutputStream(fileName);
+
+            fos.write(editorPane.getText().getBytes());
+
+            fos.close();
+        } catch(Exception e) {
+            JOptionPane.showMessageDialog(this, 
+                        "Error saving file : " + e.toString(),
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+        } // end try .. catch block
+    }
+
+    /** The thread in which the current script is executed */
+    private Thread runScriptThread;
+    
+    /**
+     * run the script...
+     */
+    private void runJythonScript() {
+        if (runScriptThread != null) runScriptThread = null;
+        System.gc();
+        
+        runScriptThread = new Thread() {
+            public void run() {
+                try {
+                    run.setText("Interrupt");
+                    run.setToolTipText("Interrupt the currently running script");
+                    
+                    File pluginDir = new File(
+                                   StringResource.getInstance().getPluginDir());
+
+                    Properties props = new Properties();
+                    props.setProperty("python.home", "../lib/ext/meta-jython");                    
+                    props.setProperty("python.cachedir", StringResource.getInstance().getRemoteAppDir());
+                    props.setProperty("python.path", "../lib/ext/meta-jython" 
+                                      + File.pathSeparatorChar + pluginDir.getName());                   
+
+                    PythonInterpreter.initialize(System.getProperties(), props, new String[] {""});  
+                    PythonInterpreter pyInterpreter = new PythonInterpreter();
+                    pyInterpreter.setOut(System.out);
+                    pyInterpreter.setErr(System.err);
+                    pyInterpreter.exec(editorPane.getText());              
+                    
+                    run.setText("Run");
+                    run.setToolTipText("Execute the current script in Bsh interpreter");
+                } catch (Exception e) {
+                    System.out.println("Error while execution: " 
+                                       + e.toString());
+                    e.printStackTrace();
+
+                    JOptionPane.showMessageDialog(JythonIDEditor.this, 
+                        "Error while execution : " + e.toString(),
+                        "Error!", JOptionPane.ERROR_MESSAGE);
+                    
+                    run.setText("Run");
+                    run.setToolTipText("Execute the current script in Bsh interpreter");
+                } // end of try .. catch block
+            }
+        };        
+        
+        runScriptThread.setName("Run script Thread");
+        runScriptThread.start();
+    }
+}
+
+jythonWidget() {
+   panel = getWidgetsPanel(); 
+   jython = widget("jythonWidget");
+   jython.setLayout(layout("verticalflow"));
+
+   openShell = button("Open Jython shell");
+   openShell.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+           Properties props = new Properties();
+           props.setProperty("python.home", "../lib/ext/meta-jython");
+           props.setProperty("python.path", "../lib/ext/meta-jython");
+           props.setProperty("python.cachedir", StringResource.getInstance().getRemoteAppDir());
+           PythonInterpreter.initialize(System.getProperties(), props, new String[] {""});
+
+           PythonInterpreter interp = new PythonInterpreter();
+           interp.setOut(System.out);
+           interp.setErr(System.err);
+           interp.execfile("../lib/ext/meta-jython/Console.py");
+        }
+   });
+   jython.add(openShell);
+
+   openJythonEditor = button("Open Jython editor");
+   openJythonEditor.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+             je = new JythonIDEditor(getIDEInstance());
+             getIDEInstance().getWorkspaceDesktop().addInternalFrame(je);
+        }
+   });
+   jython.add(openJythonEditor);
+
+   panel.addWidget(jython);
+}
+
+jythonWidget();

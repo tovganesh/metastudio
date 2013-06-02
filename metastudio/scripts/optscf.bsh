@@ -1,0 +1,75 @@
+/**
+ * optscf() - perform HF/SCF for the given molecule and at a given level.
+ * Trying to do optimization with numerical derivatives!
+ *
+ * Usage: optscf(<molecule object>, "basis set")
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.text.DecimalFormat;
+
+import org.meta.math.qm.*;
+import org.meta.molecule.*;
+import org.meta.math.qm.event.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+computeEnergy(Molecule molecule, String basisSet) {   
+    print("Starting computation for " + molecule 
+          + " at " + basisSet + " basis");
+
+    t1  = System.currentTimeMillis();
+    bfs = new BasisFunctions(molecule, basisSet);
+    t2  = System.currentTimeMillis();
+    print("Number of basis functions : " + bfs.getBasisFunctions().size());
+    print("Time till setting up basis : " + (t2-t1) + " ms");
+  
+    oneEI = new OneElectronIntegrals(bfs, molecule);
+    t2  = System.currentTimeMillis();
+    print("Time till 1EI evaluation : " + (t2-t1) + " ms");
+
+    twoEI = new TwoElectronIntegrals(bfs);
+    t2  = System.currentTimeMillis();
+    print("Time till 2EI evaluation : " + (t2-t1) + " ms");
+
+    scfm  = SCFMethodFactory.getInstance().getSCFMethod(molecule, oneEI, twoEI,
+                                                        SCFType.HARTREE_FOCK);
+    scfm.setEnergyTolerance(1.0e-8);
+
+    df = new DecimalFormat("#.########");
+    df.setMinimumFractionDigits(9);
+
+    totalEnergy = 0.0;
+
+    scfm.addSCFEventListener(new SCFEventListener() {
+        public void scfEventOccured(SCFEvent scfEvent) {            
+            if (scfEvent.getType() == SCFEvent.CONVERGED_EVENT) {                
+                print("Energy Converged");
+                t2  = System.currentTimeMillis();
+                print("Final Energy = " + df.format(scfEvent.getCurrentEnergy()) 
+                                        + " a.u.");
+                print("Total Time : " + (t2-t1) + " ms");   
+                
+                totalEnergy = scfEvent.getCurrentEnergy();
+            } else { 
+                print(scfEvent.getCurrentIteration() 
+                      + " " + df.format(scfEvent.getCurrentEnergy()));
+            } // end if
+        }
+    });
+
+    // start the SCF
+    scfm.scf();   
+
+    return totalEnergy;
+}
+
+mol = readMultiMoleculeFile(
+          "/home/ganesh/gamess-frag/gamess/testbed/wat.vis").get(0);
+print(mol);
+print(e0 = computeEnergy(mol, "sto3g"));
+
+// try to do s/t
+mol.getAtom(0).getAtomCenter().setX(mol.getAtom(0).getAtomCenter().getX()+0.92);
+print(e1 = computeEnergy(mol, "sto3g"));

@@ -1,0 +1,10 @@
+/**
+ * label() - create instance of JLabel
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+label(String txt) {
+    return new javax.swing.JLabel(txt);
+}

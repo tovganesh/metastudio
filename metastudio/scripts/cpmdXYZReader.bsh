@@ -1,0 +1,43 @@
+// cpmdXYZReader.bsh
+// simple CPMD XYZ reader
+// 
+// @author V. Ganesh
+//
+
+import org.meta.common.Utility;
+
+cpmdXYZReader(fileName) {
+    f = openFile(fileName);
+    lines = Utility.readLines(f);
+    f.close();
+
+    n = Integer.parseInt(lines.get(0).trim());
+    title = lines.get(1);
+
+    mol1 = molecule(title);
+    mol2 = molecule(title);
+    for(i=0; i<n; i++) {
+       words = lines.get(i+2).trim().split("\\s+");
+
+       x = Double.parseDouble(words[1]);
+       y = Double.parseDouble(words[2]);
+       z = Double.parseDouble(words[3]);
+
+       mol1.addAtom(atom(words[0], 0.0, x, y, z));
+       mol2.addAtom(atom("vec", 0.0,    x+Double.parseDouble(words[4]), 
+                                       y+Double.parseDouble(words[5]),
+                                       z+Double.parseDouble(words[6])));
+    }
+
+    ml = arraylist();
+    ml.add(mol1); ml.add(mol2);
+
+    return ml;
+}
+
+
+// use:
+ml = cpmdXYZReader(showFileDialog());
+buildConnectivity(ml, "false");
+showMolecule(ml);
+

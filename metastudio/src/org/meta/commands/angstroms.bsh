@@ -1,0 +1,30 @@
+/**
+ * angstroms() - convert argument to Angstroms, assuming input A.U.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.math.geom.*;
+import org.meta.molecule.Atom;
+import org.meta.common.Utility;
+
+angstroms(double inAU) {
+    return (inAU * Utility.AU_TO_ANGSTROM_FACTOR);
+}
+
+angstroms(Point3D inAU) {
+    return new Point3D(inAU.getX() * Utility.AU_TO_ANGSTROM_FACTOR,
+                       inAU.getY() * Utility.AU_TO_ANGSTROM_FACTOR,
+                       inAU.getZ() * Utility.AU_TO_ANGSTROM_FACTOR);
+}
+
+angstroms(Atom inAU) {
+    return new Atom(inAU.getSymbol(),
+                    inAU.getCharge(),
+                    new Point3D(
+                      inAU.getX() * Utility.AU_TO_ANGSTROM_FACTOR,
+                      inAU.getY() * Utility.AU_TO_ANGSTROM_FACTOR,
+                      inAU.getZ() * Utility.AU_TO_ANGSTROM_FACTOR),
+                    inAU.getIndex());
+}

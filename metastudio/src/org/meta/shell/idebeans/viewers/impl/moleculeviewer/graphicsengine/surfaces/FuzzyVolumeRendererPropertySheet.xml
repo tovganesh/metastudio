@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : FuzzyVolumeRendererPropertySheet.xml
+    Created on : July 16, 2007, 7:00 PM
+    Author     : Ganesh
+    Description:
+        Defines property sheet for FuzzyVolumeRenderer.
+-->
+
+<propertysheet title="Fuzzy volume renderer settings">
+    <propertygroup name="General">
+      <property name="minFuzzyValue"
+                displayName="Min Fuzzy Value :"
+                mnemonicChar="n"
+                tooltipText="Specify the minimum binding function value for this fuzzy volume."
+                get="true"
+                set="true"
+                defaultUI="false" />
+      <property name="maxFuzzyValue"
+                displayName="Max Fuzzy Value :"
+                mnemonicChar="x"
+                tooltipText="Specify the maximum binding function value for this fuzzy volume."
+                get="true"
+                set="true"
+                defaultUI="false" />
+    </propertygroup>    
+</propertysheet> 

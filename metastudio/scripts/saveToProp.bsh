@@ -1,0 +1,25 @@
+saveToProp(molScene, fileName) {
+  ps = molScene.getAllPropertyScene().next();
+ 
+  gp = ps.getGridProperty();
+  bb = gp.getBoundingBox();
+
+  f = openFile(fileName, "w");
+  f.write("RANGE :");
+  f.write("\n" + bb.getUpperLeft().getX() + " " + gp.getXIncrement() + " " + gp.getNoOfPointsAlongX() + " " + bb.getBottomRight().getX());
+  f.write("\n" + bb.getUpperLeft().getY() + " " + gp.getYIncrement() + " " + gp.getNoOfPointsAlongY() + " " + bb.getBottomRight().getY());
+  f.write("\n" + bb.getUpperLeft().getZ() + " " + gp.getZIncrement() + " " + gp.getNoOfPointsAlongZ() + " " + bb.getBottomRight().getZ());
+  f.write("\n FUNCTION VALUES : \n");
+  fvals = gp.getFunctionValues();
+
+  toidx = fvals.length;
+
+  for(i=0; i<toidx; i+=3) { 
+      s = fvals[i] + "";
+      if (i+1 < toidx) s += " " + fvals[i+1];
+      if (i+2 < toidx) s += " " + fvals[i+2];
+      f.write(s + "\n");
+  }
+
+  f.close();
+} 

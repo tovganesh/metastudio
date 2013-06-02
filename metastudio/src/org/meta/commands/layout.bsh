@@ -1,0 +1,28 @@
+/**
+ * layout() - layout creator
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+layout() {
+    return layout("flow");
+}
+
+layout(String layoutType) {
+    layoutType = layoutType.toLowerCase();
+
+    if (layoutType.equals("flow")) {
+        return new java.awt.FlowLayout();
+    } else if (layoutType.equals("border")) {
+        return new java.awt.BorderLayout();
+    } else if (layoutType.equals("grid")) {
+        return new java.awt.GridLayout();
+    } else if (layoutType.equals("gridbag")) {
+        return new java.awt.GridBagLayout();
+    } else if (layoutType.equals("verticalflow")) {
+        return new org.meta.shell.idebeans.IDEVerticalFlowLayout();
+    } else {
+        return new java.awt.FlowLayout();
+    }
+}

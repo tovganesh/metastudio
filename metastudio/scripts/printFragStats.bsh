@@ -1,0 +1,46 @@
+printFragStats(molecule, schemeID, fragmentID) {
+     dfs = molecule.getAllFragmentationSchemes();
+
+     fs = dfs.next();
+     for(i=0; i<schemeID; i++) fs = dfs.next();
+
+     System.out.println(fs);
+
+     frags = fs.getFragmentList().getFragments();
+
+     frag = frags.next();
+     for(i=0; i<fragmentID; i++) frag = frags.next();
+
+     gp = fs.getFragmentGoodnessProbes().next();
+
+     System.out.println(frag.getTotalNumberOfAtoms());
+
+     i = 0;
+     for(atm : frag.getFragmentAtoms()) {
+        if (atm.isDummy()) {
+           System.out.println(i + " is dummy atom"); i++;
+           continue;
+        }
+
+        gas = gp.getGoodnessIndices(atm.getIndex(), atm.getIndex());
+
+        theGa = null;
+        for(ga:gas) {
+          if (ga.getFragment().equals(frag)) {
+             theGa = ga; break;
+          }
+        }
+
+        if (theGa != null) {
+           System.out.println(i + "[" + atm.getIndex() + "] " 
+                              + atm.toString() + " ::> " + theGa.getValue()
+                              + " (" + theGa.isBest() + ")");
+        } else {
+           System.out.println(i + "[" + atm.toString() + " ::> is not present!");
+        } // end if 
+
+        i++;
+     }
+}
+
+// printFragStats(getMolecule(0), 0, 1);

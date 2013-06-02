@@ -1,0 +1,164 @@
+/**
+ * showMolecule() - show the molecule file in a MoleculeViewer
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.util.*;
+
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+import org.meta.common.resource.CursorResource;
+
+showMolecule(String fileName) {
+    showMolecule(fileName, "false", "false");
+}
+
+showMoleculeWithProp(java.util.Vector moleculeList, String sourceFile) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // now make the viewer instance
+    MoleculeViewerFrame mvf = new MoleculeViewerFrame(ideInstance);        
+    
+    // and add a molecule scene to the viewer 
+    mvf.getMoleculeViewer().disableUndo();
+    for(molecule : moleculeList) {
+        mscene = new MoleculeScene(molecule);
+        mvf.addScene(mscene);
+        if (molecule.isAdditionalInformationAvailable()) {
+           if (molecule.getAdditionalInformation().isVolumetricDataAvailable()){
+              attachProperty(sourceFile, mscene, ideInstance);
+           } // end if
+        } // end if
+    } // end for
+    mvf.getMoleculeViewer().enableUndo();
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(mvf);
+}
+
+showMolecule(String fileName, String makeZMatrix, String copyConnectivity) {
+    Thread loadThread = new Thread() {
+        public void run() {
+            ideInstance = MainMenuEventHandlers.getInstance(null)
+                                                   .getIdeInstance();
+            status = ideInstance.getStatusBar();
+
+            ideInstance.setCursor(
+                           CursorResource.getInstance().getOpeningCursor());
+            try {                
+                // first load the molecule into a molecule object
+                status.setStatusText("Reading molecule file, "
+                               + "and building molecular connectivity");
+                showMoleculeWithProp(
+                 readMultiMoleculeFile(fileName, makeZMatrix, copyConnectivity), 
+                 fileName);
+
+                // default the cursor
+                ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+            } catch(Exception ignored) {
+                ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+                ignored.printStackTrace();
+                status.setStatusText("Error opening file : " + fileName + "!"
+                      + " Please look into Runtime log for more information.");
+            } // end of try .. catch
+        }
+    };
+
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    status = ideInstance.getStatusBar();
+    status.setStatusText("Loading molecule, please wait!");
+
+    loadThread.setName("Show Molecule Thread");
+    loadThread.start();    
+} 
+
+showMolecule(Molecule molecule) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // now make the viewer instance
+    MoleculeViewerFrame mvf = new MoleculeViewerFrame(ideInstance);        
+    
+    // and add a molecule scene to the viewer 
+    mvf.getMoleculeViewer().disableUndo();
+    mvf.addScene(new MoleculeScene(molecule));
+    mvf.getMoleculeViewer().enableUndo();
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(mvf);
+}
+
+showMolecule(java.util.Vector moleculeList) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // now make the viewer instance
+    MoleculeViewerFrame mvf = new MoleculeViewerFrame(ideInstance);        
+    
+    // and add a molecule scene to the viewer 
+    mvf.getMoleculeViewer().disableUndo();
+    for(molecule : moleculeList) {
+        mvf.addScene(new MoleculeScene(molecule));
+    } // end for
+    mvf.getMoleculeViewer().enableUndo();
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(mvf);
+}
+
+showMolecule(ArrayList moleculeList) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // now make the viewer instance
+    MoleculeViewerFrame mvf = new MoleculeViewerFrame(ideInstance);        
+    
+    // and add a molecule scene to the viewer 
+    mvf.getMoleculeViewer().disableUndo();
+    for(molecule : moleculeList) {
+        mvf.addScene(new MoleculeScene(molecule));
+    } // end for
+    mvf.getMoleculeViewer().enableUndo();
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(mvf);
+}
+

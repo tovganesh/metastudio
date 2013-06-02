@@ -1,0 +1,21 @@
+/**
+ * button() - create instance of JButton
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+button(String text) {
+    return button(text, false, null);
+}
+
+button(String text, boolean isToggle, javax.swing.ButtonGroup bg) {
+    if (!isToggle) {
+        return new javax.swing.JButton(text);
+    } else {
+        tb = new javax.swing.JToggleButton(text);
+        bg.add(tb);
+
+        return tb;
+    } // end if
+}

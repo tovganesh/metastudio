@@ -1,0 +1,129 @@
+/**
+ * exportToMTAGAMESS - selected fragmentation scheme to MTA enabled
+ * GAMESS format, so that the fragments can be externally read.
+ * The file name is quried using a IDEFileChooser dialog.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.fragment.*;
+import org.meta.fragmentor.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/** 
+ * saves the currently selected fragment scheme in MTA-GAMESS format
+ */
+exportToMTAGAMESS() {
+    boolean isList = false;
+    boolean isKey = false;
+    
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace panel instance
+    wsPanel = ideInstance.getWorkspaceExplorer().getWorkspacePanel();
+    
+    if (wsPanel == null) return;
+
+    // is there a selecteion?
+    selectedNode = wsPanel.getSelectedNode();
+
+    if (selectedNode == null) return;
+
+    // then check if it is of rt type
+    fragmentScheme = selectedNode.getUserObject().getFragmentationScheme();
+
+    if (!(fragmentScheme instanceof FragmentationScheme)) return;    
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+    
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("list",
+                                   "MTA-GAMESS fragment list file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("key",
+                                   "MTA-GAMESS fragment key file format"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+    
+    // now show the stuff to the user, and pray he gives good files names ;)
+    if (fileChooser.showSaveDialog(ideInstance)
+                    == IDEFileChooser.APPROVE_OPTION) {        
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // make up for file extension, if it is not already there
+        if ((!fileName.endsWith(".list")) && (!fileName.endsWith(".key"))) {
+          if (fileChooser.getFileFilter().getDescription().indexOf("list")>=0) {
+              fileName += "-frag.list";
+              isList = true;
+          } // end if
+          
+          if (fileChooser.getFileFilter().getDescription().indexOf("key")>=0) {
+              fileName += "-frag.key";
+              isKey = true;
+          } // end if
+        } else {
+            if (fileName.endsWith("-frag.list")) isList = true;
+            else if (fileName.endsWith("-frag.key")) isKey = true;
+        } // end if
+        
+        System.out.println("Fragments will be written to : " + fileName);
+        
+        FileWriter fos = new FileWriter(fileName);       
+
+        ideInstance.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        fragmentList = fragmentScheme.getFragmentList();
+        fos.write(fragmentList.size() + "\n");
+
+        if (isList) {
+            for(fragment : fragmentList.getFragments()) {
+                fos.write(fragment.getTotalNumberOfAtoms()
+                          -fragment.getNumberOfDummyAtoms() + "\n");
+
+                for(fAtoms : fragment.getFragmentAtoms()) {
+                    if (!fAtoms.isDummy()) {
+                        fos.write(fAtoms.getSymbol() + " "
+                              + fAtoms.getX() + " "
+                              + fAtoms.getY() + " "
+                              + fAtoms.getZ() + "\n");
+                    } // end if
+                } // end for
+            } // end for
+        } else if (isKey) {
+            for(fragment : fragmentList.getFragments()) {
+                fos.write(fragment.getTotalNumberOfAtoms()
+                          -fragment.getNumberOfDummyAtoms() + "\n");
+
+                for(fAtoms : fragment.getFragmentAtoms()) {
+                    if (!fAtoms.isDummy()) {
+                        // NOTE: this is index + 1 for MTA-GAMESS!
+                        fos.write(fAtoms.getIndex()+1 + "\n");
+                    } // end if
+                } // end for
+            } // end for
+        } // end if
+        ideInstance.setCursor(Cursor.getDefaultCursor());
+
+        fos.close();
+    } // end if
+}

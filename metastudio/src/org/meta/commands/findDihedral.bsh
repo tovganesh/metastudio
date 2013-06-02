@@ -1,0 +1,38 @@
+/**
+ * findDihedral() - finds the dihedral angle in degrees defined by four
+ *               atoms of a molecule.
+ * usage:
+ *   dihedral = findDihedral(molecule, 
+ *                           atomIndex1, atomIndex2, atomIndex3, atomIndex4);
+ *
+ * where the dihedral is defined as the angle between the planes defined by:
+ *  i) atomIndex1 - atomIndex2 - atomIndex3 and
+ * ii) atomIndex2 - atomIndex3 - atomIndex4
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.Vector3D;
+import org.meta.math.MathUtil;
+
+findDihedral(Molecule molecule, 
+          int atomIndex1, int atomIndex2, int atomIndex3, int atomIndex4) {
+    v1 = molecule.getAtom(atomIndex1).getAtomCenter();
+    v2 = molecule.getAtom(atomIndex2).getAtomCenter();
+    v3 = molecule.getAtom(atomIndex3).getAtomCenter();
+    v4 = molecule.getAtom(atomIndex4).getAtomCenter();
+    
+    // normal of plane 1
+    v12  = new Vector3D(v2.sub(v1));
+    v32  = new Vector3D(v2.sub(v3));
+    n123 = v12.cross(v32).normalize();
+        
+    // normal of plane 2
+    v23  = new Vector3D(v3.sub(v2));
+    v43  = new Vector3D(v3.sub(v4));
+    n234 = v23.cross(v43).normalize();
+    
+    // and find the angle between the two planes
+    return MathUtil.toDegrees(n123.angleWith(n234));
+}

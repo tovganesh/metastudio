@@ -1,0 +1,38 @@
+/**
+ * renderMolecule - Automatic background rendering of a molecule object to
+ * a specified .png file.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+
+import org.meta.common.*;
+
+renderMolecule(molecule, width, height, String pngFileName) {
+   renderMolecule(molecule, width, height, 3, 3, pngFileName); 
+}
+
+renderMolecule(molecule, width, height, px, py, String pngFileName) {
+   fos = openFile(pngFileName + ".rib", "w");
+
+   // write header for RIB file        
+   writeRIBHeader(fos, width, height, px, py, Color.white);
+
+   pngFil = new File(pngFileName);
+
+   saveMoleculeAsRIB(molecule, molecule.getBoundingBox(), fos,
+                     "plastic", 1.0, width, true,
+                     pngFil.getParent() + File.separatorChar
+                     + Utility.getFileNameSansExtension(pngFil), false,
+                     "");
+   // end of scene
+   fos.write("WorldEnd \n");
+   fos.write("FrameEnd \n");
+   fos.close();
+
+   System.out.println("Rendering image to: " + pngFileName + ".rib");
+   render(pngFileName + ".rib", true);
+}

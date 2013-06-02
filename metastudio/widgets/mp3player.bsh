@@ -1,0 +1,117 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+
+mp3player() {
+    music = null;
+
+    panel = getWidgetsPanel(); 
+
+    player = new IDEWidget();
+    player.setWidgetID("mp3player");    
+
+    // playlist editor dialog
+    playlistEditor = new JDialog(getIDEInstance());
+    playlistEditor.setTitle("playlistEditor");
+    playlistEditor.setLayout(new BorderLayout());
+    playlistEditor.setModal(true);
+    playlistEditor.setLocationRelativeTo(getIDEInstance());
+
+      plm = new DefaultListModel();
+      pl = new JList(plm);
+      playlistEditor.add(pl, BorderLayout.CENTER);      
+
+      cPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+      add = new JButton("+ add");
+      add.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+            fileChooser.setDialogTitle("Select a file to play...");        
+
+            // add the filters
+            fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+
+            fileChooser.addChoosableFileFilter(new IDEFileFilter("mp3",
+                                    "MP3 files"));
+
+            // and add the iconic stuff
+            fileChooser.setFileView(new IDEFileView());
+
+            // now show the stuff to the user, and pray he gives good files names ;)
+            if (fileChooser.showOpenDialog(getIDEInstance())
+                        == IDEFileChooser.APPROVE_OPTION) {        
+                plm.addElement(fileChooser.getSelectedFile().getAbsolutePath());
+                playlistEditor.pack();
+            }
+        }
+      });
+      cPanel.add(add);
+
+      remove = new JButton("- remove");
+      remove.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            idx = pl.getSelectedIndex();
+            if (idx>=0) plm.remove(idx);
+        } 
+      });
+      cPanel.add(remove);
+    
+    playlistEditor.add(cPanel, BorderLayout.SOUTH);
+    playlistEditor.pack();
+
+    playlist = new JButton("playlist");
+    playlist.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+           playlistEditor.setVisible(true); 
+        }
+    });
+    player.add(playlist);
+
+    play = new JButton("play");
+    pli = plm.elements();
+
+    music = null;
+    isPlaying = false;
+    playThread = new Runnable() {
+        public void run() {
+           pli = plm.elements();                
+
+           for(p : pli) {
+              if (!isPlaying) return;
+              print("playing: " + p);
+
+              getIDEInstance().getNotificationTray().notify("playing...", 
+                                                          "playing: " + p);
+
+              music = play(p, false);
+              music.play();
+           }
+
+           play.setText("play");
+        }
+    };
+
+    play.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            if (play.getText().equals("play")) {
+                isPlaying = true;
+                
+                (new Thread(playThread)).start();
+                play.setText("stop");
+            } else {
+                isPlaying = false;
+                if (music != null) music.close();
+                play.setText("play");
+            } // end if 
+        }
+    });
+    player.add(play);
+    
+    panel.addWidget(player);
+    panel.updateUI();
+}
+
+mp3player();

@@ -1,0 +1,186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2//EN">
+<HTML>
+<HEAD>
+	<META HTTP-EQUIV="CONTENT-TYPE" CONTENT="text/html; charset=windows-1252">
+	<TITLE>Programming the MeTA Studio</TITLE>
+	<META NAME="GENERATOR" CONTENT="OpenOffice.org 1.1.2  (Win32)">
+	<META NAME="CREATED" CONTENT="20040719;7075690">
+	<META NAME="CHANGEDBY" CONTENT="Ganesh">
+	<META NAME="CHANGED" CONTENT="20040719;7270594">
+</HEAD>
+<BODY LANG="en-US" DIR="LTR">
+
+<H3><U>Introduction:</U></H3>
+<P>MeTA studio provides extensive set of APIs which can be used by a
+programmer to perform lots of interesting things in the studio. These
+include controlling various tasks, writing your own code for say
+statistical analysis etc., and extending the functionality of studio.
+</P>
+<P>Though MeTA studio provides various ways of adding scripting
+languages to interface with it, the defacto scripting is done in
+BeanShell scripting language(<A HREF="http://www.beanshell.org/">http://www.beanshell.org</A>).
+BeanShell, apart from providing a simple Java like scripting language
+provides a UNIX like interactive shell with object oriented
+extensions. This guide offers you a brief introduction to BeanShell
+as it is implemented in MeTA studio and also gives relevant examples
+of how to write small and useful &ldquo;ChemLets&rdquo; with in the
+studio using the tools provided.</P> <br>
+
+<H3><U>Scripting with BeanShell</U></H3>
+To start using the scripting shell open the BeanShell window from the Menu Ribbon 
+(Tools -> Open Beanshell) or use Explorer Task list menu (Common Tasks -> Open BeanShell for scripting).
+Once this shell is displayed in with in the MeTA Studio workspace area, you will get 
+a shell prompt similar to a Command Propmt in Windows or a UNIX shell. <p>
+All BeanShell function calls can be made from this shell. To start with type the following in front of <b>bsh %</b> prompt and hit [ENTER]:
+<br><hr>
+<code>
+<b>bsh %</b> dir();
+</code>
+<hr><br>
+Note that each BeanShell command is actually a function call, and so the some what funny syntax.
+But this syntax would be no alien to those of you who have seen C (or derived language) code.
+In the above example <b>dir</b> is actually the name of the function. The round braces <b>()</b>
+ are used to indicate the list of function arguments, in this case it is a null list.
+ And finally the semi-colon <b>;</b> indicates that the satement is over and the BeanShell interpreter
+ can executed what ever if keyed in before this character. The semi-colon <b>;</b> is also termed as a
+ statement terminator for this reason. <p>
+The BeanShell bundelled with MeTA Studio is tigtly integrated with MeTA Studio APIs and provides
+varios wrappers for commonly used APIs to make programming the MeTA Studio a simpler task. Each function that
+is accessible using the MeTA Studio BeanShell prompt is actually a <b>.bsh</b> file 
+with the same name, which inturn contains a function with the same name. For instance in the
+above example, the MeTA Studio application has an inbuild <b>dir.bsh</b> file that 
+defines the function <b>dir()</b>. <p>
+You could easily create your own functions and make it accesible with in the MeTA Studio 
+BeanShell prompt. This is acheived by typing <b>edit();</b> + [ENTER] on the shell prompt,
+which opens up an BeanShell editor window. Key in the following lines inside this editor:
+<br><hr>
+<code>
+echo(str) { <br>
+&nbsp;&nbsp;&nbsp;&nbsp;print(str); <br>
+}
+</code>
+<hr><br>
+
+Then save this script with the name <b>echo.bsh</b> in some convenient folder.
+Now click the <b><i>"Make Plugin"</i></b> button within the editor to save this file
+with in the MeTA Studio plugins folder so that this script is accessible the next time you open
+a new instance of BeanShell. To test the plugin created, open a new instance of BeanShell window 
+(as mentioned earlier), and then type the following:
+<br><hr>
+<code>
+<b>bsh %</b> echo("Hello to the world of MeTA Studio");
+</code>
+<hr><br>
+
+The above command should now print the string "Hello to the world of MeTA Studio" in the
+shell. Note that double quotes <b>"</b> are used to represent a string in BeanShell.
+
+<br>
+<H3>
+    <U>List of ChemLets and its description</U>
+</H3>
+<ul>
+    <li><b>General utilities</b></li>
+    <ol>
+        <li><b>help([String name])</b>:  Provides help on available ChemLets. <br>Usage: <br>
+               <code>
+               <b>bsh %</b> help();<br>
+               <b>bsh %</b> help("helloMeTA");
+               </code><br></li>    
+        <li><b>dir()</b>:  Lists the contents of the current directory.<br></li>
+    </ol>
+    
+    <li><b>Molecule related utilities</b></li>
+    <ol>
+        <li><b>atom(String symbol, double charge, double x, double y, double z)</b>: 
+               Creates an instance of <code><b>org.meta.molecule.Atom</b></code> class. <br>Usage: <br>
+               <code>
+               <b>bsh %</b> atm = atom("H", 0.0, 0.0, 0.0, 0.0);
+               </code><br></li>
+        <li><b>atom(String symbol, double charge, Point3D center)</b>: 
+               Creates an instance of <code><b>org.meta.molecule.Atom</b></code> class. <br>Usage: <br>
+               <code>
+               <b>bsh %</b> atm = atom("H", 0.0, point(0.0, 0.0, 0.0));
+               </code><br></li>
+        <li><b>molecule(String title)</b>: 
+               Creates an instance of <code><b>org.meta.molecule.Molecule</b></code> class. <br>Usage: <br>
+               <code>
+               <b>bsh %</b> mol = molecule("water");
+               </code><br> 
+               <br> You can then use <code><b>addAtom</b></code> method of Molecule class as: <br>
+               <code>
+                <b>bsh %</b> mol.addAtom(atom("H", 1.0, point(0.752510, -0.454585, 0.000000))); <br>
+                <b>bsh %</b> mol.addAtom(atom("O", 6.0, point(0.000000, 0.113671, 0.000000))); <br>
+                <b>bsh %</b> mol.addAtom(atom("H", 1.0, point(-0.752510, -0.454786, 0.000000))); 
+               </code><br> 
+               <br> You can then build the connectivity graph for the Molecule object as: 
+               <br>
+               <code>
+                <b>bsh %</b> buildConnectivity(mol);
+               </code><br> 
+               <br> And then visualize the molecule using:
+               <br>
+               <code>
+                <b>bsh %</b> showMolecule(mol);
+               </code><br> 
+               <br> You can print the coordinates of the Molecule object as:
+               <br>
+               <code>
+                <b>bsh %</b> printInAngstrom(mol); <br>
+                <b>bsh %</b> printInAU(mol); 
+               </code><br> 
+               <br> You can also print the Z-Matirx using:
+               <br>
+               <code>
+                <b>bsh %</b> printZMatrix(mol);
+               </code><br> 
+               </li>
+        <li><b>point(double x, double y, double z)</b>: 
+               Creates an instance of <code><b>org.meta.common.Point3D</b></code> class. <br>Usage: <br>
+               <code>
+               <b>bsh %</b> pt = point(0.0, 0.0, 0.0);
+               </code><br></li>  
+        <li><b>vector3d(double x, double y, double z)</b> or <b>vector3d(Point3D point)</b>: 
+               Creates an instance of <code><b>org.meta.math.Vector3D</b></code> class. <br>Usage: <br>
+               <code>
+               <b>bsh %</b> i = vector3d(1.0, 0.0, 0.0); <br>
+               <b>bsh %</b> j = vector3d(point(0.0, 1.0, 0.0)); <br>
+               </code>
+               <br> A Vector3D object has many vector related method like: 
+               <br>
+               <code>
+               <b>bsh %</b> k = i.cross(j); <i> # Cross product </i><br>
+               <b>bsh %</b> m = i.dot(j);  <i> # Dot product </i><br>
+               <b>bsh %</b> a = i.add(j);  <i> # Addition of two vectors </i><br>
+               <b>bsh %</b> b = i.sub(j);  <i> # Substraction of two vectors </i><br>
+               <b>bsh %</b> m = i.magnitude();  <i> # Magnitude of the vector </i><br>
+               <b>bsh %</b> d = i.angleWith(j);  <i> # Angle in radians with another vector </i><br>
+               <b>bsh %</b> ii = i.negate();  <i> # Negation of this vector </i><br>
+               <b>bsh %</b> n = i.normalize();  <i> # The normalized vector </i><br>
+               <b>bsh %</b> mp = i.mixedProduct(j, k);  <i> # Mixed product of 3 vectors: i . (j x k)</i><br>
+               <b>bsh %</b> p = i.mul(j);  <i> # Component vise multiplication of two vectors</i><br>
+               </code> <br>
+               See documentation of org.meta.math.Vector3D for more details.
+           <br></li>  
+    </ol>
+    <li><b>Graphics related utilities</b></li>
+    <ol>
+        <li><b>scratchpad():</b> Opens up a scratchpad interface and returns an
+        instance of <code><b>org.meta.idebeans.ScratchPad</b></code> class. This
+        class provides a simple interface to draw 3D objects. The scene 
+        automatically adjusts to fit in all the components on the scene as and when
+        you add items in it. The scratchpad interface has a similar look and feel 
+        as that of the MoleculeViewer interface, allowing you to use it with 
+        an ease.
+        <br>Usage: <br>
+        <code>
+        <b>bsh %</b> sp = scratchpad();  <i> # obtain instance of ScratchPad </i> <br>
+        <b>bsh %</b> sp.drawLine3D(point(1,1,1), point(1,0,1));  <i> # draw a line connecting 2 points </i> <br>
+        <b>bsh %</b> sp.drawVector3D(vector3d(1.2,3.4,5.6));  <i> # draw a vector object </i> <br>       
+        </code>
+    </ol>
+</ul>
+<P><BR><BR>
+</P>
+</BODY>
+</HTML>

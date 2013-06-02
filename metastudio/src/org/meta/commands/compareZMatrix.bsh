@@ -1,0 +1,85 @@
+/**
+ * compareZMatrix() - A simple straight forward ChemLet to compares 
+ * two molecule geometries using their Z-Matrices.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.text.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.moleculebuilder.*;
+
+compareZMatrix(Molecule mn1, Molecule mn2) {
+    f = new DecimalFormat("#.###");
+    mxL = 0.0; mxA = 0.0; mxD = 0.0;
+
+    for(e:mn1.getAtoms()) {  
+        if (e.getIndex() == 0) {
+            print(e.getSymbol());
+        } else if (e.getIndex() == 1) {
+            l = e.getLengthReference().getReferenceAtom();
+            len = Math.abs(e.getLengthReference().getValue() - 
+                  mn2.getAtom(e.getIndex()).getLengthReference().getValue());
+
+            if (len > mxL) mxL = len;
+
+            print(e.getSymbol() + " " + 
+                  l.getSymbol() + l.getIndex() + " " 
+                  + f.format(len));
+        } else if (e.getIndex() == 2) {
+            l = e.getLengthReference().getReferenceAtom();
+            a = e.getAngleReference().getReferenceAtom();
+
+            len = Math.abs(e.getLengthReference().getValue() -
+                  mn2.getAtom(e.getIndex()).getLengthReference().getValue());
+            ang = Math.abs(e.getAngleReference().getValue() -
+                  mn2.getAtom(e.getIndex()).getAngleReference().getValue());
+
+            if (len > mxL) mxL = len;
+            if (ang > mxA) mxA = ang;
+
+            print(e.getSymbol() + " " +
+                  l.getSymbol() + l.getIndex() + " " 
+                  + f.format(len)
+                  + " " + 
+                  a.getSymbol() + a.getIndex() + " "
+                  + f.format(ang));
+        } else { 
+            l = e.getLengthReference().getReferenceAtom();
+            a = e.getAngleReference().getReferenceAtom();
+            d = e.getDihedralReference().getReferenceAtom();
+
+            len = Math.abs(e.getLengthReference().getValue() -
+                  mn2.getAtom(e.getIndex()).getLengthReference().getValue());
+            ang = Math.abs(e.getAngleReference().getValue() -
+                  mn2.getAtom(e.getIndex()).getAngleReference().getValue());
+            d1  = e.getDihedralReference().getValue();
+            if (d1 > 180.0) d1 = 360.0 - d1;
+            d2  = mn2.getAtom(e.getIndex()).getDihedralReference().getValue();
+            if (d2 > 180.0) d2 = 360.0 - d2;
+            dih = Math.abs(Math.abs(d1)-Math.abs(d2));
+
+            if (len > mxL) mxL = len;
+            if (ang > mxA) mxA = ang;
+            if (dih > mxD) mxD = dih;
+
+            print(e.getSymbol() + " " +
+                  l.getSymbol() + l.getIndex() + " " 
+                  + f.format(len)
+                  + " " +
+                  a.getSymbol() + a.getIndex() + " "
+                  + f.format(ang)
+                  + " " +
+                  d.getSymbol() + d.getIndex() + " " 
+                  + f.format(dih));
+
+        } // end if
+    }
+
+    print("Max Length difference:   " + mxL);
+    print("Max Angle difference:    " + mxA);
+    print("Max Dihedral difference: " + mxD);
+} // end of compZMatrix()

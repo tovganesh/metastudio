@@ -1,0 +1,14 @@
+/**
+ * frame() - creates an instance of frame.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+frame() {
+    return frame("");
+}
+
+frame(String txtTitle) {
+    return new javax.swing.JFrame(txtTitle);
+}

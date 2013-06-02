@@ -1,0 +1,12 @@
+/**
+ * moleculeViewer() - create instance of MoleculeViewer class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+moleculeViewer() {
+    mv = new org.meta.shell.idebeans.viewers.impl.moleculeviewer.MoleculeViewer(null, null);
+    mv.setTransformState(org.meta.shell.idebeans.viewers.impl.moleculeviewer.TransformState.ROTATE_STATE);
+    return mv;
+}

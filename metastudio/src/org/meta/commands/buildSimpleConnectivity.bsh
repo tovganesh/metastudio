@@ -1,0 +1,22 @@
+/**
+ * buildSimpleConnectivity() - build simple connectivity info for a molecule object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+buildSimpleConnectivity(Molecule molecule) {
+    mb = Utility.getDefaultImplFor(MoleculeBuilder.class).newInstance();
+    mb.makeSimpleConnectivity(molecule);    
+}
+
+buildSimpleConnectivity(Vector moleculeList) {
+    for(mol:moleculeList) buildSimpleConnectivity(mol);
+}
+
+buildSimpleConnectivity(ArrayList moleculeList) {
+    for(mol:moleculeList) buildSimpleConnectivity(mol);
+}

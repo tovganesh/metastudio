@@ -1,0 +1,10 @@
+/**
+ * combobox() - create instance of JComboBox
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+combobox(Object [] values) {
+    return new javax.swing.JComboBox(values);
+}

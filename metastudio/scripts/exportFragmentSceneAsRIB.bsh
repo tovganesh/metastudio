@@ -1,0 +1,679 @@
+/**
+ * exportFragmentSceneAsRIB - export the fragments as a RIB(*) file. 
+ * The file name is quried using a IDEFileChooser dialog.
+ *
+ * (*) RIB files are the files used to define a 3D scene in Renderman language
+ * and which can be rendered using any Renderman compliant rendering engine
+ * like Renderman Studio, 3Delight, Aquis etc.
+ *
+ * @author  V.Ganesh
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.molecule.*;
+import org.meta.config.impl.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.common.resource.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+import org.meta.common.Utility;
+import org.meta.math.geom.*;
+import org.meta.math.Vector3D;
+import org.meta.math.MathUtil;
+
+/**
+ * export the fragment scene into a RIB file.
+ */ 
+exportFragmentSceneAsRIB(MoleculeScene ms) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frames = wsDesktop.getFrameList();
+
+    // no frames?
+    if (frames == null) return;
+ 
+    frame = null;
+    for(frame : frames) {        
+        // not appropriate instance?
+        if (!(frame instanceof MoleculeViewerFrame)) continue;
+        else break;
+    } // end for
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+    
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("rib",
+                                    "Renderman file format"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());                    
+    
+    // now show the stuff to the user, and pray he gives good files names ;)
+    fileChooser.addActionListener(new ActionListener() {        
+      public void actionPerformed(ActionEvent ae) {        
+        if (ae.getActionCommand().equals("CancelSelection")) {
+            // close the dialog 
+            getDialogParent(fileChooser.getParent()).dispose();
+            return;
+        } // end if                
+        
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // update last visited folder
+        fileChooser.setLastVisitedFolder(fileChooser.getCurrentDirectory()
+                                         .getAbsolutePath());
+
+        // make up for file extension, if it is not already there
+        if (!fileName.endsWith(".rib")) {
+            fileName += ".rib";
+        } // end if
+        
+        System.out.println("FragmentScene will be exported (rendered) to: " + fileName);        
+
+        FileWriter fos = new FileWriter(fileName);
+        
+        // write header for RIB file        
+        writeRIBHeader(fos, ((Integer) width.getValue()).intValue(),
+                            ((Integer) height.getValue()).intValue(),
+                            ((Integer) xSample.getValue()).intValue(),
+                            ((Integer) ySample.getValue()).intValue(),
+                            background.getBackground());         
+                                              
+            scenes = frame.getSceneList();
+            tMat = frame.getMoleculeViewer().getRotationMatrix();
+
+            // for each scene save the transformed molecule into the 
+            // user specified file
+            ideInstance.setCursor(
+                        Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            for (scene : scenes) {         
+                print("Saving scene: " + scene);                
+
+                boundingBox = null;
+
+                molecule = scene.getTransformedMolecule(tMat);
+
+                if (scene.getAllPropertyScene() != null) {
+                    for(pScene : scene.getAllPropertyScene()) {
+                        if (pScene.isVisible()) {
+                            boundingBox = pScene.getGridProperty()
+                                                    .getBoundingBox();
+                            break;   
+                        } // end if                       
+                    } // end for
+                } else {
+                    boundingBox = molecule.getBoundingBox();
+                } // end if
+
+                saveMoleculeAsRIB1(molecule, 
+                     boundingBox, fos,
+                     ((String) shaderList.getSelectedItem()),
+                     ((Double) scalingFactor.getValue()).doubleValue(),
+                     ((Integer) width.getValue()).intValue());
+                
+                if (scene.getAllPropertyScene() != null) {
+                    for(pScene : scene.getAllPropertyScene()) {
+                        if (!pScene.isVisible()) continue;
+
+                        ot = pScene.getGridPropertyRenderer().getTransform();
+                        pScene.getGridPropertyRenderer().setTransform(tMat);
+                        pScene.getGridPropertyRenderer().drawInRIBFile(fos,
+                            ((String) shaderList.getSelectedItem()),
+                            ((Double) scalingFactor.getValue()).doubleValue());
+                        pScene.getGridPropertyRenderer().setTransform(ot);
+                    } // end for
+                } // end if
+
+                // now write the fragment
+                molecule = scene.getMolecule();
+                fs = molecule.getDefaultFragmentationScheme();
+                fl = fs.getFragmentList();
+                
+                saveMoleculeAsRIB2(conv2Mol(fl.getFragment(2), tMat), 
+                     boundingBox, fos,
+                     ((String) shaderList.getSelectedItem()),
+                     ((Double) scalingFactor.getValue()).doubleValue(),
+                     ((Integer) width.getValue()).intValue());
+
+                // end of scene
+                fos.write("WorldEnd \n");
+                fos.write("FrameEnd \n");
+            } // end for
+            ideInstance.setCursor(Cursor.getDefaultCursor());
+
+        // finally close the file
+        fos.close();
+        
+        // close the dialog too        
+        getDialogParent(fileChooser.getParent()).dispose();
+      }
+    }); // actionPerformed
+    
+    // add advanced controls
+    fileChooser.setApproveButtonText("Save");
+    fileChooser.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Choose a filename to export RIB:"));
+    
+    // the new file chooser panel
+    JPanel advancedPanel = new JPanel();
+    advancedPanel.setLayout(new BorderLayout());
+    
+    // and the extra options panel
+    JPanel advancedOptions = new JPanel(new BorderLayout());
+    JPanel pane1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    JPanel pane2 = new JPanel(new GridBagLayout());
+    
+    JButton advanced = new JButton("Show Advanced Options >>");
+    pane1.add(advanced);
+    advancedOptions.add(pane1, BorderLayout.NORTH);
+    // make the most important pane2
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.insets = new Insets(0, 5, 0, 5);
+    
+    // consists of 3 internal frames
+    JPanel imagePanel, shadersPanel, atomsPanel;
+    // the image panel
+    imagePanel = new JPanel(new GridBagLayout());
+    JSpinner width, height, xSample, ySample;    
+    width   = new JSpinner(new SpinnerNumberModel(512, 1, 9999, 1));
+    gbc.gridx = gbc.gridy = 0;
+    imagePanel.add(new JLabel("Width :"), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    imagePanel.add(width, gbc);
+    
+    height  = new JSpinner(new SpinnerNumberModel(512, 1, 9999, 1));
+    gbc.gridx = 2; gbc.gridy = 0;
+    imagePanel.add(new JLabel("Height :"), gbc);
+    gbc.gridx = 3; gbc.gridy = 0;
+    imagePanel.add(height, gbc);
+    
+    xSample = new JSpinner(new SpinnerNumberModel(3, 1, 99, 1));
+    gbc.gridx = 4; gbc.gridy = 0;
+    imagePanel.add(new JLabel("SampleX :"), gbc);
+    gbc.gridx = 5; gbc.gridy = 0;
+    imagePanel.add(xSample, gbc);
+    
+    ySample = new JSpinner(new SpinnerNumberModel(3, 1, 99, 1));
+    gbc.gridx = 6; gbc.gridy = 0;
+    imagePanel.add(new JLabel("SampleY :"), gbc);
+    gbc.gridx = 7; gbc.gridy = 0;
+    imagePanel.add(ySample, gbc);
+    imagePanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Image options:"));
+    imagePanel.setToolTipText("Change size and sampling rate of the "
+                              + "rendered image.");    
+    gbc.gridx = 0; gbc.gridy = 0;
+    pane2.add(imagePanel, gbc);
+    
+    // the shaders panel 
+    shadersPanel = new JPanel(new GridBagLayout());
+    JComboBox shaderList = new JComboBox();
+    shaderList.addItem("plastic");
+    shaderList.addItem("paintedplastic");
+    shaderList.addItem("reflectivepaintedplastic");
+    shaderList.addItem("metal");
+    shaderList.addItem("shinymetal");
+    shaderList.setEditable(true);
+    gbc.gridx = 0; gbc.gridy = 0;
+    shadersPanel.add(new JLabel("Current Shader :"), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    shadersPanel.add(shaderList, gbc);
+        
+    JButton background = new JButton("Click to change background");
+    background.setBackground(frame.getMoleculeViewer().getBackgroundColor());
+    background.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            JColorChooser cc = new JColorChooser();
+            
+            Color newColor = cc.showDialog(dialog, 
+                          "Choose a background color...",
+                            background.getBackground());
+            if (newColor != null) {               
+               background.setBackground(newColor);
+            } // end if
+        }
+    });
+    gbc.gridx = 2; gbc.gridy = 0;
+    shadersPanel.add(background, gbc);
+    
+    JSpinner scalingFactor = new JSpinner(
+                              new SpinnerNumberModel(1.0, 0.0, 99.0, 0.1));
+    gbc.gridx = 3; gbc.gridy = 0;
+    shadersPanel.add(new JLabel("Scaling factor :"), gbc);
+    gbc.gridx = 4; gbc.gridy = 0;
+    shadersPanel.add(scalingFactor);
+    
+    shadersPanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Shaders, background and scaling factor:"));
+    shadersPanel.setToolTipText("Change the shaders, background and "
+                                + "scaling factor of the image objet(s)");
+    gbc.gridx = 0; gbc.gridy = 1;
+    pane2.add(shadersPanel, gbc);
+    
+    // the atoms panel 
+    atomsPanel = new JPanel(new GridBagLayout());
+    AtomInfo ai = AtomInfo.getInstance();
+    JComboBox symbols = new JComboBox(new Vector(ai.getNameTable().keySet()));
+    symbols.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            changeColor.setBackground(ai.getColor(symbols.getSelectedItem()));
+            changeColor.setText("Click to change color of : "
+                                 + ai.getName(symbols.getSelectedItem()));
+        }
+    });
+    gbc.gridx = 0; gbc.gridy = 0;
+    atomsPanel.add(new JLabel("Choose a symbol :"), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    atomsPanel.add(symbols, gbc);
+    
+    JButton changeColor = new JButton("Click to change color of : "
+                                      + ai.getName(symbols.getSelectedItem()));
+    changeColor.setBackground(ai.getColor(symbols.getSelectedItem()));
+    changeColor.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            JColorChooser cc = new JColorChooser();
+            
+            Color newColor = cc.showDialog(dialog, 
+                          "Choose a color for : " + symbols.getSelectedItem()
+                          + "(" + ai.getName(symbols.getSelectedItem()) + ")",
+                            changeColor.getBackground());
+            if (newColor != null) {
+               ai.setColor(symbols.getSelectedItem(), newColor);
+               changeColor.setBackground(newColor);
+            } // end if
+        }
+    });
+    gbc.gridx = 2; gbc.gridy = 0;
+    atomsPanel.add(changeColor, gbc);
+    
+    atomsPanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Atom Properties:"));
+    atomsPanel.setToolTipText("Change the color of atom that appears in "
+                              + "the rendered image");
+    gbc.gridx = 0; gbc.gridy = 2;
+    pane2.add(atomsPanel, gbc);
+    
+    // add the advanced pane
+    advancedOptions.add(pane2, BorderLayout.CENTER);        
+    
+    advancedPanel.add(fileChooser, BorderLayout.CENTER);
+    advancedPanel.add(advancedOptions, BorderLayout.SOUTH);
+    advancedOptions.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Advanced options:"));
+    
+    // and setup the dialog
+    dialog = new JDialog(ideInstance, "Save file as...", true);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.getContentPane().add(advancedPanel, BorderLayout.CENTER);            
+    dialog.pack();    
+    dialog.setLocationRelativeTo(ideInstance);
+    pane2.setVisible(false);
+    advanced.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            pane2.setVisible(!pane2.isVisible());
+            if (pane2.isVisible()) advanced.setText("Hide Advanced Options <<");
+            else advanced.setText("Show Advanced Options >>");
+        }
+    });           
+    
+    dialog.setVisible(true);         
+}
+
+conv2Mol(frag, tMat) {
+  m = molecule("frag");
+
+  for(atom : frag.getFragmentAtoms()) {
+      m.addAtom(new Atom(atom.getSymbol(), atom.getCharge(), 
+                                atom.getAtomCenter()));
+  } // end for
+
+  buildConnectivity(m);
+
+  ms = new MoleculeScene(m);
+
+  return ms.getTransformedMolecule(tMat);
+}
+
+/**
+ * save the supplied molecule to the specified stream in RIB format
+ * .. save with opacity and ball and stick model
+ */
+saveMoleculeAsRIB2(Molecule molecule, BoundingBox boundingBox, FileWriter fos, 
+                  String shader, double scaleFactor, int width) {
+
+    // bring the stuff to center    
+    center      = boundingBox.center();     
+    p1          = boundingBox.getUpperLeft();
+    p2          = boundingBox.getBottomRight();
+    radius      = 2.0 * Math.max(Math.abs(p2.getX()-p1.getX()),
+                           Math.max(Math.abs(p2.getY()-p1.getY()), 
+                                    Math.abs(p2.getZ()-p1.getZ()))
+                           );   
+    
+    // and dump the atoms and the bonds!
+    atoms    = molecule.getAtoms();
+    atomInfo = AtomInfo.getInstance();
+    
+    fillTransperency = 190;
+
+    for(atom : atoms) {
+        // draw the sphere ... representing the atom                
+        fos.write("AttributeBegin\n");
+        Utility.dumpALine(fos, "Translate " + atom.getX() * scaleFactor 
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + atom.getZ() * scaleFactor
+                                      + "\n");        
+
+        double trasnp = 1.0 - (fillTransperency / 255.0);
+        fos.write("Opacity " + trasnp
+                               + " " + trasnp
+                               + " " + trasnp
+                               + "\n"
+                         );
+
+        Color color = atomInfo.getColor(atom.getSymbol());
+        //color = Color.green;
+        Utility.dumpALine(fos, "Color " + color.getRed()   / 255.0
+                                + " "   + color.getGreen() / 255.0
+                                + " "   + color.getBlue()  / 255.0
+                                + "\n");
+
+        // the surface shader
+        fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");
+
+        if (atom.getAtomCenter().isZero()) {
+            Utility.dumpALine(fos, 
+                          "LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [0.1 0.1 0.1]\n");
+        } else {
+            Utility.dumpALine(fos, 
+                          "LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [" + atom.getX() * scaleFactor 
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + atom.getZ() * scaleFactor 
+                                      + "]\n");
+        } // end if
+
+        // for ball and stick model
+        radiusR = atomInfo.getCovalentRadius(atom.getSymbol()) * 0.5;
+        Utility.dumpALine(fos, "Sphere " + (radiusR * scaleFactor)
+                                + " -"   + (radiusR * scaleFactor)
+                                + " "    + (radiusR * scaleFactor)
+                                + " 360.0\n");
+
+        // attribute ends here
+        fos.write("AttributeEnd\n\n");
+
+        // now build the bonding information
+        connectedList = atom.getConnectedList().keys();
+        
+        for(cl : connectedList) {
+            atom2 = molecule.getAtom(cl);
+            
+            radius = Math.min(radiusR * 0.5, 
+                          atomInfo.getCovalentRadius(atom2.getSymbol()) * 0.25);
+            radius = Math.max(radius, atomInfo.getCovalentRadius("H") * 0.5);
+
+            bondType = molecule.getBondType(atom.getIndex(), atom2.getIndex());
+            
+            // bond attribute starts here
+            fos.write("AttributeBegin\n");
+                                 
+            double trasnp = 1.0 - (fillTransperency / 255.0);
+            fos.write("Opacity " + trasnp
+                               + " " + trasnp
+                               + " " + trasnp
+                               + "\n"
+                         );
+            
+            Utility.dumpALine(fos, "Color " + color.getRed()   / 255.0
+                                            + " " + color.getGreen() / 255.0
+                                            + " " + color.getBlue()  / 255.0
+                                            + "\n");                    
+            
+            // the surface shader
+            fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");                    
+        
+            // translate the cylinder appropriately
+            center = new Point3D();
+            distance = getCenterAndDistance(atom, atom2, center);
+            
+            Utility.dumpALine(fos, "Translate " + center.getX() * scaleFactor
+                                          + " " + center.getY() * scaleFactor
+                                          + " " + center.getZ() * scaleFactor
+                                          + "\n");
+            // and then do appropriate rotation
+            // compute vector from atom->atom2
+            vector = atom2.getAtomCenter().sub(atom.getAtomCenter());
+            vector = (new Vector3D(vector)).normalize();
+            
+            angleWithZ = MathUtil.toDegrees(Math.acos(vector.getK()));
+            
+            Utility.dumpALine(fos, "Rotate " + (-angleWithZ)
+                                             + " " + vector.getJ()
+                                             + " " + (-vector.getI())
+                                             + " 0.0 \n");
+            
+            if (bondType.equals(BondType.WEAK_BOND)) {
+                Utility.dumpALine(fos, "Cylinder 0.01 " 
+                                        + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } else {
+                Utility.dumpALine(fos, "Cylinder " + (radius * scaleFactor)
+                                        + " " + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } // end if
+            
+            // bond attribute ends here
+            fos.write("AttributeEnd\n\n");
+        } // end if
+    } // end for        
+}
+
+/**
+ * save the supplied molecule to the specified stream in RIB format
+ * .. save with a constant stick model
+ */
+saveMoleculeAsRIB1(Molecule molecule, BoundingBox boundingBox, FileWriter fos, 
+                  String shader, double scaleFactor, int width) {
+
+    // bring the stuff to center    
+    center      = boundingBox.center();     
+    p1          = boundingBox.getUpperLeft();
+    p2          = boundingBox.getBottomRight();
+    radius      = 2.0 * Math.max(Math.abs(p2.getX()-p1.getX()),
+                           Math.max(Math.abs(p2.getY()-p1.getY()), 
+                                    Math.abs(p2.getZ()-p1.getZ()))
+                           );    
+
+    yFactor = (3.3 * scaleFactor)/radius; 
+    Utility.dumpALine(fos, "Scale " + (yFactor) 
+                              + " " + (yFactor)
+                              + " " + (yFactor)
+                              + "\n");
+
+    Utility.dumpALine(fos, "Translate " + (-center.getX())
+                                  + " " + (-center.getY())
+                                  + " " + (radius+center.getZ())
+                                  + " \n");    
+    
+    // and then the rest of stuff
+    Utility.dumpALine(fos, "\nDisplay \"" 
+                           + molecule.toString() + "\" \"framebuffer\" "
+                           + "\"rgba\" \n");
+    
+    // the scene begins here
+    fos.write("FrameBegin 1 \n");
+    fos.write("WorldBegin \n");
+    
+    // and dump the atoms and the bonds!
+    atoms    = molecule.getAtoms();
+    atomInfo = AtomInfo.getInstance();
+    
+    for(atom : atoms) {
+        // draw the sphere ... representing the atom                
+        fos.write("AttributeBegin\n");
+        Utility.dumpALine(fos, "Translate " + atom.getX() * scaleFactor 
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + atom.getZ() * scaleFactor
+                                      + "\n");        
+
+        Color color = atomInfo.getColor(atom.getSymbol());
+        Utility.dumpALine(fos, "Color " + color.getRed()   / 255.0
+                                + " "   + color.getGreen() / 255.0
+                                + " "   + color.getBlue()  / 255.0
+                                + "\n");
+
+        // the surface shader
+        fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");
+
+        if (atom.getAtomCenter().isZero()) {
+            Utility.dumpALine(fos, 
+                          "LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [0.1 0.1 0.1]\n");
+        } else {
+            Utility.dumpALine(fos, 
+                          "LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [" + atom.getX() * scaleFactor 
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + atom.getZ() * scaleFactor 
+                                      + "]\n");
+        } // end if
+
+        // for ball and stick model
+        radiusR = 0.07;
+        Utility.dumpALine(fos, "Sphere " + (radiusR * scaleFactor)
+                                + " -"   + (radiusR * scaleFactor)
+                                + " "    + (radiusR * scaleFactor)
+                                + " 360.0\n");
+
+        // attribute ends here
+        fos.write("AttributeEnd\n\n");
+
+        // now build the bonding information
+        connectedList = atom.getConnectedList().keys();
+        
+        for(cl : connectedList) {
+            atom2 = molecule.getAtom(cl);            
+            radius = 0.07;
+            bondType = molecule.getBondType(atom.getIndex(), atom2.getIndex());
+            
+            // bond attribute starts here
+            fos.write("AttributeBegin\n");
+                                    
+            Utility.dumpALine(fos, "Color " + color.getRed()   / 255.0
+                                            + " " + color.getGreen() / 255.0
+                                            + " " + color.getBlue()  / 255.0
+                                            + "\n");                    
+            
+            // the surface shader
+            fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");                    
+        
+            // translate the cylinder appropriately
+            center = new Point3D();
+            distance = getCenterAndDistance(atom, atom2, center);
+            
+            Utility.dumpALine(fos, "Translate " + center.getX() * scaleFactor
+                                          + " " + center.getY() * scaleFactor
+                                          + " " + center.getZ() * scaleFactor
+                                          + "\n");
+            // and then do appropriate rotation
+            // compute vector from atom->atom2
+            vector = atom2.getAtomCenter().sub(atom.getAtomCenter());
+            vector = (new Vector3D(vector)).normalize();
+            
+            angleWithZ = MathUtil.toDegrees(Math.acos(vector.getK()));
+            
+            Utility.dumpALine(fos, "Rotate " + (-angleWithZ)
+                                             + " " + vector.getJ()
+                                             + " " + (-vector.getI())
+                                             + " 0.0 \n");
+            
+            if (bondType.equals(BondType.WEAK_BOND)) {
+                Utility.dumpALine(fos, "Cylinder 0.01 " 
+                                        + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } else {
+                Utility.dumpALine(fos, "Cylinder " + (radius * scaleFactor)
+                                        + " " + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } // end if
+            
+            // bond attribute ends here
+            fos.write("AttributeEnd\n\n");
+        } // end if
+    } // end for        
+}
+
+/**
+ * write the RIB header into the specified stream
+ */
+writeRIBHeader(FileWriter fos, int width, int height, int xSample, int ySample,
+               Color background){
+    Utility.dumpALine(fos, "# This document is automatically generated by: "
+                     + StringResource.getInstance().getVersion() + "\n"
+                     + "# (c) V.Ganesh \n");
+    Utility.dumpALine(fos, "Format " + width + " " + height + " 1 \n"); 
+    Utility.dumpALine(fos, "PixelSamples " + xSample + " " + ySample + " \n"); 
+    Utility.dumpALine(fos, "Imager \"background\" \"bgcolor\" "
+                           + "[" + background.getRed()   / 255.0
+                                 + " " + background.getGreen() / 255.0
+                                 + " " + background.getBlue()  / 255.0
+                                 + "]\n");   
+    // perspective projection
+    Utility.dumpALine(fos, "Projection \"orthographic\" \n");
+        
+    // we need shadows    
+    Utility.dumpALine(fos, "Declare \"shadows\" \"string\" \n");
+    Utility.dumpALine(fos, "Attribute \"light\" \"shadows\" \"on\" \n");    
+        
+    // and we define two light sources
+    Utility.dumpALine(fos, "LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [0 1 1] \n");
+    Utility.dumpALine(fos, "LightSource \"ambientlight\" 1 \"intensity\" 0.7 "
+                           + "\n");
+
+    // and smooth polygon shading
+    Utility.dumpALine(fos, "ShadingInterpolation \"smooth\" \n");
+}
+
+/**
+ * get the center between two atoms, and the distance from the center
+ */
+getCenterAndDistance(Atom a1, Atom a2, Point3D p) {        
+    p.setX((a1.getX() + a2.getX()) / 2.0);
+    p.setY((a1.getY() + a2.getY()) / 2.0);
+    p.setZ((a1.getZ() + a2.getZ()) / 2.0);
+        
+    // Distance(midpoint, atomcenter)
+    return a1.distanceFrom(p);
+}
+
+exportFragmentSceneAsRIB(getLoadedMoleculeScenes().get(0));

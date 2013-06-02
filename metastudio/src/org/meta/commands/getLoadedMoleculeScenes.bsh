@@ -1,0 +1,46 @@
+/**
+ * getLoadedMoleculeScenes() - get a list of all the loaded molecule scenes
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.util.*;
+
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+getLoadedMoleculeScenes() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return null;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return null;
+    
+    // then get the frame list of this desktop
+    frameList = wsDesktop.getFrameList();
+    
+    if (frameList == null) return null;
+    
+    sceneList = new java.util.Vector();
+    
+    // iterate throught the frames and get the list of all loaded scenes
+    for(frame : frameList) {
+        if (frame instanceof MoleculeViewerFrame) {
+            scenes = frame.getSceneList();
+            
+            for (scene : scenes) {
+                sceneList.add(scene);
+            } // end for
+        } // end if
+    } // end for
+    
+    return sceneList;
+} 

@@ -1,0 +1,113 @@
+/**
+ * extractMoleculeFromGAMXML() - Extract "raw" molecule object from XML file
+ * written by GAMXML add-on for GAMESS written by me.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.net.URL;
+
+// JAXP packages
+import javax.xml.parsers.*;
+
+import org.xml.sax.*;
+import org.w3c.dom.*;
+import org.xml.sax.helpers.*;
+
+// MeTA Studio packages
+import org.meta.common.*;
+import org.meta.math.geom.*;
+import org.meta.molecule.*;
+
+/**
+ * extract molecule information from GAMXML URL and return a "raw" molecule
+ * object. May throw IOException, MalformedURLException or JAXP related 
+ * exceptions.
+ */
+extractMoleculeFromGAMXML(String xmlURL) {
+    
+    Document gamXMLDoc = Utility.parseXML((new URL(xmlURL)).openStream());
+    
+    //
+    // WARNING! we expect that only one molecule information is available
+    // If multiple is present then we just take the last one.
+    //
+
+    NodeList geoms = gamXMLDoc.getElementsByTagName("geom");
+
+    if ((geoms == null) || (geoms.getLength() == 0)) 
+       throw Exception("The XML file doesnot define any geometries!");
+
+    Node geom = geoms.item(geoms.getLength()-1);
+
+    if (geom == null)
+       throw Exception("The XML file doesnot define any geometries!");
+
+    mol = molecule("XML Read Geometry");
+    int i = 0;
+    for (Node child = geom.getFirstChild(); child != null;
+              child = child.getNextSibling()) {
+
+       if (!child.getNodeName().equals("atom")) continue;     
+
+       atom = child;
+       NamedNodeMap atts = atom.getAttributes();
+
+       mol.addAtom(new Atom(
+        ((String) atts.getNamedItem("symbol").getNodeValue()).trim(), 
+        0.0,
+        new Point3D(Double.parseDouble(atts.getNamedItem("x").getNodeValue()),
+                    Double.parseDouble(atts.getNamedItem("y").getNodeValue()),
+                    Double.parseDouble(atts.getNamedItem("z").getNodeValue())),
+        i++));     
+    } // end for
+
+    return mol;
+} // end of method extractMoleculeFromGAMXML()
+
+/**
+ * extract molecule information from GAMXML URL and return a "raw" molecule
+ * object. May throw IOException, MalformedURLException or JAXP related 
+ * exceptions.
+ */
+extractMoleculeFromGAMXML(String xmlURL, boolean readAll) {
+    
+    Document gamXMLDoc = Utility.parseXML((new URL(xmlURL)).openStream());
+    
+    NodeList geoms = gamXMLDoc.getElementsByTagName("geom");
+
+    if ((geoms == null) || (geoms.getLength() == 0)) 
+       throw Exception("The XML file doesnot define any geometries!");
+
+    molList = new java.util.Vector();
+
+    for(i=0; i<geoms.getLength(); i++) {
+        Node geom = geoms.item(i);
+        if (geom == null)
+           throw Exception("The XML file doesnot define any geometries!");
+
+        mol = molecule("XML Read Geometry [" + i + "]");
+        int i = 0;
+        for (Node child = geom.getFirstChild(); child != null;
+                  child = child.getNextSibling()) {
+
+           if (!child.getNodeName().equals("atom")) continue;     
+
+           atom = child;
+           NamedNodeMap atts = atom.getAttributes();
+
+           mol.addAtom(new Atom(
+            ((String) atts.getNamedItem("symbol").getNodeValue()).trim(), 
+            0.0,
+            new Point3D(Double.parseDouble(atts.getNamedItem("x").getNodeValue()),
+                        Double.parseDouble(atts.getNamedItem("y").getNodeValue()),
+                        Double.parseDouble(atts.getNamedItem("z").getNodeValue())),
+            i++));     
+        } // end for
+
+        molList.add(mol);
+    }
+
+    return molList;
+} // end of method extractMoleculeFromGAMXML()

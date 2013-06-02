@@ -1,0 +1,211 @@
+/**
+ * movie() - generate a movie of all the loaded molecule scenes
+ * Usage:
+ *   mov = movie();
+ *   mov.begin(); mov.pause();
+ *   mov.end();
+ *
+ * .. the most complex script i have written till now!
+ *
+ * This ChemLet is dedicated in the memory of Sir John A Pople,
+ * Nobel Laureate 1998
+ * (http://www.nobel.se/chemistry/laureates/1998/pople-autobio.html)
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.util.*;
+
+import org.meta.commands.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/**
+ * the default
+ */
+movie() {
+    movie(10, true);
+}
+
+/**
+ * movie with [delay] and repear mode
+ */
+movie(int delay) {
+    movie(delay, true);
+}
+
+/**
+ * an a bit advanced version ;)
+ */
+movie(int delay, boolean repeat) {
+    print("Usage:");
+    print("\tmov = movie([delay,repeat]);");
+    print("\tmov.begin(); mov.pause();");
+    print("\tmov.end();");
+    print("\"This ChemLet is dedicated to Sir John A Pople, "
+          + "Nobel Laureate 1998.\"");
+    print("\nDepricated: use movie mode tool instead.");
+    
+    mov = new Movie() {        
+        private Thread movieThread;       
+
+        private MoleculeViewerFrame mvf;      
+        
+        public Movie() { super(); }
+
+        /**
+         * the main thread !
+         */
+        public void run() {
+            scenes = getLoadedMoleculeScenes();                
+
+            // get the current IDE instance ... 
+            // hoping that this is already inited
+            ideInstance = MainMenuEventHandlers.getInstance(null)
+                                               .getIdeInstance();
+
+            if (ideInstance == null) return;
+
+            // then get the workspace desktop instance
+            wsDesktop = ideInstance.getWorkspaceDesktop();
+
+            if (wsDesktop == null) return;
+
+            // now make the viewer instance
+            this.mvf = new MoleculeViewerFrame(ideInstance);
+            this.mvf.setTitle(this.mvf.getTitle() + " - ( Movie ) ");                
+
+            for(scene : scenes) {
+                // make the scene dissapear
+                sceneClone = scene.clone();
+                sceneClone.setVisible(false);
+
+                // and add a molecule scene to the viewer
+                this.mvf.addScene(sceneClone);
+            } // end for         
+
+            // then add it to the desktop
+            wsDesktop.addInternalFrame(this.mvf);
+
+            // show the task list
+            taskPanel  = ideInstance.getWorkspaceExplorer().getTaskPanel();
+            taskPanel.activate("Molecule related Tasks");
+
+            // and then add a listener to make it invisible
+            this.mvf.addInternalFrameListener(new InternalFrameAdapter() {
+                public void internalFrameClosing(InternalFrameEvent e) {
+                    // hide the task list
+                    taskPanel  = ideInstance.getWorkspaceExplorer()
+                                            .getTaskPanel();
+                    taskPanel.deactivate("Molecule related Tasks");
+                }
+            });
+
+            scene = getLoadedMoleculeScenes().iterator();
+            next = previos = scene.next();
+            previos.setVisible(true);
+            Thread.sleep(delay);  // doose off
+            while(!stop) { // go on till we are asked to stop
+                if (this.paused) {
+                    Thread.sleep(delay);  // doose off
+                    continue;
+                } // end if 
+
+                if (!scene.hasNext()) {
+                    scene = getLoadedMoleculeScenes().iterator();
+
+                    if (!repeat) { 
+                       stop = true;
+                       break;
+                    } // end if
+                } // end if
+
+                previos.setVisible(false);  // set the previous scene blank
+                Thread.sleep(delay);  // doose off
+                next = scene.next();  // get the next one                
+                next.setVisible(true); // and set it visible
+                Thread.sleep(delay);  // doose off
+
+                previos = next;               
+            } // end while
+
+            scenes = getLoadedMoleculeScenes(); 
+
+            for(scene : scenes) {
+                // make the scene all visible 
+                scene.setVisible(true);                        
+            } // end for
+            // at the end we should safely dispose off the viewer
+            this.mvf.setClosed(true);
+        }
+
+        public void beginMovie() {
+            begin();
+        }
+
+        /**
+         * start the execution
+         */
+        public void begin() { 
+            if (this.paused) {
+                this.paused = false;
+
+                return;
+            } // end if
+
+            if (this.started) return;
+
+            this.movieThread = new Thread(this);
+            this.movieThread.setPriority(Thread.MIN_PRIORITY);
+            this.movieThread.setName("Movie Thread");
+            this.movieThread.start();
+            this.started = true;
+            this.stop    = false;
+            this.paused  = false;
+        }
+
+        public void endMovie() {
+            end();
+        }
+
+        /**
+         * and finish off
+         */
+        public void end() {
+            if (this.stop) return;        
+            this.stop    = true;
+            this.started = false;
+            this.paused  = false;
+
+            if (this.movieThread == null) return;
+            this.movieThread.join();
+        }
+
+        public void pauseMovie() {
+            pause();
+        }
+
+        /**
+         * pause the movie
+         */
+        public void pause() {
+            this.paused  = true;
+        }               
+
+        /**
+         * the final method called
+         */
+        protected void finalize() {
+            end();
+        } 
+    }; // end of class Movie   
+
+    mov.setRepeatMovie(repeat);
+    mov.setMovieDelay(delay);
+
+    return mov;
+}

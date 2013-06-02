@@ -1,0 +1,65 @@
+/**
+ * saveSelectedMoleculePart - selected molecule part from currently active
+ * molecule viewer.
+ * The file name is quried using a IDEFileChooser dialog.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/** 
+ * saves the selected molecule part from currently active molecule viewer.
+ */
+saveSelectedMoleculePart() {    
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frame = wsDesktop.getActiveFrame();
+
+    // no active frame?
+    if (frame == null) return;
+
+    // not appropriate instance?
+    if (!(frame instanceof MoleculeViewerFrame)) return;
+
+    // then check if it is of rt type
+    scene = frame.getMoleculeViewer().getFirstSelectedScene();
+    
+    if (scene == null) return;
+
+    // grab the molecule
+    fullMolecule = scene.getMolecule();
+
+    if (!(fullMolecule instanceof Molecule)) return;
+
+    // get the selected part only
+    molecule = scene.getSelectionAsMolecule();
+
+    // ensure that there is selection
+    if (molecule == null) return;
+
+    // first grab the file name .. and the format .. and save
+    exportMoleculeDialog(molecule);           
+}

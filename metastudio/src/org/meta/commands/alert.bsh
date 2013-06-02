@@ -1,0 +1,11 @@
+/**
+ * alert() - show an alert dialog
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+alert(String message) {
+    javax.swing.JOptionPane.showMessageDialog(null, message);
+}
+

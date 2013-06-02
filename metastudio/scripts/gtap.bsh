@@ -1,0 +1,42 @@
+import java.util.*;
+
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+drawOnScene() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return null;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return null;
+    
+    // then get the frame list of this desktop
+    frameList = wsDesktop.getFrameList();
+    
+    if (frameList == null) return null;
+    
+    sceneList = new Vector();
+    
+    // iterate throught the frames and get the list of all loaded scenes
+    graphics = null;
+    for(frame : frameList) {
+        if (frame instanceof MoleculeViewerFrame) {
+            graphics = frame.getMoleculeViewer().getGraphics();
+        } // end if
+    } // end for
+   
+    if (graphics == null) return 0;
+
+    print(graphics);
+
+    graphics.drawLine(10, 10, 20, 20);
+} 
+
+drawOnScene();

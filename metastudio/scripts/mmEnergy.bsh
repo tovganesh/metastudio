@@ -1,0 +1,74 @@
+// mmEnergy.bsh
+// Oct 2, 2008
+//
+// Anuja : This is stub for writing the energy calculation routine in 
+//         MeTA Studio.
+// To Run this, open this file in code editor (Tools->Open Code Editor) .. 
+// and then click on Run.
+//
+
+// Start reading from the end of this file ;-)
+
+// the actual function to do the caculation
+mmEnergy(molecule) {
+  double energy = 0.0;
+
+  // First build connectivity for this molecule.
+  // When building connectivity, ensure that the Z-Matrix 
+  // is also constructed, as you will probably need Z-Matrix
+  // while the Force Field energy calculation is done.
+  buildConnectivity(molecule, "true");  // second parameter is to request 
+                                        // Z-Matrix creation
+
+  // how to access inidividual elements of this molecule, i.e. atoms
+  for(atom : molecule.getAtoms()) {
+     // basic information of the atom
+     print(atom);
+
+     index  = atom.getIndex();
+     symbol = atom.getSymbol();
+     charge = atom.getCharge();
+     center = atom.getAtomCenter();
+
+     print("\t" + index + "] " + symbol + " " + charge + " " + center);
+     print("\t" + index + "] " + symbol + " " + charge + " " + center.getX() 
+                + " " + center.getY() + " " + center.getZ());
+
+     // connectivity information of this atom
+     // a) from the connectivity list
+     degree = atom.getDegree();  
+     print("\t Number of connected atoms:" + degree);
+
+     connectedList = atom.getConnectedList(); // this is a hashtable
+     print("\t Number of connected atoms (Hashtable size):" + connectedList.size());
+     print("\t Hashtable: " + connectedList);
+     for(connIndx : connectedList.keys()) {
+        print("\t" + connIndx + " " + connectedList.get(connIndx));
+        connAtom = molecule.getAtom(connIndx);
+        print("\t Connected atom is: " + connAtom);
+        if (connectedList.get(connIndx).equals(BondType.SINGLE_BOND)) print("\t Its Single!");
+     } // end of
+
+     // b) from the Z-Matrix
+     if (molecule.isZMatrixComputed()) { // check is not necessary, but good
+        print("ZMatrix is available!");
+        printZMatrix(molecule);     // see the attached code printZMatrix.bsh 
+                                    // on how to access Z-Matrix elements :-)
+                                    // Note that you actually do not need this
+                                    // file to run this stub as it is part of  
+                                    // MeTA Studio, its just given for 
+                                    // quick reference.
+     } // end if
+  } // end for
+   
+  return energy;
+}
+
+//
+// This is where the script execution starts
+// 1) First read in the molecule file using readMoleculeFile routine
+// 2) Then pass this molecule object to mmEnergy function
+// 3) Which will return energy (after u code it in!) and print it
+print(mmEnergy(readMoleculeFile("C:/Users/Ganesh/Documents/h2.xyz")));
+// print(mmEnergy(readMoleculeFile("/home/anuja/test.xyz")));
+

@@ -1,0 +1,29 @@
+/**
+ * au() - convert argument to A.U., assuming input Angstroms
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.math.geom.Point3D;
+import org.meta.molecule.Atom;
+
+au(double inAngstrom) {
+    return (inAngstrom / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR);
+}
+
+au(Point3D inAngstrom) {
+    return new Point3D(inAngstrom.getX() / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR,
+                       inAngstrom.getY() / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR,
+                       inAngstrom.getZ() / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR);
+}
+
+au(Atom inAngstrom) {
+    return new Atom(inAngstrom.getSymbol(),
+                    inAngstrom.getCharge(),
+                    new Point3D(
+                      inAngstrom.getX() / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR,
+                      inAngstrom.getY() / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR,
+                      inAngstrom.getZ() / org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR),
+                    inAngstrom.getIndex());
+}

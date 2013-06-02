@@ -1,0 +1,21 @@
+scf2() {
+    t1 = System.currentTimeMillis();    
+    mol = readMoleculeFile("/home/ganesh/tmp/ethderi.xyz");
+    bfs = new org.meta.math.qm.BasisFunctions(mol, "sto3g");
+    onee = new org.meta.math.qm.OneElectronIntegrals(bfs, mol);
+    twoe = new org.meta.math.qm.TwoElectronIntegrals(bfs);
+    t2 = System.currentTimeMillis();
+    scfm = new org.meta.math.qm.HartreeFockSCFMethod(mol, onee, twoe);
+    scfm.scf();    
+    t3 = System.currentTimeMillis();
+    print("Time till 2E : " + (t2-t1) + " ms");
+    print("Time for SCF : " + (t3-t2) + " ms");
+    print("Overlap");
+    print(onee.getOverlap());
+    print("Hamiltonian");
+    print(onee.getHamiltonian());    
+    print("Density : ");
+    print(scfm.getDensity());
+    print("MOS : ");
+    print(scfm.getMos());
+}

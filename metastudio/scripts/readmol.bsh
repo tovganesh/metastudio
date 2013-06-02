@@ -1,0 +1,190 @@
+// we use both java and MeTA Studio APIs
+import java.io.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+/**
+  * Reads the molecule file and returns an raw Molecule object.
+  *
+  * @param fileName The complete path of the file to be read.
+  * @return raw instance of the Molecule object.
+  * @throws IOException Indicating an error in the input stream / file.
+  */   
+public Molecule readMoleculeFile(String fileName) throws IOException {
+   FileInputStream fis  = new FileInputStream(fileName);        
+   Molecule theMolecule = readMolecule(fis);
+
+   fis.close();
+        
+   return theMolecule;
+}
+    
+/**
+ * Reads the molecule file and returns an raw Molecule object.
+ *
+ * @param file An instance of the file object specifing the 
+ * file to be read.
+ * @return raw instance of the Molecule object.
+ * @throws IOException Indicating an error in the input stream / file.
+ */    
+public Molecule readMoleculeFile(File file) throws IOException {
+    return readMoleculeFile(file.getAbsolutePath());
+}
+    
+/**
+ * This method reads the molecule from an input stream.
+ * The resposibility of closing / freeing the input stream lies on the
+ * caller.
+ *
+ * @param inputStream General instance of input stream from where to 
+ * read the molecule data.
+ * @return An instance of raw Molecule object.
+ * @throws IOException Indicating an error in the input stream / file.
+ */    
+public Molecule readMolecule(InputStream inputStream) throws IOException {
+    // convert to a buffered reader
+    BufferedReader br = new BufferedReader(
+                            new InputStreamReader(inputStream));
+    
+    return readMolecule(br);
+}
+
+/**
+ * This method reads the molecule from a buffered reader. This method should
+ * ensure that the reader is never closed by this method.
+ *
+ * @param reader instance of reader from where to read the molecule data.
+ * @return An instance of raw Molecule object.
+ * @throws IOException Indicating an error in the input stream / file.
+ */
+public Molecule readMolecule(BufferedReader reader) throws IOException {
+    Molecule molecule;
+    
+    // get instance of a Molecule implementation
+    try {
+        molecule = (Molecule) ((Utility.getDefaultImplFor(Molecule.class))
+                                       .newInstance());
+    } catch(ClassNotFoundException cnfe) {
+        throw new IOException("Exception while loading class: " + cnfe);
+    } catch (InstantiationException ie) {
+        throw new IOException("Exception while initing class: " + ie);
+    } catch (IllegalAccessException iae) {
+        throw new IOException("Access denied while initing class: " + iae);
+    } // end of try .. catch block
+    
+    // then start reading the file carefully and construct the 
+    // Molecule object
+    
+    // the first line is the title
+    String line = reader.readLine();
+    int noOfAtoms;
+            
+    molecule.setTitle(line);
+        
+    // skip next two lines        
+    reader.readLine(); reader.readLine();
+    
+    // next line contains information on number of atoms
+    line = reader.readLine();
+    
+    // to read the number of atoms, we need to split the line into words
+    // and then read the format in which the number of atoms are stored
+    StringTokenizer stk = new StringTokenizer(line);        
+    String firstWord = stk.nextToken();
+    String otherWords = "";
+    
+    for(int i=0; i<8; i++) otherWords = stk.nextToken();                
+    
+    int pos = (otherWords.lastIndexOf('9')-otherWords.indexOf('9'))+1;
+    
+    noOfAtoms = Integer.parseInt(line.substring(0, pos));                
+    
+    // instantiate a tokenizer
+    ScientificStreamTokenizer tokenizer = 
+                              new ScientificStreamTokenizer(reader);
+                    
+    // and now we are in a position to read all the atoms!
+    String symbol;
+    double x, y, z;
+    
+    try {
+        for(int i=0; i<noOfAtoms; i++) {                
+            // a set of four tokens constitute the atom                
+            
+            //  a) the x coordinate               
+            if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                throw new IOException("Could not understand format : " 
+                                       + tokenizer);
+            } else {
+                x = tokenizer.nval;
+            } // end if
+            
+            //  b) the y coordinate               
+            if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                throw new IOException("Could not understand format : " 
+                                       + tokenizer);
+            } else {
+                y = tokenizer.nval;
+            } // end if
+            
+            //  c) the z coordinate               
+            if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                throw new IOException("Could not understand format : " 
+                                       + tokenizer);
+            } else {
+                z = tokenizer.nval;
+            } // end if
+            
+            //  d) the symbol                
+            if (tokenizer.nextToken() != StreamTokenizer.TT_WORD) {
+                throw new IOException("Could not understand format : " 
+                                       + tokenizer);
+            } else {
+                symbol = tokenizer.sval.toLowerCase();
+            } // end if
+            
+            // and now we can safely add this atom to our list
+            molecule.addAtom(symbol, x, y, z, i);
+            
+            // skip next 10 tokens
+            for(int k=0; k<10; k++) tokenizer.nextToken();
+        } // end for
+    } catch (Exception e) {
+        throw new IOException("Error reading file : " + tokenizer
+                              + "\n Exception is : " + e.toString());
+    } // end of try .. catch block
+    
+    // return the "raw" molecule
+    return molecule;
+}
+
+// the main stuff! - for smooth UI
+// get the current IDE instance ... hoping that this is already inited
+ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+
+// first grab the file name .. and the format
+IDEFileChooser fileChooser = new IDEFileChooser();
+                
+fileChooser.setDialogTitle("Specify name of the file...");        
+// add the filters
+fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+
+fileChooser.addChoosableFileFilter(new IDEFileFilter("mol",
+                                "MOL molecule file format"));
+
+// and add the iconic stuff
+fileChooser.setFileView(new IDEFileView());
+
+// now show the stuff to the user, and pray he gives good files names ;)
+if (fileChooser.showOpenDialog(ideInstance)
+                == IDEFileChooser.APPROVE_OPTION) {        
+    String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+
+    mol = readMoleculeFile(fileName);
+
+    buildConnectivity(mol);
+    showMolecule(mol);
+} // end if

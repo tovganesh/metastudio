@@ -1,0 +1,10 @@
+/**
+ * plot() - simple plotting interface
+ *
+ * @author  V. Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+plot(String dataFileName) {
+   // TODO:
+}

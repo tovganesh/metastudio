@@ -1,0 +1,10 @@
+/**
+ * atof() - convert String argument to Double
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+atof(String arg) {
+    return Double.parseDouble(arg);
+}

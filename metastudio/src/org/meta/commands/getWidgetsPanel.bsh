@@ -1,0 +1,12 @@
+/**
+ * getWidgetsPanel() - get an handler to the widgets panel.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.shell.idebeans.eventhandlers.*;
+
+getWidgetsPanel() {
+    return getIDEInstance().getWorkspaceExplorer().getWidgetsPanel();
+}

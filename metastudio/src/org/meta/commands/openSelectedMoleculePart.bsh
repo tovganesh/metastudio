@@ -1,0 +1,91 @@
+/**
+ * openSelectedMoleculePart - Open the selected molecule part either in 
+ * the MeTA Studio viewer or Jmol viewer.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/** 
+ * Open the selected molecule part either in the MeTA Studio viewer or Jmol.
+ */
+openSelectedMoleculePart(String openInJmol) {
+    
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frame = wsDesktop.getActiveFrame();
+
+    // no active frame?
+    if (frame == null) return;
+
+    // not appropriate instance?
+    if (!(frame instanceof MoleculeViewerFrame)) return;
+
+    // then check if it is of rt type
+    scene = frame.getMoleculeViewer().getFirstSelectedScene();
+    
+    if (scene == null) return;
+
+    // grab the molecule
+    fullMolecule = scene.getMolecule();
+
+    if (!(fullMolecule instanceof Molecule)) return;
+
+    // get the selected part only
+    molecule = scene.getSelectionAsNewMolecule();
+
+    // ensure that there is selection
+    if (molecule == null) return;
+
+    // chek if we need to open in Jmol?
+    if (openInJmol.equals("true")) {
+        // convert molecule to string representation
+        str = "" + molecule.getNumberOfAtoms() + '\n';
+        str += molecule.getTitle() + '\n';
+
+        for(atom:molecule.getAtoms()) {
+            str += atom.getSymbol() + " " 
+                   + atom.getX() + " " + atom.getY() + " " + atom.getZ() + '\n';
+        } // end for
+
+        openInJmol(str, false);
+    } else {
+        // reindex atoms
+        i=0;
+        for(atom:molecule.getAtoms()) { 
+            atom.setIndex(i++);
+            atom.removeAllConnections();
+        } // end for
+
+        for(atom:molecule.getAtoms()) print(atom.getIndex());
+
+        // build connectivity, no z-matrix!
+        buildConnectivity(molecule, "false");
+        
+        // display the molecule
+        showMolecule(molecule);
+    } // end if
+}

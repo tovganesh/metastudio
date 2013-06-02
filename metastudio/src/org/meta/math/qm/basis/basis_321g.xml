@@ -1,0 +1,2417 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : basis_321g.xml
+    Created on : January 9, 2005, 1:14 PM
+    Author     : V.Ganesh
+    Version    : 2.0 (Part of MeTA v2.0)
+    Description:
+        Defines the 3-21g basis set for quantum chemical calculations
+-->
+
+<basis name="3-21g">
+    <atom symbol="H" atomicNumber="1" >
+        <orbital type="S" >
+            <entry exp="5.447178" coeff="0.156285" />
+            <entry exp="0.824547" coeff="0.904691" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.183192" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="He" atomicNumber="2" >
+        <orbital type="S" >
+            <entry exp="13.626700" coeff="0.175230" />
+            <entry exp="1.999350" coeff="0.893482" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.382993" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Li" atomicNumber="3" >
+        <orbital type="S" >
+            <entry exp="36.838200" coeff="0.069669" />
+            <entry exp="5.481720" coeff="0.381346" />
+            <entry exp="1.113270" coeff="0.681703" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.540205" coeff="-0.263126" />
+            <entry exp="0.102255" coeff="1.143387" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.540205" coeff="0.161546" />
+            <entry exp="0.102255" coeff="0.915663" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.028564" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.028564" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Be" atomicNumber="4" >
+        <orbital type="S" >
+            <entry exp="71.887600" coeff="0.064426" />
+            <entry exp="10.728900" coeff="0.366096" />
+            <entry exp="2.222050" coeff="0.695934" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.295480" coeff="-0.421064" />
+            <entry exp="0.268881" coeff="1.224070" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.295480" coeff="0.205132" />
+            <entry exp="0.268881" coeff="0.882528" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.077350" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.077350" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="B" atomicNumber="5" >
+        <orbital type="S" >
+            <entry exp="116.434000" coeff="0.062960" />
+            <entry exp="17.431400" coeff="0.363304" />
+            <entry exp="3.680160" coeff="0.697255" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="2.281870" coeff="-0.368663" />
+            <entry exp="0.465248" coeff="1.199445" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="2.281870" coeff="0.231152" />
+            <entry exp="0.465248" coeff="0.866764" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.124328" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.124328" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="C" atomicNumber="6" >
+        <orbital type="S" >
+            <entry exp="172.256000" coeff="0.061767" />
+            <entry exp="25.910900" coeff="0.358794" />
+            <entry exp="5.533350" coeff="0.700713" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="3.664980" coeff="-0.395895" />
+            <entry exp="0.770545" coeff="1.215834" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="3.664980" coeff="0.236460" />
+            <entry exp="0.770545" coeff="0.860619" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.195857" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.195857" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="N" atomicNumber="7" >
+        <orbital type="S" >
+            <entry exp="242.766000" coeff="0.059866" />
+            <entry exp="36.485100" coeff="0.352955" />
+            <entry exp="7.814490" coeff="0.706513" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="5.425220" coeff="-0.413300" />
+            <entry exp="1.149150" coeff="1.224417" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="5.425220" coeff="0.237972" />
+            <entry exp="1.149150" coeff="0.858953" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.283205" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.283205" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="O" atomicNumber="8" >
+        <orbital type="S" >
+            <entry exp="322.037000" coeff="0.059239" />
+            <entry exp="48.430800" coeff="0.351500" />
+            <entry exp="10.420600" coeff="0.707658" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="7.402940" coeff="-0.404454" />
+            <entry exp="1.576200" coeff="1.221562" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="7.402940" coeff="0.244586" />
+            <entry exp="1.576200" coeff="0.853955" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.373684" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.373684" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="F" atomicNumber="9" >
+        <orbital type="S" >
+            <entry exp="413.801000" coeff="0.058548" />
+            <entry exp="62.244600" coeff="0.349308" />
+            <entry exp="13.434000" coeff="0.709632" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="9.777590" coeff="-0.407326" />
+            <entry exp="2.086170" coeff="1.223138" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="9.777590" coeff="0.246680" />
+            <entry exp="2.086170" coeff="0.852321" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.482383" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.482383" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ne" atomicNumber="10" >
+        <orbital type="S" >
+            <entry exp="515.724000" coeff="0.058143" />
+            <entry exp="77.653800" coeff="0.347951" />
+            <entry exp="16.813600" coeff="0.710714" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="12.483000" coeff="-0.409922" />
+            <entry exp="2.664510" coeff="1.224311" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="12.483000" coeff="0.247460" />
+            <entry exp="2.664510" coeff="0.851743" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.606250" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.606250" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Na" atomicNumber="11" >
+        <orbital type="S" >
+            <entry exp="547.613000" coeff="0.067491" />
+            <entry exp="82.067800" coeff="0.393505" />
+            <entry exp="17.691700" coeff="0.665605" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="17.540700" coeff="-0.111937" />
+            <entry exp="3.793980" coeff="0.254654" />
+            <entry exp="0.906441" coeff="0.844417" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="17.540700" coeff="0.128233" />
+            <entry exp="3.793980" coeff="0.471533" />
+            <entry exp="0.906441" coeff="0.604273" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.501824" coeff="-0.219660" />
+            <entry exp="0.060946" coeff="1.089122" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.501824" coeff="0.009066" />
+            <entry exp="0.060946" coeff="0.997202" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.024435" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.024435" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.175000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Mg" atomicNumber="12" >
+        <orbital type="S" >
+            <entry exp="652.841000" coeff="0.067598" />
+            <entry exp="98.380500" coeff="0.391778" />
+            <entry exp="21.299600" coeff="0.666660" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="23.372700" coeff="-0.110246" />
+            <entry exp="5.199530" coeff="0.184119" />
+            <entry exp="1.315080" coeff="0.896399" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="23.372700" coeff="0.121014" />
+            <entry exp="5.199530" coeff="0.462810" />
+            <entry exp="1.315080" coeff="0.606906" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.611349" coeff="-0.361103" />
+            <entry exp="0.141841" coeff="1.215055" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.611349" coeff="0.024263" />
+            <entry exp="0.141841" coeff="0.986673" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.046401" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.046401" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.175000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Al" atomicNumber="13" >
+        <orbital type="S" >
+            <entry exp="775.737000" coeff="0.066835" />
+            <entry exp="116.952000" coeff="0.389061" />
+            <entry exp="25.332600" coeff="0.669468" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="29.479600" coeff="-0.107902" />
+            <entry exp="6.633140" coeff="0.146245" />
+            <entry exp="1.726750" coeff="0.923730" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="29.479600" coeff="0.117574" />
+            <entry exp="6.633140" coeff="0.461174" />
+            <entry exp="1.726750" coeff="0.605535" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.946160" coeff="-0.320327" />
+            <entry exp="0.202506" coeff="1.184120" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.946160" coeff="0.051938" />
+            <entry exp="0.202506" coeff="0.972660" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.063909" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.063909" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.325000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Si" atomicNumber="14" >
+        <orbital type="S" >
+            <entry exp="910.655000" coeff="0.066082" />
+            <entry exp="137.336000" coeff="0.386229" />
+            <entry exp="29.760100" coeff="0.672379" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="36.671600" coeff="-0.104511" />
+            <entry exp="8.317290" coeff="0.107410" />
+            <entry exp="2.216450" coeff="0.951446" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="36.671600" coeff="0.113355" />
+            <entry exp="8.317290" coeff="0.457578" />
+            <entry exp="2.216450" coeff="0.607427" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.079130" coeff="-0.376108" />
+            <entry exp="0.302422" coeff="1.251650" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.079130" coeff="0.067103" />
+            <entry exp="0.302422" coeff="0.956883" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.093339" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.093339" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.450000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="P" atomicNumber="15" >
+        <orbital type="S" >
+            <entry exp="1054.900000" coeff="0.065541" />
+            <entry exp="159.195000" coeff="0.384036" />
+            <entry exp="34.530400" coeff="0.674541" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="44.286600" coeff="-0.102130" />
+            <entry exp="10.101900" coeff="0.081592" />
+            <entry exp="2.739970" coeff="0.969789" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="44.286600" coeff="0.110851" />
+            <entry exp="10.101900" coeff="0.456495" />
+            <entry exp="2.739970" coeff="0.606936" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.218650" coeff="-0.371496" />
+            <entry exp="0.395546" coeff="1.270993" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.218650" coeff="0.091582" />
+            <entry exp="0.395546" coeff="0.934924" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.122811" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.122811" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.550000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="S" atomicNumber="16" >
+        <orbital type="S" >
+            <entry exp="1210.620000" coeff="0.065007" />
+            <entry exp="182.747000" coeff="0.382040" />
+            <entry exp="39.667300" coeff="0.676545" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="52.223600" coeff="-0.100310" />
+            <entry exp="11.962900" coeff="0.065088" />
+            <entry exp="3.289110" coeff="0.981454" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="52.223600" coeff="0.109646" />
+            <entry exp="11.962900" coeff="0.457649" />
+            <entry exp="3.289110" coeff="0.604261" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.223840" coeff="-0.286089" />
+            <entry exp="0.457303" coeff="1.228059" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.223840" coeff="0.164777" />
+            <entry exp="0.457303" coeff="0.870855" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.142269" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.142269" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.650000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Cl" atomicNumber="17" >
+        <orbital type="S" >
+            <entry exp="1376.400000" coeff="0.064583" />
+            <entry exp="207.857000" coeff="0.380363" />
+            <entry exp="45.155400" coeff="0.678190" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="60.801400" coeff="-0.098764" />
+            <entry exp="13.976500" coeff="0.051134" />
+            <entry exp="3.887100" coeff="0.991338" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="60.801400" coeff="0.108598" />
+            <entry exp="13.976500" coeff="0.458682" />
+            <entry exp="3.887100" coeff="0.601962" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.352990" coeff="-0.222401" />
+            <entry exp="0.526955" coeff="1.182523" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.352990" coeff="0.219216" />
+            <entry exp="0.526955" coeff="0.822320" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.166714" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.166714" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.750000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ar" atomicNumber="18" >
+        <orbital type="S" >
+            <entry exp="1553.710000" coeff="0.064171" />
+            <entry exp="234.678000" coeff="0.378797" />
+            <entry exp="51.012100" coeff="0.679752" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="70.045300" coeff="-0.097466" />
+            <entry exp="16.147300" coeff="0.039057" />
+            <entry exp="4.534920" coeff="0.999916" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="70.045300" coeff="0.107619" />
+            <entry exp="16.147300" coeff="0.459576" />
+            <entry exp="4.534920" coeff="0.600041" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.542090" coeff="-0.176866" />
+            <entry exp="0.607267" coeff="1.146897" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.542090" coeff="0.255687" />
+            <entry exp="0.607267" coeff="0.789842" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.195373" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.195373" coeff="1.000000" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.850000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="K" atomicNumber="19" >
+        <orbital type="S" >
+            <entry exp="1721.175500" coeff="0.064875" />
+            <entry exp="260.016330" coeff="0.380859" />
+            <entry exp="56.624554" coeff="0.677368" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="71.557200" coeff="-0.109343" />
+            <entry exp="15.438940" coeff="0.113064" />
+            <entry exp="4.474551" coeff="0.946257" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="71.557200" coeff="0.133965" />
+            <entry exp="15.438940" coeff="0.530267" />
+            <entry exp="4.474551" coeff="0.511799" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="4.121275" coeff="-0.269973" />
+            <entry exp="1.188621" coeff="0.364632" />
+            <entry exp="0.375674" coeff="0.810753" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="4.121275" coeff="0.019949" />
+            <entry exp="1.188621" coeff="0.434021" />
+            <entry exp="0.375674" coeff="0.645323" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.244577" coeff="-0.268825" />
+            <entry exp="0.038972" coeff="1.128983" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.244577" coeff="0.000308" />
+            <entry exp="0.038972" coeff="0.999879" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.016063" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.016063" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ca" atomicNumber="20" >
+        <orbital type="S" >
+            <entry exp="1915.434800" coeff="0.064624" />
+            <entry exp="289.533240" coeff="0.379838" />
+            <entry exp="63.106352" coeff="0.678329" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="80.397440" coeff="-0.109303" />
+            <entry exp="17.330750" coeff="0.108900" />
+            <entry exp="5.083624" coeff="0.949277" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="80.397440" coeff="0.135433" />
+            <entry exp="17.330750" coeff="0.537222" />
+            <entry exp="5.083624" coeff="0.501804" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="4.782229" coeff="-0.281607" />
+            <entry exp="1.462558" coeff="0.341051" />
+            <entry exp="0.479223" coeff="0.838104" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="4.782229" coeff="0.019009" />
+            <entry exp="1.462558" coeff="0.436038" />
+            <entry exp="0.479223" coeff="0.638671" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.439682" coeff="-0.269705" />
+            <entry exp="0.059130" coeff="1.113293" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.439682" coeff="0.000308" />
+            <entry exp="0.059130" coeff="0.999896" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.023897" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.023897" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Sc" atomicNumber="21" >
+        <orbital type="S" >
+            <entry exp="2119.887000" coeff="0.064421" />
+            <entry exp="320.429900" coeff="0.379160" />
+            <entry exp="69.898930" coeff="0.678963" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="89.764500" coeff="-0.109384" />
+            <entry exp="19.385100" coeff="0.105070" />
+            <entry exp="5.731423" coeff="0.952205" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="89.764500" coeff="0.136328" />
+            <entry exp="19.385100" coeff="0.541860" />
+            <entry exp="5.731423" coeff="0.495055" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="5.491938" coeff="-0.285211" />
+            <entry exp="1.743742" coeff="0.324155" />
+            <entry exp="0.566227" coeff="0.856592" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="5.491938" coeff="0.017614" />
+            <entry exp="1.743742" coeff="0.433645" />
+            <entry exp="0.566227" coeff="0.642551" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="5.722215" coeff="0.265236" />
+            <entry exp="1.360849" coeff="0.855861" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.322652" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.516802" coeff="-0.262678" />
+            <entry exp="0.067214" coeff="1.108079" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.516802" coeff="0.000327" />
+            <entry exp="0.067214" coeff="0.999893" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.025985" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.025985" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ti" atomicNumber="22" >
+        <orbital type="S" >
+            <entry exp="2335.020000" coeff="0.064217" />
+            <entry exp="353.044100" coeff="0.378412" />
+            <entry exp="77.058450" coeff="0.679681" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="99.573870" coeff="-0.109472" />
+            <entry exp="21.546710" coeff="0.101943" />
+            <entry exp="6.413965" coeff="0.954622" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="99.573870" coeff="0.137297" />
+            <entry exp="21.546710" coeff="0.545875" />
+            <entry exp="6.413965" coeff="0.489068" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="6.238279" coeff="-0.286137" />
+            <entry exp="1.996108" coeff="0.321828" />
+            <entry exp="0.646490" coeff="0.859551" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="6.238279" coeff="0.019237" />
+            <entry exp="1.996108" coeff="0.440442" />
+            <entry exp="0.646490" coeff="0.635620" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="7.083666" coeff="0.262921" />
+            <entry exp="1.709634" coeff="0.855772" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.414123" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.573285" coeff="-0.242450" />
+            <entry exp="0.073119" coeff="1.100075" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.573285" coeff="0.000292" />
+            <entry exp="0.073119" coeff="0.999907" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.026538" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.026538" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="V" atomicNumber="23" >
+        <orbital type="S" >
+            <entry exp="2563.877000" coeff="0.063948" />
+            <entry exp="387.534000" coeff="0.377594" />
+            <entry exp="84.598230" coeff="0.680542" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="109.793800" coeff="-0.109836" />
+            <entry exp="23.769210" coeff="0.100707" />
+            <entry exp="7.122961" coeff="0.955633" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="109.793800" coeff="0.138421" />
+            <entry exp="23.769210" coeff="0.550489" />
+            <entry exp="7.122961" coeff="0.482417" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="6.981204" coeff="-0.288459" />
+            <entry exp="2.219839" coeff="0.336436" />
+            <entry exp="0.719803" coeff="0.848190" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="6.981204" coeff="0.021821" />
+            <entry exp="2.219839" coeff="0.456762" />
+            <entry exp="0.719803" coeff="0.618675" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="8.342917" coeff="0.264062" />
+            <entry exp="2.032944" coeff="0.853966" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.495712" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.631262" coeff="-0.236490" />
+            <entry exp="0.080062" coeff="1.097721" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.631262" coeff="0.000190" />
+            <entry exp="0.080062" coeff="0.999940" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.028865" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.028865" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Cr" atomicNumber="24" >
+        <orbital type="S" >
+            <entry exp="2798.294000" coeff="0.063824" />
+            <entry exp="423.137000" coeff="0.377084" />
+            <entry exp="92.438860" coeff="0.680989" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="120.280600" coeff="-0.117779" />
+            <entry exp="26.037270" coeff="0.101431" />
+            <entry exp="7.844172" coeff="0.957198" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="120.280600" coeff="0.139878" />
+            <entry exp="26.037270" coeff="0.555983" />
+            <entry exp="7.844172" coeff="0.474818" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="7.793276" coeff="-0.288857" />
+            <entry exp="2.497196" coeff="0.335115" />
+            <entry exp="0.805142" coeff="0.850248" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="7.793276" coeff="0.022185" />
+            <entry exp="2.497196" coeff="0.461625" />
+            <entry exp="0.805142" coeff="0.614539" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="9.625339" coeff="0.265596" />
+            <entry exp="2.362264" coeff="0.852156" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.577094" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.703921" coeff="-0.232251" />
+            <entry exp="0.086162" coeff="1.093671" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.703921" coeff="0.000180" />
+            <entry exp="0.086162" coeff="0.999945" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.032199" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.032199" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Mn" atomicNumber="25" >
+        <orbital type="S" >
+            <entry exp="3041.686000" coeff="0.063745" />
+            <entry exp="460.090100" coeff="0.376749" />
+            <entry exp="100.595800" coeff="0.681247" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="131.767300" coeff="-0.110296" />
+            <entry exp="28.569150" coeff="0.098190" />
+            <entry exp="8.660501" coeff="0.957659" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="131.767300" coeff="0.140454" />
+            <entry exp="28.569150" coeff="0.557802" />
+            <entry exp="8.660501" coeff="0.471501" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="8.569081" coeff="-0.291714" />
+            <entry exp="2.768178" coeff="0.343963" />
+            <entry exp="0.887288" coeff="0.845198" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="8.569081" coeff="0.024224" />
+            <entry exp="2.768178" coeff="0.468660" />
+            <entry exp="0.887288" coeff="0.607421" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="11.068840" coeff="0.265272" />
+            <entry exp="2.730707" coeff="0.851795" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.668509" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.767443" coeff="-0.230004" />
+            <entry exp="0.092025" coeff="1.091450" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.767443" coeff="0.000308" />
+            <entry exp="0.092025" coeff="0.999907" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.033265" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.033265" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Fe" atomicNumber="26" >
+        <orbital type="S" >
+            <entry exp="3299.184000" coeff="0.063586" />
+            <entry exp="499.088600" coeff="0.376202" />
+            <entry exp="109.161400" coeff="0.681785" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="143.465200" coeff="-0.110552" />
+            <entry exp="31.168580" coeff="0.096847" />
+            <entry exp="9.483612" coeff="0.958797" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="143.465200" coeff="0.141101" />
+            <entry exp="31.168580" coeff="0.560387" />
+            <entry exp="9.483612" coeff="0.467644" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="9.464565" coeff="-0.292056" />
+            <entry exp="3.100373" coeff="0.337524" />
+            <entry exp="0.986493" coeff="0.851942" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="9.464565" coeff="0.023762" />
+            <entry exp="3.100373" coeff="0.468911" />
+            <entry exp="0.986493" coeff="0.608311" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="12.354490" coeff="0.268611" />
+            <entry exp="3.055605" coeff="0.849272" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.738591" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.853412" coeff="-0.227944" />
+            <entry exp="0.098812" coeff="1.088287" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.853412" coeff="-0.000426" />
+            <entry exp="0.098812" coeff="1.000124" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.036442" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.036442" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Co" atomicNumber="27" >
+        <orbital type="S" >
+            <entry exp="3564.762000" coeff="0.063487" />
+            <entry exp="539.390800" coeff="0.375818" />
+            <entry exp="118.044900" coeff="0.682122" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="155.438200" coeff="-0.110987" />
+            <entry exp="33.815610" coeff="0.096767" />
+            <entry exp="10.333230" coeff="0.958992" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="155.438200" coeff="0.142064" />
+            <entry exp="33.815610" coeff="0.563444" />
+            <entry exp="10.333230" coeff="0.463024" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="10.381520" coeff="-0.292262" />
+            <entry exp="3.382714" coeff="0.343251" />
+            <entry exp="1.076954" coeff="0.846963" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="10.381520" coeff="0.026313" />
+            <entry exp="3.382714" coeff="0.476917" />
+            <entry exp="1.076954" coeff="0.599154" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="13.740700" coeff="0.270955" />
+            <entry exp="3.408983" coeff="0.847342" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.818641" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.909015" coeff="-0.217460" />
+            <entry exp="0.105041" coeff="1.084998" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.909015" coeff="0.000228" />
+            <entry exp="0.105041" coeff="0.999934" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.037257" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.037257" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ni" atomicNumber="28" >
+        <orbital type="S" >
+            <entry exp="3848.005000" coeff="0.063266" />
+            <entry exp="582.030700" coeff="0.375171" />
+            <entry exp="127.367400" coeff="0.682824" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="168.289600" coeff="-0.111115" />
+            <entry exp="36.656330" coeff="0.095324" />
+            <entry exp="11.232120" coeff="0.960161" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="168.289600" coeff="0.142490" />
+            <entry exp="36.656330" coeff="0.565547" />
+            <entry exp="11.232120" coeff="0.459993" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="11.358770" coeff="-0.292060" />
+            <entry exp="3.738846" coeff="0.337541" />
+            <entry exp="1.182463" coeff="0.852533" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="11.358770" coeff="0.026138" />
+            <entry exp="3.738846" coeff="0.476598" />
+            <entry exp="1.182463" coeff="0.600380" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="15.220690" coeff="0.272606" />
+            <entry exp="3.786020" coeff="0.845928" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.904557" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.988904" coeff="-0.213687" />
+            <entry exp="0.111025" coeff="1.081933" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.988904" coeff="0.000294" />
+            <entry exp="0.111025" coeff="0.999917" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.039258" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.039258" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Cu" atomicNumber="29" >
+        <orbital type="S" >
+            <entry exp="4134.302000" coeff="0.063188" />
+            <entry exp="625.491200" coeff="0.374845" />
+            <entry exp="136.955600" coeff="0.683100" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="181.496000" coeff="-0.111320" />
+            <entry exp="39.574310" coeff="0.094487" />
+            <entry exp="12.162460" coeff="0.960879" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="181.496000" coeff="0.143084" />
+            <entry exp="39.574310" coeff="0.567756" />
+            <entry exp="12.162460" coeff="0.456714" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="12.351110" coeff="-0.292223" />
+            <entry exp="4.049651" coeff="0.342991" />
+            <entry exp="1.279225" coeff="0.847946" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="12.351110" coeff="0.027727" />
+            <entry exp="4.049651" coeff="0.483524" />
+            <entry exp="1.279225" coeff="0.592978" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="16.759380" coeff="0.274112" />
+            <entry exp="4.178977" coeff="0.844625" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.994327" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.049804" coeff="-0.206508" />
+            <entry exp="0.116933" coeff="1.079273" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.049804" coeff="0.000139" />
+            <entry exp="0.116933" coeff="0.999961" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.040000" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.040000" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Zn" atomicNumber="30" >
+        <orbital type="S" >
+            <entry exp="4432.288000" coeff="0.063093" />
+            <entry exp="670.660100" coeff="0.374504" />
+            <entry exp="146.902400" coeff="0.683416" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="195.004200" coeff="-0.111628" />
+            <entry exp="42.568890" coeff="0.094336" />
+            <entry exp="13.121430" coeff="0.961100" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="195.004200" coeff="0.143806" />
+            <entry exp="42.568890" coeff="0.570002" />
+            <entry exp="13.121430" coeff="0.453312" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="13.402310" coeff="-0.291781" />
+            <entry exp="4.399906" coeff="0.342614" />
+            <entry exp="1.385148" coeff="0.848284" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="13.402310" coeff="0.028705" />
+            <entry exp="4.399906" coeff="0.486252" />
+            <entry exp="1.385148" coeff="0.590235" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="18.368200" coeff="0.275386" />
+            <entry exp="4.591304" coeff="0.843477" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="1.090203" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.121558" coeff="-0.202371" />
+            <entry exp="0.122944" coeff="1.077035" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.121558" coeff="0.000344" />
+            <entry exp="0.122944" coeff="0.999905" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.042193" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.042193" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ga" atomicNumber="31" >
+        <orbital type="S" >
+            <entry exp="4751.897900" coeff="0.062840" />
+            <entry exp="718.920540" coeff="0.373611" />
+            <entry exp="157.445920" coeff="0.684363" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="209.583400" coeff="-0.111516" />
+            <entry exp="45.691710" coeff="0.092696" />
+            <entry exp="14.132970" coeff="0.962287" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="209.583400" coeff="0.144266" />
+            <entry exp="45.691710" coeff="0.573178" />
+            <entry exp="14.132970" coeff="0.449086" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="14.599540" coeff="0.291029" />
+            <entry exp="4.860842" coeff="-0.323188" />
+            <entry exp="1.549111" coeff="-0.864391" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="14.599540" coeff="0.026562" />
+            <entry exp="4.860842" coeff="0.483314" />
+            <entry exp="1.549111" coeff="0.592430" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="21.292530" coeff="0.161990" />
+            <entry exp="5.393166" coeff="0.511674" />
+            <entry exp="1.333883" coeff="0.589873" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.267943" coeff="-0.285131" />
+            <entry exp="0.188399" coeff="1.128022" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.267943" coeff="0.030183" />
+            <entry exp="0.188399" coeff="0.988466" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.057237" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.057237" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ge" atomicNumber="32" >
+        <orbital type="S" >
+            <entry exp="5073.749900" coeff="0.062725" />
+            <entry exp="767.724170" coeff="0.373167" />
+            <entry exp="168.188810" coeff="0.684787" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="224.436000" coeff="-0.111515" />
+            <entry exp="48.955430" coeff="0.091200" />
+            <entry exp="15.183700" coeff="0.963449" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="224.436000" coeff="0.144640" />
+            <entry exp="48.955430" coeff="0.575380" />
+            <entry exp="15.183700" coeff="0.445995" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="15.912570" coeff="-0.289565" />
+            <entry exp="5.441437" coeff="0.293883" />
+            <entry exp="1.742603" coeff="0.889199" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="15.912570" coeff="0.022973" />
+            <entry exp="5.441437" coeff="0.473245" />
+            <entry exp="1.742603" coeff="0.603278" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="24.321421" coeff="0.157799" />
+            <entry exp="6.223814" coeff="0.511492" />
+            <entry exp="1.588737" coeff="0.585770" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.466538" coeff="-0.396734" />
+            <entry exp="0.263093" coeff="1.190670" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.466538" coeff="0.027893" />
+            <entry exp="0.263093" coeff="0.987490" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.084821" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.084821" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="As" atomicNumber="33" >
+        <orbital type="S" >
+            <entry exp="5407.613800" coeff="0.062601" />
+            <entry exp="818.174360" coeff="0.372779" />
+            <entry exp="179.265690" coeff="0.685184" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="237.778300" coeff="-0.112838" />
+            <entry exp="54.256620" coeff="0.087227" />
+            <entry exp="16.328030" coeff="0.968188" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="237.778300" coeff="0.149680" />
+            <entry exp="54.256620" coeff="0.562322" />
+            <entry exp="16.328030" coeff="0.459323" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="17.101850" coeff="-0.291454" />
+            <entry exp="5.805144" coeff="0.296962" />
+            <entry exp="1.902084" coeff="0.886579" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="17.101850" coeff="0.025686" />
+            <entry exp="5.805144" coeff="0.483397" />
+            <entry exp="1.902084" coeff="0.588785" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="27.437209" coeff="0.154495" />
+            <entry exp="7.084044" coeff="0.511432" />
+            <entry exp="1.855823" coeff="0.582194" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.675404" coeff="-0.505761" />
+            <entry exp="0.341656" coeff="1.251764" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.675404" coeff="0.025282" />
+            <entry exp="0.341656" coeff="0.987433" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.113630" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.113630" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Se" atomicNumber="34" >
+        <orbital type="S" >
+            <entry exp="5751.321500" coeff="0.062493" />
+            <entry exp="870.257210" coeff="0.372368" />
+            <entry exp="190.729490" coeff="0.685580" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="255.016400" coeff="-0.111908" />
+            <entry exp="55.576540" coeff="0.090999" />
+            <entry exp="17.356610" coeff="0.963668" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="255.016400" coeff="0.146149" />
+            <entry exp="55.576540" coeff="0.581371" />
+            <entry exp="17.356610" coeff="0.437460" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="18.445680" coeff="-0.291793" />
+            <entry exp="6.328759" coeff="0.284621" />
+            <entry exp="2.096758" coeff="0.897305" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="18.445680" coeff="0.024421" />
+            <entry exp="6.328759" coeff="0.483365" />
+            <entry exp="2.096758" coeff="0.587904" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="30.627464" coeff="0.151986" />
+            <entry exp="7.971276" coeff="0.511640" />
+            <entry exp="2.134810" coeff="0.578694" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.872633" coeff="-0.567764" />
+            <entry exp="0.417474" coeff="1.294127" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.872633" coeff="0.028255" />
+            <entry exp="0.417474" coeff="0.984906" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.137091" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.137091" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Br" atomicNumber="35" >
+        <orbital type="S" >
+            <entry exp="6103.289900" coeff="0.062418" />
+            <entry exp="923.697430" coeff="0.372041" />
+            <entry exp="202.520310" coeff="0.685873" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="270.601500" coeff="-0.112149" />
+            <entry exp="58.253570" coeff="0.093145" />
+            <entry exp="18.469330" coeff="0.961679" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="270.601500" coeff="0.147751" />
+            <entry exp="58.253570" coeff="0.601056" />
+            <entry exp="18.469330" coeff="0.412870" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="19.761420" coeff="-0.293870" />
+            <entry exp="6.821752" coeff="0.280266" />
+            <entry exp="2.291629" coeff="0.902036" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="19.761420" coeff="0.025007" />
+            <entry exp="6.821752" coeff="0.486610" />
+            <entry exp="2.291629" coeff="0.582423" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="33.965097" coeff="0.149667" />
+            <entry exp="8.900831" coeff="0.511748" />
+            <entry exp="2.428436" coeff="0.575915" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="2.131206" coeff="-0.651803" />
+            <entry exp="0.499354" coeff="1.336012" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="2.131206" coeff="0.028708" />
+            <entry exp="0.499354" coeff="0.984070" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.164764" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.164764" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Kr" atomicNumber="36" >
+        <orbital type="S" >
+            <entry exp="6446.630700" coeff="0.062540" />
+            <entry exp="976.875700" coeff="0.372107" />
+            <entry exp="214.479550" coeff="0.685611" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="287.644600" coeff="-0.112061" />
+            <entry exp="62.620090" coeff="0.090139" />
+            <entry exp="19.691740" coeff="0.964330" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="287.644600" coeff="0.147528" />
+            <entry exp="62.620090" coeff="0.586892" />
+            <entry exp="19.691740" coeff="0.429507" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="21.123210" coeff="-0.295817" />
+            <entry exp="7.303286" coeff="0.279217" />
+            <entry exp="2.488850" coeff="0.903730" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="21.123210" coeff="0.026070" />
+            <entry exp="7.303286" coeff="0.492250" />
+            <entry exp="2.488850" coeff="0.574274" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="37.368103" coeff="0.147947" />
+            <entry exp="9.854313" coeff="0.512172" />
+            <entry exp="2.732795" coeff="0.572950" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="2.361374" coeff="-0.720245" />
+            <entry exp="0.586016" coeff="1.376846" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="2.361374" coeff="0.028775" />
+            <entry exp="0.586016" coeff="0.983339" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.194447" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.194447" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Rb" atomicNumber="37" >
+        <orbital type="S" >
+            <entry exp="6816.722500" coeff="0.062496" />
+            <entry exp="1033.000700" coeff="0.371950" />
+            <entry exp="226.908610" coeff="0.685729" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="304.128300" coeff="-0.112330" />
+            <entry exp="66.260580" coeff="0.090751" />
+            <entry exp="20.919450" coeff="0.963941" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="304.128300" coeff="0.148441" />
+            <entry exp="66.260580" coeff="0.589125" />
+            <entry exp="20.919450" coeff="0.425825" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="22.465330" coeff="-0.300485" />
+            <entry exp="7.877468" coeff="0.278357" />
+            <entry exp="2.705271" coeff="0.907610" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="22.465330" coeff="0.024454" />
+            <entry exp="7.877468" coeff="0.494454" />
+            <entry exp="2.705271" coeff="0.571857" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="40.866031" coeff="0.146604" />
+            <entry exp="10.840885" coeff="0.512725" />
+            <entry exp="3.050834" coeff="0.569980" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="2.692116" coeff="-0.331162" />
+            <entry exp="0.723056" coeff="0.509699" />
+            <entry exp="0.259838" coeff="0.698246" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="2.692116" coeff="0.011901" />
+            <entry exp="0.723056" coeff="0.495173" />
+            <entry exp="0.259838" coeff="0.573724" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.189714" coeff="-0.271193" />
+            <entry exp="0.033997" coeff="1.141550" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.189714" coeff="0.000308" />
+            <entry exp="0.033997" coeff="0.999865" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.014712" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.014712" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Sr" atomicNumber="38" >
+        <orbital type="S" >
+            <entry exp="7215.473500" coeff="0.062282" />
+            <entry exp="1092.851900" coeff="0.371310" />
+            <entry exp="239.981820" coeff="0.686444" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="322.124600" coeff="-0.112235" />
+            <entry exp="70.090460" coeff="0.089544" />
+            <entry exp="22.176410" coeff="0.964813" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="322.124600" coeff="0.148837" />
+            <entry exp="70.090460" coeff="0.591947" />
+            <entry exp="22.176410" coeff="0.422171" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="23.927630" coeff="-0.302472" />
+            <entry exp="8.475114" coeff="0.270084" />
+            <entry exp="2.942934" coeff="0.915920" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="23.927630" coeff="0.024837" />
+            <entry exp="8.475114" coeff="0.493478" />
+            <entry exp="2.942934" coeff="0.570983" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="44.566115" coeff="0.145127" />
+            <entry exp="11.881489" coeff="0.513068" />
+            <entry exp="3.387558" coeff="0.567664" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="2.940966" coeff="-0.351985" />
+            <entry exp="0.852356" coeff="0.497255" />
+            <entry exp="0.321537" coeff="0.723860" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="2.940966" coeff="0.009723" />
+            <entry exp="0.852356" coeff="0.498322" />
+            <entry exp="0.321537" coeff="0.565056" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.348042" coeff="-0.285147" />
+            <entry exp="0.048177" coeff="1.120939" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.348042" coeff="0.000308" />
+            <entry exp="0.048177" coeff="0.999893" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.021803" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.021803" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Y" atomicNumber="39" >
+        <orbital type="S" >
+            <entry exp="7646.421000" coeff="0.061891" />
+            <entry exp="1156.863000" coeff="0.370207" />
+            <entry exp="253.715200" coeff="0.687756" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="341.854000" coeff="-0.111900" />
+            <entry exp="74.209860" coeff="0.086805" />
+            <entry exp="23.513520" coeff="0.966785" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="341.854000" coeff="0.148572" />
+            <entry exp="74.209860" coeff="0.594307" />
+            <entry exp="23.513520" coeff="0.419604" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="18.862600" coeff="-1.477873" />
+            <entry exp="16.454050" coeff="1.347259" />
+            <entry exp="3.484500" coeff="1.006231" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="18.862600" coeff="-0.704141" />
+            <entry exp="16.454050" coeff="1.057862" />
+            <entry exp="3.484500" coeff="0.739382" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="50.353750" coeff="0.136796" />
+            <entry exp="13.530780" coeff="0.501906" />
+            <entry exp="3.944996" coeff="0.578860" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="3.221733" coeff="-0.369958" />
+            <entry exp="1.050705" coeff="0.430864" />
+            <entry exp="0.392592" coeff="0.802087" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="3.221733" coeff="0.002494" />
+            <entry exp="1.050705" coeff="0.453762" />
+            <entry exp="0.392592" coeff="0.613068" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="1.530137" coeff="0.338403" />
+            <entry exp="0.630067" coeff="0.729329" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.216588" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.432764" coeff="-0.346458" />
+            <entry exp="0.057012" coeff="1.132777" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.432764" coeff="-0.001337" />
+            <entry exp="0.057012" coeff="1.000440" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.023754" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.023754" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Zr" atomicNumber="40" >
+        <orbital type="S" >
+            <entry exp="8084.592000" coeff="0.061578" />
+            <entry exp="1221.668000" coeff="0.369399" />
+            <entry exp="267.691700" coeff="0.688728" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="361.021200" coeff="-0.111907" />
+            <entry exp="78.304950" coeff="0.085840" />
+            <entry exp="24.845230" coeff="0.967513" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="361.021200" coeff="0.148762" />
+            <entry exp="78.304950" coeff="0.596569" />
+            <entry exp="24.845230" coeff="0.416785" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="20.006280" coeff="-1.544349" />
+            <entry exp="17.574150" coeff="1.409596" />
+            <entry exp="3.742985" coeff="1.009349" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="20.006280" coeff="-0.756848" />
+            <entry exp="17.574150" coeff="1.112090" />
+            <entry exp="3.742985" coeff="0.736802" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="54.723230" coeff="0.134824" />
+            <entry exp="14.774160" coeff="0.500554" />
+            <entry exp="4.358961" coeff="0.578782" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="3.554788" coeff="-0.379387" />
+            <entry exp="1.178992" coeff="0.423285" />
+            <entry exp="0.444697" coeff="0.814068" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="3.554788" coeff="0.002599" />
+            <entry exp="1.178992" coeff="0.459976" />
+            <entry exp="0.444697" coeff="0.605849" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="1.862842" coeff="0.285032" />
+            <entry exp="0.643313" coeff="0.797207" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.199395" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.505049" coeff="-0.329512" />
+            <entry exp="0.062116" coeff="1.120709" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.505049" coeff="-0.001249" />
+            <entry exp="0.062116" coeff="1.000384" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.025580" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.025580" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Nb" atomicNumber="41" >
+        <orbital type="S" >
+            <entry exp="8466.517000" coeff="0.061804" />
+            <entry exp="1281.261000" coeff="0.369805" />
+            <entry exp="281.231100" coeff="0.688079" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="379.472900" coeff="-0.112106" />
+            <entry exp="82.335890" coeff="0.086503" />
+            <entry exp="26.222480" coeff="0.967057" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="379.472900" coeff="0.149667" />
+            <entry exp="82.335890" coeff="0.598718" />
+            <entry exp="26.222480" coeff="0.413238" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="21.162940" coeff="-1.555131" />
+            <entry exp="18.589780" coeff="1.417939" />
+            <entry exp="4.009981" coeff="1.010620" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="21.162940" coeff="-0.755462" />
+            <entry exp="18.589780" coeff="1.113966" />
+            <entry exp="4.009981" coeff="0.732767" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="59.012190" coeff="0.133710" />
+            <entry exp="16.012790" coeff="0.500039" />
+            <entry exp="4.777185" coeff="0.577538" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="3.836375" coeff="-0.389104" />
+            <entry exp="1.303325" coeff="0.434970" />
+            <entry exp="0.493431" coeff="0.811590" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="3.836375" coeff="0.003290" />
+            <entry exp="1.303325" coeff="0.471645" />
+            <entry exp="0.493431" coeff="0.593699" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="1.970443" coeff="0.310681" />
+            <entry exp="0.661935" coeff="0.780069" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.205997" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.572373" coeff="-0.315609" />
+            <entry exp="0.068203" coeff="1.114047" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.572373" coeff="-0.001133" />
+            <entry exp="0.068203" coeff="1.000338" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.027157" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.027157" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Mo" atomicNumber="42" >
+        <orbital type="S" >
+            <entry exp="8899.491000" coeff="0.061706" />
+            <entry exp="1346.764000" coeff="0.369454" />
+            <entry exp="295.635200" coeff="0.688434" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="399.313900" coeff="-0.112144" />
+            <entry exp="86.593560" coeff="0.086011" />
+            <entry exp="27.639040" coeff="0.967433" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="399.313900" coeff="0.150066" />
+            <entry exp="86.593560" coeff="0.600769" />
+            <entry exp="27.639040" coeff="0.410386" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="22.502920" coeff="-1.422306" />
+            <entry exp="19.491710" coeff="1.284185" />
+            <entry exp="4.278180" coeff="1.010866" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="22.502920" coeff="-0.668066" />
+            <entry exp="19.491710" coeff="1.030346" />
+            <entry exp="4.278180" coeff="0.728348" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="63.780450" coeff="0.131739" />
+            <entry exp="17.373580" coeff="0.498532" />
+            <entry exp="5.230784" coeff="0.578178" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="4.163021" coeff="-0.396423" />
+            <entry exp="1.435305" coeff="0.437079" />
+            <entry exp="0.543782" coeff="0.814846" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="4.163021" coeff="0.002963" />
+            <entry exp="1.435305" coeff="0.479147" />
+            <entry exp="0.543782" coeff="0.586487" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="2.270937" coeff="0.311264" />
+            <entry exp="0.754653" coeff="0.781034" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.235142" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.631801" coeff="-0.303362" />
+            <entry exp="0.073258" coeff="1.108413" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.631801" coeff="-0.001079" />
+            <entry exp="0.073258" coeff="1.000313" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.028025" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.028025" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Tc" atomicNumber="43" >
+        <orbital type="S" >
+            <entry exp="9329.482000" coeff="0.061712" />
+            <entry exp="1412.506000" coeff="0.369337" />
+            <entry exp="310.264300" coeff="0.688472" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="418.817500" coeff="-0.112403" />
+            <entry exp="91.250780" coeff="0.085318" />
+            <entry exp="29.112120" coeff="0.968177" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="418.817500" coeff="0.150072" />
+            <entry exp="91.250780" coeff="0.600057" />
+            <entry exp="29.112120" coeff="0.410986" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="25.910640" coeff="-1.380446" />
+            <entry exp="23.267700" coeff="1.197900" />
+            <entry exp="4.707083" coeff="1.052649" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="25.910640" coeff="-1.655271" />
+            <entry exp="23.267700" coeff="1.986020" />
+            <entry exp="4.707083" coeff="0.729034" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="68.783750" coeff="0.129693" />
+            <entry exp="18.803890" coeff="0.496619" />
+            <entry exp="5.705228" coeff="0.579547" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="4.441138" coeff="-0.404114" />
+            <entry exp="1.595639" coeff="0.439838" />
+            <entry exp="0.595560" coeff="0.821936" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="4.441138" coeff="0.012291" />
+            <entry exp="1.595639" coeff="0.463207" />
+            <entry exp="0.595560" coeff="0.598383" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="2.599164" coeff="0.309219" />
+            <entry exp="0.862276" coeff="0.782906" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.270607" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.673881" coeff="-0.270003" />
+            <entry exp="0.077241" coeff="1.099150" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.673881" coeff="-0.000920" />
+            <entry exp="0.077241" coeff="1.000264" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.028696" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.028696" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ru" atomicNumber="44" >
+        <orbital type="S" >
+            <entry exp="9786.161000" coeff="0.061605" />
+            <entry exp="1481.477000" coeff="0.368982" />
+            <entry exp="325.412200" coeff="0.688845" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="439.866500" coeff="-0.112391" />
+            <entry exp="95.762730" coeff="0.084694" />
+            <entry exp="30.605660" coeff="0.968638" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="439.866500" coeff="0.150379" />
+            <entry exp="95.762730" coeff="0.601929" />
+            <entry exp="30.605660" coeff="0.408464" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="27.277370" coeff="-1.395553" />
+            <entry exp="24.510820" coeff="1.210852" />
+            <entry exp="5.008946" coeff="1.054045" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="27.277370" coeff="-1.668618" />
+            <entry exp="24.510820" coeff="2.002790" />
+            <entry exp="5.008946" coeff="0.725144" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="73.983300" coeff="0.127760" />
+            <entry exp="20.281490" coeff="0.495147" />
+            <entry exp="6.194298" coeff="0.580655" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="4.765812" coeff="-0.410363" />
+            <entry exp="1.734531" coeff="0.448003" />
+            <entry exp="0.646636" coeff="0.819808" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="4.765812" coeff="0.011274" />
+            <entry exp="1.734531" coeff="0.472703" />
+            <entry exp="0.646636" coeff="0.589843" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="2.889108" coeff="0.315994" />
+            <entry exp="0.953961" coeff="0.778066" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.295881" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.740662" coeff="-0.263966" />
+            <entry exp="0.082171" coeff="1.094857" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.740662" coeff="-0.000762" />
+            <entry exp="0.082171" coeff="1.000212" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.030097" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.030097" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Rh" atomicNumber="45" >
+        <orbital type="S" >
+            <entry exp="10217.710000" coeff="0.061732" />
+            <entry exp="1548.412000" coeff="0.369153" />
+            <entry exp="340.499000" coeff="0.688514" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="460.759300" coeff="-0.112446" />
+            <entry exp="100.328900" coeff="0.084381" />
+            <entry exp="32.139710" coeff="0.968902" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="460.759300" coeff="0.150858" />
+            <entry exp="100.328900" coeff="0.603514" />
+            <entry exp="32.139710" coeff="0.406025" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="28.793290" coeff="-1.404091" />
+            <entry exp="25.917680" coeff="1.216169" />
+            <entry exp="5.320640" coeff="1.056555" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="28.793290" coeff="-1.712218" />
+            <entry exp="25.917680" coeff="2.047603" />
+            <entry exp="5.320640" coeff="0.722983" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="79.255970" coeff="0.126190" />
+            <entry exp="21.789450" coeff="0.493954" />
+            <entry exp="6.697518" coeff="0.581330" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="5.109748" coeff="-0.412647" />
+            <entry exp="1.875414" coeff="0.451885" />
+            <entry exp="0.699558" coeff="0.818899" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="5.109748" coeff="0.009374" />
+            <entry exp="1.875414" coeff="0.481554" />
+            <entry exp="0.699558" coeff="0.582231" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="3.190908" coeff="0.321040" />
+            <entry exp="1.054575" coeff="0.773852" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.326079" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.800571" coeff="-0.255348" />
+            <entry exp="0.087321" coeff="1.091308" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.800571" coeff="-0.000776" />
+            <entry exp="0.087321" coeff="1.000212" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.031407" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.031407" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Pd" atomicNumber="46" >
+        <orbital type="S" >
+            <entry exp="10728.740000" coeff="0.061429" />
+            <entry exp="1624.074000" coeff="0.368328" />
+            <entry exp="356.793700" coeff="0.689503" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="482.478300" coeff="-0.112679" />
+            <entry exp="105.059000" coeff="0.084612" />
+            <entry exp="33.681450" coeff="0.968787" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="482.478300" coeff="0.151079" />
+            <entry exp="105.059000" coeff="0.605092" />
+            <entry exp="33.681450" coeff="0.403980" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="30.186540" coeff="-1.418547" />
+            <entry exp="27.166420" coeff="1.229444" />
+            <entry exp="5.635934" coeff="1.057083" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="30.186540" coeff="-1.709817" />
+            <entry exp="27.166420" coeff="2.049308" />
+            <entry exp="5.635934" coeff="0.718630" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="84.236910" coeff="0.125643" />
+            <entry exp="23.249190" coeff="0.493720" />
+            <entry exp="7.196760" coeff="0.580343" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="5.475374" coeff="-0.417261" />
+            <entry exp="1.997604" coeff="0.470588" />
+            <entry exp="0.743930" coeff="0.804636" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="5.475374" coeff="0.011584" />
+            <entry exp="1.997604" coeff="0.497455" />
+            <entry exp="0.743930" coeff="0.565527" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="3.473077" coeff="0.328154" />
+            <entry exp="1.148050" coeff="0.768027" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.354811" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.890163" coeff="-0.278432" />
+            <entry exp="0.092821" coeff="1.093028" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.890163" coeff="-0.001272" />
+            <entry exp="0.092821" coeff="1.000332" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.033774" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.033774" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Ag" atomicNumber="47" >
+        <orbital type="S" >
+            <entry exp="11190.780000" coeff="0.061495" />
+            <entry exp="1695.077000" coeff="0.368405" />
+            <entry exp="372.675200" coeff="0.689325" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="504.616200" coeff="-0.112658" />
+            <entry exp="109.871800" coeff="0.084028" />
+            <entry exp="35.295130" coeff="0.969234" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="504.616200" coeff="0.151480" />
+            <entry exp="109.871800" coeff="0.606514" />
+            <entry exp="35.295130" coeff="0.401830" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="31.568770" coeff="-1.422028" />
+            <entry exp="28.343970" coeff="1.234098" />
+            <entry exp="5.945127" coeff="1.055683" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="31.568770" coeff="-1.673366" />
+            <entry exp="28.343970" coeff="2.018976" />
+            <entry exp="5.945127" coeff="0.712689" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="89.933350" coeff="0.124016" />
+            <entry exp="24.874960" coeff="0.492383" />
+            <entry exp="7.738191" coeff="0.581497" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="5.800256" coeff="-0.419617" />
+            <entry exp="2.127256" coeff="0.484350" />
+            <entry exp="0.793551" coeff="0.795203" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="5.800256" coeff="0.014304" />
+            <entry exp="2.127256" coeff="0.507194" />
+            <entry exp="0.793551" coeff="0.553974" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="3.796557" coeff="0.331426" />
+            <entry exp="1.256644" coeff="0.765163" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.388133" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.928544" coeff="-0.252300" />
+            <entry exp="0.097255" coeff="1.087392" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.928544" coeff="-0.001481" />
+            <entry exp="0.097255" coeff="1.000388" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.034933" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.034933" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Cd" atomicNumber="48" >
+        <orbital type="S" >
+            <entry exp="11686.090000" coeff="0.061427" />
+            <entry exp="1770.111000" coeff="0.368157" />
+            <entry exp="389.209000" coeff="0.689572" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="527.600400" coeff="-0.112592" />
+            <entry exp="114.832900" coeff="0.083270" />
+            <entry exp="36.958290" coeff="0.969798" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="527.600400" coeff="0.151805" />
+            <entry exp="114.832900" coeff="0.607760" />
+            <entry exp="36.958290" coeff="0.399963" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="33.015480" coeff="-1.406471" />
+            <entry exp="29.545430" coeff="1.218156" />
+            <entry exp="6.278508" coeff="1.055520" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="33.015480" coeff="-1.609024" />
+            <entry exp="29.545430" coeff="1.959568" />
+            <entry exp="6.278508" coeff="0.708027" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="95.472740" coeff="0.123083" />
+            <entry exp="26.481960" coeff="0.491677" />
+            <entry exp="8.282886" coeff="0.581541" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="6.150596" coeff="-0.422921" />
+            <entry exp="2.259746" coeff="0.498771" />
+            <entry exp="0.841426" coeff="0.785076" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="6.150596" coeff="0.014482" />
+            <entry exp="2.259746" coeff="0.518661" />
+            <entry exp="0.841426" coeff="0.542666" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="4.082141" coeff="0.337941" />
+            <entry exp="1.357279" coeff="0.759168" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="0.420831" coeff="1.000000" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.949069" coeff="-0.221555" />
+            <entry exp="0.101488" coeff="1.080944" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.949069" coeff="-0.001540" />
+            <entry exp="0.101488" coeff="1.000412" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.035987" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.035987" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="In" atomicNumber="49" >
+        <orbital type="S" >
+            <entry exp="12214.547000" coeff="0.061248" />
+            <entry exp="1848.913600" coeff="0.367675" />
+            <entry exp="406.368330" coeff="0.690136" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="550.442300" coeff="-0.112709" />
+            <entry exp="119.774400" coeff="0.083444" />
+            <entry exp="38.669270" coeff="0.969688" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="550.442300" coeff="0.152370" />
+            <entry exp="119.774400" coeff="0.609651" />
+            <entry exp="38.669270" coeff="0.397025" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="47.029310" coeff="-0.275895" />
+            <entry exp="22.496420" coeff="0.059773" />
+            <entry exp="6.697117" coeff="1.082148" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="47.029310" coeff="-0.140848" />
+            <entry exp="22.496420" coeff="0.529087" />
+            <entry exp="6.697117" coeff="0.662068" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="102.173560" coeff="0.120556" />
+            <entry exp="28.394632" coeff="0.488498" />
+            <entry exp="8.924805" coeff="0.585019" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="6.572360" coeff="-0.428483" />
+            <entry exp="2.502158" coeff="0.463364" />
+            <entry exp="0.942025" coeff="0.821968" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="6.572360" coeff="0.010913" />
+            <entry exp="2.502158" coeff="0.503676" />
+            <entry exp="0.942025" coeff="0.558181" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="4.535364" coeff="0.250857" />
+            <entry exp="1.537148" coeff="0.569311" />
+            <entry exp="0.499492" coeff="0.384064" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.001221" coeff="-0.436417" />
+            <entry exp="0.165970" coeff="1.189893" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.001221" coeff="0.023163" />
+            <entry exp="0.165970" coeff="0.990331" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.054340" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.054340" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Sn" atomicNumber="50" >
+        <orbital type="S" >
+            <entry exp="12741.674000" coeff="0.061135" />
+            <entry exp="1928.469200" coeff="0.367293" />
+            <entry exp="423.807970" coeff="0.690545" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="574.287500" coeff="-0.112746" />
+            <entry exp="124.953700" coeff="0.082863" />
+            <entry exp="40.395760" coeff="0.970151" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="574.287500" coeff="0.152580" />
+            <entry exp="124.953700" coeff="0.611011" />
+            <entry exp="40.395760" coeff="0.395155" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="48.806620" coeff="-0.282453" />
+            <entry exp="23.835880" coeff="0.066056" />
+            <entry exp="7.048296" coeff="1.081987" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="48.806620" coeff="-0.150963" />
+            <entry exp="23.835880" coeff="0.539968" />
+            <entry exp="7.048296" coeff="0.660482" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="108.056300" coeff="0.119824" />
+            <entry exp="30.131576" coeff="0.487591" />
+            <entry exp="9.530036" coeff="0.584987" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="6.973378" coeff="-0.434036" />
+            <entry exp="2.693040" coeff="0.461029" />
+            <entry exp="1.025958" coeff="0.828558" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="6.973378" coeff="0.011951" />
+            <entry exp="2.693040" coeff="0.506719" />
+            <entry exp="1.025958" coeff="0.552911" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="4.962610" coeff="0.252949" />
+            <entry exp="1.712083" coeff="0.572761" />
+            <entry exp="0.577195" coeff="0.369039" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.131463" coeff="-0.525208" />
+            <entry exp="0.203409" coeff="1.229226" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.131463" coeff="0.021071" />
+            <entry exp="0.203409" coeff="0.990591" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.070564" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.070564" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Sb" atomicNumber="51" >
+        <orbital type="S" >
+            <entry exp="13289.383000" coeff="0.060984" />
+            <entry exp="2010.521800" coeff="0.366849" />
+            <entry exp="441.698150" coeff="0.691050" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="598.889000" coeff="-0.112720" />
+            <entry exp="130.038500" coeff="0.082644" />
+            <entry exp="42.132860" coeff="0.970258" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="598.889000" coeff="0.153067" />
+            <entry exp="130.038500" coeff="0.613597" />
+            <entry exp="42.132860" coeff="0.391699" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="51.513330" coeff="-0.277043" />
+            <entry exp="24.435950" coeff="0.057503" />
+            <entry exp="7.420931" coeff="1.084703" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="51.513330" coeff="-0.137870" />
+            <entry exp="24.435950" coeff="0.536355" />
+            <entry exp="7.420931" coeff="0.650868" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="115.809550" coeff="0.116628" />
+            <entry exp="32.305835" coeff="0.483436" />
+            <entry exp="10.250328" coeff="0.590140" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="7.314235" coeff="-0.440381" />
+            <entry exp="2.844053" coeff="0.473734" />
+            <entry exp="1.105855" coeff="0.822135" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="7.314235" coeff="0.015305" />
+            <entry exp="2.844053" coeff="0.516083" />
+            <entry exp="1.105855" coeff="0.538757" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="5.486210" coeff="0.248366" />
+            <entry exp="1.921620" coeff="0.574315" />
+            <entry exp="0.666063" coeff="0.364304" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.278637" coeff="-0.601695" />
+            <entry exp="0.241232" coeff="1.258692" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.278637" coeff="0.022253" />
+            <entry exp="0.241232" coeff="0.989643" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.086630" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.086630" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Te" atomicNumber="52" >
+        <orbital type="S" >
+            <entry exp="13796.560000" coeff="0.061086" />
+            <entry exp="2088.879800" coeff="0.366963" />
+            <entry exp="459.393190" coeff="0.690794" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="623.263100" coeff="-0.112820" />
+            <entry exp="135.360000" coeff="0.082252" />
+            <entry exp="44.000480" coeff="0.970601" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="623.263100" coeff="0.153419" />
+            <entry exp="135.360000" coeff="0.614900" />
+            <entry exp="44.000480" coeff="0.389516" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="54.190780" coeff="-0.274412" />
+            <entry exp="25.820390" coeff="0.051830" />
+            <entry exp="7.809583" coeff="1.087622" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="54.190780" coeff="-0.143331" />
+            <entry exp="25.820390" coeff="0.539188" />
+            <entry exp="7.809583" coeff="0.652285" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="121.408300" coeff="0.116914" />
+            <entry exp="34.015217" coeff="0.483556" />
+            <entry exp="10.869138" coeff="0.588386" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="7.764217" coeff="-0.446731" />
+            <entry exp="3.043932" coeff="0.469470" />
+            <entry exp="1.199253" coeff="0.829811" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="7.764217" coeff="0.012746" />
+            <entry exp="3.043932" coeff="0.522123" />
+            <entry exp="1.199253" coeff="0.532661" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="5.803111" coeff="0.260194" />
+            <entry exp="2.058066" coeff="0.579776" />
+            <entry exp="0.732830" coeff="0.340558" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.340364" coeff="-0.590470" />
+            <entry exp="0.278088" coeff="1.281968" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.340364" coeff="0.025588" />
+            <entry exp="0.278088" coeff="0.987102" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.096726" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.096726" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="I" atomicNumber="53" >
+        <orbital type="S" >
+            <entry exp="14351.186000" coeff="0.061003" />
+            <entry exp="2173.074100" coeff="0.366640" />
+            <entry exp="477.872050" coeff="0.691131" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="648.188700" coeff="-0.112851" />
+            <entry exp="140.306400" coeff="0.083228" />
+            <entry exp="45.698800" coeff="0.969752" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="648.188700" coeff="0.154114" />
+            <entry exp="140.306400" coeff="0.619462" />
+            <entry exp="45.698800" coeff="0.383758" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="56.694690" coeff="-0.273697" />
+            <entry exp="27.488750" coeff="0.046500" />
+            <entry exp="8.209096" coeff="1.091576" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="56.694690" coeff="-0.152322" />
+            <entry exp="27.488750" coeff="0.543769" />
+            <entry exp="8.209096" coeff="0.656168" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="128.090260" coeff="0.115864" />
+            <entry exp="35.982378" coeff="0.482049" />
+            <entry exp="11.551116" coeff="0.589445" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="8.191679" coeff="-0.450828" />
+            <entry exp="3.244596" coeff="0.463209" />
+            <entry exp="1.300489" coeff="0.838636" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="8.191679" coeff="0.011870" />
+            <entry exp="3.244596" coeff="0.526525" />
+            <entry exp="1.300489" coeff="0.526608" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="6.146152" coeff="0.268182" />
+            <entry exp="2.220937" coeff="0.580061" />
+            <entry exp="0.809912" coeff="0.326226" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.451380" coeff="-0.665852" />
+            <entry exp="0.328103" coeff="1.328584" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.451380" coeff="0.027541" />
+            <entry exp="0.328103" coeff="0.985137" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.115076" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.115076" coeff="1.000000" />
+        </orbital>
+    </atom>
+    <atom symbol="Xe" atomicNumber="54" >
+        <orbital type="S" >
+            <entry exp="14902.236000" coeff="0.060997" />
+            <entry exp="2256.538300" coeff="0.366629" />
+            <entry exp="496.373170" coeff="0.691115" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="673.661100" coeff="-0.112913" />
+            <entry exp="145.849100" coeff="0.082905" />
+            <entry exp="47.577080" coeff="0.970029" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="673.661100" coeff="0.154427" />
+            <entry exp="145.849100" coeff="0.620617" />
+            <entry exp="47.577080" coeff="0.382004" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="59.167520" coeff="-0.273977" />
+            <entry exp="28.611590" coeff="0.045530" />
+            <entry exp="8.596596" coeff="1.092528" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="59.167520" coeff="-0.151857" />
+            <entry exp="28.611590" coeff="0.547151" />
+            <entry exp="8.596596" coeff="0.651954" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="134.913310" coeff="0.115011" />
+            <entry exp="37.956387" coeff="0.481595" />
+            <entry exp="12.227475" coeff="0.589613" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="8.638676" coeff="-0.455841" />
+            <entry exp="3.462818" coeff="0.461736" />
+            <entry exp="1.401040" coeff="0.844288" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="8.638676" coeff="0.009585" />
+            <entry exp="3.462818" coeff="0.529819" />
+            <entry exp="1.401040" coeff="0.523598" />
+        </orbital>
+        <orbital type="D" >
+            <entry exp="6.600493" coeff="0.271884" />
+            <entry exp="2.398051" coeff="0.585557" />
+            <entry exp="0.886482" coeff="0.312746" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="1.578474" coeff="-0.727772" />
+            <entry exp="0.375081" coeff="1.362797" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="1.578474" coeff="0.028072" />
+            <entry exp="0.375081" coeff="0.984264" />
+        </orbital>
+        <orbital type="S" >
+            <entry exp="0.133179" coeff="1.000000" />
+        </orbital>
+        <orbital type="P" >
+            <entry exp="0.133179" coeff="1.000000" />
+        </orbital>
+    </atom>
+</basis>

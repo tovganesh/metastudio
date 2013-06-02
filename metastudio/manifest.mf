@@ -1,0 +1,19 @@
+Manifest-Version: 1.0
+X-COMMENT: Main-Class will be added automatically by build
+Class-Path: ../help/MeTAHelpAPI.jar ../lib/kunststoff.jar ../lib/jh.ja
+ r ../lib/bsh.jar ../lib/jeditsyntax.jar ../lib/jscheme.jar ../lib/jrm
+ an.jar ../lib/commonscli.jar  ../lib/jfreechart.jar ../lib/jcommon.ja
+ r ../lib/jworkbook.jar ../lib/poi.jar ../lib/jorbis.jar ../lib/jogg.j
+ ar ../lib/jlayer.jar ../lib/jmol.jar ../lib/vecmath.jar ../lib/common
+ shttpclient.jar ../lib/gdata-appsforyourdomain.jar ../lib/gdata-base.
+ jar ../lib/gdata-calendar.jar ../lib/gdata-client.jar ../lib/gdata-co
+ desearch.jar ../lib/gdata-photos.jar ../lib/gdata-spreadsheet.jar ../
+ lib/commonscodec.jar ../lib/commonslogging.jar ../lib/javamail.jar ..
+ /lib/commonsmath.jar ../lib/jna.jar ../lib/smack.jar ../lib/smackx.ja 
+ r ../lib/smackx-jingle.jar ../lib/derby.jar ../lib/ext/jython.jar ../
+ lib/mt4j.jar ../lib/netty.jar ../lib/ext/netcdf.jar ../lib/ext/jhdfob
+ j.jar ../lib/ext/jhdf5obj.jar ../lib/ext/jhdf4obj.jar ../lib/ext/jgra
+ phx.jar ../lib/ext/jchempaint.jar
+Sealed: true
+Created-By: NetBeans IDE
+Specified-By: org/MeTA.jarContent

@@ -1,0 +1,295 @@
+import java.awt.*;
+import java.io.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.lang.Object.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+import org.meta.math.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.config.impl.AtomInfo;
+import org.meta.common.resource.*;
+
+myBasis = null;
+myCalculate = myProperty = null ;
+minXYZ = null;
+dx=dy=dz = null;
+nx=ny=nz = null;
+
+appDir = StringResource.getInstance().getAppDir();
+workDir =  appDir + "/prop";
+
+getChunk(chunkNum){
+      messageBox("grabFed");
+
+      // Init function variables
+      scuttle = true;
+      cnt  = 1;
+      minX = minXYZ.getX();
+      minY = minXYZ.getY();
+      minZ = minXYZ.getZ();
+
+      checkVis = openFile(workDir + "/test.vis", "w");
+      checkVis.write("$angstrom\n$molecule\n");
+      spl = openFile(workDir + "/1-1-1.vis", "w");
+      System.out.println(workDir + "/1-1-1.vis");
+      for(i=1; i <= nx; i++){
+        x = minX + ((i-1)*dx);
+        for(j=1; j <= ny; j++){
+            y = minY + ((j-1)*dy);
+            for(k=1; k <= nz; k++){
+                    z = minZ + ((k-1)*dz);
+                    if (cnt < chunkNum) {
+                        System.out.println("First " +cnt);
+                        spl.write("Na " + x + " " + y + "  " + z + "\n" );
+                        System.out.println("Na " + x + " " + y + "  " + z + " First ch2\n" );
+                        cnt = cnt + 1;
+                        } 
+                    if (cnt == chunkNum) {
+                        System.out.println("Second " +cnt);
+                        spl.write("Na " + x + " " + y + "  " + z + "\n" );
+                        spl.write("$end"); 
+                        spl.close();
+                        spl = openFile(workDir + "/" + i + "-" + j +"-" + k + ".vis", "w");
+                        System.out.println(workDir + "/" + i + "-" + j +"-" + k + ".vis");
+                        spl.write("$angstrom\n$molecule\n");
+                        cnt = 1;
+                     }
+                    checkVis.write("Na " + x + " " + y + "  " + z + "\n" );
+            } //end for nz
+        } // end for ny
+      } // end for nx
+      checkVis.write("$end");
+      checkVis.close();
+}// end function
+
+
+grabFedforProp(){
+      // Open File to dump tests
+      trash = openFile(workDir + "/test.txt", "w");
+      checkVis = openFile(workDir + "/test.vis", "w");
+
+      minX = minXYZ.getX();
+      minY = minXYZ.getY();
+      minZ = minXYZ.getZ();
+
+      trash.write(myBasis + "\n" + myCalculate + "\n"  + myProperty + "\n");
+      trash.write(minX + " " + minY +" " + minZ + "\n");
+      trash.write(dx + " " + dy + " "  +dz + "\n") ;
+      trash.write(nx + " " + ny + "  " + nz+ "\n" );
+      trash.close();
+      checkVis.close();
+
+      getChunk(5);
+
+} // end function grabFedforProp
+
+genIndData() {
+   // Some Standard Paths
+   workDir = StringResource.getInstance().getAppDir() + "/prop";
+   System.out.println(workDir);
+
+   ideinst = getIDEInstance();
+   desktop = ideinst.getWorkspaceDesktop();
+   CurFr = desktop.getActiveFrame();
+
+   if (CurFr==null){
+      messageBox("No Window Open");
+      return;
+   }
+
+   var = (CurFr instanceof MoleculeViewerFrame);
+   tit = "";
+   if(var==true){
+      tit = CurFr.getSceneList().get(0).getMolecule().getTitle();
+   }
+
+   if (var==true) {
+      System.out.println("Loaded " + tit);
+      CurFr.getMoleculeViewer().setGridDrawn(true);
+      CurFr.showGridGeneratorSidePanel();
+
+      bb = CurFr.getMoleculeViewer().getScreenGridProperty();
+      //   System.out.println("Bounding box " + bb);
+
+      // Create the PropSubmission UI
+      f=frame();
+      f.setLayout(layout("flowlayout"));
+      bas = combobox(new String[]{"sto-3g", "3-21g", "6-31g", "6-31+g*",
+                     "6-31+g**", "6-31++g*","6-31++g**",
+                     "6-311+g*", "6-311+g**", "6-311++g*", "6-311++g**"});
+      bas.setSelectedItem("3-21g");
+      f.add(bas);
+      prop = combobox(new String[] {"MESP", "DENSITY", "MOMENTUM" });
+      prop.setSelectedItem("MESP");
+      f.add(prop);
+      calc = combobox(new String[] {"FUNCTION", "TOPOGRAPHY", "FIELD"});
+      calc.setSelectedItem("FUNCTION");
+      f.add(calc);
+
+      dmFile = null;
+      dm = button("Text DM");
+      f.add(dm);
+      dm.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {
+         dmFile = showFileDialog();
+         //   System.out.println(dmFile);
+       }
+      });
+
+      b = button("Submit");
+
+      f.add(b);
+      f.pack();
+      f.show();
+
+      // Grab the values & close the UI
+      b.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+             // get updated bb
+             bb = CurFr.getMoleculeViewer().getScreenGridProperty();
+ 
+             // and the rest of the options
+             myBasis = bas.getSelectedItem();
+             myProperty = prop.getSelectedItem();
+             myCalculate = calc.getSelectedItem();
+             System.out.println(myBasis + myProperty + myCalculate);
+             f.setVisible(false);
+             f.dispose();
+
+             // Write Indprop.inp
+             dmf = new File(dmFile).getName();
+             indInp = workDir + "/indprop.inp";
+             fOpen = openFile(indInp, "w");
+
+             // convert dm to bin
+             monitorProcess(osexec(new String[] {workDir + "/dm2bin_arg1.x",
+                                  dmFile, workDir +"/"+ dmf +".den"},workDir));
+
+             // write out ...
+             fOpen.write("INPUTFILE indprop.dat" + "\n");
+             fOpen.write("DENMAT FORMAT FORTRAN INDMOL FILE " + dmf + ".den\n");
+             fOpen.write("PROPERTY " + myProperty + "\n");
+
+             if(myCalculate.equals("TOPOGRAPHY")){
+                fOpen.write("CALCULATE TOPOGRAPHY\nNO_OF_PTS 1\n"
+                            + "GUESSPOINT 0.00000    0.0000    0.0000\n"
+                            + "MASKPARAM 0    0    0\n");
+             } else {
+                fOpen.write("CALCULATE "+ myCalculate + "\nRANGE\n");
+                minXYZ = bb.getBoundingBox().getUpperLeft(); //.mul(Utility.AU_TO_ANGSTROM_FACTOR);
+                fOpen.write( minXYZ + "\n");
+                dx = bb.getXIncrement();
+                dy = bb.getYIncrement();
+                dz = bb.getZIncrement();
+                fOpen.write(dx + " " + dy + "  " + dz + "\n");
+                nx = bb.getNoOfPointsAlongX();
+                ny = bb.getNoOfPointsAlongY();
+                nz = bb.getNoOfPointsAlongZ();
+                fOpen.write(nx + "  " +  ny + "  " + nz + "\n");
+             } // end if
+
+             fOpen.write("OUTPUT FORMAT ASCII FILE " + new File(dmFile).getParentFile()
+                          +"/"+ dmf +".out\nENDINPUT\n\n");
+             fOpen.close();
+
+             // Write Indrop.dat
+             IndDat = workDir + "/indprop.dat";
+             fOpen= openFile(IndDat, "w");
+
+             fOpen.write(" title\nBASIS\n");
+             atms =  CurFr.getSceneList().get(0).getMolecule().getAtoms();
+
+             // Get Unique Atoms
+             uatms = arraylist();
+             for (atm: atms) {
+               if (uatms.contains(atm.getSymbol()) != true ) uatms.add(atm.getSymbol());
+             }
+             for (uatm: uatms) {
+               fOpen.write(uatm + " # " + myBasis + " gaussian #\n");
+             }
+             atms =  CurFr.getSceneList().get(0).getMolecule().getAtoms();
+             fOpen.write("END\nATOMS\n");
+
+             // Create an Instance of Class AtomInfo following
+             // Singleton Desgin pattern
+             ai = AtomInfo.getInstance();
+             for (atm: atms){
+               fOpen.write(atm.getSymbol()+ " " + ai.getAtomicNumber(atm.getSymbol())
+                 + " 1 " + atm.getAtomCenter()+ "\n");
+             }
+             fOpen.write("END\nANGSTROM\nENDINPUT\n");
+
+             fOpen.close();
+             // Calling the Federation for help !
+             grabFedforProp();
+          } // end ActionListener
+       });  // end ActionListener
+   } else {
+       messageBox("Well This is does not look like a Molecule Viewer");
+       return;
+   } // end if
+}
+
+// main entry function
+// @param scriptType: value will be "consumer" or "service"
+propNoLimt(String scriptType, widgetPanel) {   
+   if (scriptType.equals("consumer")) {
+   
+     startButton = button("Start...");
+     widgetPanel.add(startButton);
+
+     startButton.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+          // Calling the Functions     
+          genIndData();
+
+         // get a list of MeTA Studio instances
+         metaList = discover_meta();
+
+         // split work load according to the above list
+      
+         // federation framework instatiation
+         // consume logic
+
+         // send work loads ...
+         for(metaInstance : metaList) {
+           try {
+             FederationServiceConsumer consumer 
+                      = new FederationServiceUserScriptConsumer("propNoLim.bsh");
+             FederationRequest fedRequest = consumer.discover(metaInstance.split(";")[0]);
+
+             java.io.BufferedReader reader = fedRequest.getReader();
+             java.io.BufferedWriter writer = fedRequest.getWriter();
+
+         
+           } catch(Exception e) {
+             System.err.println("Unable to proceed because of: " + e.toString());
+             e.printStackTrace();
+           } // end try .. catch block     
+         } // end for
+       }
+     });
+   } else {
+     
+     // get data ...
+
+     // execute ...
+  
+     // send results 
+   } // end if
+}
+
+// the widgent will always run as a consumer
+propNoLimtWidget() {
+    panel = getWidgetsPanel(); 
+
+    propNoLimt = widget("propNoLimitWidget");
+
+    propNoLimt("consumer", propNoLimt);
+
+    panel.addWidget(propNoLimt);
+    panel.updateUI();
+}
+
+propNoLimtWidget();

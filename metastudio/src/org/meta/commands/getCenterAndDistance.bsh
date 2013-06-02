@@ -1,0 +1,21 @@
+/**
+ * getCenterAndDistance - Helper utilities for exportCurrentMoleculeSceneAsRIB.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.geom.*;
+import org.meta.molecule.*;
+
+/**
+ * get the center between two atoms, and the distance from the center
+ */
+getCenterAndDistance(Atom a1, Atom a2, Point3D p) {        
+    p.setX((a1.getX() + a2.getX()) / 2.0);
+    p.setY((a1.getY() + a2.getY()) / 2.0);
+    p.setZ((a1.getZ() + a2.getZ()) / 2.0);
+        
+    // Distance(midpoint, atomcenter)
+    return a1.distanceFrom(p);
+}

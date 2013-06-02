@@ -1,0 +1,18 @@
+/**
+ * combineMolecule() - creates a new molecule by combining two molecule objects
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+Molecule combineMolecule(Molecule mol1, Molecule mol2) {
+    mol = Utility.getDefaultImplFor(Molecule.class).newInstance();
+    
+    for(atom : mol1.getAtoms()) mol.addAtom(atom);
+    for(atom : mol2.getAtoms()) mol.addAtom(atom);
+
+    return mol;
+}

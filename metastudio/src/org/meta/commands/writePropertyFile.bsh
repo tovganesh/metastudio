@@ -1,0 +1,61 @@
+/**
+ * writePropertyFile() - write a GridProperty object in WebProp Property file format.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import java.text.*;
+import org.meta.common.*;
+
+writePropertyFile(fileName, gp) {
+   fil = openFile(fileName, "w");
+
+   f = new DecimalFormat("#.#######");
+   fil.write(" RANGE : \n");
+   fil.flush();
+   ul = gp.getBoundingBox().getUpperLeft();
+   br = gp.getBoundingBox().getBottomRight();
+   fil.write(f.format(ul.getX() / Utility.AU_TO_ANGSTROM_FACTOR) + " "
+             + f.format(gp.getXIncrement() / Utility.AU_TO_ANGSTROM_FACTOR) + " "
+             + gp.getNoOfPointsAlongX() + " "
+             + f.format(br.getX() / Utility.AU_TO_ANGSTROM_FACTOR) + "\n");
+   fil.flush();
+   fil.write(f.format(ul.getY() / Utility.AU_TO_ANGSTROM_FACTOR) + " "
+             + f.format(gp.getYIncrement() / Utility.AU_TO_ANGSTROM_FACTOR) + " "
+             + gp.getNoOfPointsAlongY() + " "
+             + f.format(br.getY() / Utility.AU_TO_ANGSTROM_FACTOR) + "\n");
+   fil.flush();
+   fil.write(f.format(ul.getZ() / Utility.AU_TO_ANGSTROM_FACTOR) + " "
+             + f.format(gp.getZIncrement() / Utility.AU_TO_ANGSTROM_FACTOR) + " "
+             + gp.getNoOfPointsAlongZ() + " "
+             + f.format(br.getZ() / Utility.AU_TO_ANGSTROM_FACTOR) + "\n");
+   fil.flush();
+
+   f = new DecimalFormat("#.############");
+   fil.write(" FUNCTION VALUES : \n");
+   fil.flush();
+
+   noOfValues = gp.getNumberOfGridPoints();
+   noOfLines  = noOfValues / 3;
+   remValues  = noOfValues % 3;
+   fVals      = gp.getFunctionValues();
+
+   i = 0;   
+   for(i=0, j=0; j<noOfLines; j++, i+=3) {
+      fil.write(f.format(fVals[i]) + " "
+                 + f.format(fVals[i+1]) + " "
+                 + f.format(fVals[i+2]) + "\n");
+      fil.flush();
+   } // end for
+
+   for(k=i, j=0; j<remValues; j++, k++) {      
+      fil.write(f.format(fVals[k]) + " ");
+      fil.flush();
+   } // end for
+
+   fil.write("\n");
+   fil.flush();
+
+   fil.close();
+}

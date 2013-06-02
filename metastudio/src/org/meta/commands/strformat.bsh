@@ -1,0 +1,12 @@
+/**
+ * strformat() - format using DecimalFormatter
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.text.*;
+
+String strformat(String format, value) {    
+    return (new DecimalFormat(format).format(value));
+}

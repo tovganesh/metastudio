@@ -1,0 +1,42 @@
+/**
+ * discover_meta() - Discover "peer" MeTA studio services
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.net.*;
+
+discover_meta() {
+    print("Discovery on, this may take few minutes...");
+    list = FederationServiceDiscovery.getInstance().discoverMeTA();    
+    print("Done");
+    return list;
+}
+
+discover_meta(int timeout) {
+    print("Discovery on, this may take few minutes...");
+    inst = FederationServiceDiscovery.getInstance();    
+    inst.setTimeout(timeout);
+    list = inst.discoverMeTA();
+    print("Done");
+    return list;
+}
+
+discover_meta(String ipExpression) {
+    print("Discovery using expression " + ipExpression 
+          + ", this may take few minutes...");
+    list = FederationServiceDiscovery.getInstance().discoverMeTA(ipExpression);
+    print("Done");
+    return list;
+}
+
+discover_meta(String ipExpression, int timeout) {
+    print("Discovery using expression " + ipExpression 
+          + ", this may take few minutes...");
+    inst = FederationServiceDiscovery.getInstance();    
+    inst.setTimeout(timeout);
+    list = inst.discoverMeTA(ipExpression);
+    print("Done");
+    return list;
+}

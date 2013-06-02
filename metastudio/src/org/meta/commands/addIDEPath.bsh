@@ -1,0 +1,20 @@
+/**
+ * addIDEPath() - adds an external path at runtime to the beanshell interpreter
+ *                instance, and imports any commands from that path.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+addIDEPath(String newPath) {
+  newPath = newPath.replace('\\', '/');  
+
+  addedPath = newPath.substring(0, newPath.lastIndexOf('/'));
+  addClassPath(addedPath);
+  print("Added path       : " + addedPath);
+
+  commandPath = newPath.substring(newPath.lastIndexOf('/'), 
+                                        newPath.length());
+  this.caller.namespace.importCommands(commandPath);
+  print("Imported commands: " + commandPath);
+}

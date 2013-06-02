@@ -1,0 +1,26 @@
+/**
+ * mapreduce() - Wrapper for MapReduce interface.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import java.net.*;
+import java.util.*;
+
+import org.meta.common.*;
+import org.meta.net.*;
+import org.meta.net.impl.service.*;
+import org.meta.net.impl.consumer.*;
+import org.meta.net.mapreduce.*;
+import org.meta.net.mapreduce.impl.*;
+
+mapreduce(String mapScript, String reduceScript, ArrayList data) {
+   mapReduceController = new MapReduceControllerFederationImpl();
+
+   mapReduceController.executeTask(new MapFunctionScriptHelper(mapScript),
+                                   new ReduceFunctionScriptHelper(reduceScript),
+                                   data);
+
+   return mapReduceController.getTaskData();
+}

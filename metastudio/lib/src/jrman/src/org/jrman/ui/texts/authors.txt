@@ -1,0 +1,9 @@
+JrMan and JrManGUI were written by (alphabetical order):
+
+Alessandro Falappa <alessandro@falappa.net>
+
+Elmer Garduno <egarduno@users.sourceforge.net>
+
+Gerardo Horvilleur <mago@mundojava.com>
+
+Jorge Vargas <edivargas@mundojava.com>

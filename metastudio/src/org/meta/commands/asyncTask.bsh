@@ -1,0 +1,33 @@
+/**
+ * asyncTask() - creates an asynchronous task
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.parallel.SimpleAsyncTask;
+import org.meta.parallel.event.AsyncTaskCompletionListener;
+
+asyncTask(Object object, String methodName, Object [] args) {
+     argsClass = new Class[0];
+     if (args != null && args.length > 0) {
+        argsClass = new Class[args.length];
+        for(i=0; i<args.length; i++) argsClass[i] = args.getClass();
+     } // end if
+
+     SimpleAsyncTask.init(object, object.getClass().getMethod(methodName, argsClass),
+                          args).start();
+}
+
+asyncTask(Object object, String methodName, AsyncTaskCompletionListener al, Object [] args) {
+     argsClass = new Class[0];
+     if (args != null && args.length > 0) {
+        argsClass = new Class[args.length];
+        for(i=0; i<args.length; i++) argsClass[i] = args.getClass();
+     } // end if
+
+     aTask = SimpleAsyncTask.init(object,
+                   object.getClass().getMethod(methodName, argsClass), args);
+     aTask.addAsyncTaskCompletionListener(al);
+     aTask.start();
+}

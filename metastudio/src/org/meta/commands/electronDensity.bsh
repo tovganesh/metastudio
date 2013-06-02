@@ -1,0 +1,20 @@
+/**
+ * electronDensity() - compute electron density of a molecule, from a
+ *                     SCFMethod object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.math.qm.*;
+import org.meta.math.qm.property.*;
+import org.meta.molecule.property.electronic.*;
+
+electronDensity(SCFMethod scfm, GridProperty gp) {
+    (new ElectronDensity(scfm)).compute(gp);
+}
+
+electronDensity(BasisFunctions bfs, Density density, GridProperty gp) {
+    (new ElectronDensity(bfs, density)).compute(gp);
+}
+

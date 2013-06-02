@@ -1,0 +1,94 @@
+/**
+ * compare() - A simple straight forward ChemLet to compares 
+ * two molecule geometries as they are.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.text.DecimalFormat;
+
+import org.meta.molecule.*;
+
+compare(Molecule mol1, Molecule mol2, double threshold) {
+  print("Comparing " + mol1.getTitle() + "[1] and " + mol2.getTitle() + "[2]");
+   
+  if (mol1.getNumberOfAtoms() != mol2.getNumberOfAtoms()) {
+    print("The number of atoms are different in the given molecule geometries");
+    print("Cannot compare!");
+    return;
+  } // end if
+  
+  DecimalFormat formatter = new DecimalFormat("#.###");
+  
+  // now check for individual bond distances
+  for(i=0; i<mol1.getNumberOfAtoms(); i++) {
+      theAtom1 = mol1.getAtom(i);
+      theAtom2 = mol2.getAtom(i);
+      
+      // compare symbol
+      if (!theAtom1.getSymbol().equals(theAtom2.getSymbol())) {
+          print("Atom : " + theAtom1 + " (of " + mol1.getTitle() + ")"
+               + " and " + theAtom2 + " (of " + mol2.getTitle() + ")"
+               + " differ, (probably index mismatch?)");
+          print("Cannot proceed with comparison any further!");
+          return;
+      } // end if 
+      
+      connectedAtomsTo1 = theAtom1.getConnectedList();
+      connectedAtomsTo2 = theAtom2.getConnectedList();
+      
+      // compare connectivity
+      if (connectedAtomsTo1.size() != connectedAtomsTo2.size()) {
+          print("Atom : " + theAtom1 + " (of " + mol1.getTitle() + ")"
+               + " and " + theAtom2 + " (of " + mol2.getTitle() + ")"
+               + " differ in their connectivity");
+          print("Cannot proceed with comparison any further!");
+          return;
+      } // end if
+      
+      // more deep connectivity
+      j1 = connectedAtomsTo1.keys();
+      j2 = connectedAtomsTo2.keys();
+      while (j1.hasMoreElements()) {
+          idx1 = j1.nextElement();
+          idx2 = j2.nextElement();
+          
+          if ((i > idx1) || (i > idx2)) continue;          
+          
+          atom1 = mol1.getAtom(idx1);
+          atom2 = mol2.getAtom(idx2);
+          
+          // check the connected atom symbols first 
+          if (!atom1.getSymbol().equals(atom2.getSymbol())) {
+              print("Atom : " + theAtom1 + " (of " + mol1.getTitle() 
+                              + ")" + " and " + theAtom2 
+                              + " (of " + mol2.getTitle() + ")"
+                              + " differ, (probably index mismatch?)");
+              print("Cannot proceed with comparison any further!");
+              return;
+          } // end if
+          
+          double dist1 = atom1.distanceFrom(theAtom1);
+          double dist2 = atom2.distanceFrom(theAtom2);
+          double diff  = java.lang.Math.abs(dist1 - dist2);
+                    
+          if (diff > threshold) {
+            print(theAtom1.getSymbol() + theAtom1.getIndex() 
+                + "--" + atom1.getSymbol() +  atom1.getIndex() + " :: " 
+                + formatter.format(dist1) + "\t" 
+                + theAtom2.getSymbol() + theAtom2.getIndex()
+                + "--" + atom2.getSymbol() + atom2.getIndex() + " :: " 
+                + formatter.format(dist2));
+          } else {
+            print(theAtom1.getSymbol() + theAtom1.getIndex() 
+                + "--" + atom1.getSymbol() +  atom1.getIndex() + " :: " 
+                + formatter.format(dist1) + "\t" 
+                + theAtom2.getSymbol() + theAtom2.getIndex()
+                + "--" + atom2.getSymbol() + atom2.getIndex() + " :: " 
+                + formatter.format(dist2)
+                + " **");
+          } // end if          
+      } // end while
+  } // end for (i)
+}

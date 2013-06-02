@@ -1,0 +1,65 @@
+/**
+ * freq.bsh - Compute frequencies from a Hessian
+ *
+ * @author V.Ganesh
+ */
+
+import org.meta.math.*;
+import org.meta.math.la.*;
+import org.meta.config.impl.*;
+
+freq(String fcmFil, mol) {
+   // read the H matrix from the fcm file
+   fil = openFile(fcmFil, "r");
+   n = Integer.parseInt(fil.readLine());
+   H = new Matrix(n);
+
+   hMat = H.getMatrix();
+
+   for(i=0; i<n; i++) {
+      for(j=0; j<=i; j++) {
+         hMat[i][j] = hMat[j][i] = Double.parseDouble(fil.readLine());
+      }
+   }
+
+   fil.close();
+
+   print(H);
+
+   // form the mass weighted Hessian
+   ai = AtomInfo.getInstance();
+
+   M = new Matrix(n, 1);
+   mMat = M.getMatrix();
+
+   for(i=0; i<n; i++) {
+      mMat[i][0] = 1.0/Math.sqrt(ai.getAtomicWeight(mol.getAtom(i/3).getSymbol()));
+   }
+ 
+   print(M);
+
+   for(i=0; i<n; i++) {
+      ri = mMat[i][0];
+
+      for(j=0; j<=i; j++) {
+         hMat[i][j] = hMat[j][i] = ri * hMat[i][j] * mMat[j][0];
+      } 
+   }
+
+   // diagonalize mass weighted Hessian
+   d = diagonalize(H);
+   print(d.getEigenValues());
+
+   // convert the frequencies to wave numbers and print them
+   lambda = d.getEigenValues();
+   tfact = 2.642461E+07;
+   for(i=0; i<n; i++) {
+      if (lambda[i] > 0.0) {
+         print(i + ":> " + Math.sqrt(Math.abs(lambda[i]*tfact)));
+      } else {
+         print(i + ":> " + Math.sqrt(Math.abs(lambda[i]*tfact)) + " [I] ");
+      } // end if
+   }
+}
+
+// freq("/home/ganesh/jobs/water-h", getMolecule(0));

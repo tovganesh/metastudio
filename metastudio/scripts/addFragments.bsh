@@ -1,0 +1,44 @@
+import java.io.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.fragment.*;
+
+import org.meta.fragmentor.FragmentationScheme;
+
+addFragments(Molecule mol, String keyFile) {
+    br = new BufferedReader(new FileReader(keyFile));
+
+    noOfFrags = Integer.parseInt(br.readLine().trim());
+
+    for(int i=0; i<noOfFrags; i++) {
+        noOfAtoms = Integer.parseInt(br.readLine().trim());
+
+        print("fragment: " + i + " has atoms: " + noOfAtoms);
+
+        Fragment fragment = (Fragment) Utility.getDefaultImplFor(Fragment.class)
+                                                 .newInstance();
+        fragment.setParentMolecule(mol);                                
+      
+        for(int j=0; j<noOfAtoms; j++) {
+           atomIndex = Integer.parseInt(br.readLine().trim());
+
+           print(j + "> " + mol.getAtom(atomIndex-1));
+
+           fragment.addFragmentAtom(new FragmentAtom(mol.getAtom(atomIndex-1)));
+        } // end for
+
+        // and push it into default scheme of
+        // the relevent molecule
+        FragmentationScheme scheme = mol.getDefaultFragmentationScheme();                                
+        scheme.getFragmentList().addFragment(fragment);
+        System.out.println("added fragment!");
+        System.out.println(scheme.getFragmentList().getFragments().hasNext());
+    } // end for
+
+    br.close();
+}
+
+
+//addFragments(getLoadedMoleculeScenes().get(0).getMolecule(), 
+//             "/home/ganesh/tmp/cdexf-frag.key");

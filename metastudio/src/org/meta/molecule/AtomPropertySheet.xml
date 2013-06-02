@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : AtomPropertySheet.xml
+    Created on : July 4, 2004, 5:28 PM
+    Author     : Ganesh
+    Description:
+        Describes the property sheet for Atom class.
+-->
+
+<propertysheet title="Atom settings">
+    <propertygroup name="General">
+        <property name="symbol"
+                  displayName="Symbol :"
+                  mnemonicChar="S"
+                  tooltipText="The atomic symbol"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="index"
+                  displayName="Index :"
+                  mnemonicChar="I"
+                  tooltipText="Index of this atom in the molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="x"
+                  displayName="X :"
+                  mnemonicChar="X"
+                  tooltipText="The X coordinate"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="y"
+                  displayName="Y :"
+                  mnemonicChar="Y"
+                  tooltipText="The Y coordinate"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="z"
+                  displayName="Z :"
+                  mnemonicChar="Z"
+                  tooltipText="The Z coordinate"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="charge"
+                  displayName="Charge :"
+                  mnemonicChar="C"
+                  tooltipText="The charge on this atom"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="connectedList"
+                  displayName="Connected atom indices :"
+                  mnemonicChar="n"
+                  tooltipText="Atom indices that are connected to this atom"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+    </propertygroup>
+</propertysheet>

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : IsoSurfaceRendererPropertySheet.xml
+    Created on : January 2, 2006, 11:40 PM
+    Author     : Ganesh
+    Description:
+        Defines property sheet for IsoSurfaceRenderer.
+-->
+
+<propertysheet title="Isosurface renderer settings">
+    <propertygroup name="General">
+      <property name="fillPolygons"
+                displayName="Fill Polygons :"
+                mnemonicChar="F"
+                tooltipText="Specify if you want to fill the polygons."
+                get="true"
+                set="true"
+                defaultUI="true" />              
+      <property name="fillTransperency"
+                displayName="Fill Transperency :"
+                mnemonicChar="T"
+                tooltipText="Specify the transperency if fill polygons is true."
+                get="true"
+                set="true"
+                defaultUI="false" />
+    </propertygroup>
+    <propertygroup name="RIB Generation">
+      <property name="generateRIBVertexNormals"
+                displayName="Generate RIB Vertex Normals :"
+                mnemonicChar="N"
+                tooltipText="Specifies whether vetrex normals need to be generated when exporting to a RIB file."
+                get="true"
+                set="true"
+                defaultUI="true" />              
+    </propertygroup>
+</propertysheet> 

@@ -1,0 +1,37 @@
+/**
+ * browse() - browse a URL using internal swing based browser
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.awt.*;
+
+import javax.swing.*;
+
+browse(String theURL) {
+   // get the current IDE instance ... hoping that this is already inited
+   ideInstance = getIDEInstance();
+    
+   if (ideInstance == null) return null;
+
+   // then get the workspace desktop instance
+   wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+   if (wsDesktop == null) return null;
+  
+   browser = new JEditorPane();
+   browser.setEditable(false);
+   browser.setContentType("text/html");      
+ 
+   browser.setPage(theURL);
+
+   browserFrame = new JInternalFrame("Internal Browser - [" + theURL + "]",
+                                      true, true, true, true);
+
+   browserFrame.setLayout(new BorderLayout());
+   browserFrame.add(new JScrollPane(browser), BorderLayout.CENTER);
+
+   // then add it to the desktop
+   wsDesktop.addInternalFrame(browserFrame);
+}

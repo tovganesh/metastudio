@@ -1,0 +1,228 @@
+/**
+ * openInJmol() - Open a file in embedded JMol!
+ * Returns JMolPanel object that can be used for further customizations.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.awt.*;
+import javax.swing.*;
+
+import javax.imageio.*;
+
+import org.meta.commands.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.common.resource.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+openInJmol(String fileName) {
+    openInJmol(fileName, true);
+}
+
+openInJmol(String fileName, boolean isFile) {
+    jmolPanel = new JMolPanel();
+
+    Thread loadThread = new Thread() {
+        public void run() {
+            ideInstance.setCursor(
+                           CursorResource.getInstance().getOpeningCursor());
+
+            str = " ";
+            if (isFile) {
+                fil = openFile(fileName);
+                str = new StringBuffer();
+
+                while(true) {
+                    line = fil.readLine();
+
+                    if (line == null) break;
+
+                    str.append(line); str.append('\n');
+                } // end while
+
+                str = str.toString();
+                fil.close();
+            } else {
+                str = fileName; // !!! ???
+            } // end if
+
+            // get the current IDE instance ... hoping that this 
+            // is already inited
+            ideInstance = MainMenuEventHandlers.getInstance(null)
+                                               .getIdeInstance();
+
+            if (ideInstance == null) return;           
+
+            // then get the workspace desktop instance
+            wsDesktop = ideInstance.getWorkspaceDesktop();
+
+            if (wsDesktop == null) return;
+
+            jmolFrame = new JInternalFrame("Jmol embedded viewer. "
+               + "Configured for: " + StringResource.getInstance().getVersion(),
+                                            true, true, true, true);
+            jmolFrame.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit()
+                                  .getImage(ideInstance.getClass().getResource(
+                                       "/org/openscience/jmol/images/icon.png"))
+                                 .getScaledInstance(16,16,Image.SCALE_SMOOTH)));
+
+            jmolPanel.getViewer().loadInline(str);
+            jmolFrame.setLayout(new BorderLayout());
+            jmolFrame.add(jmolPanel, BorderLayout.CENTER);
+
+            // adjust for full screen
+            JFrame theFullScreen;
+
+            GraphicsEnvironment env = GraphicsEnvironment.
+                                          getLocalGraphicsEnvironment();
+            GraphicsDevice[] devices = env.getScreenDevices();
+        
+            // we consider that there is only a single monitor device
+            // so only handle devices[0]
+            device = devices[0];
+            Container originalParent = null;
+
+            // make a toolbar
+            toolBar = new JToolBar();
+            toolBar.setRollover(true);
+            toolBar.setFloatable(true);        
+
+            fullscreen = new JToggleButton(ImageResource.getInstance().getFullscreen());
+            if (device.isFullScreenSupported()) {
+                fullscreen.setToolTipText("Fullscreen mode");
+            } else {
+                fullscreen.setToolTipText("Fullscreen mode not supported");
+                fullscreen.setEnabled(false);
+            } // end if
+            fullscreen.setMnemonic(KeyEvent.VK_F11);
+            fullscreen.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {  
+                    boolean isFullScreen = device.isFullScreenSupported(); 
+
+                    if (!theFullScreen.isDisplayable()) {
+                        theFullScreen.setUndecorated(isFullScreen);
+                        theFullScreen.setResizable(!isFullScreen);
+                    } // end if        
+
+                    if (isFullScreen) {
+                        if (fullscreen.isSelected()) {
+                            // Full-screen mode                    
+                            device.setFullScreenWindow(theFullScreen);
+
+                            // prepare the screen
+                            screenPane.removeAll();
+                            screenPane.setLayout(new BorderLayout());
+                            originalParent = jmolFrame.getParent();
+
+                            // the viewer
+                            jmolFrame.setClosable(false);
+                            jmolFrame.setMaximizable(false);
+                            jmolFrame.setResizable(false);
+                            jmolFrame.setIconifiable(false);                        
+                            screenPane.add(jmolFrame);
+                            theFullScreen.validate();
+                            fullscreen.setToolTipText("Back to windowed mode");
+                        } else { 
+                            // windowed mode
+                            device.setFullScreenWindow(null);
+
+                            // the viewer
+                            jmolFrame.setClosable(true);
+                            jmolFrame.setMaximizable(true);
+                            jmolFrame.setResizable(true);
+                            jmolFrame.setIconifiable(true);
+                            originalParent.add(jmolFrame);
+                            fullscreen.setToolTipText("Fullscreen mode"); 
+                        } // end if
+
+                        theFullScreen.setVisible(fullscreen.isSelected());                    
+                        ideInstance.setVisible(!fullscreen.isSelected());
+                        ideInstance.validate();
+                    } // else do nothing
+                }
+            });
+            toolBar.add(fullscreen);
+
+            saveImage = new JButton(ImageResource.getInstance().getSaveWorkspace());
+            saveImage.setToolTipText("Save current image");
+            saveImage.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent ae) {  
+                    // first grab the file name .. and the format
+                    IDEFileChooser fileChooser = new IDEFileChooser();
+
+                    fileChooser.setDialogTitle("Specify name of the image file...");        
+                    // add the filters
+                    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+
+                    String [] writerFormats = ImageIO.getWriterFormatNames();
+
+                    for(wForamt : writerFormats) {
+                        fileChooser.addChoosableFileFilter(new IDEFileFilter(wForamt,
+                                                           wForamt + " image file format"));
+                    } // end for
+
+                    // and add the iconic stuff
+                    fileChooser.setFileView(new IDEFileView());
+
+                    // now show the stuff to the user, and pray he gives good files names ;)
+                    if (fileChooser.showSaveDialog(getIDEInstance())
+                                    == IDEFileChooser.APPROVE_OPTION) {        
+                        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+                        String format   = fileChooser.getFileFilter().getDescription();
+
+                        // a big hack... be careful!
+                        format = format.substring(0, format.indexOf(" image file format"));
+
+                        // make of for the file extension..
+                        if (fileName.indexOf(format) < 0) {
+                            fileName += "." + format;
+                        } // end if
+                        
+                        // write the image file
+                        jmolPanel.writeImageToFile(fileName, format);
+                    } // end if
+                }
+            });
+            toolBar.add(saveImage);
+
+            jmolFrame.add(toolBar, BorderLayout.NORTH);
+
+            // then add it to the desktop
+            wsDesktop.addInternalFrame(jmolFrame);
+
+            jmolFrame.setVisible(true);
+
+            theFullScreen = new JFrame(device.getDefaultConfiguration());
+            screenPane = new JDesktopPane();                        
+        
+            theFullScreen.getContentPane().setLayout(new BorderLayout());
+            theFullScreen.getContentPane().add(screenPane);
+            theFullScreen.setIconImage(ideInstance.getIconImage());
+            theFullScreen.setTitle(ideInstance.getTitle() + " - (Fullscreen mode)");
+
+            // default the coursor
+            ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+            ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+            status = ideInstance.getStatusBar();
+            status.setStatusText("Ready.");
+        }
+    };
+    
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    status = ideInstance.getStatusBar();
+    status.setStatusText("Loading molecule, please wait!");
+
+    loadThread.setName("Jmol load Thread");
+    loadThread.start();    
+
+    // then return JMolPanel: is this proper? probably not, but will 
+    // probably serve the purpose
+    return jmolPanel;
+}

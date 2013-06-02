@@ -1,0 +1,27 @@
+import org.meta.math.mm.*;
+import org.meta.math.optimizer.impl.*;
+
+private String outputDir = "/home/ganesh/tmp/";
+
+twoD2ThreeD(file) {
+   molList = readMultiMoleculeFile(file, "false", "false");
+
+   i = 1;
+   for (mol : molList) { 
+       uff = new UniversalForceFieldMethod(mol, true);
+       opt = new ConjugateGradientOptimizer(uff, 3.0e-10);     
+
+       opt.setVariables(uff.getAtomCoords());
+       opt.minimize();
+
+       xyzFil = openFile(outputDir + i + ".xyz", "w");
+       saveAsXYZ(mol, xyzFil);
+       xyzFil.close();
+
+       print("Wrote : " + outputDir + i + ".xyz");
+
+       i++;
+   }
+}
+
+twoD2ThreeD(showFileDialog());

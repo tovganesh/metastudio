@@ -1,0 +1,61 @@
+import org.meta.math.qm.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.*;
+
+import java.awt.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.swing.event.*;
+
+showMoleculeCoord() { 
+   selectedMol = null;
+
+   panel = getWidgetsPanel();
+   molView = widget("showMoleculeCoord");
+   molView.setLayout(layout("verticalflow"));
+
+   molInfo = label("Paste your coordinates:");
+   molView.add(molInfo);
+
+   molCoord = textbox("area");
+   molCoord.setText("");
+   molCoord.getDocument().addDocumentListener(this);
+
+   molView.add(molCoord);
+
+   panel.addWidget(molView);
+   panel.updateUI();
+
+   insertUpdate(e) {
+     updateMolecule();
+   }
+
+   removeUpdate(e) {
+     updateMolecule();
+   }
+
+   changedUpdate(e) {
+     updateMolecule();
+   }
+
+   updateMolecule() {
+     molString = molCoord.getText();
+
+     mol = molecule("mol-coords");
+         
+     atmString = molString.split("\n");
+
+     for(atm : atmString) {
+        at = atm.trim().split("\\s+");
+
+        a = atom(at[0], 0.0, point(Double.parseDouble(at[1]), Double.parseDouble(at[2]), Double.parseDouble(at[3])));
+        mol.addAtom(a);
+     }
+
+     buildSimpleConnectivity(mol);
+     showMolecule(mol);
+   }
+}
+
+showMoleculeCoord();

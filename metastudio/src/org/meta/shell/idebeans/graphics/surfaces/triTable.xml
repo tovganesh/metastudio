@@ -1,0 +1,4623 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : triTable.xml
+    Created on : November 25, 2005, 8:12 PM
+    Author     : V.Ganesh
+    Description:
+        Defines the set of triangles that form a triset for a particular
+        condition defined via edgeTable (Marching Cube for 3D surface 
+        generation).
+-->
+
+<triTable size="256" entriesInEachRow="16" >
+    <triset>
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="11" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="6" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="6" />
+        <edge value="1" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="6" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="6" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="6" />
+        <edge value="9" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="5" />
+        <edge value="6" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="2" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="5" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="5" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="8" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="8" />
+        <edge value="5" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="0" />
+        <edge value="5" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="4" />
+        <edge value="5" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="4" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="11" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="11" />
+        <edge value="4" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="3" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="7" />
+        <edge value="9" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="7" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="10" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="10" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="4" />
+        <edge value="1" />
+        <edge value="7" />
+        <edge value="0" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="7" />
+        <edge value="4" />
+        <edge value="3" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="4" />
+        <edge value="8" />
+        <edge value="7" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="11" />
+        <edge value="3" />
+        <edge value="10" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="3" />
+        <edge value="9" />
+        <edge value="11" />
+        <edge value="1" />
+        <edge value="2" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="8" />
+        <edge value="0" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="3" />
+        <edge value="2" />
+        <edge value="11" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="9" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="2" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="2" />
+        <edge value="8" />
+        <edge value="10" />
+        <edge value="0" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="10" />
+        <edge value="2" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="1" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="9" />
+        <edge value="1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="0" />
+        <edge value="3" />
+        <edge value="8" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+    <triset>
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+        <edge value="-1" />
+    </triset>
+</triTable>
+

@@ -1,0 +1,24 @@
+/**
+ * matrix() - creates an instance of Matrix class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.math.*;
+
+Matrix matrix(int siz) {
+    return new Matrix(siz);
+}
+
+Matrix matrix(int m, int n) {
+    return new Matrix(m, n);
+}
+
+Matrix matrix(double [][] mat) {
+    return new Matrix(mat);
+}
+
+Matrix matrix(Vector vec) {
+    return new Matrix(vec);
+}

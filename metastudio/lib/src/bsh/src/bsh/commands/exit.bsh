@@ -1,0 +1,11 @@
+/**
+	Conditionally exit the virtual machine.
+	Call System.exit(0) unless bsh.system.shutdownOnExit == false.
+*/
+
+bsh.help.exit = "usage: exit()";
+
+exit() {
+        // Modified by V. Ganesh
+	// TODO: DO Nothing!
+}

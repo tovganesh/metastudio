@@ -1,0 +1,13 @@
+/**
+ * showFile() - opens up a quick file viewer
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+showFile(file) {
+    viewer = 
+      new org.meta.shell.idebeans.viewers.impl.TextQuickViewer();
+    
+    viewer.showFile(file);
+}

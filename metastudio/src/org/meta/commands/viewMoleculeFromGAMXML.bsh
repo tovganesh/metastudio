@@ -1,0 +1,47 @@
+/**
+ * viewMoleculeFromGAMXML() - View molecule from XML file written by GAMXML 
+ * add-on for GAMESS written by me.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+/**
+ * view the molecule in the GAMXML url.
+ */
+viewMoleculeFromGAMXML(String xmlURL) {
+   try {
+      molecule = extractMoleculeFromGAMXML(xmlURL);
+      buildConnectivity(molecule);
+      showMolecule(molecule);
+   } catch(Exception e) {
+      e.printStackTrace();
+      System.err.println("Unable to view the molecule : " + e.toString());
+
+      throw e;
+   } // end of try .. catch block
+} // end of method viewMoleculeFromGAMXML()
+
+/**
+ * view the molecule in the GAMXML url.
+ */
+viewMoleculeFromGAMXML(String xmlURL, String readAll) {
+   xmlThread = new Thread() {
+      public void run() {
+         try {      
+            molList = extractMoleculeFromGAMXML(xmlURL, readAll.equals("true"));
+            buildConnectivity(molList, "false", "false");
+            showMolecule(molList);
+         
+         } catch(Exception e) {
+            e.printStackTrace();
+            System.err.println("Unable to view the molecule : " + e.toString());
+
+            throw e;         
+         } // end of try .. catch block
+      }
+   };
+
+   xmlThread.setName("GAMXML reader Thread");
+   xmlThread.start();
+} // end of method viewMoleculeFromGAMXML()

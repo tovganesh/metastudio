@@ -1,0 +1,10 @@
+/**
+ * checkbox() - create instance of JCheckBox
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+checkbox(String text) {
+    return new javax.swing.JCheckBox(text);
+}

@@ -1,0 +1,24 @@
+/**
+ * list_meta() - List/ Discover "peer" MeTA studio services
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.net.*;
+
+list_meta() {
+    print("Listing / Discovery on, this may take few minutes...");
+    list = FederationServiceDiscovery.getInstance().listMeTA();
+    print("Done");
+    return list;
+}
+
+list_meta(int timeout) {
+    print("Listing / Discovery on, this may take few minutes...");
+    inst = FederationServiceDiscovery.getInstance();
+    inst.setTimeout(timeout);
+    list = inst.listMeTA();
+    print("Done");
+    return list;
+}

@@ -1,0 +1,87 @@
+/**
+ * buildConnectivity() - build connectivity info for a molecule object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.*;
+import org.meta.common.resource.*;
+import org.meta.molecule.*;
+
+buildConnectivity(Molecule molecule) {
+    buildConnectivity(molecule, "true");
+}
+
+buildConnectivity(Molecule molecule, String makeZMatrix) {
+    mb = Utility.getDefaultImplFor(MoleculeBuilder.class).newInstance();
+
+    // see if we can fasten the process of forming only "visible"
+    // connectivity for larger molecules
+    if (molecule.getNumberOfAtoms()
+     >= MiscResource.getInstance().getSimpleConnectivityMoleculeBuilderCutoff()) {
+      // an advice to molecule builder to form only simple connetivity
+      molecule.setCommonUserDefinedProperty(
+        CommonUserDefinedMolecularPropertyNames.DETECT_ONLY_SINGLE_BONDS, 
+        Boolean.TRUE);
+    } // end if
+
+    if (makeZMatrix.equals("true")) mb.makeZMatrix(molecule);
+    else mb.makeConnectivity(molecule);
+}
+
+buildConnectivity(Vector moleculeList) {
+    buildConnectivity(moleculeList, "true");
+}
+
+buildConnectivity(Vector moleculeList, String makeZMatrix) {
+    buildConnectivity(moleculeList, makeZMatrix, "false");
+}
+
+buildConnectivity(Vector moleculeList, String makeZMatrix, 
+                  String copyConnectivity) {
+    if (copyConnectivity.equals("false")) {
+        for(molecule : moleculeList) {
+            buildConnectivity(molecule, makeZMatrix);
+        } // end for
+    } else {
+        buildConnectivity(moleculeList.get(0), makeZMatrix);
+        
+        for(int i=1; i<moleculeList.size(); i++) {
+           atms = moleculeList.get(0).getAtoms();
+           iatms = moleculeList.get(i).getAtoms();
+
+           while(atms.hasNext() && iatms.hasNext()) {
+              iatms.next().setConnectedList(atms.next().getConnectedList());
+           } // end while           
+        } // end for
+    } // end if
+}
+
+buildConnectivity(ArrayList moleculeList) {
+    buildConnectivity(moleculeList, "true");
+}
+
+buildConnectivity(ArrayList moleculeList, String makeZMatrix) {
+    buildConnectivity(moleculeList, makeZMatrix, "false");
+}
+
+buildConnectivity(ArrayList moleculeList, String makeZMatrix,
+                  String copyConnectivity) {
+    if (copyConnectivity.equals("false")) {
+        for(molecule : moleculeList) {
+            buildConnectivity(molecule, makeZMatrix);
+        } // end for
+    } else {
+        buildConnectivity(moleculeList.get(0), makeZMatrix);
+
+        for(int i=1; i<moleculeList.size(); i++) {
+           atms = moleculeList.get(0).getAtoms();
+           iatms = moleculeList.get(i).getAtoms();
+
+           while(atms.hasNext() && iatms.hasNext()) {
+              iatms.next().setConnectedList(atms.next().getConnectedList());
+           } // end while
+        } // end for
+    } // end if
+}

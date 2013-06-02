@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="windows-1252"?>
+
+<!--
+    Document   : BondingInfo.xml
+    Created on : 6 October, 2008, 1:51 PM
+    @author  V.Ganesh
+    @version 2.0 (Part of MeTA v2.0)
+    Description:
+        This is a database of standard bonding info (distance and angles) that
+        is mainly for use by a MoleculeEditor, such as the one that is part of
+        MeTA Studio.
+        
+        Note: Distances are in angstrom, and angles are in radians.
+-->
+
+<bondinginfo>
+    <atom symbol="H" >
+        <directbond symbol="C" type="Single bond" dist="1.07" >
+            <anglebond symbol="C" type="Single bond" dist="" angle="" />
+        </directbond>
+    </atom>
+</bondinginfo>

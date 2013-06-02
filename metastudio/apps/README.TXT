@@ -1,0 +1,1 @@
+This folder contains examples and real applications build on the MeTA Studio platform.

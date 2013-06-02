@@ -1,0 +1,25 @@
+/**
+ * sendMessage() - send a message to another MeTA Studio using "broadcast"
+ * federation service.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.net.*;
+import org.meta.net.impl.consumer.*;
+
+sendMessage(String host, String message) {
+    Thread t = new Thread() {
+        public void run() {
+            f = new FederationServiceBroadcastConsumer();
+            r = f.discover(java.net.InetAddress.getByName(host));
+            f.setBroadcastMessage(message);
+            f.consume(r);
+        }
+    };
+
+    t.setName("Send message Thread");
+    t.start();
+}
+

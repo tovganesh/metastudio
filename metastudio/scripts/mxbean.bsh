@@ -1,0 +1,6 @@
+import java.lang.management.*;
+
+tb = ManagementFactory.getThreadMXBean();
+tinf=tb.getAllThreadIds();
+print(tb.getThreadCount());
+for(ti:tinf) { print(ti + " " + tb.getThreadInfo(ti).getThreadName() + " " + tb.getThreadInfo(ti).isSuspended() + " " + tb.getThreadUserTime(ti)*10e-9); }

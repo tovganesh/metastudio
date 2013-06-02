@@ -1,0 +1,17 @@
+myreduce() {
+  data = getData();
+  
+  print("reduce entry: " + data);
+
+  res = 0;
+  for(d : data) { 
+     res += d;
+  }
+
+  pdata = arraylist();
+  pdata.add(res);
+
+  setData(pdata);
+}
+
+myreduce();

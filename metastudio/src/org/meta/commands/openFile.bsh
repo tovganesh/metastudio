@@ -1,0 +1,53 @@
+/**
+ * openFile() - a wrapper to open files.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.nio.*;
+import java.nio.charset.*;
+import java.nio.channel.*;
+
+openFile(fileName) {
+    return openFile(fileName, "r");
+}
+
+openFile(fileName, mode) {
+    br      = null;
+    fstream = null;
+
+    if (mode.equals("r")) {
+        br = new BufferedReader(new InputStreamReader(
+                                   (fstream = new FileInputStream(fileName))));
+    } else if (mode.equals("w")) {
+        br = new BufferedWriter(new OutputStreamWriter(
+                                   (fstream = new FileOutputStream(fileName))));
+    } else {
+        throw new IOException("Invalid mode : " + mode); 
+    } // end if
+
+    getStream() { return br; }
+    getFileStream() { return fstream; }
+
+    /* basic operations on file */
+    close() { br.close(); }
+    readline() { return br.readLine(); }
+    readLine() { return br.readLine(); }
+    readlines() { return readLines(br); }
+    readLines() { return readLines(br); }
+    read(char[] cbuf, int off, int len) {
+       br.read(cbuf, off, len);
+    }
+
+    write(String str) { br.write(str); }
+    newLine() { br.newLine(); }
+
+    flush() { br.flush(); }
+
+    /* file channel i/o */
+    getChannel() { return fstream.getChannel(); }
+
+    return this;
+}

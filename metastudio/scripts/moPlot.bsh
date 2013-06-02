@@ -1,0 +1,86 @@
+import org.meta.math.qm.*;
+import org.meta.common.*;
+import org.meta.math.geom.*;
+import org.meta.molecule.property.electronic.*;
+
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.*;
+
+moPlot(orbitalNumber) {
+  // read molecule
+  mol = readMoleculeFile(showFileDialog());
+  buildConnectivity(mol, "false");
+  print(mol);
+
+  // set up basis functions
+  bf = new BasisFunctions(mol, "sto3g");
+
+  // compute integrals
+  e1 = new OneElectronIntegrals(bf, mol);  
+  e2 = new TwoElectronIntegrals(bf);
+
+  // do SCF
+  scfm = SCFMethodFactory.getInstance().getSCFMethod(mol, e1, e2, SCFType.HARTREE_FOCK);
+  scfm.scf();
+
+  print("Final energy: " + scfm.getEnergy());
+
+  // get MOS and orbital energies
+  mos = scfm.getMos();
+  ev  = scfm.getOrbE();
+
+  print("MOS: " + mos);
+  print("Orbitals energies: ");
+  print(ev);
+
+  // generate grid for plotting the MOS
+  bb = mol.getBoundingBox();
+  ul = bb.getUpperLeft();
+  br = bb.getBottomRight();
+  bb = new BoundingBox(point(ul.getX()-3, ul.getY()-3, ul.getZ()-3),
+                       point(br.getX()+3, br.getY()+3, br.getZ()+3));
+  ul = bb.getUpperLeft();
+  br = bb.getBottomRight();
+
+  nPoints = 20;
+  double [] fVals = new double[nPoints*nPoints*nPoints];
+  gp = new GridProperty(bb, 0.077, 0.077, 0.077, nPoints, nPoints, nPoints, fVals);
+
+  print(gp);
+  
+  mos = mos.getMatrix();
+  bfs = bf.getBasisFunctions();
+  orbitalNumber = 1;
+  nclosed = mol.getNumberOfElectrons() / 2;
+
+  // calculate orbital intensity at each point in the grid
+  ii = 0;
+  factor = 1.0; 
+  for(x=ul.getX(), i=0; i<nPoints; x=ul.getX()+(gp.getXIncrement()*i), i++) { 
+     for(y=ul.getY(), j=0; j<nPoints; y=ul.getY()+(gp.getYIncrement()*j), j++) {
+        for(z=ul.getZ(), k=0; k<nPoints; z=ul.getZ()+(gp.getZIncrement()*k), k++) {            
+            intensity = 0.0;
+            p = point(x*factor, y*factor, z*factor);
+            for(l=0; l<mos.length; l++) {
+               intensity += mos[orbitalNumber][l] * bfs.get(l).amplitude(p);
+            } 
+            fVals[ii++] = intensity;            
+        }
+     }
+  }
+
+  gp.setFunctionValues(fVals);
+
+  mols = new MoleculeScene(mol);  
+
+  mv = new MoleculeViewerFrame(getIDEInstance());
+  mv.addScene(mols);
+  getIDEInstance().getWorkspaceDesktop().addInternalFrame(mv);
+
+  ps = new PropertyScene(mols, gp);
+  mols.addPropertyScene(ps);
+  ps. getGridPropertyRenderer().setCurrentFunctionValue(ev[orbitalNumber]);
+}
+
+moPlot(0);

@@ -1,0 +1,20 @@
+/**
+ * osexec() - Executes a system process using ProcessBuilder APIs in Java.
+ * 
+ * Note: cmd is actually an array. The actual executable and the arguments
+ * must be given as separate arguments.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+osexec(String [] cmd) {
+    return new ProcessBuilder(cmd).start();
+}
+
+osexec(String [] cmd, String workingDirectory) {
+    pb = new ProcessBuilder(cmd);
+    pb.directory(new java.io.File(workingDirectory));
+
+    return pb.start();
+}

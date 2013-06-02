@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : MoleculePropertySheet.xml
+    Created on : June 1, 2004, 6:44 AM
+    Author     : V.Ganesh
+    Description:
+        Describes the property sheet for Molecule class.
+-->
+
+<propertysheet title="Molecule settings">
+    <propertygroup name="General">
+        <property name="title"
+                  displayName="Title :"
+                  mnemonicChar="T"
+                  tooltipText="Describes the content of the molecule object"
+                  get="true"
+                  set="true"                  
+                  defaultUI="true" />
+        <property name="numberOfAtoms"
+                  displayName="Number of Atoms :"
+                  mnemonicChar="A"
+                  tooltipText="The number of atoms in this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="formula"
+                  displayName="Molecular formula :"
+                  mnemonicChar="f"
+                  tooltipText="The molecular formula of this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="numberOfElectrons"
+                  displayName="Number of Electrons :"
+                  mnemonicChar="E"
+                  tooltipText="Total number of electrons in this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />                  
+        <property name="molecularMass"
+                  displayName="Molecular Mass :"
+                  mnemonicChar="E"
+                  tooltipText="Total molecular mass in a.m.u"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+    </propertygroup>
+    <propertygroup name="Bond statistics">
+        <property name="numberOfSingleBonds"
+                  displayName="Number of Single Bonds :"
+                  mnemonicChar="S"
+                  tooltipText=
+                          "The number of single covalent bonds in this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="numberOfMultipleBonds"
+                  displayName="Number of Multiple Bonds :"
+                  mnemonicChar="M"
+                  tooltipText=
+                        "The number of multiple covalent bonds in this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" /> 
+        <property name="numberOfStrongBonds"
+                  displayName="Number of Strong Bonds :"
+                  mnemonicChar="g"
+                  tooltipText=
+                           "The total number of covalent bonds in this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" /> 
+        <property name="numberOfWeakBonds"
+                  displayName="Number of Weak Bonds :"
+                  mnemonicChar="W"
+                  tooltipText= "The total number of weak bonds in this molecule"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />                   
+    </propertygroup>
+</propertysheet>

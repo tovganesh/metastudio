@@ -1,0 +1,30 @@
+// mbacInputReaderWidget.bsh, read input files for MBAC program
+//
+// @author V. Ganesh
+//
+
+import java.io.File;
+
+mbacInputReader() {
+   readMoleculeFile(fileName) {
+      fil = openFile(fileName);
+      lines = fil.readLines();
+      fil.close();   
+
+      mol = molecule("mbac input");
+      for(i=4; i<lines.size(); i++) {      
+         words = lines.get(i).split("\\s+");
+         if (words.length != 4) continue;
+         mol.addAtom(atom(words[0], 0.0, point(atof(words[1]), 
+                                            atof(words[2]), 
+                                            atof(words[3])))); 
+      } // end for
+
+      buildConnectivity(mol, "false");
+      return mol;
+   }
+
+   return this;
+}
+
+moleculeReaderWidget("MBAC reader", "Open MBAC Input file", mbacInputReader());

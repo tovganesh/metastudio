@@ -1,0 +1,12 @@
+// server:
+s=SSLServerSocketFactory.getDefault().createServerSocket(10000);
+s.setEnabledCipherSuites(SSLServerSocketFactory.getDefault().getSupportedCipherSuites());
+c=s.accept();
+c.setEnabledCipherSuites(SSLServerSocketFactory.getDefault().getSupportedCipherSuites());
+// ... read write
+
+// client:
+cs=new Socket("127.0.0.1", 10000);
+c=SSLSocketFactory.getDefault().createSocket(cs, "127.0.0.1", 10000, true);
+c.setEnabledCipherSuites(SSLServerSocketFactory.getDefault().getSupportedCipherSuites());
+// ... read write

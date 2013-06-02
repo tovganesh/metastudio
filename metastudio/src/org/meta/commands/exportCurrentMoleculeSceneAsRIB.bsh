@@ -1,0 +1,455 @@
+/**
+ * exportCurrentMoleculeSceneAsRIB - export the currently active molecule scene 
+ * to a RIB(*) file specified by the user. The file name is quried using a 
+ * IDEFileChooser dialog.
+ *
+ * (*) RIB files are the files used to define a 3D scene in Renderman language
+ * and which can be rendered using any Renderman compliant rendering engine
+ * like Renderman Studio, 3Delight, Aquis etc.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.molecule.*;
+import org.meta.config.impl.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.common.resource.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.*;
+
+import org.meta.common.Utility;
+
+import org.meta.math.geom.*;
+import org.meta.math.Vector3D;
+import org.meta.math.MathUtil;
+
+/**
+ * export the currently active scene, with the current geometry to a user
+ * specified RIB file.
+ */
+exportCurrentMoleculeSceneAsRIB() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frame = wsDesktop.getActiveFrame();
+
+    // no active frame?
+    if (frame == null) return;
+
+    // not appropriate instance?
+    if (!(frame instanceof MoleculeViewerFrame)) return;
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+    
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("rib",
+                                    "Renderman file format"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());                    
+    
+    // now show the stuff to the user, and pray he gives good files names ;)
+    fileChooser.addActionListener(new ActionListener() {        
+      public void actionPerformed(ActionEvent ae) {        
+        if (ae.getActionCommand().equals("CancelSelection")) {
+            // close the dialog 
+            getDialogParent(fileChooser.getParent()).dispose();
+            return;
+        } // end if                
+        
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // update last visited folder
+        fileChooser.setLastVisitedFolder(fileChooser.getCurrentDirectory()
+                                         .getAbsolutePath());
+
+        // make up for file extension, if it is not already there
+        if (!fileName.endsWith(".rib")) {
+            fileName += ".rib";
+        } // end if
+        
+        System.out.println("Molecule will be exported (rendered) to: " + fileName);        
+
+        FileWriter fos = new FileWriter(fileName);
+        
+        // write header for RIB file        
+        writeRIBHeader(fos, ((Integer) width.getValue()).intValue(),
+                            ((Integer) height.getValue()).intValue(),
+                            ((Integer) xSample.getValue()).intValue(),
+                            ((Integer) ySample.getValue()).intValue(),
+                            background.getBackground());         
+                                              
+        if (frame.isSelected()) {  // found the one that is active?
+            scenes = frame.getSceneList();
+            tMat = frame.getMoleculeViewer().getRotationMatrix();
+
+            // for each scene save the transformed molecule into the 
+            // user specified file
+            ideInstance.setCursor(
+                        Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            i = 0;
+            for (scene : scenes) {         
+                print("Saving scene: [" + i + "]: " + scene);                
+
+                boundingBox = null;
+
+                molecule = scene.getTransformedMolecule(tMat);
+
+                if (scene.getAllPropertyScene() != null) {
+                    for(pScene : scene.getAllPropertyScene()) {
+                        if (pScene.isVisible()) {
+                            boundingBox = pScene.getGridProperty()
+                                                    .getBoundingBox();
+                            break;   
+                        } // end if                       
+                    } // end for
+                } else {
+                    boundingBox = molecule.getBoundingBox();
+                } // end if
+
+                saveMoleculeAsRIB(molecule, 
+                     boundingBox, fos,
+                     ((String) shaderList.getSelectedItem()),
+                     ((Double) scalingFactor.getValue()).doubleValue(),
+                     ((Integer) width.getValue()).intValue(), i==0,
+                     scene.toString(), framebuffer.isSelected(),
+                     directoryName.getText(),
+                     ((MoleculeDisplayModel) modelTypeList.getSelectedItem()));
+                
+                if (scene.getAllPropertyScene() != null) {
+                    for(pScene : scene.getAllPropertyScene()) {
+                        if (!pScene.isVisible()) continue;
+
+                        ot = pScene.getGridPropertyRenderer().getTransform();
+                        pScene.getGridPropertyRenderer().setTransform(tMat);
+                        pScene.getGridPropertyRenderer().drawInRIBFile(fos,
+                            ((String) shaderList.getSelectedItem()),
+                            ((Double) scalingFactor.getValue()).doubleValue());
+                        pScene.getGridPropertyRenderer().setTransform(ot);
+                    } // end for
+                } // end if
+
+                // end of scene
+                fos.write("WorldEnd \n");
+                fos.write("FrameEnd \n");
+
+                i++;
+            } // end for
+            ideInstance.setCursor(Cursor.getDefaultCursor());
+        } // end if
+    
+        // finally close the file
+        fos.close();
+        
+        // close the dialog too        
+        getDialogParent(fileChooser.getParent()).dispose();       
+      }
+    }); // actionPerformed
+    
+    // add advanced controls
+    fileChooser.setApproveButtonText("Save");
+    fileChooser.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Choose a filename to export RIB:"));
+    
+    // the new file chooser panel
+    JPanel advancedPanel = new JPanel();
+    advancedPanel.setLayout(new BorderLayout());
+    
+    // and the extra options panel
+    JPanel advancedOptions = new JPanel(new BorderLayout());
+    JPanel pane1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    JPanel pane2 = new JPanel(new GridBagLayout());
+    
+    JButton advanced = new JButton("Show Advanced Options >>");
+    pane1.add(advanced);
+    advancedOptions.add(pane1, BorderLayout.NORTH);
+    // make the most important pane2
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.insets = new Insets(0, 5, 0, 5);
+    
+    // consists of 3 internal frames
+    JPanel imagePanel, shadersPanel, atomsPanel;
+    // the image panel
+    imagePanel = new JPanel(new GridBagLayout());
+    JSpinner width, height, xSample, ySample;    
+    width   = new JSpinner(new SpinnerNumberModel(512, 1, 9999, 1));
+    gbc.gridx = gbc.gridy = 0;
+    imagePanel.add(new JLabel("Width :"), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    imagePanel.add(width, gbc);
+    
+    height  = new JSpinner(new SpinnerNumberModel(512, 1, 9999, 1));
+    gbc.gridx = 2; gbc.gridy = 0;
+    imagePanel.add(new JLabel("Height :"), gbc);
+    gbc.gridx = 3; gbc.gridy = 0;
+    imagePanel.add(height, gbc);
+    
+    xSample = new JSpinner(new SpinnerNumberModel(3, 1, 99, 1));
+    gbc.gridx = 4; gbc.gridy = 0;
+    imagePanel.add(new JLabel("SampleX :"), gbc);
+    gbc.gridx = 5; gbc.gridy = 0;
+    imagePanel.add(xSample, gbc);
+    
+    ySample = new JSpinner(new SpinnerNumberModel(3, 1, 99, 1));
+    gbc.gridx = 6; gbc.gridy = 0;
+    imagePanel.add(new JLabel("SampleY :"), gbc);
+    gbc.gridx = 7; gbc.gridy = 0;
+    imagePanel.add(ySample, gbc);
+    imagePanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Image options:"));
+    imagePanel.setToolTipText("Change size and sampling rate of the "
+                              + "rendered image.");    
+    gbc.gridx = 0; gbc.gridy = 0;
+    pane2.add(imagePanel, gbc);
+    
+    // the shaders panel 
+    shadersPanel = new JPanel(new GridBagLayout());
+    JComboBox shaderList = new JComboBox();
+    shaderList.addItem("plastic");
+    shaderList.addItem("paintedplastic");
+    shaderList.addItem("reflectivepaintedplastic");
+    shaderList.addItem("metal");
+    shaderList.addItem("shinymetal");
+    shaderList.setEditable(true);
+    gbc.gridx = 0; gbc.gridy = 0;
+    shadersPanel.add(new JLabel("Current Shader :"), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    shadersPanel.add(shaderList, gbc);
+        
+    JButton background = new JButton("Click to change background");
+    background.setBackground(frame.getMoleculeViewer().getBackgroundColor());
+    background.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            JColorChooser cc = new JColorChooser();
+            
+            Color newColor = cc.showDialog(dialog, 
+                          "Choose a background color...",
+                            background.getBackground());
+            if (newColor != null) {               
+               background.setBackground(newColor);
+            } // end if
+        }
+    });
+    gbc.gridx = 2; gbc.gridy = 0;
+    shadersPanel.add(background, gbc);
+    
+    JSpinner scalingFactor = new JSpinner(
+                              new SpinnerNumberModel(1.0, 0.0, 99.0, 0.1));
+    gbc.gridx = 3; gbc.gridy = 0;
+    shadersPanel.add(new JLabel("Scaling factor :"), gbc);
+    gbc.gridx = 4; gbc.gridy = 0;
+    shadersPanel.add(scalingFactor);
+    
+    shadersPanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Shaders, background and scaling factor:"));
+    shadersPanel.setToolTipText("Change the shaders, background and "
+                                + "scaling factor of the image objet(s)");
+    gbc.gridx = 0; gbc.gridy = 1;
+    pane2.add(shadersPanel, gbc);
+    
+    // the atoms panel 
+    atomsPanel = new JPanel(new GridBagLayout());
+    AtomInfo ai = AtomInfo.getInstance();
+    JComboBox symbols = new JComboBox(new Vector(ai.getNameTable().keySet()));
+    symbols.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            changeColor.setBackground(ai.getColor(symbols.getSelectedItem()));
+            changeColor.setText("Click to change color of : "
+                                 + ai.getName(symbols.getSelectedItem()));
+        }
+    });
+    gbc.gridx = 0; gbc.gridy = 0;
+    atomsPanel.add(new JLabel("Choose a symbol :"), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    atomsPanel.add(symbols, gbc);
+    
+    JButton changeColor = new JButton("Click to change color of : "
+                                      + ai.getName(symbols.getSelectedItem()));
+    changeColor.setBackground(ai.getColor(symbols.getSelectedItem()));
+    changeColor.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            JColorChooser cc = new JColorChooser();
+            
+            Color newColor = cc.showDialog(dialog, 
+                          "Choose a color for : " + symbols.getSelectedItem()
+                          + "(" + ai.getName(symbols.getSelectedItem()) + ")",
+                            changeColor.getBackground());
+            if (newColor != null) {
+               ai.setColor(symbols.getSelectedItem(), newColor);
+               changeColor.setBackground(newColor);
+            } // end if
+        }
+    });
+    gbc.gridx = 2; gbc.gridy = 0;
+    atomsPanel.add(changeColor, gbc);
+    
+    atomsPanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Atom Properties:"));
+    atomsPanel.setToolTipText("Change the color of atom that appears in "
+                              + "the rendered image");
+    gbc.gridx = 0; gbc.gridy = 2;
+    pane2.add(atomsPanel, gbc);
+    
+    // the display panel
+    displayPanel = new JPanel(new GridBagLayout());
+    JRadioButton framebuffer, filebuffer;
+    ButtonGroup bg = new ButtonGroup();
+    
+    gbc.gridx = 0; gbc.gridy = 0;
+    framebuffer = new JRadioButton("Frame buffer");
+    bg.add(framebuffer);
+    framebuffer.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            if (filebuffer.isSelected()) {
+                directoryName.setEnabled(true);
+                selectDir.setEnabled(true);
+            } else {
+                directoryName.setEnabled(false);
+                selectDir.setEnabled(false);
+            } // end if
+        }
+    });
+    displayPanel.add(framebuffer, gbc);
+
+    gbc.gridx = 0; gbc.gridy = 1;
+    filebuffer  = new JRadioButton("File");
+    bg.add(filebuffer);
+    filebuffer.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            if (filebuffer.isSelected()) {
+                directoryName.setEnabled(true);
+                selectDir.setEnabled(true);
+            } else {
+                directoryName.setEnabled(false);
+                selectDir.setEnabled(false);
+            } // end if
+        }
+    });
+    displayPanel.add(filebuffer, gbc);
+
+    gbc.gridx = 1; gbc.gridy = 1;
+    JTextField directoryName = new JTextField(10);
+    directoryName.setText(System.getProperty("user.home") + File.separator);
+    directoryName.setEnabled(false);
+    displayPanel.add(directoryName, gbc);
+
+    gbc.gridx = 2; gbc.gridy = 1;
+    JButton selectDir = new JButton("Select directory");    
+    selectDir.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+                IDEFileChooser locationChooser = 
+                         new IDEFileChooser(directoryName.getText());
+                locationChooser.setFileSelectionMode(
+                                     IDEFileChooser.DIRECTORIES_ONLY);
+                locationChooser.setDialogTitle("Choose a location...");                
+                
+                if (locationChooser.showOpenDialog(dialog)
+                        == IDEFileChooser.APPROVE_OPTION) {
+                    // check for the validity of this directory 
+                    // and then proceed                    
+                    if (!locationChooser.getSelectedFile().exists()) return;
+                    
+                    // update the default location string
+                    path = locationChooser.getSelectedFile().
+                                                         getAbsolutePath();
+                    
+                    if (!path.endsWith(File.separator)) {
+                        path += File.separator;
+                    } // end if
+                    
+                    // and up date the location textbox
+                    directoryName.setText(path);
+                } // end if
+        }
+    });
+    selectDir.setEnabled(false);
+    displayPanel.add(selectDir, gbc);
+
+    framebuffer.setSelected(true);
+
+    displayPanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Display Properties:"));
+    displayPanel.setToolTipText("Change where the generated images will" +
+                                " be rendered.");
+    gbc.gridx = 0; gbc.gridy = 3;
+    pane2.add(displayPanel, gbc);
+
+    modelPanel = new JPanel(new GridBagLayout());
+    gbc.gridx = 0; gbc.gridy = 0;
+    modelPanel.add(new JLabel("Choose model: "), gbc);
+    gbc.gridx = 1; gbc.gridy = 0;
+    modelTypeList = new JComboBox(MoleculeDisplayModel.LINE.values());
+    modelPanel.add(modelTypeList, gbc);
+    modelPanel.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Molecule Model:"));
+
+    gbc.gridx = 0; gbc.gridy = 4;
+    pane2.add(modelPanel, gbc);
+ 
+    // add the advanced pane
+    advancedOptions.add(pane2, BorderLayout.CENTER);        
+    
+    advancedPanel.add(fileChooser, BorderLayout.CENTER);
+    advancedPanel.add(advancedOptions, BorderLayout.SOUTH);
+    advancedOptions.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Advanced options:"));
+    
+    // and setup the dialog
+    dialog = new JDialog(ideInstance, "Save file as...", true);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.getContentPane().add(advancedPanel, BorderLayout.CENTER);            
+    dialog.pack();    
+    dialog.setLocationRelativeTo(ideInstance);
+    pane2.setVisible(false);
+    advanced.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            pane2.setVisible(!pane2.isVisible());
+            if (pane2.isVisible()) advanced.setText("Hide Advanced Options <<");
+            else advanced.setText("Show Advanced Options >>");
+        }
+    });           
+    
+    dialog.setVisible(true);         
+}
+
+/**
+ * get the center between two atoms, and the distance from the center
+ */
+getCenterAndDistance(Atom a1, Atom a2, Point3D p) {        
+    p.setX((a1.getX() + a2.getX()) / 2.0);
+    p.setY((a1.getY() + a2.getY()) / 2.0);
+    p.setZ((a1.getZ() + a2.getZ()) / 2.0);
+        
+    // Distance(midpoint, atomcenter)
+    return a1.distanceFrom(p);
+}

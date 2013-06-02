@@ -1,0 +1,17 @@
+/**
+ * diagonalize() - Diagonalize a Matrix object using default 
+ * diagonalizer.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.*;
+import org.meta.math.la.*;
+
+diagonalize(Matrix mat) {
+    d = DiagonalizerFactory.getInstance().getDefaultDiagonalizer();
+    d.diagonalize(mat);
+
+    return d;
+}

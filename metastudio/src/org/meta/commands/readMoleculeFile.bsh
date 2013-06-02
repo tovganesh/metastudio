@@ -1,0 +1,48 @@
+/**
+ * readMoleculeFile() - reads a molecule fileName and returns the unprocessed( ? )
+ * Molecule object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.moleculereader.*;
+
+readMoleculeFile(String fileName) {
+    mfr = Utility.getDefaultImplFor(
+                  MoleculeFileReaderFactory.class).newInstance();    
+    
+    typ = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());
+    
+    rdr = mfr.getReader(typ);
+
+    mol = rdr.readMoleculeFile(fileName);
+    mol.setCommonUserDefinedProperty(
+           CommonUserDefinedMolecularPropertyNames.SOURCE_FILE_NAME, fileName);
+
+    // TODO: needs to be modified appropriately
+    mol.setCommonUserDefinedProperty(
+           CommonUserDefinedMolecularPropertyNames.READ_DEEP, Boolean.TRUE);
+
+    return mol;
+}
+
+readMoleculeFile(java.net.URL url, String typ) {
+    mfr = Utility.getDefaultImplFor(
+                  MoleculeFileReaderFactory.class).newInstance();
+    fileName = url.toExternalForm();
+
+    rdr = mfr.getReader(typ);
+
+    mol = rdr.readMolecule(url.openStream());
+    mol.setCommonUserDefinedProperty(
+           CommonUserDefinedMolecularPropertyNames.SOURCE_FILE_NAME, fileName);
+
+    // TODO: needs to be modified appropriately
+    mol.setCommonUserDefinedProperty(
+           CommonUserDefinedMolecularPropertyNames.READ_DEEP, Boolean.TRUE);
+
+    return mol;
+}

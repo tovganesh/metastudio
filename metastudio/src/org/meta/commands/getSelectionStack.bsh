@@ -1,0 +1,22 @@
+/**
+ * getSelectionStack() - return the selection stack of the MoleculeViewerFrame
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import  org.meta.shell.idebeans.*;
+
+getSelectionStack(vframe) {
+   if (!(vframe instanceof MoleculeViewerFrame)) return null;
+
+   al = arraylist();
+
+   for(scene : vframe.getSceneList()) {
+      for(sa : scene.getSelectionStack()) {
+         al.add(sa.getAtom());
+      } // end for
+   } // end for
+
+   return al;   
+}

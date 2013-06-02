@@ -1,0 +1,31 @@
+/**
+ * moDensity() - compute MO density of a molecule, from a
+ *                     SCFMethod object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.molecule.*;
+import org.meta.math.qm.*;
+import org.meta.math.qm.property.*;
+import org.meta.molecule.property.electronic.*;
+
+moDensity(SCFMethod scfm, GridProperty gp) {
+    (new MODensity(scfm)).compute(gp);
+}
+
+moDensity(SCFMethod scfm, GridProperty gp, int monumber) {
+    (new MODensity(scfm, monumber)).compute(gp);
+}
+
+moDensity(Molecule molecule, BasisFunctions bfs,
+          MolecularOrbitals mos, GridProperty gp) {
+    (new MODensity(molecule, bfs, mos)).compute(gp);
+}
+
+moDensity(Molecule molecule, BasisFunctions bfs,
+          MolecularOrbitals mos, GridProperty gp, int monumber) {
+    (new MODensity(molecule, bfs, mos, monumber)).compute(gp);
+}
+

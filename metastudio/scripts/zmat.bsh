@@ -1,0 +1,57 @@
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.moleculebuilder.*;
+
+m = getLoadedMoleculeScenes().get(0).getMolecule();
+
+mn = Utility.getDefaultImplFor(Molecule.class).newInstance();
+i = 0;
+for(a:m.traversePath(48)) {
+    a = m.getAtom(a).clone();
+    a.setIndex(i);
+    a.removeAllConnections();
+    mn.addAtom(a);    
+    i++;
+}
+
+mb = Utility.getDefaultImplFor(MoleculeBuilder.class).newInstance();
+mb.makeConnectivity(mn);
+mb.makeZMatrix(mn);
+
+int i=0;
+print(mn.getNumberOfAtoms());
+for(e:mn.getAtoms()) {  
+    if (e.getIndex() == 0) {
+        print(e.getSymbol());
+    } else if (e.getIndex() == 1) {
+        l = e.getLengthReference().getReferenceAtom();
+        print(e.getSymbol() + " " + 
+              l.getSymbol() + l.getIndex() + " " 
+              + e.getLengthReference().getValue());
+    } else if (e.getIndex() == 2) {
+        l = e.getLengthReference().getReferenceAtom();
+        a = e.getAngleReference().getReferenceAtom();
+        print(e.getSymbol() + " " +
+              l.getSymbol() + l.getIndex() + " " 
+              + e.getLengthReference().getValue()
+              + " " + 
+              a.getSymbol() + a.getIndex() + " "
+              + e.getAngleReference().getValue());
+    } else { 
+        l = e.getLengthReference().getReferenceAtom();
+        a = e.getAngleReference().getReferenceAtom();
+        d = e.getDihedralReference().getReferenceAtom();
+        print(e.getSymbol() + " " +
+              l.getSymbol() + l.getIndex() + " " 
+              + e.getLengthReference().getValue()
+              + " " +
+              a.getSymbol() + a.getIndex() + " "
+              + e.getAngleReference().getValue() 
+              + " " +
+              d.getSymbol() + d.getIndex() + " " 
+              + e.getDihedralReference().getValue());
+                  
+    } // end if
+}
+
+showMolecule(mn);

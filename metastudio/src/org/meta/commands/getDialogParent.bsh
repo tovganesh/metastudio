@@ -1,0 +1,19 @@
+/**
+ * getDialogParent - recursively find the associated dialog parent
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.awt.*;
+
+/** 
+ * recursively find the associated dialog parent
+ */
+getDialogParent(Component c) {
+    if (c instanceof Dialog) {
+        return c;
+    } else {
+        return getDialogParent(c.getParent());
+    } // end if
+}

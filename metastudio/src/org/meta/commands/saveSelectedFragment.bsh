@@ -1,0 +1,58 @@
+/**
+ * saveSelectedFragment - selected fragment from workspace. 
+ * The file name is quried using a IDEFileChooser dialog.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.fragment.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/** 
+ * saves the currently selected fragment from workspace
+ */
+saveSelectedFragment() {    
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace panel instance
+    wsPanel = ideInstance.getWorkspaceExplorer().getWorkspacePanel();
+    
+    if (wsPanel == null) return;
+
+    // is there a selecteion?
+    selectedNode = wsPanel.getSelectedNode();
+
+    if (selectedNode == null) return;
+
+    // then check if it is of rt type
+    fragment = selectedNode.getUserObject().getFragment();
+
+    if (!(fragment instanceof Fragment)) return; 
+
+    // cast the fragment into molecule
+    molecule = 
+        (Molecule) Utility.getDefaultImplFor(Molecule.class).newInstance();
+    for(atom : fragment.getFragmentAtoms()) {
+        molecule.addAtom(new Atom(atom.getSymbol(), atom.getCharge(), 
+                                  atom.getAtomCenter()));
+    } // end for
+
+    // first grab the file name .. and the format .. and save
+    exportMoleculeDialog(molecule); 
+}

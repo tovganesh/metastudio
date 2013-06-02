@@ -1,0 +1,69 @@
+/**
+ * monitorProcess() - Monitor the process stream.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+
+monitorProcess(java.lang.Process p) {
+    pmThread = new Thread() {
+        public void run() {            
+            try {
+                istream = new BufferedReader(new InputStreamReader(p.getInputStream()));
+
+                while(true) {
+                    line = istream.readLine();
+
+                    if (line == null) break;
+
+                    System.out.println(line);
+                } // end while
+
+                System.out.println("");
+                
+                istream.close();
+            } catch(Exception e) {
+                System.err.println("Error redirecting streams: " + e.toString());
+                e.printStackTrace();
+            } // end of try .. catch block
+        }
+    };
+  
+    pmThread.setPriority(Thread.MIN_PRIORITY);
+    pmThread.setName("Process monitoring Thread");
+    pmThread.start();
+}
+
+monitorProcess(java.lang.Process p, String logFile) {
+    pmThread = new Thread() {
+        public void run() {            
+            try {
+                istream = new BufferedReader(new InputStreamReader(p.getInputStream()));
+                lstream = new FileOutputStream(logFile);
+
+                while(true) {
+                    line = istream.readLine();
+
+                    if (line == null) break;
+
+                    System.out.println(line);
+
+                    lstream.write((line+"\n").getBytes());
+                } // end while
+
+                System.out.println("");
+
+                istream.close();
+                lstream.close();
+            } catch(Exception e) {
+                System.err.println("Error redirecting streams: " + e.toString());
+                e.printStackTrace();
+            } // end of try .. catch block
+        }
+    };
+
+    pmThread.setPriority(Thread.MIN_PRIORITY);
+    pmThread.start();
+}

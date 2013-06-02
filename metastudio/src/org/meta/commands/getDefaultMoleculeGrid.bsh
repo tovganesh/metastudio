@@ -1,0 +1,15 @@
+/**
+ * getDefaultMoleculeGrid() - generate a default Molecule GridPropery object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.molecule.*;
+import org.meta.molecule.property.electronic.*;
+
+getDefaultMoleculeGrid(Molecule mol) {
+   bb = mol.getBoundingBox().expand(5);  // 5 angstroms in each direction
+   
+   return new GridProperty(bb, 100);
+}

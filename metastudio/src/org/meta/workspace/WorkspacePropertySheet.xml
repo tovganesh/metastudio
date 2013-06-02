@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : WorkspacePropertySheet.xml
+    Created on : July 4, 2004, 5:02 PM
+    Author     : Ganesh
+    Description:
+        Describes the property sheet for Workspace class.
+-->
+
+<propertysheet title="Workspace settings">
+    <propertygroup name="General">
+        <property name="ID"
+                  displayName="ID :"
+                  mnemonicChar="I"
+                  tooltipText="A unique identifier for this workspace"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="author"
+                  displayName="Author :"
+                  mnemonicChar="A"
+                  tooltipText="Author(s) of this workspace"
+                  get="true"
+                  set="true"                  
+                  defaultUI="true" />
+        <property name="description"
+                  displayName="Description :"
+                  mnemonicChar="D"
+                  tooltipText="A description of this workspace"
+                  get="true"
+                  set="true"                  
+                  defaultUI="true" />
+        <property name="implClass"
+                  displayName="Implementation Class :"
+                  mnemonicChar="C"
+                  tooltipText="The class that handles this workspace"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+    </propertygroup>
+    <propertygroup name="Versoning/Date">
+        <property name="version"
+                  displayName="Version :"
+                  mnemonicChar="V"
+                  tooltipText="The version number for this workspace"
+                  get="true"
+                  set="true"                  
+                  defaultUI="true" />
+        <property name="creationDate"
+                  displayName="Creation Date :"
+                  mnemonicChar="r"
+                  tooltipText="The date on which this workspace was created"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="lastModifiedDate"
+                  displayName="Last Modified Date :"
+                  mnemonicChar="M"
+                  tooltipText="The last modification date of this workspace"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+    </propertygroup>
+</propertysheet>              

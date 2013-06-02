@@ -1,0 +1,13 @@
+// ekaha.srl : the first program for Saral
+// author: V. Ganesh
+//
+
+a[0..99] = [0..99];  // initialize an array indexed from 0 to 99, 
+                      // with numbers 0 to 99
+sum = 0;
+
+for(i in 0..a.length) {  // a loop over length of numebers in array
+   sum += a[i];          // with simple sum
+}
+
+print(sum); // print the final sum

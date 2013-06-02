@@ -1,0 +1,256 @@
+
+import java.io.*;
+
+import org.meta.common.*;
+import org.meta.common.resource.*;
+import org.meta.config.impl.*;
+import org.meta.molecule.*;
+
+import org.meta.math.geom.*;
+
+import org.meta.math.Vector3D;
+import org.meta.math.MathUtil;
+
+/**
+ * save the supplied molecule to the specified stream in RIB format
+ */
+saveMoleculeAsRIB(Molecule molecule, BoundingBox boundingBox, fos, 
+                  String shader, double scaleFactor, int width, boolean isTran,
+                  String sceneName, boolean isFrameBuffer, String fileBufDir){
+
+    // bring the stuff to center    
+    center      = boundingBox.center();     
+    p1          = boundingBox.getUpperLeft();
+    p2          = boundingBox.getBottomRight();
+    radius      = 2.0 * Math.max(Math.abs(p2.getX()-p1.getX()),
+                           Math.max(Math.abs(p2.getY()-p1.getY()), 
+                                    Math.abs(p2.getZ()-p1.getZ()))
+                           );    
+
+    yFactor = (3.3 * scaleFactor)/radius; 
+
+    if (isTran) {    
+        fos.write("Scale " + (yFactor)
+                              + " " + (yFactor)
+                              + " " + (yFactor)
+                              + "\n");
+
+        fos.write("Translate " + (-center.getX())
+                                  + " " + (-center.getY())
+                                  + " " + (radius+center.getZ())
+                                  + " \n");    
+    } // end if
+
+    // and then the rest of stuff
+    if (isFrameBuffer) {
+        fos.write("\nDisplay \""
+                           + molecule.toString() + "\" \"framebuffer\" "
+                           + "\"rgba\" \n");
+    } else {
+        fos.write("\nDisplay \""
+                           + fileBufDir.replace("\\", "/") 
+                           + sceneName + ".png" + "\" \"file\" "
+                           + "\"rgba\" \n");
+    } // end if
+
+    // the scene begins here
+    fos.write("FrameBegin 1 \n");
+    fos.write("WorldBegin \n");
+    
+    // and dump the atoms and the bonds!
+    atoms    = molecule.getAtoms();
+    atomInfo = AtomInfo.getInstance();
+    
+    for(atom : atoms) {
+        // draw the sphere ... representing the atom                
+        fos.write("AttributeBegin\n");
+        fos.write("Translate " + atom.getX() * scaleFactor
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + -atom.getZ() * scaleFactor
+                                      + "\n");        
+
+        Color color = atomInfo.getColor(atom.getSymbol());
+        fos.write("Color " + color.getRed()   / 255.0
+                                + " "   + color.getGreen() / 255.0
+                                + " "   + color.getBlue()  / 255.0
+                                + "\n");
+
+        // the surface shader
+        fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");
+
+        if (atom.getAtomCenter().isZero()) {
+            fos.write("LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [0.1 0.1 0.1]\n");
+        } else {
+            fos.write("LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [" + atom.getX() * scaleFactor 
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + atom.getZ() * scaleFactor 
+                                      + "]\n");
+        } // end if
+
+        // for ball and stick model
+        radiusR = atomInfo.getCovalentRadius("H") * 0.5;
+        fos.write("Sphere " + (radiusR * scaleFactor)
+                                + " -"   + (radiusR * scaleFactor)
+                                + " "    + (radiusR * scaleFactor)
+                                + " 360.0\n");
+
+        // attribute ends here
+        fos.write("AttributeEnd\n\n");
+
+        // now build the bonding information
+        connectedList = atom.getConnectedList().keys();
+        
+        for(cl : connectedList) {
+            atom2 = molecule.getAtom(cl);
+            
+            radius = atomInfo.getCovalentRadius("H") * 0.5;
+
+            bondType = molecule.getBondType(atom.getIndex(), atom2.getIndex());
+            
+            // bond attribute starts here
+            fos.write("AttributeBegin\n");
+                                  
+            color = atomInfo.getColor(atom2.getSymbol());
+  
+            fos.write("Color " + color.getRed()   / 255.0
+                                            + " " + color.getGreen() / 255.0
+                                            + " " + color.getBlue()  / 255.0
+                                            + "\n");                    
+            
+            // the surface shader
+            fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");                    
+        
+            // translate the cylinder appropriately
+            center = new Point3D();
+            distance = getCenterAndDistance(atom, atom2, center);
+            
+            fos.write("Translate " + center.getX() * scaleFactor
+                                          + " " + center.getY() * scaleFactor
+                                          + " " + -center.getZ() * scaleFactor
+                                          + "\n");
+            // and then do appropriate rotation
+            // compute vector from atom->atom2
+            vector = atom2.getAtomCenter().sub(atom.getAtomCenter());
+            vector = (new Vector3D(vector)).normalize();
+            
+            angleWithZ = MathUtil.toDegrees(Math.acos(vector.getK()));
+            
+            fos.write("Rotate " + (angleWithZ)
+                                             + " " + vector.getJ()
+                                             + " " + (-vector.getI())
+                                             + " 0.0 \n");
+            
+            if (bondType.equals(BondType.WEAK_BOND)) {
+                fos.write("Cylinder 0.01 "
+                                        + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } else {
+                fos.write("Cylinder " + (radius * scaleFactor)
+                                        + " " + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } // end if
+            
+            // bond attribute ends here
+            fos.write("AttributeEnd\n\n");
+        } // end if
+    } // end for        
+}
+
+writeRib(fileName, molecule) {
+        // get the current IDE instance ... hoping that this is already inited
+        ideInstance = getIDEInstance();
+    
+        if (ideInstance == null) return;
+    
+        // then get the workspace desktop instance
+        wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+        if (wsDesktop == null) return;
+    
+        // then get the active frame of this desktop
+        frames = wsDesktop.getFrameList();
+
+        // not appropriate instance?
+        frame = null;
+        for(f : frames) 
+           if (f instanceof MoleculeViewerFrame) 
+              frame = f;
+           
+        if (frame == null) return;
+  
+        FileWriter fos = new FileWriter(fileName);
+        
+        // write header for RIB file        
+        writeRIBHeader(fos, 800,  // width of image
+                        720, // height of image
+                        10,  // x sample
+                        10,  // y sample
+                        Color.black); // black color        
+    
+        if (true) {  // found the one that is active? (!!)
+            scenes = frame.getSceneList();
+            tMat = frame.getMoleculeViewer().getRotationMatrix();
+
+            // for each scene save the transformed molecule into the 
+            // user specified file
+            ideInstance.setCursor(
+                        Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            i = 0;
+            for (scene : scenes) {         
+                print("Saving scene: [" + i + "]: " + scene);                
+
+                boundingBox = null;
+
+                molecule = scene.getTransformedMolecule(tMat);
+
+                if (scene.getAllPropertyScene() != null) {
+                    for(pScene : scene.getAllPropertyScene()) {
+                        if (pScene.isVisible()) {
+                            boundingBox = pScene.getGridProperty()
+                                                    .getBoundingBox();
+                            break;   
+                        } // end if                       
+                    } // end for
+                } else {
+                    boundingBox = molecule.getBoundingBox();
+                } // end if
+
+                saveMoleculeAsRIB(molecule, 
+                     boundingBox, fos,
+                     "plastic",  // shader
+                     1.0, // scaling factor
+                     800,  // width
+                     i==0, // scene number
+                     scene.toString(), 
+                     true,
+                     ".");
+                
+                if (scene.getAllPropertyScene() != null) {
+                    for(pScene : scene.getAllPropertyScene()) {
+                        if (!pScene.isVisible()) continue;
+
+                        ot = pScene.getGridPropertyRenderer().getTransform();
+                        pScene.getGridPropertyRenderer().setTransform(tMat);
+                        pScene.getGridPropertyRenderer().drawInRIBFile(fos,
+                            ((String) shaderList.getSelectedItem()),
+                            ((Double) scalingFactor.getValue()).doubleValue());
+                        pScene.getGridPropertyRenderer().setTransform(ot);
+                    } // end for
+                } // end if
+
+                // end of scene
+                fos.write("WorldEnd \n");
+                fos.write("FrameEnd \n");
+
+                i++;
+            } // end for
+            ideInstance.setCursor(Cursor.getDefaultCursor());
+        } // end if
+    
+        // finally close the file
+        fos.close();    
+}
+
+writeRib(showFileDialog("Save RIB...", "save"), showMoleculeListDialog());

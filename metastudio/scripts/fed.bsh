@@ -1,0 +1,11 @@
+import org.meta.net.*;
+import org.meta.net.impl.consumer.FederationServiceEchoConsumer;
+Thread t = new Thread() {
+  public void run() {
+     f=new FederationServiceEchoConsumer();
+     r=f.discover(java.net.InetAddress.getByName("127.0.0.1"));
+     f.consume(r);
+  }
+};
+
+t.start();

@@ -1,0 +1,103 @@
+/**
+ * help() - Provides help on various "ChemLets"
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.resource.StringResource;
+
+_theChemLets = new java.util.Hashtable();
+
+_theChemLets.put("helloMeTA", "helloMeTA() : \n\tKnow about this application");
+_theChemLets.put("showFile", "showFile(fileName) : \n\t"
+                            + "Display a file as a text file");
+_theChemLets.put("showMolecule(1)", "showMolecule(fileName) : \n\t"
+                            + "Display a molecule file in Molecule Viewer");
+_theChemLets.put("showMolecule(2)", "showMolecule(molecule) : \n\t"
+                            + "Display a molecule object in Molecule Viewer");
+_theChemLets.put("showMolecule(3)", "showMolecule(moleculeList) : \n\t"
+                     + "Display a list of molecule objects in Molecule Viewer");
+_theChemLets.put("readMoleculeFile", 
+                 "readMoleculeFile(fileName) : Molecule \n" 
+                 + "\tTries to read a supported moleule file format and return"
+                 + " a raw Molecule object");
+_theChemLets.put("readMultiMoleculeFile", 
+                 "readMultiMoleculeFile(fileName) : molecule list\n" 
+                 + "\tTries to read a supported moleule file format having"
+                 + " multiple entries and return a list of processed molecule"
+                 + " objects");
+_theChemLets.put("buildConnectivity(1)", 
+                 "buildConnectivity(molecule) :\n"
+                 + "\tAccepts molecule object and builds the molecular"
+                 + " connectivity graph");
+_theChemLets.put("buildConnectivity(2)", 
+                 "buildConnectivity(moleculeList) :\n"
+                 + "\tAccepts list of molecule objects and builds the molecular"
+                 + " connectivity graph for each");
+_theChemLets.put("compare", 
+                 "compare(molecule1, molecule2, threshold) :\n"
+                 + "\tCompare the molecular geometries as is using"
+                 + " bond distances and bonding information. The bond distances"
+                 + " which are less than or equal to the given threshold are"
+                 + " indicated by '**' sign.");
+_theChemLets.put("getLoadedMolecules", 
+                "getLoadedMolecules() : list \n "
+                + "\tGet all the loaded molecules in the current workspace as "
+                + " a list of Molecule objects");
+_theChemLets.put("printInAngstrom", 
+                "printInAngstrom(molecule) : \n "
+                + "\tPrint the coordinates of the molecule objects in angstroms");
+_theChemLets.put("printInAU", 
+                "printInAU(molecule) : \n "
+                + "\tPrint the coordinates of the molecule objects in a.u.");
+_theChemLets.put("getLoadedMoleculeScenes", 
+                "getLoadedMoleculeScenes() : list \n "
+                + "\tGet all the loaded molecule scenes in the"
+                + " current workspace as a list of MoleculeScene objects");
+_theChemLets.put("findDistance", 
+                "findDistance(atomIndex1, atomIndex2) : double \n "
+                + "\tDistance between two atoms");
+_theChemLets.put("findAngle", 
+                "findAngle(atomIndex1, atomIndex2, atomIndex3) : double \n "
+                + "\tAngle in degrees defined by 1-2-3");
+_theChemLets.put("findDihedral", 
+                "findDihedral(atomIndex1, atomIndex2, "
+                + "atomIndex3, atomIndex4) : double \n "
+                + "\tDihedral in degrees defined by 1-2-3-4");
+_theChemLets.put("movie",
+                 "movie([delay, repeat]) : Movie object \n"
+                 + "\tReturns a Movie object whose begin(), pause() and end() "
+                 + "methods can be used to start and stop movie of all loaded "
+                 + "molecule scenes");
+_theChemLets.put("addIDEPath",
+                 "addIDEPath(path) : \n"
+                 + "\tadds an external path at runtime to the beanshell "
+                 + "interpreter instance, and imports any commands from that "
+                 + "path.");
+_theChemLets.put("hfscf",
+                 "hfscf(molecule, basis) : \n"
+                 + "\tPerforms single point energy calculation using HF "
+                 + "method at the said basis.");
+_theChemLets.put("mp2scf",
+                 "mp2scf(molecule, basis) : \n"
+                 + "\tPerforms single point energy calculation using MP2 "
+                 + "method at the said basis.");
+_theChemLets.put("openFile",
+                 "openFile(fileName, [mode]) : fileObject\n"
+                 + "\t Opens a file in read (\"r\") or write (\"w\") modes."
+                 + " Default mode is read.");
+help() {
+    print("Bean Shell configured for : "
+          + StringResource.getInstance().getVersion());
+    print("Available ChemLets: \n");
+    
+    chemLets = _theChemLets.keys();    
+    for (chemLet : chemLets) {
+        help(chemLet);
+    } // end for
+}
+
+help(String chemLet) {
+    print(_theChemLets.get(chemLet));
+}

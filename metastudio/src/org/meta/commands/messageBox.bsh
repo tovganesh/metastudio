@@ -1,0 +1,38 @@
+/**
+ * messageBox() - show JOptionPane.showMessageDialog().
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import javax.swing.*;
+
+messageBox(String msg) {
+    messageBox(msg, "");
+}
+
+messageBox(String msg, String title) {
+    messageBox(msg, title, "normal");
+}
+
+messageBox(String msg, String title, String type) {
+    type = type.toLowerCase();
+
+    if (type.equals("normal")) {
+        JOptionPane.showMessageDialog(getIDEInstance(), msg, title, 
+                                       JOptionPane.INFORMATION_MESSAGE);
+    } else if (type.equals("warning")) {
+        JOptionPane.showMessageDialog(getIDEInstance(), msg, title, 
+                                       JOptionPane.WARNING_MESSAGE);
+    } else if (type.equals("warn")) {
+        JOptionPane.showMessageDialog(getIDEInstance(), msg, title, 
+                                       JOptionPane.WARNING_MESSAGE);
+    } else if (type.equals("error")) {
+        JOptionPane.showMessageDialog(getIDEInstance(), msg, title, 
+                                       JOptionPane.ERROR_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(getIDEInstance(), msg, title, 
+                                       JOptionPane.INFORMATION_MESSAGE); 
+    } // end if
+}
+

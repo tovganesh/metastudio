@@ -1,0 +1,9 @@
+/**
+ * helloMeTA() - showing off the power ;)
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+helloMeTA() {
+    new org.meta.shell.ide.AboutMeTA(null);
+}

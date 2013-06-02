@@ -1,0 +1,50 @@
+/**
+ * edit() - opens up an editor in the IDE for editing beanshell script
+ *          files.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.shell.idebeans.editors.impl.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+edit(String fileName, boolean inWorksapce) {
+    if (fileName == null) {
+        addToIDE(new BshIDEditor(getIDEInstance()), inWorksapce);   
+    } else {
+        addToIDE(new BshIDEditor(getIDEInstance(), fileName), inWorksapce);   
+    } // end if
+}
+
+edit(String fileName, String inWorksapce) {
+    edit(fileName, (new Boolean(inWorksapce)).booleanValue());
+}
+
+edit(String fileName) {
+    edit(fileName, false);
+}
+
+edit() {
+    edit(null);   
+}
+
+addToIDE(editor, boolean inWorksapce) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = getIDEInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(editor, inWorksapce, false);
+
+    // add action listener for closing
+    editor.addCloseListener();
+
+    editor.grabFocus();
+}

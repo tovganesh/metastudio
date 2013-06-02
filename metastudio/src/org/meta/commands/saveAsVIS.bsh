@@ -1,0 +1,24 @@
+/**
+ * save the supplied molecule to the specified stream in VIS format
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.util.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+saveAsVIS(Molecule molecule, fos) {
+    fos.write("$molecule\n");    
+    
+    Iterator atoms = molecule.getAtoms();       
+    
+    for(atom : atoms) {          
+      fos.write(atom.getSymbol() + " " + atom.getAtomCenter() + "\n");
+    } // end for
+    
+    fos.write("$end\n");
+}

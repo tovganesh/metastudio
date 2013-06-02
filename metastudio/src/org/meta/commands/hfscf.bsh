@@ -1,0 +1,108 @@
+/**
+ * hfscf() - perform HF/SCF for the given molecule and at a given level.
+ *
+ * Usage: hfscf(<molecule object>, "basis set") : return the SCFMethod object
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.text.DecimalFormat;
+
+import org.meta.math.qm.*;
+import org.meta.molecule.*;
+import org.meta.math.qm.event.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+hfscf(Molecule molecule, String basisSet) {
+    return hfscf(molecule, basisSet, false);
+}
+
+hfscf(Molecule molecule, String basisSet, boolean isDirect) {
+    print("Starting computation for " + molecule 
+          + " at " + basisSet + " basis");
+
+    t1  = System.currentTimeMillis();
+    bfs = new BasisFunctions(molecule, basisSet);
+    t2  = System.currentTimeMillis();
+    print("Number of basis functions : " + bfs.getBasisFunctions().size());
+    print("Time till setting up basis : " + (t2-t1) + " ms");
+  
+    oneEI = new OneElectronIntegrals(bfs, molecule);
+    t2  = System.currentTimeMillis();
+    print("Time till 1EI evaluation : " + (t2-t1) + " ms");
+
+    twoEI = new TwoElectronIntegrals(bfs, isDirect);
+    t2  = System.currentTimeMillis();
+    print("Time till 2EI evaluation : " + (t2-t1) + " ms");
+
+    method = SCFType.HARTREE_FOCK;
+    if (isDirect) method = SCFType.HARTREE_FOCK_DIRECT;
+    SCFMethod scfm  = SCFMethodFactory.getInstance().getSCFMethod(molecule, 
+                                                        oneEI, twoEI, method);
+    
+    df = new DecimalFormat("#.########");
+    df.setMinimumFractionDigits(9);
+
+    scfm.addSCFEventListener(new SCFEventListener() {
+        public void scfEventOccured(SCFEvent scfEvent) {            
+            if (scfEvent.getType() == SCFEvent.CONVERGED_EVENT) {                
+                print("Energy Converged");
+                t2  = System.currentTimeMillis();
+                print("Final Energy = " + df.format(scfEvent.getCurrentEnergy()) 
+                                        + " a.u.");
+                print("Total Time : " + (t2-t1) + " ms");   
+                
+                // get the IDE instance hoping that its already inited
+                ideInstance = MainMenuEventHandlers.getInstance(null)
+                                                   .getIdeInstance();
+
+                message = "Energy calculation for " + molecule 
+                          + " at " + basisSet + " basis over. \n"
+                   + "Final Energy = " + df.format(scfEvent.getCurrentEnergy())
+                   + " a.u.\nTotal Time   = " + (t2-t1) + " ms";
+
+                // finally do some UI notification
+                ideInstance.getNotificationTray().notify(
+                                           "HF/SCF Results for " + molecule, 
+                                           message, true, 5000);
+                ideInstance.getWorkspaceLog().appendInfo(message);
+
+                return;
+            } else if (scfEvent.getType()==SCFEvent.FAILED_CONVERGENCE_EVENT) {
+                print("SCF failed to converge");
+                t2  = System.currentTimeMillis();
+                print("Final Energy = " + df.format(scfEvent.getCurrentEnergy()) 
+                                        + " a.u.");
+                print("Total Time : " + (t2-t1) + " ms");   
+                
+                // get the IDE instance hoping that its already inited
+                ideInstance = MainMenuEventHandlers.getInstance(null)
+                                                   .getIdeInstance();
+
+                message = "SCF failed to converge for " + molecule 
+                          + " at " + basisSet + " basis over. \n"
+                   + "Final Energy = " + df.format(scfEvent.getCurrentEnergy())
+                   + " a.u.\nTotal Time   = " + (t2-t1) + " ms";
+
+                // finally do some UI notification
+                ideInstance.getNotificationTray().notify(
+                                           "HF/SCF Results for " + molecule, 
+                                           message, true, 5000,
+                                           NotificationType.WARN);
+                ideInstance.getWorkspaceLog().appendInfo(message);
+
+                return;
+            } // end if
+
+            print(scfEvent.getCurrentIteration() 
+                  + " " + df.format(scfEvent.getCurrentEnergy()));
+        }
+    });
+
+    // start the SCF
+    scfm.scf(); 
+
+    // return the scfm method object
+    return scfm;   
+}
