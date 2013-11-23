@@ -16,7 +16,7 @@ import org.meta.common.Utility;
 import org.meta.common.resource.StringResource;
 
 /**
- * A simple platform independent launcher to take care of availibility of 
+ * A simple platform independent launcher to take care of availability of 
  * more memory to the JVM launching MeTA Studio. 
  *
  * @author V.Ganesh 
@@ -24,7 +24,10 @@ import org.meta.common.resource.StringResource;
  */
 public class MeTALauncher {
     
-    /** Creates a new instance of MeTALauncher */
+    /** Creates a new instance of MeTALauncher
+     * 
+     * @throws java.io.IOException
+     * @throws java.lang.InterruptedException */
     public MeTALauncher() throws IOException, InterruptedException {
         // set the defaults
         javaBin = "bin";
