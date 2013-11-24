@@ -60,12 +60,30 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
         this(false); 
     }
     
-    /** Creates new form MeTA */
+    /** Creates new form MeTA
+     * @param isDaemon true if this MeTA instance needs to run as daemon */
     public MeTA(boolean isDaemon) {                
-        this.daemon = isDaemon;             
+        this.daemon = isDaemon;        
         
+        // Note: SwingUtilities.invokeLater is used to launch the GUI due to the
+        // http://docs.oracle.com/javase/tutorial/uiswing/concurrency/initial.html
+        // http://bitguru.wordpress.com/2007/03/21/will-the-real-swing-single-threading-rule-please-stand-up/
+        // Thanks to @csrins for pointing this out.
+        
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                initUI();
+            }
+        });
+    }    
+    
+    /**
+     * initialize the UI
+     */
+    public void initUI() {
         // in deamon mode? then do not start the GUI IDE
-        if (isDaemon) {
+        if (this.daemon) {
             // init the serivices
             if (initServices()) {
                 System.out.println(StringResource.getInstance().getVersion()
@@ -154,7 +172,7 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
         workspaceSplitPane.setResizeWeight(1.0);
         mainSplitPane.setDividerLocation(0.0);
         workspaceSplitPane.setDividerLocation(1.0);
-    }    
+    }
     
     /**
      * init federation discovery / providers
@@ -315,17 +333,19 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
         getContentPane().add(workflowBar, BorderLayout.NORTH);
         
         // and then init the status bar
+        splashScreen.setProgressBarString("Initilizing status bar...");
         statusBar = new StatusBar();
         notificationTray = new NotificationTray(this);
         statusBar.addToNotificationPanel(notificationTray);
         getContentPane().add(statusBar, BorderLayout.SOUTH);
         
         // ensure a proper instance of MainMenuEventHandlers is created
+        splashScreen.setProgressBarString("Initilizing event handlers...");
         MainMenuEventHandlers.getInstance(this);
     }
     
     /**
-     * initilize the desktop UI.
+     * initialize the desktop UI.
      */
     private void initDesktop() { 
         // construct worspace pane
@@ -355,6 +375,7 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
         workspaceExplorerPanel.add(workspaceExplorer, BorderLayout.CENTER);    
         workspaceExplorer.setVisible(true);
         
+        splashScreen.setProgressBarString("Arranging split pane...");
         mainSplitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,
                                        workspaceExplorerPanel, 
                                        workspaceSplitPane);       
@@ -371,7 +392,7 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
     }        
         
     /**
-     * initilize the system tray
+     * initialize the system tray
      */
     private void initSystemTray() {
         if (SystemTray.isSupported()) {
@@ -669,7 +690,7 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
     }
     
     /**
-     * A notificaton received when there are some changes in the current
+     * A notification received when there are some changes in the current
      * workspace.
      */
     @Override
