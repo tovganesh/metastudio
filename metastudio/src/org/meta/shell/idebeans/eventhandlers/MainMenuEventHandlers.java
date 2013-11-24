@@ -48,7 +48,7 @@ import org.meta.workspace.impl.MoleculeItem;
 
 /**
  * Handlers for all main menu/ task events.
- * Follows Singleton desing pattern.
+ * Follows Singleton design pattern.
  *
  * @author  V.Ganesh
  * @version 2.0 (Part of MeTA v2.0)
