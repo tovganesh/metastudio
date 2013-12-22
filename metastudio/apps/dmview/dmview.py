@@ -416,6 +416,9 @@ class DMVisualization(JDialog):
          
 def dmView():
     # dmv = DMVisualization("/Users/Ganesh/Documents/metapps/dmview/file_2.xyz", "/Users/Ganesh/Documents/metapps/dmview/file_2_hf_act.meta2")
+    # Note: contraction indexed matrix file is of the form: 
+    #     a b i j value 
+    # a and b are atom indices and i and j are contraction indices, value is the real quantity representing the DM element
     dmv = DMVisualization(showFileDialog(title="Molecule File"), showFileDialog(title="Contraction indexed Matrix file"))
     dmv.show()
 
