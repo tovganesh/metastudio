@@ -9,9 +9,11 @@ mp3player() {
 
     panel = getWidgetsPanel(); 
 
-    player = new IDEWidget();
-    player.setWidgetID("mp3player");    
+    playerWidget = widget("mp3player");    
+    playerWidget.setLayout(layout("verticalflow"));
 
+    player = panel();
+    
     // playlist editor dialog
     playlistEditor = new JDialog(getIDEInstance());
     playlistEditor.setTitle("playlistEditor");
@@ -73,6 +75,8 @@ mp3player() {
     play = new JButton("play");
     pli = plm.elements();
 
+    nowPlaying = label("Not playing");
+
     music = null;
     isPlaying = false;
     playThread = new Runnable() {
@@ -82,6 +86,7 @@ mp3player() {
            for(p : pli) {
               if (!isPlaying) return;
               print("playing: " + p);
+              nowPlaying.setText("Playing : " + (new java.io.File(p)).getName());
 
               getIDEInstance().getNotificationTray().notify("playing...", 
                                                           "playing: " + p);
@@ -105,12 +110,16 @@ mp3player() {
                 isPlaying = false;
                 if (music != null) music.close();
                 play.setText("play");
+                nowPlaying.setText("Not playing");
             } // end if 
         }
     });
     player.add(play);
-    
-    panel.addWidget(player);
+   
+    playerWidget.add(player); 
+    playerWidget.add(nowPlaying);
+
+    panel.addWidget(playerWidget);
     panel.updateUI();
 }
 
