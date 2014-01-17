@@ -1762,7 +1762,7 @@ public class MoleculeViewer extends JPanel implements Viewer, MovieMode,
     }
     
     /**
-     * method to select all those atoms contained in the selecion unit defined
+     * method to select all those atoms contained in the selection unit defined
      * by a sphere with a center and appropriate radius.
      *
      * @param center - the center of the sphere
@@ -1802,7 +1802,7 @@ public class MoleculeViewer extends JPanel implements Viewer, MovieMode,
     }
     
     /**
-     * method to select all those atoms contained in the selecion unit defined
+     * method to select all those atoms contained in the selection unit defined
      * by a bounding box.
      *
      * @param bb - the bounding box

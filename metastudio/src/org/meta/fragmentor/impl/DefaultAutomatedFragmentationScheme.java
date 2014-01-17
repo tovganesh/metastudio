@@ -38,8 +38,8 @@ public class DefaultAutomatedFragmentationScheme
     }
 
     /**
-     * A automated fragmenation scheme should implement this method to generate
-     * the fragments automatically, else should quitely return (and should not
+     * A automated fragmentation scheme should implement this method to generate
+     * the fragments automatically, else should quietly return (and should not
      * throw an exception).
      *
      * @param molecule the molecule which is to be fragmented

@@ -10,11 +10,11 @@ import org.meta.math.geom.Point3D;
 import org.meta.molecule.Atom;
 
 /**
- * Defines an atom in a fragment (programatically ofcourse!) <br>
+ * Defines an atom in a fragment (programatically of course!) <br>
  * There can be two types of FragmentAtom s <br>
  * 1. As a link to the original "aka" atom of the parent molecule <br>
  * 2. As a dummy or pseudo atom in a fragment <br>
- * The two types are created using different initilization procedures .i.e. 
+ * The two types are created using different initialization procedures .i.e. 
  * call to constructors, look docs for more details.
  *
  * @author  V.Ganesh

@@ -148,7 +148,7 @@ public class BoundingBox extends AbstractGeometricObject
      * Shift this bounding box to a new center
      *
      * @param center the new center
-     * @return a new instalce of the shifted bounding box
+     * @return a new instance of the shifted bounding box
      */
     public BoundingBox shiftTo(Point3D center) {        
         BoundingBox bb = new BoundingBox();                

@@ -44,7 +44,7 @@ importFragmentGeometries() {
     
     if (wsPanel == null) return;
 
-    // is there a selecteion?
+    // is there a selection?
     selectedNode = wsPanel.getSelectedNode();
 
     if (selectedNode == null) return;
