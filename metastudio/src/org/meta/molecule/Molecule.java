@@ -113,7 +113,7 @@ public abstract class Molecule {
      * Overloaded addAtom() method.
      *
      * @param symbol the atom symbol   
-     * @param atomCenter the cartesian coordinates of the atom stored as Point3D
+     * @param atomCenter the Cartesian coordinates of the atom stored as Point3D
      *        object
      */    
     public abstract void addAtom(String symbol, Point3D atomCenter);
@@ -148,7 +148,7 @@ public abstract class Molecule {
      *
      * @param symbol the atom symbol
      * @param charge is the charge on the atom (the atomic number in many cases)
-     * @param atomCenter the cartesian coordinates of the atom stored as Point3D
+     * @param atomCenter the Cartesian coordinates of the atom stored as Point3D
      *        object
      */    
     public abstract void addAtom(String symbol, double charge, 
