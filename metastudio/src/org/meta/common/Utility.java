@@ -83,7 +83,7 @@ public final class Utility {
     }
     
     /**
-     * Method to generate a workspace ID, no uniquness is guaranteed.
+     * Method to generate a workspace ID, no uniqueness is guaranteed.
      * <pre>
      * Generated as:
      *    ID = "WS" + Date string + Current time in milli seconds
@@ -96,7 +96,7 @@ public final class Utility {
     }
     
     /**
-     * Method to generate a workspace item ID, no uniquness is guaranteed.
+     * Method to generate a workspace item ID, no uniqueness is guaranteed.
      * <pre>
      * Generated as:
      *    ID = "WI" + Date string + Current time in milli seconds

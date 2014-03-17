@@ -1,7 +1,7 @@
 /**
  * exportToMTAGAMESS - selected fragmentation scheme to MTA enabled
  * GAMESS format, so that the fragments can be externally read.
- * The file name is quried using a IDEFileChooser dialog.
+ * The file name is queried using a IDEFileChooser dialog.
  *
  * @author  V.Ganesh
  * @version 2.0 (Part of MeTA v2.0) 

@@ -3739,22 +3739,44 @@ public class MoleculeViewerFrame extends JInternalFrame
                GridProperty gp = moleculeViewer.getScreenGridProperty();
                Point3D minPoint = gp.getBoundingBox().getUpperLeft();
                
+               double ox = minPoint.getX()/Utility.AU_TO_ANGSTROM_FACTOR,
+                      oy = minPoint.getY()/Utility.AU_TO_ANGSTROM_FACTOR,
+                      oz = minPoint.getZ()/Utility.AU_TO_ANGSTROM_FACTOR; 
+               
+               double stepX = gp.getXIncrement()/Utility.AU_TO_ANGSTROM_FACTOR,
+                      stepY = gp.getYIncrement()/Utility.AU_TO_ANGSTROM_FACTOR,
+                      stepZ = gp.getZIncrement()/Utility.AU_TO_ANGSTROM_FACTOR;
+               
                System.out.println("Range in a.u. :");
                System.out.println("RANGE");
                System.out.println(
-                 fmt.format(minPoint.getX()/Utility.AU_TO_ANGSTROM_FACTOR) + " "
-                +fmt.format(minPoint.getY()/Utility.AU_TO_ANGSTROM_FACTOR) + " "
-                +fmt.format(minPoint.getZ()/Utility.AU_TO_ANGSTROM_FACTOR));
+                 fmt.format(ox) + " "
+                +fmt.format(oy) + " "
+                +fmt.format(oz));
                System.out.println(
-                 fmt.format(gp.getXIncrement()/Utility.AU_TO_ANGSTROM_FACTOR) 
-                + " "
-                +fmt.format(gp.getYIncrement()/Utility.AU_TO_ANGSTROM_FACTOR) 
-                + " "
-                +fmt.format(gp.getZIncrement()/Utility.AU_TO_ANGSTROM_FACTOR));
+                 fmt.format(stepX) + " "
+                +fmt.format(stepY) + " "
+                +fmt.format(stepZ));
                System.out.println(
                  (gp.getNoOfPointsAlongX()) + " "
                 +(gp.getNoOfPointsAlongY()) + " "
                 +(gp.getNoOfPointsAlongZ()));
+               
+               double step = Math.min(stepX, Math.min(stepY, stepZ));
+               
+               System.out.println("$grid modgrd=1 units=bohr size=" + fmt.format(step));
+               System.out.println(" origin(1)=" + fmt.format(ox) + "," 
+                                  + fmt.format(oy) + "," + fmt.format(oz));
+               System.out.println(" xvec(1)=" + fmt.format(ox + (step * gp.getNoOfPointsAlongX())) + "," 
+                                  + fmt.format(oy) + "," 
+                                  + fmt.format(oz));
+               System.out.println(" yvec(1)=" + fmt.format(ox) + "," 
+                                  + fmt.format(oy + (step * gp.getNoOfPointsAlongY())) + "," 
+                                  + fmt.format(oz));
+               System.out.println(" zvec(1)=" + fmt.format(ox + (step * gp.getNoOfPointsAlongX())) + "," 
+                                  + fmt.format(oy + (step + gp.getNoOfPointsAlongY())) + "," 
+                                  + fmt.format(oz + (step + gp.getNoOfPointsAlongZ())));
+               System.out.println("$end");
            }
         });
         gbc.gridx = 0;
