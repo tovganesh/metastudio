@@ -4,34 +4,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/layout.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/ide/MeTA.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/idebeans/viewers/impl/moleculeviewer/MoleculeViewer.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/saveAsGAMESSInp.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/ide/MeTApp.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/saveProperty.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/importFragmentGeometries.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/idebeans/Explorer.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/fragment/FragmentAtom.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/molecule/Atom.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/textbox.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/idebeans/TaskPanel.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/fragmentor/impl/DefaultAutomatedFragmentationScheme.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/common/resource/MiscResource.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/getDefaultClass.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/saveAsXYZ.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/GAMESSGaussianFileReader.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/exportToMTAGAMESS.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/idebeans/SplashScreen.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/math/geom/BoundingBox.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/fragment/Fragment.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/idebeans/MoleculeViewerFrame.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/commands/boundingbox.bsh</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/molecule/Molecule.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/ide/MeTALauncher.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/ide/MeTAPureDaemon.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/shell/idebeans/eventhandlers/MainMenuEventHandlers.java</file>
-            <file>file:/D:/projects/metastudio/metastudio/src/org/meta/common/Utility.java</file>
+            <file>file:/home/ganesh/projects/metastudio/metastudio/src/org/meta/common/resource/StringResource.java</file>
+            <file>file:/home/ganesh/projects/metastudio/metastudio/src/org/meta/commands/angstroms.bsh</file>
+            <file>file:/home/ganesh/projects/metastudio/metastudio/src/org/meta/commands/openFile.bsh</file>
+            <file>file:/home/ganesh/projects/metastudio/metastudio/src/org/meta/shell/idebeans/MoleculeViewerFrame.java</file>
         </group>
     </open-files>
 </project-private>
