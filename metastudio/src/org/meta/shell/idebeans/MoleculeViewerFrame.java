@@ -3775,7 +3775,7 @@ public class MoleculeViewerFrame extends JInternalFrame
                                   + fmt.format(oz));
                System.out.println(" zvec(1)=" + fmt.format(ox) + "," 
                                   + fmt.format(oy) + "," 
-                                  + fmt.format(oz + (step + gp.getNoOfPointsAlongZ())));
+                                  + fmt.format(oz + (step * gp.getNoOfPointsAlongZ())));
                System.out.println("$end");
            }
         });
