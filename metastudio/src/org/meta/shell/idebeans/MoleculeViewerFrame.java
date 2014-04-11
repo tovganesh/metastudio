@@ -3767,15 +3767,15 @@ public class MoleculeViewerFrame extends JInternalFrame
                System.out.println("$grid modgrd=1 units=bohr size=" + fmt.format(step));
                System.out.println(" origin(1)=" + fmt.format(ox) + "," 
                                   + fmt.format(oy) + "," + fmt.format(oz));
-               System.out.println(" xvec(1)=" + fmt.format(ox + (step * gp.getNoOfPointsAlongX())) + "," 
+               System.out.println(" xvec(1)=" + fmt.format(ox + (stepX * gp.getNoOfPointsAlongX())) + "," 
                                   + fmt.format(oy) + "," 
                                   + fmt.format(oz));
                System.out.println(" yvec(1)=" + fmt.format(ox) + "," 
-                                  + fmt.format(oy + (step * gp.getNoOfPointsAlongY())) + "," 
+                                  + fmt.format(oy + (stepY * gp.getNoOfPointsAlongY())) + "," 
                                   + fmt.format(oz));
                System.out.println(" zvec(1)=" + fmt.format(ox) + "," 
                                   + fmt.format(oy) + "," 
-                                  + fmt.format(oz + (step * gp.getNoOfPointsAlongZ())));
+                                  + fmt.format(oz + (stepZ * gp.getNoOfPointsAlongZ())));
                System.out.println("$end");
            }
         });
