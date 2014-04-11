@@ -63,19 +63,8 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
     /** Creates new form MeTA
      * @param isDaemon true if this MeTA instance needs to run as daemon */
     public MeTA(boolean isDaemon) {                
-        this.daemon = isDaemon;        
-        
-        // Note: SwingUtilities.invokeLater is used to launch the GUI due to the
-        // http://docs.oracle.com/javase/tutorial/uiswing/concurrency/initial.html
-        // http://bitguru.wordpress.com/2007/03/21/will-the-real-swing-single-threading-rule-please-stand-up/
-        // Thanks to @csrins for pointing this out.
-        
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                initUI();
-            }
-        });
+        this.daemon = isDaemon;  
+        initUI();                
     }    
     
     /**

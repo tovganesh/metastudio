@@ -5,6 +5,8 @@
 
 package org.meta.shell.ide;
 
+import javax.swing.SwingUtilities;
+
 /**
  * Entry point for IDE / daemon / scripts / adding external libs
  * etc.
@@ -30,18 +32,39 @@ public class MeTApp {
                 new MeTALauncher();
             } catch (Exception e) {
                 // if it fails ... fall back to a normal start
-                (new MeTA()).getWorkspaceLog().appendWarning("Unable to " +
-                       "spawn MeTA Studio launcher; defaulting to normal " +
-                       "startup. Reason: " + e.toString());
-
-                e.printStackTrace();
+                final Exception e1 = e;
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                      (new MeTA()).getWorkspaceLog().appendWarning("Unable to " +
+                          "spawn MeTA Studio launcher; defaulting to normal " +
+                          "startup. Reason: " + e1.toString());   
+                    }
+                });
+                        
+                e.printStackTrace();        
             } // end of try catch .. block
         } else {
             if (args[0].equals("--morememory")) {
-                new MeTA();
+                // Note: SwingUtilities.invokeLater is used to launch the GUI due to the
+                // http://docs.oracle.com/javase/tutorial/uiswing/concurrency/initial.html
+                // http://bitguru.wordpress.com/2007/03/21/will-the-real-swing-single-threading-rule-please-stand-up/
+                // Thanks to @csrins for pointing this out.
+
+                SwingUtilities.invokeLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        new MeTA();
+                    }
+                });
             } else if (args[0].equals("--daemon")) {
                 try {
-                    new MeTA(true);
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            new MeTA(true);
+                        }
+                    });
                 } catch (Throwable ignored) {
                     System.err.println("Unable to start MeTA Studio in" +
                             " normal daemon mode: " + ignored);
