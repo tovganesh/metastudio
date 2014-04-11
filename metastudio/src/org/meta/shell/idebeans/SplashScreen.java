@@ -57,7 +57,7 @@ public class SplashScreen extends JWindow {
     }
     
     /**
-     * method to initilize the look of this splash screen
+     * method to initialize the look of this splash screen
      */
     public void initComponents() {  
         setBackground(Color.blue);
