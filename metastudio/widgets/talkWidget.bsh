@@ -1,0 +1,38 @@
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+
+talkWidget() {    
+    panel = getWidgetsPanel(); 
+
+    talkPanel = new IDEWidget();
+    talkPanel.setWidgetID("talkWidget");    
+
+    refreshlist = new JButton("refresh");
+    refreshlist.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {
+            metaList.setModel(new DefaultComboBoxModel(discover_meta(30).toArray()));
+       }
+    });
+    talkPanel.add(refreshlist);
+
+    metaList = new JComboBox(discover_meta(30).toArray());
+    metaList.setEditable(true);
+    talkPanel.add(metaList);
+
+    talkTo = new JButton("talk!");
+    talkTo.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {
+            talk(metaList.getSelectedItem().toString());
+       }
+    });
+    talkPanel.add(talkTo);
+
+    panel.removeWidget(talkPanel);
+    panel.addWidget(talkPanel);
+    panel.updateUI();
+}
+
+talkWidget();

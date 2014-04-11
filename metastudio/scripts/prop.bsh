@@ -1,0 +1,14 @@
+import org.chem.unipune.meta.common.*;
+import org.chem.unipune.meta.propertyreader.*;
+i = Utility.getDefaultImplFor(PropertyFileReaderFactory.class).newInstance();
+i = i.getMostProbableReaderFor(new java.io.File("/home/ganesh/tmp/bucenter80.esp"));
+print(i.getType());
+print(i.getTypeDescription());
+print(j=i.readPropertyFile("/home/ganesh/tmp/bucenter80.esp"));
+print(j.getFunctionValues()[0]);
+print(j.getFunctionValues()[j.getNumberOfGridPoints()-1]);
+print(j.getNoOfNegativeFunctionValues());
+print(j.getNoOfPositiveFunctionValues());
+print(j.getNumberOfFunctionValuesInRange(-0.1, -0.01));
+l = j.getFunctionValuesInRange(-0.1, -0.01);
+print(l.get(0));

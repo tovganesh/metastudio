@@ -1,0 +1,10 @@
+/** 
+ * Usage:
+ * addIDEPath("/home/ganesh/tools/beanshell");
+ * molStats("/home/ganesh/projects/input/nacl.xyz");
+ */
+void molStats(String moleculeFile) {
+   mol = readMoleculeFile(moleculeFile);
+   buildConnectivity(mol);
+   print(mol.toExtendedString());
+}

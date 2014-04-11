@@ -1,0 +1,16 @@
+/**
+ * molecule() - creates an instance of Molecule class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+Molecule molecule(String title) {
+    mol = Utility.getDefaultImplFor(Molecule.class).newInstance();
+    mol.setTitle(title);
+
+    return mol;
+}

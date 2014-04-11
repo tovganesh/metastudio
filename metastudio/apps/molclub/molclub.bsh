@@ -1,0 +1,110 @@
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.XYPlot;
+import org.jfree.chart.renderer.xy.XYBarRenderer;
+import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
+import org.jfree.data.xy.XYDataset;
+import org.jfree.data.xy.XYSeries;
+import org.jfree.data.xy.XYSeriesCollection;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.ui.Spacer;
+
+import org.jfree.chart.*;
+import org.jfree.chart.axis.*;
+import org.jfree.chart.plot.*;
+import org.jfree.data.category.*;
+import org.jfree.ui.ApplicationFrame;
+import org.jfree.ui.RefineryUtilities;
+import org.jfree.chart.renderer.category.BarRenderer;
+import org.jfree.chart.renderer.category.LineRenderer3D;
+
+molecularClusterBuilderWidget() {
+   panel = getWidgetsPanel();
+   molClubView = widget("molecularClusterBuilderWidget");
+   molClubView.setLayout(layout("verticalflow"));
+
+   molClubView.add(label("Parent cluster (.vis):"));
+   p1 = panel();
+   p1.setLayout(layout("grid"));
+   txtParentCluster = textbox();
+   p1.add(txtParentCluster);
+   browseParentCluster = button("Browse...");
+   browseParentCluster.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+      }
+   });
+   p1.add(browseParentCluster);
+   molClubView.add(p1);
+
+   molClubView.add(label("Atomic chargers:"));
+   p2 = panel();
+   p2.setLayout(layout("grid"));
+   txtAtomicCharge = textbox();
+   p2.add(txtAtomicCharge);
+   browseAtomicCharge = button("Browse...");
+   browseAtomicCharge.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+      }
+   });
+   p2.add(browseAtomicCharge);
+   molClubView.add(p2);
+
+   molClubView.add(label("MESP of parent cluster (.cube):"));
+   p3 = panel();
+   p3.setLayout(layout("grid"));
+   txtMESPParent = textbox();
+   p3.add(txtMESPParent);
+   browseMESPParent = button("Browse...");
+   browseMESPParent.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+      }
+   });
+   p3.add(browseMESPParent);
+   molClubView.add(p3);
+
+   molClubView.add(label("Monomer (.vis):"));
+   p4 = panel();
+   p4.setLayout(layout("grid"));
+   txtMonomer = textbox();
+   p4.add(txtMonomer);
+   browseMonomer = button("Browse...");
+   browseMonomer.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+      }
+   });
+   p4.add(browseMonomer);
+   molClubView.add(p4);
+
+   molClubView.add(label("Monomer charges:"));
+   p5 = panel();
+   p5.setLayout(layout("grid"));
+   txtMonomerChargers = textbox();
+   p5.add(txtMonomerChargers);
+   browseMonomerChargers = button("Browse...");
+   browseMonomerChargers.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+      }
+   });
+   p5.add(browseMonomerChargers);
+   molClubView.add(p5);
+
+   buildCluster = button("Build Cluster");
+   buildCluster.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+      }
+   });
+   molClubView.add(buildCluster);
+
+   // add the widget
+   panel.addWidget(molClubView);
+   panel.updateUI();
+}
+
+molecularClusterBuilderWidget();

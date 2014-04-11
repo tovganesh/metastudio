@@ -1,0 +1,28 @@
+/**
+ * findAngle() - finds the angle in degrees defined by three 
+ *               atoms of a molecule.
+ * usage:
+ *   angle = findAngle(molecule, atomIndex1, atomIndex2, atomIndex3);
+ *
+ * where atomIndex2 is considered to be central atom and the angle between
+ * vectors defined by atomIndex1 and atomIndex2 and atomIndex3 and atomIndex2 
+ * is found.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.Vector3D;
+import org.meta.math.MathUtil;
+
+findAngle(Molecule molecule, 
+          int atomIndex1, int atomIndex2, int atomIndex3) {
+    v1 = molecule.getAtom(atomIndex1).getAtomCenter();
+    v2 = molecule.getAtom(atomIndex2).getAtomCenter();
+    v3 = molecule.getAtom(atomIndex3).getAtomCenter();
+    
+    v12 = new Vector3D(v2.sub(v1));
+    v32 = new Vector3D(v2.sub(v3));
+        
+    return MathUtil.toDegrees(v12.angleWith(v32));
+}

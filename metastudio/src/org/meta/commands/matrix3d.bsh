@@ -1,0 +1,12 @@
+/**
+ * matrix3d() - creates an instance of Matrix3D class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.*;
+
+Matrix3D matrix3d() {
+    return new Matrix3D();
+}

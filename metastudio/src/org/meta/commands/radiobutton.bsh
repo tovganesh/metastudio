@@ -1,0 +1,13 @@
+/**
+ * radiobutton() - create instance of JRadioButton
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+radiobutton(String text, javax.swing.ButtonGroup bg) {
+    rb = new javax.swing.JRadioButton(text);
+    bg.add(rb);
+
+    return rb;
+}

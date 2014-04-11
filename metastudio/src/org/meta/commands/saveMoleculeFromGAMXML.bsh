@@ -1,0 +1,97 @@
+/**
+ * saveMoleculeFromGAMXML() - Saves a molecule from XML file written by GAMXML 
+ * add-on for GAMESS written by me.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/**
+ * locally save the molecule in the GAMXML url.
+ */
+saveMoleculeFromGAMXML(String xmlURL) {
+   try {          
+    boolean isXYZ = false;
+    boolean isVIS = false;
+
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+    
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("xyz",
+                                    "XYZ molecule file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("vis",
+                                    "VIS molecule file format"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+    
+    // now show the stuff to the user, and pray he gives good files names ;)
+    if (fileChooser.showSaveDialog(ideInstance)
+                    == IDEFileChooser.APPROVE_OPTION) {        
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // make up for file extension, if it is not already there
+        if ((!fileName.endsWith(".xyz")) && (!fileName.endsWith(".vis"))) {
+          if (fileChooser.getFileFilter().getDescription().indexOf("XYZ")>=0) {
+              fileName += ".xyz";
+              isXYZ = true;
+          } // end if
+          
+          if (fileChooser.getFileFilter().getDescription().indexOf("VIS")>=0) {
+              fileName += ".vis";
+              isVIS = true;
+          } // end if
+        } else {
+            if (fileName.endsWith(".xyz")) isXYZ = true;
+            else if (fileName.endsWith(".vis")) isVIS = true;
+        } // end if
+        
+        System.out.println("Molecule will be written to : " + fileName);
+        
+        FileWriter fos = new FileWriter(fileName);
+        if (isVIS) {
+            fos.write("$angstrom\n");
+        } // end if                               
+
+        // extract molecule from the GAMXML files
+        molecule = extractMoleculeFromGAMXML(xmlURL);
+
+        if (isXYZ) {
+           saveAsXYZ(molecule, fos);
+        } else if (isVIS) {
+           saveAsVIS(molecule, fos);
+        } // end if        
+             
+        // finally close the file
+        fos.close();
+    } // end if
+   } catch(Exception e) {
+      e.printStackTrace();
+      System.err.println("Unable to save the molecule : " + e.toString());
+
+      throw e;
+   } // end of try .. catch block
+} // end of method viewMoleculeFromGAMXML()

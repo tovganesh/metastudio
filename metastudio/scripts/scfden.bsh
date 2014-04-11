@@ -1,0 +1,50 @@
+
+density(mol, mos, bfs, gp) {
+
+  double [] fvals = gp.getFunctionValues();
+  nclosed = mol.getNumberOfElectrons() / 2;
+
+  lb = gp.getBoundingBox().getUpperLeft();
+
+  mo = mos.getMatrix();
+  ms = mos.getRowCount();
+
+  bfs = bfs.getBasisFunctions();
+  ii = 0;
+  for(x=lb.getX(), i=0; i<gp.getNumberOfPointsAlongX(), i++) {
+   for(y=lb.getY(), j=0; j<gp.getNumberOfPointsAlongY(), j++) {
+    for(z=lb.getZ(), k=0; k<gp.getNumberOfPointsAlongZ(), k++) {
+       amp_xyz = 0.0;
+       for(l=0; l<nclosed; l++) {
+          for(m=0; m<ms; m++) {
+             amp_xyz += mo[m][l]*bfs.get(m).amplitude(x,y,z) 
+          }
+       }
+       fvals[ii++] = amp_xyz*amp_xyz;
+    }
+  }
+ }
+}
+
+scfden(mol, gp) {
+    t1 = System.currentTimeMillis();    
+    bfs = new org.meta.math.qm.BasisFunctions(mol, "sto3g");
+    onee = new org.meta.math.qm.OneElectronIntegrals(bfs, mol);
+    twoe = new org.meta.math.qm.TwoElectronIntegrals(bfs);
+    t2 = System.currentTimeMillis();
+    scfm = new org.meta.math.qm.HartreeFockSCFMethod(mol, onee, twoe);
+    scfm.scf();    
+    t3 = System.currentTimeMillis();
+    print("Time till 2E : " + (t2-t1) + " ms");
+    print("Time for SCF : " + (t3-t2) + " ms");
+    /* print("Overlap");
+    print(onee.getOverlap());
+    print("Hamiltonian");
+    print(onee.getHamiltonian());    
+    print("Density : ");
+    print(scfm.getDensity()); */
+    print("MOS : ");
+    print(scfm.getMos());
+
+    density(mol, scfm.getMos(), bfs, gp);
+}

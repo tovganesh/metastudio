@@ -1,0 +1,12 @@
+/**
+ * point() - creates an instance of Point3D class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.geom.*;
+
+Point3D point(double x, double y, double z) {
+    return new Point3D(x, y, z);
+}

@@ -1,0 +1,141 @@
+import java.io.*;
+import java.util.StringTokenizer;
+
+import org.meta.common.*;
+import org.meta.math.geom.*;
+import org.meta.molecule.impl.*;
+import org.meta.propertyreader.*;
+import org.meta.molecule.property.electronic.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.*;
+
+cubeReader(cubeFileName) {
+    reader=openFile(cubeFileName);
+
+    // read first two lines
+    reader.readLine();
+    reader.readLine();
+
+    // then the grid property starts
+    GridProperty property = new GridProperty();
+    StringTokenizer tokenizer;
+    String line;
+    
+    line = reader.readLine();    
+
+    tokenizer = new StringTokenizer(line);
+
+    int noOfAtoms = Math.abs(Integer.parseInt(tokenizer.nextToken()));
+
+    print("Number of atoms: " + noOfAtoms);
+
+    BoundingBox bb = new BoundingBox();
+    bb.getUpperLeft().setX(Double.parseDouble(tokenizer.nextToken()));
+    bb.getUpperLeft().setY(Double.parseDouble(tokenizer.nextToken()));
+    bb.getUpperLeft().setZ(Double.parseDouble(tokenizer.nextToken()));      
+
+    // read NX, NY, NZ
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+    
+    property.setNoOfPointsAlongX(Integer.parseInt(tokenizer.nextToken()));
+    property.setXIncrement(Double.parseDouble(tokenizer.nextToken()));
+
+    // NY
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+    
+    property.setNoOfPointsAlongY(Integer.parseInt(tokenizer.nextToken()));
+    tokenizer.nextToken();
+    property.setYIncrement(Double.parseDouble(tokenizer.nextToken()));
+
+    // NZ
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+    
+    property.setNoOfPointsAlongZ(Integer.parseInt(tokenizer.nextToken()));
+    tokenizer.nextToken(); tokenizer.nextToken();
+    property.setZIncrement(Double.parseDouble(tokenizer.nextToken()));
+
+    // bottom right
+    bb.getBottomRight().setX(bb.getUpperLeft().getX() 
+                   + ((property.getNoOfPointsAlongX()+1)*property.getXIncrement()));
+    bb.getBottomRight().setY(bb.getUpperLeft().getY()
+                   + ((property.getNoOfPointsAlongY()+1)*property.getYIncrement()));
+    bb.getBottomRight().setZ(bb.getUpperLeft().getZ()
+                   + ((property.getNoOfPointsAlongZ()+1)*property.getZIncrement()));
+
+    property.setBoundingBox(bb);
+
+    print(property);
+
+    // from the next line the Molecule entry starts
+    for(i=0; i<noOfAtoms; i++) reader.readLine();
+
+    // next line has got info on the MOs available,
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+
+    mos = Integer.parseInt(tokenizer.nextToken());
+
+    // set up the grid array to copy the function values
+    int noOfGridPoints = property.getNumberOfGridPoints();
+        
+    double [] fVals = new double[noOfGridPoints*mos];
+    double [] functionValues = new double[noOfGridPoints];
+
+    // start a tokeniser to obtain all the values in the grid
+    ScientificStreamTokenizer sTokenizer = 
+                                  new ScientificStreamTokenizer(reader); 
+        
+    try {
+        int ijlk = 0;
+        N1 = property.getNoOfPointsAlongX();
+        N2 = property.getNoOfPointsAlongY();
+        N3 = property.getNoOfPointsAlongZ();
+        for(int i=0; i<N1; i++) {
+            for(int j=0; j<N2; j++) {
+                for(int k=0; k<N3; k++) {
+                 for(int l=0; l<mos; l++) {
+                   ijkl = i + N1 * j + N1 * N2 * k + N1 * N2 * N3 * l;
+                   if (sTokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                         throw new IOException("Could not understand format : " 
+                                               + sTokenizer);
+                   } else {
+                     fVals[ijkl] = sTokenizer.nval;
+                   } // end  if
+                 } // end for
+                } // end for
+            } // end for
+         } // end for
+
+         // now write the stuff
+         ijk=0;
+         for(int i=0; i<N1; i++) {
+            for(int j=0; j<N2; j++) {
+                for(int k=0; k<N3; k++) {
+                   ijkl = i + N1 * j + N1 * N2 * k + N1 * N2 * N3 * 0;                  
+                   functionValues[ijk] = fVals[ijkl];
+                   ijk++;
+                } // end for
+            } // end for
+         } // end for
+         fVals = null;
+    } catch (Exception e) {
+         throw new IOException("Error reading file : " + sTokenizer
+                                  + "\n Exception is : " + e.toString());
+    } // end of try ... catch block
+
+    // setup the function values in property object
+    property.setFunctionValues(functionValues);
+
+    reader.close();
+
+    return property;
+}
+
+p = cubeReader("/home/ganesh/personel/cube/10a-an-x-orb.cub");
+
+sc = getLoadedMoleculeScenes().get(0);
+ps = new PropertyScene(sc, p);
+sc.addPropertyScene(ps);

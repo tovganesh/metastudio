@@ -1,0 +1,12 @@
+/**
+ * radians() - converts from degress to radians
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.*;
+
+double radians(double degrees) {
+    return MathUtil.toRadians(degrees);
+}

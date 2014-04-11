@@ -1,0 +1,14 @@
+/**
+ * getDesktopInstance() - return instance of workspace desktop.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+getDesktopInstance() {
+    ideInstance = getIDEInstance();
+
+    if (ideInstance == null) return null;
+
+    return ideInstance.getWorkspaceDesktop();    
+}

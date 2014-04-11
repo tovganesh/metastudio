@@ -1,0 +1,204 @@
+/**
+ * saveMoleculeAsRIB - Helper utilities for exportCurrentMoleculeSceneAsRIB.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+
+import org.meta.common.*;
+import org.meta.common.resource.*;
+import org.meta.config.impl.*;
+import org.meta.molecule.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.*;
+
+import org.meta.math.geom.*;
+
+import org.meta.math.Vector3D;
+import org.meta.math.MathUtil;
+
+/**
+ * save the supplied molecule to the specified stream in RIB format
+ */
+saveMoleculeAsRIB(Molecule molecule, BoundingBox boundingBox, fos, 
+                  String shader, double scaleFactor, int width, boolean isTran,
+                  String sceneName, boolean isFrameBuffer, String fileBufDir){
+   saveMoleculeAsRIB(molecule, boundingBox, fos, 
+                  shader, scaleFactor, width, isTran,
+                  sceneName, isFrameBuffer, fileBufDir, 
+                  MoleculeDisplayModel.BALL_AND_STICK);
+}
+
+/**
+ * save the supplied molecule to the specified stream in RIB format
+ */
+saveMoleculeAsRIB(Molecule molecule, BoundingBox boundingBox, fos, 
+                  String shader, double scaleFactor, int width, boolean isTran,
+                  String sceneName, boolean isFrameBuffer, String fileBufDir, 
+                  MoleculeDisplayModel moleculeModel){
+
+    // bring the stuff to center    
+    center      = boundingBox.center();     
+    p1          = boundingBox.getUpperLeft();
+    p2          = boundingBox.getBottomRight();
+    radius      = 2.0 * Math.max(Math.abs(p2.getX()-p1.getX()),
+                           Math.max(Math.abs(p2.getY()-p1.getY()), 
+                                    Math.abs(p2.getZ()-p1.getZ()))
+                           );    
+
+    yFactor = scaleFactor/radius; 
+
+    if (isTran) {    
+        fos.write("Scale " + (yFactor)
+                              + " " + (yFactor)
+                              + " " + (yFactor)
+                              + "\n");
+
+        fos.write("Translate " + (-center.getX())
+                                  + " " + (-center.getY())
+                                  + " " + (radius+center.getZ())                                  
+                                  + " \n");    
+    } // end if
+
+    // and then the rest of stuff
+    if (isFrameBuffer) {
+        fos.write("\nDisplay \""
+                           + molecule.toString() + "\" \"framebuffer\" "
+                           + "\"rgba\" \n");
+    } else {
+        fos.write("\nDisplay \""
+                           + fileBufDir.replace("\\", "/") 
+                           + sceneName + ".png" + "\" \"file\" "
+                           + "\"rgba\" \n");
+    } // end if
+
+    // the scene begins here
+    fos.write("FrameBegin 1 \n");
+    fos.write("WorldBegin \n");
+    
+    // and dump the atoms and the bonds!
+    atoms    = molecule.getAtoms();
+    atomInfo = AtomInfo.getInstance();
+    
+    for(atom : atoms) {
+        // draw the sphere ... representing the atom                
+        fos.write("AttributeBegin\n");
+        fos.write("Translate " + atom.getX() * scaleFactor
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + -atom.getZ() * scaleFactor
+                                      + "\n");        
+
+        Color color = atomInfo.getColor(atom.getSymbol());
+        fos.write("Color " + color.getRed()   / 255.0
+                                + " "   + color.getGreen() / 255.0
+                                + " "   + color.getBlue()  / 255.0
+                                + "\n");
+
+        // the surface shader
+        fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");
+
+        if (atom.getAtomCenter().isZero()) {
+            fos.write("LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [0.1 0.1 0.1]\n");
+        } else {
+            fos.write("LightSource \"distantlight\" 1 \"intensity\" 0.6 "
+                           + "\"to\" [" + atom.getX() * scaleFactor 
+                                      + " " + atom.getY() * scaleFactor
+                                      + " " + -atom.getZ() * scaleFactor 
+                                      + "]\n");
+        } // end if
+
+        // for ball and stick model
+        radiusR = 0.01; 
+        radiusR = atomInfo.getCovalentRadius(atom.getSymbol()) * 0.5;  
+         
+        if (moleculeModel == MoleculeDisplayModel.BALL_AND_STICK) {
+           radiusR = atomInfo.getCovalentRadius(atom.getSymbol()) * 0.5;
+        } else if (moleculeModel == MoleculeDisplayModel.STICK) {
+           radiusR = atomInfo.getCovalentRadius("H") * 0.5;
+        } else if (moleculeModel == MoleculeDisplayModel.LINE) {
+           radiusR = 0.01;
+        } else if (moleculeModel == MoleculeDisplayModel.VDW) {
+           radiusR = atomInfo.getVdwRadius(atom.getSymbol());
+        } else if (moleculeModel == MoleculeDisplayModel.CPK) {
+           radiusR = atomInfo.getVdwRadius(atom.getSymbol()) * 0.5;
+        } else {
+           radiusR = 0.01;
+        } 
+        
+        fos.write("Sphere " + (radiusR * scaleFactor)
+                                + " -"   + (radiusR * scaleFactor)
+                                + " "    + (radiusR * scaleFactor)
+                                + " 360.0\n");
+
+        // attribute ends here
+        fos.write("AttributeEnd\n\n");
+
+        if (moleculeModel == MoleculeDisplayModel.VDW || moleculeModel == MoleculeDisplayModel.CPK)
+           continue;
+        
+        // now build the bonding information
+        connectedList = atom.getConnectedList().keys();
+        
+        for(cl : connectedList) {
+            atom2 = molecule.getAtom(cl);
+            
+            if (moleculeModel == MoleculeDisplayModel.LINE) {
+               radius = 0.01;
+            } else {
+               radius = Math.min(radiusR * 0.5, 
+                          atomInfo.getCovalentRadius(atom2.getSymbol()) * 0.25);
+               radius = Math.max(radius, atomInfo.getCovalentRadius("H") * 0.5);
+            }
+
+            bondType = molecule.getBondType(atom.getIndex(), atom2.getIndex());
+            
+            // bond attribute starts here
+            fos.write("AttributeBegin\n");
+
+            color = atomInfo.getColor(atom2.getSymbol());
+                                    
+            fos.write("Color " + color.getRed()   / 255.0
+                                            + " " + color.getGreen() / 255.0
+                                            + " " + color.getBlue()  / 255.0
+                                            + "\n");                    
+            
+            // the surface shader
+            fos.write("Surface \"" + shader + "\" \"Kd\" 1.0 \n");                    
+        
+            // translate the cylinder appropriately
+            center = new Point3D();
+            distance = getCenterAndDistance(atom, atom2, center);
+            
+            fos.write("Translate " + center.getX() * scaleFactor
+                                          + " " + center.getY() * scaleFactor
+                                          + " " + -center.getZ() * scaleFactor
+                                          + "\n");
+            // and then do appropriate rotation
+            // compute vector from atom->atom2
+            vector = atom2.getAtomCenter().sub(atom.getAtomCenter());
+            vector = (new Vector3D(vector)).normalize();
+            
+            angleWithZ = MathUtil.toDegrees(Math.acos(vector.getK()));
+            
+            fos.write("Rotate " + (angleWithZ)
+                                             + " " + vector.getJ()
+                                             + " " + (-vector.getI())
+                                             + " 0.0 \n");
+            
+            if (bondType.equals(BondType.WEAK_BOND)) {
+                fos.write("Cylinder 0.01 "
+                                        + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } else {
+                fos.write("Cylinder " + (radius * scaleFactor)
+                                        + " " + (-distance * scaleFactor) 
+                                        + " 0.0 360.0 \n");
+            } // end if
+            
+            // bond attribute ends here
+            fos.write("AttributeEnd\n\n");
+        } // end if
+    } // end for        
+}

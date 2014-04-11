@@ -1,0 +1,94 @@
+
+import java.util.*;
+
+checkConnectedH(mol, cl, depth) {
+     if (depth == 0) return false;
+     if (cl.size() == 2) return true;
+     for(c : cl.keySet()) {
+         if (mol.getAtom(c).getSymbol().equals("H")) { 
+             return true;
+         } else {
+             if (depth == 0) return false;
+             if (checkConnectedH(mol, mol.getAtom(c).getConnectedList(), depth-1)) return true;
+         } 
+    } 
+
+    return false;
+}
+
+bnntCharge(mfil, depth) {
+  mol  = readMoleculeFile(mfil);
+  buildConnectivity(mol, "false");
+
+  f = openFile(mfil);
+
+  while(true) {
+    line = f.readLine();
+
+    if (line == null) break;
+
+    if (line.indexOf("Charges from ESP fit,") >= 0) {
+        f.readLine(); f.readLine();
+
+        for(int i=0; i<mol.getNumberOfAtoms(); i++) {
+           mol.getAtom(i).setCharge(Double.parseDouble(f.readLine().trim().split("\\s+")[2]));
+        }
+
+        break;
+    }
+  }
+
+  f.close();
+
+  print("Charges are:");
+  charges = new Hashtable(); totals = new Hashtable();
+  charges.put("B", new Double(0.0));
+  charges.put("N", new Double(0.0));
+  totals.put("B", new Integer(0));
+  totals.put("N", new Integer(0));
+
+  newMol = molecule("t");
+  for(int i=0; i<mol.getNumberOfAtoms(); i++) {
+      a = mol.getAtom(i);
+      sym = a.getSymbol();
+      chr = a.getCharge();
+      // System.out.print(sym + " " + chr);
+
+      if (sym.equals("B") || sym.equals("N")) {
+          // System.out.println("**");
+          // System.out.println(sym + " " + chr);
+          cl = a.getConnectedList();
+
+          isBonded2H = checkConnectedH(mol, cl, depth); 
+
+          if (!isBonded2H) {             
+            System.out.println(sym + " " + chr);
+
+            cv = charges.get(sym); 
+            cv += chr;
+            charges.put(sym, cv); 
+
+            tot = totals.get(sym);
+            tot++;
+            totals.put(sym, tot);
+
+            newMol.addAtom(atom(sym, chr, a.getAtomCenter()));
+          }
+      } else {
+          // System.out.println("");
+      }
+  }
+
+  print("ch : " + charges);
+  print("tot : " + totals);
+  for(c : charges.keySet()) {
+      print(c + " > " + charges.get(c) / totals.get(c));
+  }
+
+  buildConnectivity(newMol, "false");
+  showMolecule(newMol);
+}
+
+
+bnntCharge(showFileDialog(), 5);
+

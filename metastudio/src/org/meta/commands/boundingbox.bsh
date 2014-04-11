@@ -1,0 +1,12 @@
+/**
+ * boudingbox() - creates an instance of BoundingBox
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.math.geom.*;
+
+boundingbox(Point3D upperLeft, Point3D bottomRight) {
+    return new BoundingBox(upperLeft, bottomRight);
+}

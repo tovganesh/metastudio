@@ -1,0 +1,163 @@
+// metasql.bsh : Prototype of SQL support for MeTA Studio objects
+// MeTAql : SQL for MeTA Studio objects
+// (c) V. Ganesh
+// 
+// @author V. Ganesh
+// 
+// created: 3 June, 2009
+// updated: 15 June, 2009  [generalized call on objects]
+//          8 July, 2008   [generalized table-object map]
+//
+// Under development
+//
+
+import java.util.*;
+
+msql1 = "SELECT * FROM mol";
+msql2 = "SELECT title FROM mol";
+msql3 = "SELECT title, atomcount, formula FROM mol";
+msql4 = "SELECT atoms FROM mol";
+msql5 = "SELECT title, atomcount, formula FROM mol WHERE atomcount > 50";
+msql6 = "SELECT title, atomcount, formula FROM mol WHERE atoms.index > 20 AND atoms.index < 50";
+msql7 = "SELECT atoms FROM mol WHERE title SOUNDS-LIKE \"wat\"";
+msql8 = "SELECT * FROM mol WHERE title SOUNDS-LIKE \"wat\"";
+msql9 = "SELECT * FROM mol WHERE title SOUNDS-LIKE \"wat\" and atoms.symbol = \"O\"" ;
+msql10 = "SELECT title, atomcount, formula FROM mol WHERE atomcount > 50 IN (SELECT * FROM mol WHERE atoms.symbol = \"B\")";
+
+// S => Scalar value
+// N => Nested value
+// M => Method call to get object-table vaules, this should always be the first entry
+private HashMap tableDesc = new HashMap();
+tableDesc.put("mol", new String[]{"M:getAllMolecules", "S:title:getTitle", "S:atomcount:getNumberOfAtoms", 
+                                  "S:electroncount:getNumberOfElectrons", "S:formula:getFormula",
+                                  "S:boundingBox:getBoundingBox", "N:atoms:getAtoms"});
+tableDesc.put("N:atoms", new String[]{"S:symbol:getSymbol", "S:getAtomCenter"});
+
+// object to table map, defines the methods for mapping table names to runtime objects
+tableObjetMap() {
+   // table map for "mol"
+   getAllMolecules() {
+      msList = getLoadedMoleculeScenes();
+ 
+      molList = arraylist();
+      for(ms : msList) molList.add(ms.getMolecule());
+
+      return molList;
+   }
+
+   return this;
+}
+
+// print SQL error
+sqlError(errStr) {
+   print(errStr);
+}
+
+// operate on a object, eventually obtaining one item of a record
+getValue(obj, methodName) {
+   res = obj.getClass().getMethod(methodName, new Class[0]).invoke(obj, new Object[0]);
+
+   if (res instanceof Iterator) {
+     str = ""; 
+     for (r : res) str += r.toString() + "; " ;
+     res = str;
+   } // end if
+
+   return res;
+}
+
+// set up where clause constains
+setupConstrains(fromEndIdx, fullSqlList) {
+   print(fullSqlList[fromEndIdx]);
+
+   if (!fullSqlList[fromEndIdx].equals("where")) {
+      sqlError("unidentified keyword : " + words[0]);
+      return;
+   } // end if
+
+   for(i=fromEndIdx+1; i<fullSqlList.length; i++) {
+      print(fullSqlList[i]);
+   } // end for
+}
+
+// display the table
+showFromTable(colList, tableName, fromEndIdx, fullSqlList) {        
+    if (colList[0].equals("*")) {
+       tab = tableDesc.get(tableName);
+       colList = new String[tab.length-1];
+       for(i=1; i<tab.length; i++) colList[i-1] = tab[i].split(":")[1];
+    } // end if   
+    
+    tableMethod = tableDesc.get(tableName)[0].split(":")[1];
+    records = tableObjetMap().invokeMethod(tableMethod, new Object[0]);
+
+    print("------------------------");
+    tab = tableDesc.get(tableName);
+    methodNames = arraylist();
+    fieldTypes  = arraylist();
+    fieldNames = "";        
+    for(val:tab) {
+       vals = val.split(":");
+       for(cl:colList) {
+          if (cl.equals(vals[1])) {
+             fieldTypes.add(vals[0]);
+             fieldNames += vals[1] + "\t";               
+             methodNames.add(vals[2]);
+             break;
+          } // end if
+       } // end for
+    } // end for
+
+    whereConstraint = false;
+    if (fromEndIdx < fullSqlList.length) {
+       setupConstrains(fromEndIdx+1, fullSqlList);
+       whereConstraint = true;
+    } // end if
+
+    print(fieldNames);
+    for(rec:records) {
+       recStr = "";
+       for(met : methodNames) recStr += getValue(rec, met) + "\t";
+       print(recStr); 
+    } // end for
+    print("Processed " + records.size() + " records.");
+}
+
+// execute the SQL (metasql)
+executeSQL(sqlStr) {
+   print("MeTAql : SQL for MeTA Studio objects");
+
+   print(sqlStr);
+   // split the words
+   words = sqlStr.toLowerCase().split("\\s+");
+   // print(words);
+
+   if (!words[0].equals("select")) {
+      sqlError("unidentified keyword : " + words[0]);
+      return;
+   } // end if
+
+   if (words[1].equals("*")) {
+      if (words[2].equals("from")) {
+         showFromTable(new String[]{"*"}, words[3], 4, words);
+      } else {
+         sqlError("unidentified keyword : " + words[2]);
+         return;
+      } // end if
+   } else {
+      // more parsing
+      i = 1; fldlist = arraylist();
+      while (words[i].indexOf(",") >= 0) fldlist.add(words[i++].split(",")[0]);
+      fldlist.add(words[i++].split(",")[0]);
+
+      if (words[i].equals("from")) {
+         showFromTable(fldlist.toArray(), words[i+1], i+1, words);
+      } else {
+         sqlError("unidentified keyword : " + words[i]);
+         return;
+      } // end if
+   } // end if
+}
+
+// test out!
+executeSQL(msql1);

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/1"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/1">
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/net/falappa/imageio/ImageReaderSpiFileFilter.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/net/falappa/imageio/ImageViewerPanelSaveAction.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/net/falappa/imageio/ImageWriterSpiFileFilter.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/net/falappa/swing/ExtensionFileFilter.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/net/falappa/swing/widgets/JImageViewerPanel.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/Attributes.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/Basis.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/GeometricApproximation.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/MutableAttributes.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/Orientation.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/ShadingInterpolation.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/SolidOperation.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/attributes/TrimCurveSense.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/compiler/preprocessor/TokenList.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/geom/ClippingVolume.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/maps/MipMap.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/maps/ShadowMap.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/options/CameraProjection.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/options/Display.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/options/Filter.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/options/Hider.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/options/JRManStringResource.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parameters/Declaration.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/Frame.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/Global.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/ObjectInstanceList.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/Parser.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/Tokenizer.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/World.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/keywords/AbstractKeywordParser.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/parser/keywords/AnyKeywordParser.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/render/Renderer.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/render/RendererHidden.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/render/SamplePoint.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/render/Sampler.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/render/ShaderVariables.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/shaders/Imager.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/shaders/SurfaceShader.java</file>
+        <file>file:/C:/Users/Ganesh/meta/lib/src/jrman/src/org/jrman/ui/ProgressObservable.java</file>
+    </open-files>
+</project-private>

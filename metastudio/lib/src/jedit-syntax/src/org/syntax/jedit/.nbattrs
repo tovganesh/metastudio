@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE attributes PUBLIC "-//NetBeans//DTD DefaultAttributes 1.0//EN" "http://www.netbeans.org/dtds/attributes-1_0.dtd">
+<attributes version="1.0">
+    <fileobject name="DefaultInputHandler.java">
+        <attr name="class_dependency_org.syntax.jedit.InputHandler" stringvalue="DefaultInputHandler"/>
+    </fileobject>
+    <fileobject name="JEditTextArea.java">
+        <attr name="class_dependency_java.awt.LayoutManager" stringvalue="JEditTextArea.ScrollLayout"/>
+        <attr name="class_dependency_java.awt.event.ActionListener" stringvalue="JEditTextArea.CaretBlinker"/>
+        <attr name="class_dependency_java.awt.event.AdjustmentListener" stringvalue="JEditTextArea.AdjustHandler"/>
+        <attr name="class_dependency_java.awt.event.ComponentAdapter" stringvalue="JEditTextArea.ComponentHandler"/>
+        <attr name="class_dependency_java.awt.event.FocusListener" stringvalue="JEditTextArea.FocusHandler"/>
+        <attr name="class_dependency_java.awt.event.MouseAdapter" stringvalue="JEditTextArea.MouseHandler"/>
+        <attr name="class_dependency_java.awt.event.MouseMotionListener" stringvalue="JEditTextArea.DragHandler"/>
+        <attr name="class_dependency_javax.swing.JComponent" stringvalue="JEditTextArea"/>
+        <attr name="class_dependency_javax.swing.event.CaretEvent" stringvalue="JEditTextArea.MutableCaretEvent"/>
+        <attr name="class_dependency_javax.swing.event.DocumentListener" stringvalue="JEditTextArea.DocumentHandler"/>
+        <attr name="class_dependency_javax.swing.event.UndoableEditListener" stringvalue="JEditTextArea"/>
+        <attr name="class_dependency_javax.swing.undo.AbstractUndoableEdit" stringvalue="JEditTextArea.CaretUndo"/>
+    </fileobject>
+    <fileobject name="SyntaxDocument.java">
+        <attr name="class_dependency_javax.swing.text.PlainDocument" stringvalue="SyntaxDocument"/>
+    </fileobject>
+    <fileobject name="TextAreaPainter.java">
+        <attr name="class_dependency_javax.swing.JComponent" stringvalue="TextAreaPainter"/>
+        <attr name="class_dependency_javax.swing.text.TabExpander" stringvalue="TextAreaPainter"/>
+    </fileobject>
+</attributes>

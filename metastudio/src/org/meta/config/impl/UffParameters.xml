@@ -1,0 +1,322 @@
+<?xml version="1.0" standalone="yes" ?>
+<!--
+UFFParameters.xml - default configuration file for Universal Force Field
+All values taken from Rappé et al., J. Am. Chem. Soc. 1992; energy parameters
+for van der Waals well depth have been converted to hartrees.
+This is laid out quite differently from the tables in UFF and Towhee, based on
+the following observations:
+- some parameters are dependent only on the atom type:
+    vdwBondRadius x_i
+    vdwWellDepth D_i
+    vdwScale zeta
+    effectiveCharge Z_i
+    electronegativity constant chi_i
+    ("HARD" in Towhee - not used)
+    ("RADIUS" in Towhee - not used)
+- some parameters are dependent on the coordination geometry and charge state of the atom
+    sp3TorsionalBarrier V_i
+    sp2TorsionalBarrier U_i
+    bondRadius r_i
+    bondAngle theta_0
+
+@author  J. Milthorpe
+@version 2.0 (Part of MeTA v2.0)
+-->
+<uffParameters>
+    <species symbol="H" vdwBondRadius="2.886" vdwWellDepth="0.0000701" scale="12.0" effectiveCharge="0.712" electronegativity="4.53">
+        <coordination id="" bondRadius="0.354" bondAngle="180" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="0.0"/>
+        <coordination id="b" bondRadius="0.46"  bondAngle="83.5" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="0.0"/>
+    </species>
+    <species symbol="He" vdwBondRadius="2.362" vdwWellDepth="0.0000892" scale="15.24" effectiveCharge="0.098" electronegativity="9.66">
+        <coordination id="4+4" bondRadius="0.849" bondAngle="90" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="0.0"/>
+    </species>
+    
+    <species symbol="Li" vdwBondRadius="2.451" vdwWellDepth="0.0000398" scale="12.0" effectiveCharge="1.026" electronegativity="3.01">
+        <coordination id="" bondRadius="1.336" bondAngle="180" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="Be" vdwBondRadius="2.745" vdwWellDepth="0.000135" scale="12.0" effectiveCharge="1.565" electronegativity="4.88">
+        <coordination id="3+2" bondRadius="1.074" bondAngle="109.47" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="B" vdwBondRadius="4.083" vdwWellDepth="0.000287" scale="12.052" effectiveCharge="1.755" electronegativity="5.11">
+        <coordination id="3+2" bondRadius="0.838" bondAngle="109.47" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+        <coordination id="2+2" bondRadius="0.828" bondAngle="120.0" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="C" vdwBondRadius="3.851" vdwWellDepth="0.000167" scale="12.73" effectiveCharge="1.912" electronegativity="5.34">
+        <coordination id="3" bondRadius="0.757" bondAngle="109.47" sp3TorsionalBarrier="2.12"  sp2TorsionalBarrier="2.0"/>
+        <coordination id="R" bondRadius="0.729" bondAngle="120" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="2.0"/>
+        <coordination id="2" bondRadius="0.732" bondAngle="120" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="2.0"/>
+        <coordination id="1" bondRadius="0.706" bondAngle="180" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="N" vdwBondRadius="3.66" vdwWellDepth="0.000110" scale="13.407" effectiveCharge="2.544" electronegativity="6.899">
+        <coordination id="3" bondRadius="0.7" bondAngle="106.7" sp3TorsionalBarrier="0.45" sp2TorsionalBarrier="2.0"/>
+        <coordination id="R" bondRadius="0.699" bondAngle="120" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+        <coordination id="2" bondRadius="0.685" bondAngle="111.2" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+        <coordination id="1" bondRadius="0.656" bondAngle="180" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="O" vdwBondRadius="3.5" vdwWellDepth="0.0000956" scale="14.085" effectiveCharge="2.3" electronegativity="8.741">
+        <coordination id="3" bondRadius="0.658" bondAngle="104.51" sp3TorsionalBarrier="0.018" sp2TorsionalBarrier="2.0"/>
+        <coordination id="3_z" bondRadius="0.528" bondAngle="146" sp3TorsionalBarrier="0.018" sp2TorsionalBarrier="2.0"/>
+        <coordination id="R" bondRadius="0.68"  bondAngle="110" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="2.0"/>
+        <coordination id="2" bondRadius="0.634" bondAngle="120" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="2.0"/>
+        <coordination id="1" bondRadius="0.639" bondAngle="180" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="F" vdwBondRadius="3.364" vdwWellDepth="0.0000797" scale="14.762" effectiveCharge="1.735" electronegativity="10.874">
+        <coordination id="" bondRadius="0.668" bondAngle="180" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="2.0"/>
+    </species>
+    <species symbol="Ne" vdwBondRadius="3.243" vdwWellDepth="0.0000669" scale="15.440" effectiveCharge="0.194" electronegativity="11.04">
+        <coordination id="4+4" bondRadius="0.92" bondAngle="90" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="2.0" />
+    </species>
+
+    <species symbol="Na" vdwBondRadius="2.983" vdwWellDepth="0.0000478" scale="12.0" effectiveCharge="1.081" electronegativity="2.843">
+        <coordination id="" bondRadius="1.539" bondAngle="180" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="1.25"  />
+    </species>
+    <species symbol="Mg" vdwBondRadius="3.021" vdwWellDepth="0.000177" scale="12.0" effectiveCharge="1.787" electronegativity="3.951">
+        <coordination id="3+2" bondRadius="1.421" bondAngle="109.47" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="1.25"  />
+    </species>
+    <species symbol="Al" vdwBondRadius="4.499" vdwWellDepth="0.000805" scale="11.278" effectiveCharge="1.792" electronegativity="4.06">
+        <coordination id="3" bondRadius="1.244" bondAngle="109.47" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="1.25"/>
+    </species>
+    <species symbol="Si"  vdwBondRadius="4.295" vdwWellDepth="0.000641" scale="12.175" effectiveCharge="2.323" electronegativity="4.168">
+        <coordination id="3" bondRadius="1.117" bondAngle="109.47" sp3TorsionalBarrier="1.225" sp2TorsionalBarrier="1.25"/>
+    </species>
+    <species symbol="P" vdwBondRadius="4.147" vdwWellDepth="0.000486" scale="13.072" effectiveCharge="2.863"  electronegativity="5.463">
+        <coordination id="3+3" bondRadius="1.101" bondAngle="93.8"   sp3TorsionalBarrier="2.4" sp2TorsionalBarrier="1.25"/>
+        <coordination id="3+5" bondRadius="1.056" bondAngle="109.47" sp3TorsionalBarrier="2.4" sp2TorsionalBarrier="1.25" />
+        <coordination id="3+q" bondRadius="1.056" bondAngle="109.47" sp3TorsionalBarrier="2.4" sp2TorsionalBarrier="1.25" />
+    </species>
+    <species symbol="S" vdwBondRadius="4.035" vdwWellDepth="0.000437" scale="13.969" effectiveCharge="2.703" electronegativity="6.928">
+        <coordination id="3+2" bondRadius="1.064" bondAngle="92.1"   sp3TorsionalBarrier="0.484" sp2TorsionalBarrier="1.25" />
+        <coordination id="3+4" bondRadius="1.049" bondAngle="103.2"  sp3TorsionalBarrier="0.484" sp2TorsionalBarrier="1.25" />
+        <coordination id="3+6" bondRadius="1.027" bondAngle="109.47" sp3TorsionalBarrier="0.484" sp2TorsionalBarrier="1.25" />
+        <coordination id="R"   bondRadius="1.077" bondAngle="92.2"   sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="1.25" />
+        <coordination id="2"   bondRadius="0.854" bondAngle="120.0"  sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="1.25" />
+    </species>
+    <species symbol="Cl" vdwBondRadius="3.947" vdwWellDepth="0.000362" scale="14.866" effectiveCharge="2.348" electronegativity="8.564">
+        <coordination id="" bondRadius="1.044" bondAngle="180" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="1.25"/>
+    </species>
+    <species symbol="Ar" vdwBondRadius="3.868" vdwWellDepth="0.000295" scale="15.763" effectiveCharge="0.300" electronegativity="9.465">
+        <coordination id="4+4" bondRadius="1.032" bondAngle="90" sp3TorsionalBarrier="0.0"   sp2TorsionalBarrier="1.25"/>
+    </species>
+
+    <species symbol="K"  vdwBondRadius="3.812" vdwWellDepth="0.000056"  effectiveCharge="1.165" electronegativity="2.421">
+        <coordination id="" bondRadius="1.953" bondAngle="180.0" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Ca" vdwBondRadius="3.399" vdwWellDepth="0.000379"  effectiveCharge="2.141" electronegativity="3.231">
+        <coordination id="6+2" bondRadius="1.761" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Sc" vdwBondRadius="3.295" vdwWellDepth="0.000030"  effectiveCharge="2.592" electronegativity="3.395">
+        <coordination id="3+3" bondRadius="1.513" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Ti" vdwBondRadius="3.175" vdwWellDepth="0.000027"  effectiveCharge="2.659" electronegativity="3.47">
+        <coordination id="3+4" bondRadius="1.412" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+        <coordination id="6+4" bondRadius="1.412" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="V"  vdwBondRadius="3.144" vdwWellDepth="0.000026"  effectiveCharge="2.679" electronegativity="3.65">
+        <coordination id="3+5" bondRadius="1.402" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Cr" vdwBondRadius="3.023" vdwWellDepth="0.000024"  effectiveCharge="2.463"  electronegativity="3.415">
+        <coordination id="6+3" bondRadius="1.345" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Mn" vdwBondRadius="2.961" vdwWellDepth="0.000021"  effectiveCharge="2.43" electronegativity="3.325">
+        <coordination id="6+2" bondRadius="1.382" bondAngle="90"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Fe" vdwBondRadius="2.912" vdwWellDepth="0.000021"  effectiveCharge="2.43" electronegativity="3.76">
+        <coordination id="3+2" bondRadius="1.27" bondAngle="109.47"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+        <coordination id="6+2" bondRadius="1.335" bondAngle="90"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Co" vdwBondRadius="2.872" vdwWellDepth="0.000022"  effectiveCharge="2.43" electronegativity="4.105">
+        <coordination id="6+3" bondRadius="1.241" bondAngle="90"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Ni" vdwBondRadius="2.834" vdwWellDepth="0.000024"  effectiveCharge="2.43" electronegativity="4.465">
+        <coordination id="4+2" bondRadius="1.164" bondAngle="90"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Cu" vdwBondRadius="3.495" vdwWellDepth="0.0000080" effectiveCharge="1.756" electronegativity="4.2">
+        <coordination id="3+1" bondRadius="1.302" bondAngle="109.47"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Zn" vdwBondRadius="2.763" vdwWellDepth="0.000198"  effectiveCharge="1.308" electronegativity="5.106">
+        <coordination id="3+2" bondRadius="1.193" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7" />
+    </species>
+    <species symbol="Ga" vdwBondRadius="4.383" vdwWellDepth="0.000661" scale="11" effectiveCharge="1.821" electronegativity="3.641">
+        <coordination id="3+3" bondRadius="1.260" bondAngle="109.47"  sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Ge" vdwBondRadius="4.280" vdwWellDepth="0.000604" scale="12" effectiveCharge="2.789" electronegativity="4.051">
+        <coordination id="3" bondRadius="1.197" bondAngle="109.47"  sp3TorsionalBarrier="0.701"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="As" vdwBondRadius="4.230" vdwWellDepth="0.000492" scale="13" effectiveCharge="2.864" electronegativity="3.4">
+        <coordination id="3+3" bondRadius="1.211" bondAngle="92.1" sp3TorsionalBarrier="1.5" sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Se" vdwBondRadius="4.205" vdwWellDepth="0.000464" scale="14" effectiveCharge="2.764" electronegativity="6.428">
+        <coordination id="3+2" bondRadius="1.190" bondAngle="90.6"  sp3TorsionalBarrier="0.335"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Br" vdwBondRadius="4.189" vdwWellDepth="0.000400" scale="15" effectiveCharge="2.519" electronegativity="7.79">
+        <coordination id="" bondRadius="1.192" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+    <species symbol="Kr" vdwBondRadius="4.141" vdwWellDepth="0.000351" scale="16" effectiveCharge="0.452" electronegativity="8.505">
+        <coordination id="4+4" bondRadius="1.147" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.7"/>
+    </species>
+
+    <species symbol="Rb" vdwBondRadius="4.114" vdwWellDepth="0.0000637" effectiveCharge="1.592" electronegativity="2.331">
+        <coordination id="" bondRadius="2.26" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Sr" vdwBondRadius="3.641" vdwWellDepth="0.000374" effectiveCharge="2.449" electronegativity="3.024">
+        <coordination id="6+2" bondRadius="2.052" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Y" vdwBondRadius="3.345" vdwWellDepth="0.000115" effectiveCharge="3.257" electronegativity="3.83">
+        <coordination id="3+3" bondRadius="1.698" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Zr" vdwBondRadius="3.124" vdwWellDepth="0.000110" effectiveCharge="3.667" electronegativity="3.4">
+        <coordination id="3+4" bondRadius="1.564" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Nb" vdwBondRadius="3.165" vdwWellDepth="0.000094" effectiveCharge="3.618" electronegativity="3.55">
+        <coordination id="3+5" bondRadius="1.473" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Mo" vdwBondRadius="3.052" vdwWellDepth="0.000089" effectiveCharge="3.4" electronegativity="3.465">
+        <coordination id="6+6" bondRadius="1.467" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+        <coordination id="3+6" bondRadius="1.484" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Tc" vdwBondRadius="2.998" vdwWellDepth="0.0000765" effectiveCharge="3.4" electronegativity="3.29">
+        <coordination id="6+5" bondRadius="1.322" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Ru" vdwBondRadius="2.963" vdwWellDepth="0.000089" effectiveCharge="3.4" electronegativity="3.575">
+        <coordination id="6+2" bondRadius="1.478" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Rh" vdwBondRadius="2.929" vdwWellDepth="0.0000845" effectiveCharge="3.5" electronegativity="3.975">
+        <coordination id="6+3" bondRadius="1.332" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Pd" vdwBondRadius="2.899" vdwWellDepth="0.0000765" effectiveCharge="3.21" electronegativity="4.32">
+        <coordination id="4+2" bondRadius="1.338" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Ag" vdwBondRadius="3.148" vdwWellDepth="0.0000574" effectiveCharge="1.956" electronegativity="4.436">
+        <coordination id="1+1" bondRadius="1.386" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Cd" vdwBondRadius="2.848" vdwWellDepth="0.000363" effectiveCharge="1.65" electronegativity="5.034">
+        <coordination id="3+2" bondRadius="1.403" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="In" vdwBondRadius="4.463" vdwWellDepth="0.000955" scale="11" effectiveCharge="2.07" electronegativity="3.506">
+        <coordination id="3+3" bondRadius="1.459" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Sn" vdwBondRadius="4.392" vdwWellDepth="0.00090" scale="12" effectiveCharge="2.961" electronegativity="3.987">
+        <coordination id="3" bondRadius="1.398" bondAngle="109.47" sp3TorsionalBarrier="0.199"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Sb" vdwBondRadius="4.42" vdwWellDepth="0.000716" scale="13" effectiveCharge="2.704" electronegativity="4.899">
+        <coordination id="3+3" bondRadius="1.407" bondAngle="91.6" sp3TorsionalBarrier="1.1"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Te" vdwBondRadius="4.47" vdwWellDepth="0.00063" scale="14" effectiveCharge="2.882" electronegativity="5.816">
+        <coordination id="3+2" bondRadius="1.386" bondAngle="90.25" sp3TorsionalBarrier="0.3"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="I" vdwBondRadius="4.5" vdwWellDepth="0.00054" scale="15" effectiveCharge="2.65" electronegativity="6.822">
+        <coordination id="" bondRadius="1.382" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+    <species symbol="Xe" vdwBondRadius="4.404" vdwWellDepth="0.00053" scale="12" effectiveCharge="0.556" electronegativity="7.595">
+        <coordination id="4+4" bondRadius="1.267" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.2"/>
+    </species>
+
+    <species symbol="Cs" vdwBondRadius="4.517" vdwWellDepth="0.0000717" effectiveCharge="1.573" electronegativity="2.183">
+        <coordination id="" bondRadius="2.57" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Ba" vdwBondRadius="3.703" vdwWellDepth="0.00058" effectiveCharge="2.727" electronegativity="2.814">
+        <coordination id="6+2" bondRadius="2.277" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    
+    <species symbol="La" vdwBondRadius="3.522" vdwWellDepth="0.000027" effectiveCharge="3.3" electronegativity="2.8355">
+        <coordination id="3+3" bondRadius="1.943" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Ce" vdwBondRadius="3.556" vdwWellDepth="0.000021" effectiveCharge="3.3" electronegativity="2.774">
+        <coordination id="6+3" bondRadius="1.841" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Pr" vdwBondRadius="3.606" vdwWellDepth="0.000016" effectiveCharge="3.3" electronegativity="2.858">
+        <coordination id="6+3" bondRadius="1.823" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Nd" vdwBondRadius="3.575" vdwWellDepth="0.000016" effectiveCharge="3.3" electronegativity="2.8685">
+        <coordination id="6+3" bondRadius="1.816" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Pm" vdwBondRadius="3.547" vdwWellDepth="0.000014" effectiveCharge="3.3" electronegativity="2.881">
+        <coordination id="6+3" bondRadius="1.801" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Sm" vdwBondRadius="3.52" vdwWellDepth="0.000013" effectiveCharge="3.3" electronegativity="2.9115">
+        <coordination id="6+3" bondRadius="1.78" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Eu" vdwBondRadius="3.493" vdwWellDepth="0.000013" effectiveCharge="3.3" electronegativity="2.8785">
+        <coordination id="6+3" bondRadius="1.771" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Gd" vdwBondRadius="3.368" vdwWellDepth="0.000014" effectiveCharge="3.3" electronegativity="3.1665">
+        <coordination id="6+3" bondRadius="1.735" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Tb" vdwBondRadius="3.451" vdwWellDepth="0.000011" effectiveCharge="3.3" electronegativity="3.018">
+        <coordination id="6+3" bondRadius="1.732" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Dy" vdwBondRadius="3.428" vdwWellDepth="0.000011" effectiveCharge="3.3" electronegativity="3.0555">
+        <coordination id="6+3" bondRadius="1.71" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Ho" vdwBondRadius="3.409" vdwWellDepth="0.000011" effectiveCharge="3.416" electronegativity="3.127">
+        <coordination id="6+3" bondRadius="1.696" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Er" vdwBondRadius="3.391" vdwWellDepth="0.000011" effectiveCharge="3.3" electronegativity="3.1865">
+        <coordination id="6+3" bondRadius="1.673" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Tm" vdwBondRadius="3.374" vdwWellDepth="0.0000096" effectiveCharge="3.3" electronegativity="3.2514">
+        <coordination id="6+3" bondRadius="1.66" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Yb" vdwBondRadius="3.355" vdwWellDepth="0.000363" effectiveCharge="2.618" electronegativity="3.2889">
+        <coordination id="6+3" bondRadius="1.637" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Lu" vdwBondRadius="3.64" vdwWellDepth="0.000065" effectiveCharge="3.271" electronegativity="2.9629">
+        <coordination id="6+3" bondRadius="1.671" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Hf" vdwBondRadius="3.141" vdwWellDepth="0.000115" effectiveCharge="3.921" electronegativity="3.7">
+        <coordination id="3+4" bondRadius="1.611" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Ta" vdwBondRadius="3.17" vdwWellDepth="0.000129" effectiveCharge="4.075" electronegativity="5.1">
+        <coordination id="3+5" bondRadius="1.511" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="W" vdwBondRadius="3.069" vdwWellDepth="0.00011" effectiveCharge="3.7" electronegativity="4.63">
+        <coordination id="6+6" bondRadius="1.392" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+        <coordination id="3+4" bondRadius="1.526" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+        <coordination id="3+6" bondRadius="1.38" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Re" vdwBondRadius="2.954" vdwWellDepth="0.000105" effectiveCharge="3.7" electronegativity="3.96">
+        <coordination id="6+5" bondRadius="1.372" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+        <coordination id="3+7" bondRadius="1.314" bondAngle="109.47" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Os" vdwBondRadius="3.12" vdwWellDepth="0.000059" effectiveCharge="3.7" electronegativity="5.14">
+        <coordination id="6+6" bondRadius="1.372" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Ir" vdwBondRadius="2.84" vdwWellDepth="0.000116" effectiveCharge="3.731" electronegativity="5.0">
+        <coordination id="6+3" bondRadius="1.371" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Pt" vdwBondRadius="2.754" vdwWellDepth="0.00013" effectiveCharge="3.382" electronegativity="4.79">
+        <coordination id="4+2" bondRadius="1.364" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Au" vdwBondRadius="3.293" vdwWellDepth="0.000062" effectiveCharge="2.625" electronegativity="4.894">
+        <coordination id="4+3" bondRadius="1.262" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Hg" vdwBondRadius="2.705" vdwWellDepth="0.000614" effectiveCharge="1.75" electronegativity="6.27">
+        <coordination id="1+2" bondRadius="1.34" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Tl" vdwBondRadius="4.347" vdwWellDepth="0.0011" scale="11" effectiveCharge="2.068" electronegativity="3.2">
+        <coordination id="3+3" bondRadius="1.518" bondAngle="120" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Pb" vdwBondRadius="4.297" vdwWellDepth="0.00106" scale="12" effectiveCharge="2.846" electronegativity="3.9">
+        <coordination id="3" bondRadius="1.459" bondAngle="109.47" sp3TorsionalBarrier="0.1"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Bi" vdwBondRadius="4.37" vdwWellDepth="0.000825" scale="13" effectiveCharge="2.47" electronegativity="4.69">
+        <coordination id="3+3" bondRadius="1.512" bondAngle="90" sp3TorsionalBarrier="1.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Po" vdwBondRadius="4.709" vdwWellDepth="0.000518" scale="14" effectiveCharge="2.33" electronegativity="4.21">
+        <coordination id="3+2" bondRadius="1.5" bondAngle="90" sp3TorsionalBarrier="0.3"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="At" vdwBondRadius="4.75" vdwWellDepth="0.000453" scale="15" effectiveCharge="2.24" electronegativity="4.75">
+        <coordination id="" bondRadius="1.545" bondAngle="180" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+    <species symbol="Rn" vdwBondRadius="4.765" vdwWellDepth="0.000395" scale="16" effectiveCharge="0.583" electronegativity="5.37">
+        <coordination id="4+4" bondRadius="1.42" bondAngle="90" sp3TorsionalBarrier="0.0"  sp2TorsionalBarrier="0.1"/>
+    </species>
+
+   <!--
+   The fallback atom that should always exist!  Use values for Helium
+   -->
+    <species symbol="X" vdwBondRadius="2.362" vdwWellDepth="0.0000892" scale="15.24" effectiveCharge="0.098" electronegativity="9.66">
+        <coordination id="" bondRadius="0.849" bondAngle="90" sp3TorsionalBarrier="0.0" sp2TorsionalBarrier="0.0"/>
+    </species>
+  
+</uffParameters>

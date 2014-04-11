@@ -1,0 +1,38 @@
+/**
+ * talk() - Talk service of MeTA Studio.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.net.*;
+import org.meta.net.impl.consumer.talk.*;
+import org.meta.net.impl.service.talk.*;
+
+talk(String host) {
+    Thread t = new Thread() {
+        public void run() {
+            f = new FederationServiceTalkConsumer();
+            r = f.discover(java.net.InetAddress.getByName(host));
+            f.consume(r);
+        }
+    };
+
+    t.setName("Talk Thread");
+    t.start();
+}
+
+talk(String host, TalkUInitiator talkUi) {
+    Thread t = new Thread() {
+        public void run() {
+            f = new FederationServiceTalkConsumer();
+            f.setCustomTalkUIInitiator(talkUi);
+            r = f.discover(java.net.InetAddress.getByName(host));
+            f.consume(r);
+        }
+    };
+
+    t.setName("Talk Thread");    
+    t.start();
+}
+

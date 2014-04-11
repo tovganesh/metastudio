@@ -1,0 +1,19 @@
+/**
+ * autoIndexMolecule() - Auto index atoms in a molecule object.
+ * Note that autoindexing invalidates connectivity and z-matrix information.
+ * It is up to the programmer to reconstruct these after a call to this function.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.molecule.*;
+
+autoIndexMolecule(Molecule mol) {
+   atoms = mol.getAtoms();
+   int i = 0;
+
+   for (atom : atoms) {
+    atom.setIndex(i++);
+   } // end for
+}

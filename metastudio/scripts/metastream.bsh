@@ -1,0 +1,77 @@
+/**
+ * Attempt to build generic stream programming APIs for use in MeTA Studio.
+ *
+ * @author V. Ganesh
+ */
+
+/** 
+ * This would eventually be a full OpenCL API for MeTA Studio. There might
+ * also be support for CUDA.
+ */
+
+import com.sun.jna.*;
+import com.sun.jna.ptr.*;
+
+// bare minimum CUDA wrapper
+public interface MeTACUDA extends Library {
+    int cudaGetDeviceCount(IntByReference devCnt);
+
+    int cudaThreadSynchronize();
+    int cudaThreadExit();
+
+    int cudaMalloc(PointerByReference ptrToMem, int size);
+    int cudaFree(PointerByReference ptrToMem);
+
+    int cudaMallocHost(PointerByReference ptrToMem, int size);
+    int cudaFreeHost(PointerByReference ptrToMem);
+}
+
+public interface MeTACUBLAS extends Library {
+    int cublasInit();
+}
+
+// OpenCL wrappers based on AMD OpenCL beta SDK
+public interface MeTAOpenCL extends Library {
+    class cl_context extends Structure {
+       // public static class ByReference extends cl_context implements Structure.ByReference { }
+    }
+
+    class CLDevice {
+       public static final int CL_DEVICE_TYPE_DEFAULT = (1 << 0);
+       public static final int CL_DEVICE_TYPE_CPU     = (1 << 1);
+       public static final int CL_DEVICE_TYPE_GPU     = (1 << 2);
+       public static final int CL_DEVICE_TYPE_ACCELERATOR = (1 << 3);
+       // public static final int CL_DEVICE_TYPE_ALL = 0xFFFFFFFF;
+    }
+
+    cl_context clCreateContext(int deviceID, 
+                       int noOfDevices,        
+                       Pointer notifyFunction,
+                       Pointer userData,
+                       Pointer errCode);
+}
+
+// Protect against VM crash
+Native.setProtected(true);
+
+// Load CUDA native library
+metaCuda = loadNativeLibrary("cudart", MeTACUDA.class);
+
+// Test CUDA
+devcnt = new IntByReference(0);
+metaCuda.cudaGetDeviceCount(devcnt);
+print("Number of CUDA devices: " + devcnt.getValue());
+
+p = new PointerByReference();
+print("cudaMalloc: " + metaCuda.cudaMalloc(p, 10));
+print("cudaFree: " + metaCuda.cudaFree(p));
+
+metaCudablas = loadNativeLibrary("cublas", MeTACUBLAS.class);
+print("cublasInit: " + metaCudablas.cublasInit());
+
+// Load OpenCL native library
+// metaOpenCL = loadNativeLibrary("OpenCL", MeTAOpenCL.class);
+
+// Test OpenCL
+// clcontext = metaOpenCL.clCreateContext(MeTAOpenCL.CLDevice.CL_DEVICE_TYPE_CPU, 1,  
+//             Pointer.NULL, Pointer.NULL, Pointer.NULL);

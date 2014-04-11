@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='ISO-8859-1'  ?>
+<!DOCTYPE toc
+  PUBLIC "-//Sun Microsystems Inc.//DTD JavaHelp TOC Version 2.0//EN"
+         "../dtd/toc_2_0.dtd">
+<toc version="2.0">
+<tocitem text="MeTa Studio 2.0">
+
+   <tocitem text="MeTA Studio Help" target="studio.doc"/>
+   <tocitem text="API Documentation" target="api.doc"/>
+  
+</tocitem>
+</toc>

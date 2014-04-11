@@ -1,0 +1,10 @@
+/**
+ * atomInfo() - simply return instance of AtomInfo
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+atomInfo() {
+    return org.meta.config.impl.AtomInfo.getInstance();
+}

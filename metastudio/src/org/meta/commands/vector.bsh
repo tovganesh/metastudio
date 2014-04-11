@@ -1,0 +1,18 @@
+/**
+ * vector() - creates an instance of Vector class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+vector(int size) {
+    new org.meta.math.Vector(size);
+}
+
+vector(double [] vec) {
+    new org.meta.math.Vector(vec);
+}
+
+vector(org.meta.math.Matrix mat) {
+    new org.meta.math.Vector(mat);
+}

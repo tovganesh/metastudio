@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : FragmentPropertySheet.xml
+    Created on : March 26, 2005, 10:57 AM
+    Author     : Ganesh
+    Description:
+        Describes the property sheet for Fragment class.
+-->
+
+<propertysheet title="Fragment settings">
+    <propertygroup name="General">
+        <property name="totalNumberOfAtoms"
+                  displayName="Total number of atoms :"
+                  mnemonicChar="T"
+                  tooltipText="The total number of atoms in this fragment"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="numberOfBoundaryAtoms"
+                  displayName="Number of boundary atoms :"
+                  mnemonicChar="d"
+                  tooltipText="The total number of boundary atoms in this fragment"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="numberOfDummyAtoms"
+                  displayName="Number of dummy atoms :"
+                  mnemonicChar="y"
+                  tooltipText="The total number of dummy atoms in this fragment"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="cardinalitySign"
+                  displayName="Cardinality sign :"
+                  mnemonicChar="r"
+                  tooltipText="The cardinality sign of this fragment"
+                  get="true"
+                  set="false"                  
+                  defaultUI="true" />
+        <property name="totalCharge"
+                  displayName="Total charge :"
+                  mnemonicChar="g"
+                  tooltipText="The total charge on this fragment"
+                  get="true"
+                  set="true"                  
+                  defaultUI="true" />
+    </propertygroup>
+</propertysheet>

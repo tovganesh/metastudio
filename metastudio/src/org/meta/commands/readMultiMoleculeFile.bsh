@@ -1,0 +1,100 @@
+/**
+ * readMultiMoleculeFile() - reads a molecule fileName and returns the processed
+ * Molecule objects
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.util.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.moleculereader.*;
+
+readMultiMoleculeFile(String fileName) {
+    readMultiMoleculeFile(fileName, "true");
+}
+
+readMultiMoleculeFile(String fileName, String makeZMatrix) {
+    readMultiMoleculeFile(fileName, "true", "false");
+}
+
+readMultiMoleculeFile(String fileName, String makeZMatrix, String copyConnectivity) {
+    return readMultiMoleculeFile(fileName, makeZMatrix, copyConnectivity, "true");
+}
+
+readMultiMoleculeFile(String fileName, String makeZMatrix, String copyConnectivity,
+                      String readDeep) {
+    return readMultiMoleculeFile(fileName, makeZMatrix, copyConnectivity, readDeep, "false");
+}
+
+readMultiMoleculeFile(String fileName, String makeZMatrix, String copyConnectivity,
+                      String readDeep, String simpleConnectivity) {
+    mfr = Utility.getDefaultImplFor(
+                  MoleculeFileReaderFactory.class).newInstance();
+
+    typ = fileName.substring(fileName.lastIndexOf(".")+1, fileName.length());
+
+    rdr = mfr.getReader(typ);
+
+    BufferedReader br = new BufferedReader(
+                            new InputStreamReader(new FileInputStream(fileName)));
+
+    java.util.Vector moleculeList = new java.util.Vector();
+
+    boolean rdDeep = readDeep.equals("true");
+
+    try {
+        int i = 0;
+        while(true) {
+            mol = rdr.readMolecule(br, rdDeep);
+
+            if (mol.getNumberOfAtoms() == 0) break;
+
+            if ((mol.getTitle() == null)
+                || (mol.getTitle() == "")
+                || mol.getTitle().equals("Untitled")
+                || (mol.getTitle().indexOf("Molecule") == 0)) {
+                mol.setTitle(Utility.getFileNameSansExtension(new File(fileName))
+                             + "-" + i);
+            } // end if
+
+            mol.setCommonUserDefinedProperty(
+                 CommonUserDefinedMolecularPropertyNames.SOURCE_FILE_NAME, fileName);
+
+            // TODO: needs to be modified appropriately
+            mol.setCommonUserDefinedProperty(
+               CommonUserDefinedMolecularPropertyNames.READ_DEEP, Boolean.TRUE);
+
+            moleculeList.add(mol);
+            i++;
+        } // end while
+    } catch(Exception ignored) {
+        if ((ignored.toString().indexOf("Could not") >= 0)
+             && (ignored.toString().indexOf("null") < 0)
+             && (ignored.toString().indexOf("EOF") < 0)) {
+              if (moleculeList.size() == 0)
+                 throw ignored;
+              else {
+                 print("Warning: Could not read complete fileName, showing partial"
+                        + " results.");
+              }
+        } // end if
+
+        print("Reading over");
+    } // end try .. catch
+
+    br.close();
+
+    if (simpleConnectivity.equals("true")) {
+       buildSimpleConnectivity(moleculeList);
+    } else {
+       buildConnectivity(moleculeList, makeZMatrix, copyConnectivity);
+    } // end if
+
+    print("Bulding connectivity over");
+
+    return moleculeList;
+}

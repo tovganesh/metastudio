@@ -1,0 +1,53 @@
+import java.io.*;
+import java.util.*;
+import java.util.StringTokenizer;
+import java.awt.*;
+import java.awt.event.*;
+import java.lang.Object.*;
+import javax.swing.*;
+import org.meta.math.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+import org.meta.math.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+readVectors(pad, vecFileName) {
+  f = openFile(vecFileName);
+
+  f.readLine(); f.readLine(); // this reads only vis files, in au form
+
+  // expected per line: x y z dV/dx dV/dy dV/dz 
+  while(true) {
+     line = f.readLine();
+
+     if (line == null || line == "") break;
+
+     if (line.equals("$end")) break;
+
+     words = line.trim().split("\\s+");
+
+     basePoint = point(angstroms(Double.parseDouble(words[1])), 
+                       angstroms(Double.parseDouble(words[2])),
+                       angstroms(Double.parseDouble(words[3])));
+ 
+     vec = vector3d(angstroms(Double.parseDouble(words[4])), 
+                    angstroms(Double.parseDouble(words[5])),
+                    angstroms(Double.parseDouble(words[6]))).normalize();
+     pad.drawVector3D(vec, basePoint);
+  } // end while
+
+  f.close();
+}
+
+showVectors() { 
+  pad = scratchpad();
+  pad.getMoleculeViewer().setAxisDrawn(true);
+
+  mol = readMoleculeFile(showFileDialog());
+  buildConnectivity(mol);
+  pad.addScene(new MoleculeScene(mol));
+
+  readVectors(pad, showFileDialog());  
+}
+
+showVectors();

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : ContourRendererPropertySheet.xml
+    Created on : September 18, 2005, 5:12 PM
+    Author     : Ganesh
+    Description:
+        Defines property sheet for ContourRederer.
+-->
+
+<propertysheet title="Contour renderer settings">
+    <propertygroup name="General">
+      <property name="contourPlane"
+                displayName="Contour Plane :"
+                mnemonicChar="P"
+                tooltipText="The contour plane to be displayed"
+                get="true"
+                set="true"
+                defaultUI="true" />  
+    </propertygroup>
+</propertysheet>    
+                

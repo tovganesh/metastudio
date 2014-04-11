@@ -1,0 +1,14 @@
+/**
+ * getActiveFrame() - return the currently active frame in workspace desktop.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+getActiveFrame() {
+    wd = getDesktopInstance();
+
+    if (wd == null) return null;
+
+    return wd.getActiveFrame(); 
+}

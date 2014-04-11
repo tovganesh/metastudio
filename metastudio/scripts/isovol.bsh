@@ -1,0 +1,17 @@
+// find volume of a isosurface
+
+ms = getLoadedMoleculeScenes().get(0);
+mol = ms.getMolecule();
+ps = ms.getAllPropertyScene().next();
+gp = ps.getGridProperty();
+
+cfv = ps.getGridPropertyRenderer().getCurrentFunctionValue();
+
+nv = gp.getNumberOfFunctionValuesInRange(gp.getMinFunctionValue(), cfv);
+
+cubeVol = gp.getXIncrement()*gp.getYIncrement()*gp.getZIncrement();
+
+print("Number of points: " + nv);
+print("Single Cube vol: " + cubeVol);
+print("Total Cube vol: " + (nv*cubeVol));
+

@@ -1,0 +1,27 @@
+scf3() {
+    t1 = System.currentTimeMillis();    
+    mol = new org.chem.unipune.meta.molecule.impl.MoleculeImpl();
+    r = 1.0/0.52918;
+    mol.addAtom("O", 0,  0, 0);
+    mol.addAtom("H", r, 0, 0);    
+    mol.addAtom("H", 0, r, 0);
+    bfs = new org.chem.unipune.meta.math.qm.BasisFunctions(mol, "631gdp");
+    onee = new org.chem.unipune.meta.math.qm.OneElectronIntegrals(bfs, mol);
+    twoe = new org.chem.unipune.meta.math.qm.TwoElectronIntegrals(bfs);
+    t2 = System.currentTimeMillis();
+    scfm = new org.chem.unipune.meta.math.qm.HartreeFockSCFMethod(mol, onee, twoe);
+    scfm.scf();    
+    t3 = System.currentTimeMillis();
+    print("Time till 2E : " + (t2-t1) + " ms");
+    print("Time for SCF : " + (t3-t2) + " ms");
+    print("Overlap");
+    print(onee.getOverlap());
+    print("Hamiltonian");
+    print(onee.getHamiltonian());    
+    print("Density : ");
+    print(scfm.getDensity());
+    print("MOS : ");
+    print(scfm.getMos());
+}
+
+scf3();

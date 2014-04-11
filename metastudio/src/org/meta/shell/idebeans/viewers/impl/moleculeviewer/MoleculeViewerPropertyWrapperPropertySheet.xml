@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : MoleculeViewerPropertyWrapperPropertySheet.xml
+    Created on : September 18, 2004, 7:47 PM
+    Author     : Ganesh
+    Description:
+        Describes the property sheet for MoleculeViewer class.
+-->
+
+<propertysheet title="Molecule viewer settings">
+    <propertygroup name="General">
+      <property name="backgroundColor"
+                displayName="Background Color :"
+                mnemonicChar="B"
+                tooltipText="The background color of this viewer"
+                get="true"
+                set="true"
+                defaultUI="true" />  
+      <property name="smoothDrawing"
+                displayName="Smooth Drawing? :"
+                mnemonicChar="S"
+                tooltipText="Specify whether you want smooth antialised drawing"
+                get="true"
+                set="true"
+                defaultUI="true" />   
+      <property name="axisDrawn"
+                displayName="Draw Axis? :"
+                mnemonicChar="x"
+                tooltipText="Specify whether you want to draw an axis"
+                get="true"
+                set="true"
+                defaultUI="true" />    
+      <property name="enable3D"
+                displayName="Enable 3D? :"
+                mnemonicChar="3"
+                tooltipText="Specify whether you want to use 3D ball and stick drawing"
+                get="true"
+                set="true"
+                defaultUI="true" /> 
+      <property name="enableJava3D"
+                displayName="Enable Java3D? :"
+                mnemonicChar="J"
+                tooltipText="Specify whether you want to use Java3D libarary for real time rendering"
+                get="true"
+                set="true"
+                defaultUI="true" />  
+    </propertygroup>    
+</propertysheet>
+

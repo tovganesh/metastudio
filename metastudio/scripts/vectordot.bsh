@@ -1,0 +1,43 @@
+import java.net.*;
+
+import org.meta.common.*;
+import org.meta.net.*;
+import org.meta.net.impl.service.*;
+import org.meta.net.impl.consumer.*;
+import org.meta.common.resource.*;
+
+System.out.println(isHandler());
+
+if (!isHandler()) {
+   req = getFederationRequest();
+   print(req.getFederationConnection().getInetAddress());
+
+   vec = new org.meta.math.Vector(10);
+   v = vec.getVector();
+
+   for(i=0; i<v.length; i++) v[i] = i;
+
+   req.sendInt(v.length/2);
+   vd = new Double[v.length/2];
+   for(i=0; i<vd.length; i++) vd[i] = new Double(v[i]);
+   req.sendDoubleArray(vd, 0, vd.length);
+
+   len = 0.0;
+   for(j=v.length/2; j<v.length; j++) len += v[j]*v[j];
+
+   len += req.receiveDouble();
+
+   print("length: " + Math.sqrt(len));
+
+} else {
+   ser = getFederationRequest();
+   print(ser.getFederationConnection().getInetAddress());
+
+   l = ser.receiveInt();
+   v = ser.receiveDoubleArray(l);
+
+   len = 0.0;
+   for(j=0; j<v.length; j++) len += v[j]*v[j];
+   
+   ser.sendDouble(len);
+} // end if

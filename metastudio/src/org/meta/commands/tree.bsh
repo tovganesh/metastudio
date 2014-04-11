@@ -1,0 +1,10 @@
+/**
+ * tree() - create instance of JTree
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+tree() {
+    return new javax.swing.JTree();
+}

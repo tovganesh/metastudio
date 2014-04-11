@@ -1,0 +1,24 @@
+scf() {
+    mol = showMoleculeListDialog();
+    if (mol == null) return;
+    t1 = System.currentTimeMillis();
+    bfs = new org.meta.math.qm.BasisFunctions(mol, "631gdp");
+    onee = new org.meta.math.qm.OneElectronIntegrals(bfs, mol);
+    twoe = new org.meta.math.qm.TwoElectronIntegrals(bfs, true);
+    t2 = System.currentTimeMillis();
+    scfm = new org.meta.math.qm.HartreeFockSCFMethod(mol, onee, twoe, 
+                  org.meta.math.qm.SCFType.HARTREE_FOCK_DIRECT);
+    scfm.addSCFEventListener(new org.meta.math.qm.event.SCFEventListener() {
+        public void scfEventOccured(org.meta.math.qm.event.SCFEvent e) {
+            print(e);
+        }
+    });
+    scfm.scf();   
+    t3 = System.currentTimeMillis();
+    print("Time till 2E : " + (t2-t1) + " ms");
+    print("Time for SCF : " + (t3-t2) + " ms");
+
+    print("Energy: " + scfm.getEnergy());
+}
+
+scf();

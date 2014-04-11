@@ -1,0 +1,28 @@
+/**
+ * scratchpad() - creates an instance of ScratchPad class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+ScratchPad scratchpad() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return null;
+
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return null;
+
+    sp = new ScratchPad(ideInstance);
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(sp);
+
+    return sp;
+}

@@ -1,0 +1,374 @@
+/**
+ * importFragmentGeometries - imports a set of fragments into the current 
+ * fragmentation scheme.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.fragment.*;
+import org.meta.fragmentor.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/** 
+ * imports a set of fragments into the current fragmentation scheme.
+ */
+importFragmentGeometries() {
+    boolean isList = false;
+    boolean isKey = false;
+    boolean isXYZ = false;
+    boolean isVIS = false;
+    boolean isINP = false;
+    boolean isCOM = false;
+    boolean isGJF = false;
+    
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace panel instance
+    wsPanel = ideInstance.getWorkspaceExplorer().getWorkspacePanel();
+    
+    if (wsPanel == null) return;
+
+    // is there a selection?
+    selectedNode = wsPanel.getSelectedNode();
+
+    if (selectedNode == null) return;
+
+    // then check if it is of rt type
+    fragmentScheme = selectedNode.getUserObject();
+
+    if (!(fragmentScheme instanceof WorkspacePanel.FragmentationSchemeNodeModal)) return;    
+
+    fragmentScheme = fragmentScheme.getFragmentationScheme();
+    
+    // get the parent molecule
+    try {
+        molecule = Utility.findImmediateParentNode(selectedNode, Molecule.class).getUserObject();
+    } catch(Exception e) {
+        molecule = getMolecule(0);
+        print("Unable to obtain molecule information! Defaulting to first molecule : " + molecule);
+    } // end of try catch block
+    
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("inp",
+                                    "GAMESS input file format set"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("com",
+                                    "Gaussian input file format set"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("gjf",
+                                    "Gaussian job file format set"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("vis",
+                                    "VIS molecule file format set"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("xyz",
+                                    "XYZ molecule file format set"));    
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("list",
+                                   "MTA-GAMESS fragment list file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("key",
+                                   "MTA-GAMESS fragment key file format"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+    
+    fileChooser.setApproveButtonText("Import");
+
+    fileChooser.addActionListener(new ActionListener() {        
+      public void actionPerformed(ActionEvent ae) {        
+        if (ae.getActionCommand().equals("CancelSelection")) {
+            // close the dialog 
+            getDialogParent(fileChooser.getParent()).dispose();
+            return;
+        } // end if 
+      
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // make up for file extension, if it is not already there
+        if (fileChooser.getFileFilter().getDescription().indexOf("XYZ")>=0) {          
+          isXYZ = true;
+        } else if (fileChooser.getFileFilter().getDescription().indexOf("VIS")>=0) {          
+          isVIS = true;
+        } else if (fileChooser.getFileFilter().getDescription().indexOf("job")>=0) {          
+          isGJF = true;
+        } else if (fileChooser.getFileFilter().getDescription().indexOf("GAMESS input")>=0) {          
+          isINP = true;
+        } else if (fileChooser.getFileFilter().getDescription().indexOf("Gaussian input")>=0) {          
+          isCOM = true;
+        } else if (fileChooser.getFileFilter().getDescription().indexOf("list")>=0) {          
+          isList = true;
+        } else if (fileChooser.getFileFilter().getDescription().indexOf("key")>=0) {          
+          isKey = true;
+        } // end if
+
+        String filePrfx = filePrefix.getText().trim();
+        String fileSufx = fileSufixExpr.getText().trim();              
+
+        // if filePrfx is null then try to guess it:
+        if (filePrfx == null || filePrfx.equals("")) {
+            try {
+                filePrfx = Utility.getFileNameSansExtension(fileChooser.getSelectedFile());                
+                filePrfx = filePrfx.split("-frag")[0];            
+                print("File Prefix: " + filePrfx);
+            } catch(Exception e) {
+                print("Unable to determine file prefix automatically!");
+                filePrfx = "";
+            } // end of try .. catch block
+        } // end if
+
+        
+        // if fileSufx is null then we do not really care about it 
+        // and try an exhaustive space search till we end up with the first
+        // break in the sequence.
+        if (fileSufx == null || fileSufx.equals("")) fileSufx = "";
+        
+        print("Fragments will imported from : " + fileName
+               + " { " + filePrfx + "~" + fileSufx + " }");
+                
+        ideInstance = getIDEInstance();                           
+        ideInstance.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+        try {
+         if (isList) {
+            importFromList(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+         } else if (isKey) {
+            importFromKey(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+         } else if (isXYZ) {
+            importFromXYZ(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+         } else if (isVIS) {
+            importFromVIS(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+         } else if (isINP) {
+            importFromGamessINP(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+         } else if (isGJF || isCOM) {
+            importFromGaussianINP(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+         } // end if
+        } catch(Exception e) {
+         print("Error while importing : " + e);
+         e.printStackTrace();
+
+         // close the dialog too        
+         getDialogParent(fileChooser.getParent()).dispose();
+         throw e;
+        } // end if
+
+        print("Import complete.");
+
+        ideInstance.setCursor(Cursor.getDefaultCursor());   
+
+        // close the dialog too        
+        getDialogParent(fileChooser.getParent()).dispose();
+      }
+    }); 
+
+    // the new file chooser panel
+    JPanel advancedPanel = new JPanel();
+    advancedPanel.setLayout(new BorderLayout());
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.insets = new Insets(0, 5, 0, 5);
+
+    // and the extra options panel
+    JPanel advancedOptions = new JPanel(new BorderLayout());
+    JPanel pane1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    JPanel pane2 = new JPanel(new GridBagLayout());
+
+    JButton advanced = new JButton("Show Advanced Options >>");
+    pane1.add(advanced);
+    advancedOptions.add(pane1, BorderLayout.NORTH);
+        
+    gbc.gridx = gbc.gridy = 0;
+    JTextField filePrefix = new JTextField(10);    
+    pane2.add(new JLabel("File prefix (common name):"), gbc);
+    gbc.gridx = 1;
+    pane2.add(filePrefix, gbc);    
+
+    gbc.gridx = 2;
+    JTextField fileSufixExpr = new JTextField(10);       
+    pane2.add(new JLabel("File sufix expr (fragment numbers to import):"), gbc);
+    gbc.gridx = 3;
+    pane2.add(fileSufixExpr, gbc);
+    fileSufixExpr.setText("1");
+
+    // add the advanced pane    
+    advancedOptions.add(pane2, BorderLayout.CENTER);        
+    
+    advancedPanel.add(fileChooser, BorderLayout.CENTER);
+    advancedPanel.add(advancedOptions, BorderLayout.SOUTH);
+    advancedOptions.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Fine tune multiple imports:"));
+
+    // and setup the dialog
+    ideInstance = getIDEInstance();
+    dialog = new JDialog(ideInstance, "Choose a location, file suffix, and format...", true);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.getContentPane().add(advancedPanel, BorderLayout.CENTER);            
+    dialog.pack();    
+    pane2.setVisible(false);
+    advanced.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            pane2.setVisible(!pane2.isVisible());
+            if (pane2.isVisible()) advanced.setText("Hide Advanced Options <<");
+            else advanced.setText("Show Advanced Options >>");
+        }
+    });     
+    dialog.setLocationRelativeTo(ideInstance);    
+    dialog.setVisible(true);
+}
+
+
+// get the real atom index
+getAtomIndex(String line, Molecule molecule) {
+    words = line.split("\\s+");
+    atm = atom(words[0], 0.0, Double.parseDouble(words[1]),
+                         Double.parseDouble(words[2]),
+                         Double.parseDouble(words[3]));
+
+    return molecule.soundsLike(atm);
+}
+
+// import fragments from a .xyz file
+importFromXYZ(molecule, fragmentScheme, fileName, filePrfx, fileSufx) {
+    print(fileSufx);
+
+    filSuffixList = Utility.getFileSequenceSuffix(fileSufx, true, 4);
+
+    ext = "." + Utility.getFileExtension(new File(fileName));
+    fileName = (new File(fileName)).getParent() + File.separatorChar;
+
+    print(fileName);
+
+    for(int i=0; i<filSuffixList.size(); i++) {
+        idx = filSuffixList.get(i);
+
+        fn = fileName + filePrfx + "-frag" + idx + ext;
+
+        print(fn);
+
+        fmol = readMoleculeFile(fn);
+
+        fragment = Utility.getDefaultImplFor(Fragment.class).newInstance();
+        fragment.setParentMolecule(molecule);
+
+        for(atom : fmol.getAtoms()) {
+            ai = molecule.soundsLike(atom);
+
+            if (ai == -1) {
+                print("Warning! No matching index found for (dummy?): " + atom);
+                continue;
+            } // end if
+
+            // key file contains one index higher
+            atom = molecule.getAtom(ai);
+
+            fragment.addFragmentAtom(new FragmentAtom(atom));
+        } // end for
+
+        fragmentScheme.getFragmentList().addFragment(fragment);
+    } // end for
+}
+
+// import fragments from a .vis file
+importFromVIS(molecule, fragmentScheme, fileName, filePrfx, fileSufx) {
+    importFromXYZ(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+}
+
+// import fragments from a Gamess .inp file
+importFromGamessINP(molecule, fragmentScheme, fileName, filePrfx, fileSufx) {
+    importFromXYZ(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+}
+
+// import fragments from a .com / .gjf file
+importFromGaussianINP(molecule, fragmentScheme, fileName, filePrfx, fileSufx) {
+    importFromXYZ(molecule, fragmentScheme, fileName, filePrfx, fileSufx);
+}
+
+// import fragments from a .list file
+importFromList(molecule, fragmentScheme, fileName, filePrfx, fileSufx) {
+    fil = openFile(fileName);
+    
+    nf = Integer.parseInt(fil.readLine().trim());
+
+    print("Adding " + nf + " fragments to " + molecule);
+
+    for(int i=0; i<nf; i++) {
+
+        na = Integer.parseInt(fil.readLine().trim());
+
+        print("Fragment #" + i + " has " + na + " atoms.");
+                           
+        fragment = Utility.getDefaultImplFor(Fragment.class).newInstance();
+        fragment.setParentMolecule(molecule);
+
+        for(int j=0; j<na; j++) {
+            line = fil.readLine().trim();
+            ai = getAtomIndex(line, molecule);
+
+            if (ai == -1) {
+                print("Warning! No matching index found for (dummy?): " + line);
+                continue;
+            } // end if
+
+            // key file contains one index higher
+            atom = molecule.getAtom(ai);
+
+            fragment.addFragmentAtom(new FragmentAtom(atom));
+        } // end for
+        
+        fragmentScheme.getFragmentList().addFragment(fragment);
+    } // end for
+
+    fil.close();   
+}
+
+// import fragments from a .key file
+importFromKey(molecule, fragmentScheme, fileName, filePrfx, fileSufx) {
+    fil = openFile(fileName);
+    
+    nf = Integer.parseInt(fil.readLine().trim());
+
+    print("Adding " + nf + " fragments to " + molecule);
+
+    for(int i=0; i<nf; i++) {
+
+        na = Integer.parseInt(fil.readLine().trim());
+
+        print("Fragment #" + i + " has " + na + " atoms.");
+                           
+        fragment = Utility.getDefaultImplFor(Fragment.class).newInstance();
+        fragment.setParentMolecule(molecule);
+
+        for(int j=0; j<na; j++) {
+            ai = Integer.parseInt(fil.readLine().trim());
+
+            // key file contains one index higher
+            atom = molecule.getAtom(ai-1);
+
+            fragment.addFragmentAtom(new FragmentAtom(atom));
+        } // end for
+        
+        fragmentScheme.getFragmentList().addFragment(fragment);
+    } // end for
+
+    fil.close();   
+}
+
+

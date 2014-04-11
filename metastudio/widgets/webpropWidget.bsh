@@ -1,0 +1,425 @@
+// webpropWidget.bsh 
+//
+// Widget displaying some useful way to interface with web resources
+// to get the job done. This example illustrates the way to use
+// WebProp, an web interface for computing ab initio one-electron properties
+// of molecules.
+//
+
+import java.net.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+
+webpropOptions(selectedMolecule, optionsString) {
+   okSelected = false;             
+
+   options = new JDialog(getIDEInstance());
+   options.setTitle("webprop options");
+
+   gbc = new GridBagConstraints();
+   gbc.fill = GridBagConstraints.BOTH;
+
+   cp = options.getContentPane();
+   cp.setLayout(new GridBagLayout());
+
+   gbc.gridx = 0; gbc.gridy = 0;
+   cp.add(new JLabel("Title:", JLabel.RIGHT), gbc);
+
+   title = new JTextField(10);
+   if (selectedMolecule != null) title.setText(selectedMolecule.getTitle());
+   gbc.gridx = 1;
+   cp.add(title, gbc);
+
+   gbc.gridx = 0; gbc.gridy = 1;
+   cp.add(new JLabel("Basis:", JLabel.RIGHT), gbc);
+
+   basis = new JComboBox();
+   basis.addItem("sto-3g");
+   basis.addItem("3-21g");
+   basis.addItem("6-31g");
+   basis.addItem("6-31g");
+   basis.addItem("6-31g*");
+   basis.addItem("6-31g**");
+   basis.addItem("6-311g*");
+   basis.addItem("6-311+g*");
+   basis.addItem("6-311++g(2d,2p)");
+
+   gbc.gridx = 1;
+   cp.add(basis, gbc);
+
+   gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+   property = new JPanel(new GridLayout(4, 4));
+   property.setBorder(BorderFactory.createTitledBorder("Property:"));
+   
+      mesp = new JCheckBox("MESP"); 
+      mesp.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+             st = mesp.isSelected();
+
+             mesp_Func.setEnabled(st);
+             mesp_Field.setEnabled(st);
+             mesp_Topo.setEnabled(st);
+         }
+      });
+      property.add(mesp);
+        mesp_Func  = new JCheckBox("Function"); 
+        mesp_Func.setEnabled(false);
+        property.add(mesp_Func);
+ 
+        mesp_Field = new JCheckBox("Field"); 
+        mesp_Field.setEnabled(false);
+        property.add(mesp_Field);
+
+        mesp_Topo  = new JCheckBox("Topography"); 
+        mesp_Topo.setEnabled(false);
+        property.add(mesp_Topo);
+
+      dens = new JCheckBox("DENSITY"); 
+      dens.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+             st = dens.isSelected();
+
+             dens_Func.setEnabled(st);
+             dens_Field.setEnabled(st);
+             dens_Topo.setEnabled(st);
+         }
+      });
+      property.add(dens);
+        dens_Func  = new JCheckBox("Function"); 
+        dens_Func.setEnabled(false);
+        property.add(dens_Func);
+
+        dens_Field = new JCheckBox("Field"); 
+        dens_Field.setEnabled(false);
+        property.add(dens_Field);
+
+        dens_Topo  = new JCheckBox("Topography"); 
+        dens_Topo.setEnabled(false);
+        property.add(dens_Topo);
+
+      momden = new JCheckBox("MOMDEN"); 
+      momden.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+             st = momden.isSelected();
+
+             momden_Func.setEnabled(st);
+             momden_Field.setEnabled(st);
+             momden_Topo.setEnabled(st);
+         }
+      });
+      property.add(momden);
+        momden_Func  = new JCheckBox("Function"); 
+        momden_Func.setEnabled(false);
+        property.add(momden_Func);
+
+        momden_Field = new JCheckBox("Field"); 
+        momden_Field.setEnabled(false);
+        property.add(momden_Field);
+
+        momden_Topo  = new JCheckBox("Topography"); 
+        momden_Topo.setEnabled(false);
+        property.add(momden_Topo);
+
+      moment = new JCheckBox("MOMENTS"); 
+      moment.addActionListener(new ActionListener() {
+         public void actionPerformed(ActionEvent ae) {
+             st = moment.isSelected();
+
+             order.setEnabled(st);     
+         }
+      });
+      property.add(moment);        
+        property.add(new JLabel("Order:", JLabel.RIGHT));
+
+        order = new JComboBox();
+        order.addItem("0"); order.addItem("1"); order.addItem("2");
+        order.setEnabled(false);
+        property.add(order);
+
+   cp.add(property, gbc);
+
+   gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+   gridSize = new JPanel(new GridLayout(1, 6));
+   gridSize.setBorder(BorderFactory.createTitledBorder("Grid Size:"));
+     
+     gridSize.add(new JLabel("Nx: ", JLabel.RIGHT));
+     nx = new JSpinner(new SpinnerNumberModel(100, 0, 1000000, 1));
+     gridSize.add(nx);
+
+     gridSize.add(new JLabel("Ny: ", JLabel.RIGHT));
+     ny = new JSpinner(new SpinnerNumberModel(100, 0, 1000000, 1));
+     gridSize.add(ny);
+
+     gridSize.add(new JLabel("Nz: ", JLabel.RIGHT));
+     nz = new JSpinner(new SpinnerNumberModel(100, 0, 1000000, 1));
+     gridSize.add(nz);
+
+   cp.add(gridSize, gbc);
+
+   gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
+
+   okPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+   ok = new JButton("Ok");
+   ok.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {           
+           okSelected = true;
+           options.dispose();
+       }
+   });   
+   okPanel.add(ok);
+   
+   cancel = new JButton("Cancel");
+   cancel.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {
+           okSelected = false;
+           options.dispose();
+       }
+   });   
+   okPanel.add(cancel);
+
+   cp.add(okPanel, gbc);
+
+   options.pack();
+   options.setModal(true);
+   options.setLocationRelativeTo(getIDEInstance());
+   options.setVisible(true);
+
+   // prepare the options string
+   if (okSelected) {
+      optionsString += "title=" + URLEncoder.encode(title.getText()) + "&";
+      optionsString += "basis=" + URLEncoder.encode(basis.getSelectedItem().toString()) + "&";
+      optionsString += "order=" + order.getSelectedItem().toString() + "&";
+      optionsString += "nx=" + nx.getValue().toString() + "&";
+      optionsString += "ny=" + ny.getValue().toString() + "&";
+      optionsString += "nz=" + nz.getValue().toString() + "&";
+      optionsString += "accept=on&";
+      // optionsString += "propnet=off&";  // for running on a grid
+      optionsString += "coord=";
+      coord = "";
+      n = selectedMolecule.getNumberOfAtoms();
+      for(i=0; i<n-1; i++) {
+         atom = selectedMolecule.getAtom(i);
+         coord += atom.getSymbol() + " " 
+                   + atom.getX() + " " + atom.getY() + " " + atom.getZ() + '\n';                          
+      }
+      atom = selectedMolecule.getAtom(n-1);
+      coord += atom.getSymbol() + " " 
+                   + atom.getX() + " " + atom.getY() + " " + atom.getZ();                          
+      optionsString += URLEncoder.encode(coord);
+      optionsString += "&";
+
+      if (mesp.isSelected()) {
+         optionsString += "MESP=on&";
+
+         if (mesp_Func.isSelected()) optionsString += "MESP_FUNCTION=on&";
+         if (mesp_Field.isSelected()) optionsString += "MESP_FIELD=on&";         
+         if (mesp_Topo.isSelected()) optionsString += "MESP_TOPOGRAPHY=on&";         
+      }
+
+      if (dens.isSelected()) {
+         optionsString += "DENSITY=on&";
+
+         if (dens_Func.isSelected()) optionsString += "DENSITY_FUNCTION=on&";
+         if (dens_Field.isSelected()) optionsString += "DENSITY_FIELD=on&";         
+         if (dens_Topo.isSelected()) optionsString += "DENSITY_TOPOGRAPHY=on&";         
+      }
+
+      if (momden.isSelected()) {
+         optionsString += "MOMDEN=on&";
+
+         if (momden_Func.isSelected()) optionsString += "MOMDEN_FUNCTION=on&";
+         if (momden_Field.isSelected()) optionsString += "MOMDEN_FIELD=on&";         
+         if (momden_Topo.isSelected()) optionsString += "MOMDEN_TOPOGRAPHY=on&";         
+      }
+
+      if (moment.isSelected()) optionsString += "MOMENTS=on&";
+   } // end if
+
+   return optionsString;
+}
+
+submitIt(optionsString) {
+   urlBase = "http://chem.unipune.ernet.in/py-cgi/";
+   metaticket = "metaticket.py?metaticket=MeTA";
+   genpropinp = "genpropinp.py?";
+   webPropTicket = null;
+
+   try {
+       url = new URL(urlBase + metaticket);
+       urlConn = url.openConnection();
+       urlConn.connect();       
+       is = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+
+       while((lin = is.readLine()) != null) {
+         if (lin.contains("ticket")) {
+            webPropTicket = lin.split("value=")[1].split(">")[0].split("\"")[1];
+            // print("ticket: " + webPropTicket);
+            break;
+         }
+       }
+   } catch(Exception e) {
+       e.printStackTrace();
+
+       return false;
+   } // end of try .. catch block
+
+   // show the UI for final submission
+   okSelected = false;
+
+   subPanel = new JDialog(getIDEInstance());
+   subPanel.setTitle("submit job");
+
+   gbc = new GridBagConstraints();
+   gbc.fill = GridBagConstraints.BOTH;
+
+   cp = subPanel.getContentPane();
+   cp.setLayout(new GridBagLayout());
+
+   gbc.gridx = 0; gbc.gridy = 0;
+   cp.add(new JLabel("Ticket (Job ID):", JLabel.RIGHT), gbc);
+
+   ticket = new JTextField(10);
+   ticket.setEnabled(false);
+   if (selectedMolecule != null) ticket.setText(webPropTicket);
+   gbc.gridx = 1;
+   cp.add(ticket, gbc);
+
+   gbc.gridx = 0; gbc.gridy = 1;
+   cp.add(new JLabel("Your E-Mail:", JLabel.RIGHT), gbc);
+
+   email = new JTextField();
+   email.setText("quanta@chem.unipune.ernet.in");
+   gbc.gridx = 1;
+   cp.add(email, gbc);
+
+   gbc.gridx = 0; gbc.gridy = 2; gbc.gridwidth = 2;
+
+   okPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
+   ok = new JButton("Ok");
+   ok.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {
+           okSelected = true;
+           subPanel.dispose();
+       }
+   });   
+   okPanel.add(ok);
+   
+   cancel = new JButton("Cancel");
+   cancel.addActionListener(new ActionListener() {
+       public void actionPerformed(ActionEvent ae) {
+           okSelected = false;
+           subPanel.dispose();
+       }
+   });   
+   okPanel.add(cancel);
+
+   cp.add(okPanel, gbc);
+
+   subPanel.pack();
+   subPanel.setModal(true);
+   subPanel.setLocationRelativeTo(getIDEInstance());
+   subPanel.setVisible(true);
+
+   if (okSelected) {
+    try {
+       ur = urlBase + genpropinp;
+
+       // print(ur);
+
+       url = new URL(ur);
+       urlConn = url.openConnection();
+       urlConn.setDoOutput(true);
+       urlConn.connect();
+
+       OutputStreamWriter out = new OutputStreamWriter(
+                                        urlConn.getOutputStream());
+       out.write(optionsString + "email=" 
+                    + URLEncoder.encode(email.getText())
+                    + "&ticket=" + webPropTicket
+                    + "&gridtype=default");
+       out.close();
+
+       is = new BufferedReader(new InputStreamReader(urlConn.getInputStream()));
+
+       msg = "";
+       while((lin = is.readLine()) != null) {
+          msg += lin;
+       }
+
+       if (msg.contains("Error")) {          
+          JOptionPane.showMessageDialog(getIDEInstance(), msg, 
+              "Error in submitting job!", JOptionPane.ERROR_MESSAGE);          
+          return false;
+       } else {
+          JOptionPane.showMessageDialog(getIDEInstance(), msg);
+       } // end if
+    } catch(Exception e) {
+       e.printStackTrace();
+
+       return false;
+    } // end of try .. catch block
+   }
+
+   return okSelected;
+}
+
+webpropWidget() {
+   selectedMolecule = null;
+
+   panel = getWidgetsPanel(); 
+
+   webprop = widget("webpropWidget");
+   webprop.setLayout(new IDEVerticalFlowLayout());
+
+   showList = new JButton("choose molecule");
+   showList.addActionListener(new ActionListener() {
+     public void actionPerformed(ActionEvent ae) {
+         mol = showMoleculeListDialog();
+
+         if (mol != null) {
+             // print("selected: " + mol);
+             showList.setText("choose molecule (" + mol.getTitle() + ")");
+             optionSelection.setEnabled(true);
+             submit.setEnabled(false);
+             selectedMolecule = mol;
+         } else {
+             showList.setText("choose molecule");
+             optionSelection.setEnabled(false);
+             submit.setEnabled(false);
+             selectedMolecule = null;
+         } // end if
+     }
+   });
+   webprop.add(showList);
+
+   optionsString = new String();
+   optionSelection = new JButton("select options");
+   optionSelection.addActionListener(new ActionListener() {
+     public void actionPerformed(ActionEvent ae) {
+         optionsString = webpropOptions(selectedMolecule, optionsString);
+         
+         submit.setEnabled(optionsString != "");
+
+         // print(optionsString);      
+     }
+   });
+   optionSelection.setEnabled(false);
+   webprop.add(optionSelection);
+   
+   submit = new JButton("submit");
+   submit.addActionListener(new ActionListener() {
+     public void actionPerformed(ActionEvent ae) {
+        submitIt(optionsString);       
+     }
+   });
+   submit.setEnabled(false);
+   webprop.add(submit);
+   
+   panel.addWidget(webprop);
+   panel.updateUI();
+}
+
+webpropWidget();

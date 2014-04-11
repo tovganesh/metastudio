@@ -1,0 +1,46 @@
+
+/*
+// Nodes are automatically discovered in a LAN
+// if you need to talk to external machines, you can use th following interface
+
+// search a range of machines with IP address like 240.23.1.*
+nl = discover_meta("<ip / ip expression>");
+
+// or add a specific node, and also specify number of processors avaliable
+// if you know them, default is taken to be 1 if the nodes were not 
+// automatically discovered as above
+n1 = federationode("150.203.45.76", 4);
+nl.add(n1);
+
+// Note that when a node is explicitely created, it must be added
+// manually to the list of discovered nodes, this list can be obtained 
+// by either calling discover_meta() or list_meta()
+n2 = federationode("150.203.160.113", 2);
+nl.add(n2);
+**/
+
+nl = discover_meta("150.203.160.53");
+// nl.add(federationode("150.203.160.113", 2));
+
+// prepare data
+data = arraylist();
+for(i=1; i<=10; i++) {
+  d = arraylist();
+  for(j=1; j<=10; j++) d.add(j); 
+  data.add(d);
+}
+
+// and execute 
+t1=System.currentTimeMillis();
+res = mapreduce("/home/ganesh/meta/scripts/map.bsh",
+                "/home/ganesh/meta/scripts/reduce.bsh", data);
+t2=System.currentTimeMillis();
+
+// print out the final results
+print("Final Result: " + res);
+print("Time taken: " + ((t2-t1)/1000) + "secs.");
+
+// some garbage collection
+res = null;
+data = null;
+System.gc();

@@ -1,0 +1,13 @@
+/**
+ * getDefaultClass() - get default implementation calss with in MeTA Studio.
+ *
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.common.*;
+
+getDefaultClass(theClass) {
+   return Utility.getDefaultImplFor(theClass);
+}

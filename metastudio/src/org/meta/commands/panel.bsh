@@ -1,0 +1,10 @@
+/**
+ * panel() - creates an instance of JPanel.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)  
+ */
+
+panel() {
+    return new javax.swing.JPanel();
+}

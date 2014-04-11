@@ -1,0 +1,103 @@
+import org.meta.config.impl.AtomInfo;
+import org.meta.shell.idebeans.MoleculeViewerFrame;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.PropertyScene;
+
+density(mol, mos, bfs, gp) {
+
+  double [] fVals = new double[gp.getNumberOfGridPoints()];
+  double xmin = gp.getBoundingBox().getUpperLeft().getX(),
+         ymin = gp.getBoundingBox().getUpperLeft().getY(),
+         zmin = gp.getBoundingBox().getUpperLeft().getZ();
+  double xinc = gp.getXIncrement(),
+         yinc = gp.getYIncrement(),
+         zinc = gp.getZIncrement();
+
+  print(xinc + "," + yinc + "," + zinc);
+
+  nclosed = mol.getNumberOfElectrons() / 2;
+
+  lb = gp.getBoundingBox().getUpperLeft();
+
+  mo = mos.getMatrix();
+
+  bfs = bfs.getBasisFunctions();
+  nbf = bfs.size();
+  ii = 0;
+  npx = gp.getNoOfPointsAlongX();
+  npy = gp.getNoOfPointsAlongX();
+  npz = gp.getNoOfPointsAlongX();
+
+  print(npx + ", " + npy + ", " + npz);
+  amp = new double[nbf];
+  for(i=0; i<npx; i++) {
+    x = au(xmin + (i*xinc));
+    for(j=0; j<npy; j++) {
+        y = au(ymin + (j*yinc));
+        for(k=0; k<npz; k++) {
+            z = au(zmin + (k*zinc));
+
+            p = point(x,y,z);
+            den = 0.0;
+            for(m=0; m<nbf; m++)
+               amp[m] = bfs.get(m).amplitude(p);
+
+            for(m=0; m<nbf; m++) {
+              amp_xyz = 0.0;
+              for(l=0; l<nbf; l++) {
+                amp_xyz += mo[m][l]*amp[l];
+              }
+              den += amp_xyz * amp[m];
+            }
+            fVals[ii++] = 2*den;
+        }
+     }
+  }
+
+  gp.setFunctionValues(fVals);
+}
+
+scfden(mol, gp) {
+    t1 = System.currentTimeMillis();    
+    bfs = new org.meta.math.qm.BasisFunctions(mol, "sto3g");
+    onee = new org.meta.math.qm.OneElectronIntegrals(bfs, mol);
+    twoe = new org.meta.math.qm.TwoElectronIntegrals(bfs);
+    t2 = System.currentTimeMillis();
+    scfm = new org.meta.math.qm.HartreeFockSCFMethod(mol, onee, twoe);
+    scfm.scf();    
+    t3 = System.currentTimeMillis();
+    print("Time till 2E : " + (t2-t1) + " ms");
+    print("Time for SCF : " + (t3-t2) + " ms");
+      
+    print("Density Matrix: "); 
+    print(scfm.getDensity()); 
+    print("MOS : ");
+    print(scfm.getMos());
+
+    t1 = System.currentTimeMillis();
+    density(mol, scfm.getDensity(), bfs, gp);
+    t2 = System.currentTimeMillis();
+    print("Time for BeanShell Ed: " + (t2-t1) + " ms");
+}
+
+dt = getDesktopInstance();
+fl = dt.getFrameList();
+
+mvf = null;
+for(f:fl) {
+  if (f instanceof MoleculeViewerFrame) { mvf = f; break; }
+} // end for
+
+if (mvf != null) {
+  mv = mvf.getMoleculeViewer();
+  mols = mv.getSceneList().get(0);
+  mol = mols.getMolecule();
+  gp = mv.getScreenGridProperty();
+
+  print(gp.toString());
+
+  scfden(mol, gp);
+  
+  ps = new PropertyScene(mols, gp);
+  mols.addPropertyScene(ps);
+} // end if
+

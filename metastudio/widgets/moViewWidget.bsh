@@ -1,0 +1,99 @@
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.*;
+
+
+import java.awt.*;
+
+import javax.swing.*;
+
+import org.meta.math.qm.*;
+
+moViewWidget() { 
+   selectedMol = null;
+
+   panel = getWidgetsPanel();
+   moView = widget("moViewWidget");
+   moView.setLayout(layout("verticalflow"));
+
+   selMol = button("select molecule");
+   selMol.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+          selectedMol = showMoleculeListDialog();
+      }
+   });
+   moView.add(selMol);
+
+   basis = textbox();
+   basis.setText("sto3g");
+   moView.add(basis);
+
+   mos = null;
+   loadMos = button("load MOs");
+   loadMos.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent ae) {
+           mofil = openFile(showFileDialog());
+           nmos  = Integer.parseInt(mofil.readLine().trim()); 
+           mos   = new MolecularOrbitals(nmos);
+           mo    = mos.getCoefficients();
+           oe    = new double[nmos];
+
+           int i, j;
+
+           monos = arraylist();
+
+           for(i=0; i<nmos; i++) {
+               oe[i] = Double.parseDouble(mofil.readLine().trim());
+               monos.add(i + " : " + oe[i]);
+               
+               for(j=0; j<nmos; j++) {
+                   mo[i][j] = Double.parseDouble(mofil.readLine().trim()); 
+               } // end for               
+           } // end for
+          
+           mofil.close(); 
+
+           mos.setOrbitalEnergies(oe);
+
+           moslist.setListData(monos.toArray());
+           moslist.updateUI();
+      }
+   });
+   moView.add(loadMos);
+
+   moslist = listbox(new Object[0]);
+   moslist.addListSelectionListener(new ListSelectionListener() {
+      public void valueChanged(ListSelectionEvent e) {     
+            if (!e.getValueIsAdjusting()) return;
+
+            System.out.println("Selected MO: " + (monumber=moslist.getSelectedIndex()));
+    
+            gp = getDefaultMoleculeGrid(selectedMol);
+
+            System.out.println(gp);
+
+            bfs = new BasisFunctions(selectedMol, basis.getText());
+    
+            moDensity(selectedMol, bfs, mos, gp, monumber);
+
+            mols = new MoleculeScene(selectedMol);  
+
+            mv = new MoleculeViewerFrame(getIDEInstance());
+            mv.addScene(mols);
+            getIDEInstance().getWorkspaceDesktop().addInternalFrame(mv);
+
+            ps = new PropertyScene(mols, gp);
+            mols.addPropertyScene(ps);
+            ps.getGridPropertyRenderer().setCurrentFunctionValue(0.001);            
+      }
+   });
+   moView.add(new javax.swing.JScrollPane(moslist));
+
+   moInfo = label("");
+   moView.add(moInfo);
+
+   panel.addWidget(moView);
+   panel.updateUI();
+}
+
+moViewWidget();

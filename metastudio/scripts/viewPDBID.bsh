@@ -1,0 +1,12 @@
+// Script for viewing a PDB file by providing an ID
+// @author V. Ganesh
+//
+import java.net.*;
+
+viewPDBID(id) {
+  m=readMoleculeFile(new URL("http://www.pdb.org/pdb/download/downloadFile.do?fileFormat=pdb&compression=NO&structureId=" + id), "pdb");
+  buildSimpleConnectivity(m);
+  showMolecule(m);
+}
+
+viewPDBID("1FO4");

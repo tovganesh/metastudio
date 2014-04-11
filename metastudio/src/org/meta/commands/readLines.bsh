@@ -1,0 +1,16 @@
+/**
+ * readLines() - read lines from an input stream, till EOF is reached. The
+ *            function returns an ArrayList if lines read from the input stream.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+readLines(java.io.BufferedReader inpStream) {
+   return org.meta.common.Utility.readLines(inpStream);
+}
+
+readLines(java.net.URL url) {
+   return org.meta.common.Utility.readLines(url);
+}
+

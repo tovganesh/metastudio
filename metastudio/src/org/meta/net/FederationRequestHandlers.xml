@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+    Document   : FederationRequestHandlers.xml
+    Created on : February 9, 2006, 10:22 AM
+    Author     : V.Ganesh
+    Description:
+        Default registered federation request handlers.
+-->
+
+<handlers>
+    <handle type="SHUTDOWN" 
+            handler="org.meta.net.impl.service.FederationRequestShutdownHandler"/>
+    <handle type="ECHO" 
+            handler="org.meta.net.impl.service.FederationRequestEchoHandler"/>
+    <handle type="BROADCAST" 
+            handler="org.meta.net.impl.service.FederationRequestBroadcastHandler"/>
+    <handle type="TALK" 
+            handler="org.meta.net.impl.service.talk.FederationRequestTalkHandler"/>            
+    <handle type="USER_SCRIPT" 
+            handler="org.meta.net.impl.service.FederationRequestUserScriptHandler"/>
+    <handle type="FILE_TRANSFER" 
+            handler="org.meta.net.impl.service.FederationRequestFileTransferHandler"/>
+    <handle type="OBJECT_PUSH"
+            handler="org.meta.net.impl.service.FederationRequestObjectPushHandler"/>
+    <handle type="VOICE_TALK" 
+            handler="org.meta.net.impl.service.talk.FederationRequestVoiceTalkHandler"/>
+    <handle type="MAP_REDUCE"
+            handler="org.meta.net.impl.service.FederationRequestMapReduceHandler"/>
+</handlers>

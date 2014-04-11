@@ -1,0 +1,10 @@
+/**
+ * buttongroup() - create instance of ButtonGroup
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+buttongroup() {
+    return new javax.swing.ButtonGroup();
+}

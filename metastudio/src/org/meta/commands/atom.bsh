@@ -1,0 +1,17 @@
+/**
+ * atom() - creates an instance of Atom class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.geom.*;
+import org.meta.molecule.*;
+
+Atom atom(String symbol, double charge, double x, double y, double z) {
+    return atom(symbol, charge, point(x, y, z));
+}
+
+Atom atom(String symbol, double charge, Point3D center) {
+    return new Atom(symbol, charge, center);
+}

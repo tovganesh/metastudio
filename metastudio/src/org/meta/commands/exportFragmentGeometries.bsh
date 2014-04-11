@@ -1,0 +1,289 @@
+/**
+ * exportFragmentGeometries - saves all the fragments of the current 
+ * fragmentation scheme.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.fragment.*;
+import org.meta.fragmentor.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/** 
+ * saves all the fragments of the current fragmentation scheme.
+ */
+exportFragmentGeometries() {
+    boolean isXYZ = false;
+    boolean isVIS = false;
+    boolean isINP = false;
+    boolean isCOM = false;
+    boolean isGJF = false;
+
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace panel instance
+    wsPanel = ideInstance.getWorkspaceExplorer().getWorkspacePanel();
+    
+    if (wsPanel == null) return;
+
+    // is there a selecteion?
+    selectedNode = wsPanel.getSelectedNode();
+
+    if (selectedNode == null) return;
+
+    // then check if it is of rt type
+    fragmentScheme = selectedNode.getUserObject().getFragmentationScheme();
+
+    if (!(fragmentScheme instanceof FragmentationScheme)) return;
+
+    // get the parent molecule
+    try {
+        molecule = fragmentScheme.getFragmentList().getFragments().next().getParentMolecule();
+    } catch(Exception e) {
+        molecule = getMolecule(0);
+        print("Unable to obtain molecule information! Defaulting to first molecule : " + molecule);
+    } // end of try catch block
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+    fileChooser.setFileSelectionMode(IDEFileChooser.DIRECTORIES_ONLY);
+    fileChooser.setDialogTitle("Choose a location, file suffix, and format...");      
+
+    fileChooser.addActionListener(new ActionListener() {        
+      public void actionPerformed(ActionEvent ae) {        
+        if (ae.getActionCommand().equals("CancelSelection")) {
+            // close the dialog 
+            getDialogParent(fileChooser.getParent()).dispose();
+            return;
+        } // end if 
+
+        fragmentList = fragmentScheme.getFragmentList();
+
+        int i = 0;
+        filSuffixList = Utility.getFileSequenceSuffix(fileSufixExpr.getText().trim(),
+                                                      true, 4);
+        filPrefix = filePrefix.getText();
+
+        for(fragment : fragmentList.getFragments()) {
+            // cast the fragment into molecule
+            molecule = 
+            (Molecule) Utility.getDefaultImplFor(Molecule.class).newInstance();
+
+            for(atom : fragment.getFragmentAtoms()) {
+                molecule.addAtom(new Atom(atom.getSymbol(), atom.getCharge(), 
+                                          atom.getAtomCenter()));
+            } // end for            
+
+            if (!fileChooser.getSelectedFile().exists()) return;
+
+            fileName = fileChooser.getSelectedFile().getAbsolutePath();
+
+            if (!fileName.endsWith(File.separator)) {
+                fileName += File.separator;
+            } // end if
+
+            i++;
+
+            if (!filSuffixList.contains(Utility.zeroFill(i+"", 4))) continue;
+            
+            fileName += filPrefix + "-frag" 
+                        + filSuffixList.get(
+                            filSuffixList.indexOf(Utility.zeroFill(i+"", 4)));
+
+            if (fileType.getSelectedItem().indexOf("xyz")>=0) {
+              fileName += ".xyz";
+              isXYZ = true;
+            } else if (fileType.getSelectedItem().indexOf("vis")>=0) {
+              fileName += ".vis";
+              isVIS = true;
+            } else if (fileType.getSelectedItem().indexOf("gjf")>=0) {
+              fileName += ".gjf";
+              isGJF = true;
+            } else if (fileType.getSelectedItem().indexOf("com")>=0) {
+              fileName += ".com";
+              isCOM = true;
+            } else if (fileType.getSelectedItem().indexOf("inp")>=0) {
+              fileName += ".inp";
+              isINP = true;
+            }  // end if
+            
+            System.out.println("Molecule will be written to : " + fileName);
+        
+            FileWriter fos = new FileWriter(fileName);
+            if (isVIS) {
+                fos.write("$angstrom\n");
+            } // end if
+            
+            ideInstance = getIDEInstance();
+
+            ideInstance.setCursor(
+                           Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+
+            if (isXYZ) {
+                saveAsXYZ(molecule, fos);
+            } else if (isVIS) {
+                saveAsVIS(molecule, fos);
+            } else if (isINP) {
+                saveAsGAMESSInp(molecule, fos, runType.getSelectedItem(), 
+                            level.getSelectedItem(), basis.getSelectedItem(),
+                            ((Integer) charge.getValue()).intValue(),
+                            ((Integer) multiplicity.getValue()).intValue(),
+                            ((Integer) memory.getValue()).intValue());
+            } else if (isCOM || isGJF) {
+                saveAsGaussianInp(molecule, fos, runType.getSelectedItem(), 
+                              level.getSelectedItem(), basis.getSelectedItem(),
+                              isCOM, isGJF,
+                              ((Integer) charge.getValue()).intValue(),
+                              ((Integer) multiplicity.getValue()).intValue(),
+                              ((Integer) memory.getValue()).intValue());
+            } // end if
+
+            ideInstance.setCursor(Cursor.getDefaultCursor());
+
+            fos.close();
+
+            // close the dialog too        
+            getDialogParent(fileChooser.getParent()).dispose();
+        } // end for
+      }
+    });
+    
+    fileChooser.setApproveButtonText("Save");
+
+    // the new file chooser panel
+    JPanel advancedPanel = new JPanel();
+    advancedPanel.setLayout(new BorderLayout());
+
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.insets = new Insets(0, 5, 0, 5);
+
+    // and the extra options panel
+    JPanel advancedOptions = new JPanel(new BorderLayout());
+    JPanel pane1 = new JPanel(new GridBagLayout());
+    JPanel pane2 = new JPanel(new GridBagLayout());
+    
+    JTextField filePrefix = new JTextField(10);
+    gbc.gridx = gbc.gridy = 0;
+    pane1.add(new JLabel("File prefix:"), gbc);
+    gbc.gridx = 1;
+    pane1.add(filePrefix, gbc);
+    filePrefix.setText(molecule.getTitle().trim());
+    
+    JTextField fileSufixExpr = new JTextField(10);    
+    gbc.gridx = 2;
+    pane1.add(new JLabel("File sufix expr:"), gbc);
+    gbc.gridx = 3;
+    pane1.add(fileSufixExpr, gbc);
+    fileSufixExpr.setText("1");
+    
+    JComboBox fileType = new JComboBox(new String[] {
+                              "xyz (XYZ molecule file format)",
+                              "vis (VIS molecule file format)",
+                              "inp (GAMESS input file format)",
+                              "com (Gaussian input file format)",
+                              "gjf (Gaussian job file format)"});
+    gbc.gridx = 4;                              
+    pane1.add(new JLabel("File type:"), gbc);
+    gbc.gridx = 5; 
+    pane1.add(fileType, gbc);
+
+    gbc.gridx = 5; gbc.gridy = 1;
+    JButton advanced = new JButton("Show Advanced Options >>");
+    pane1.add(advanced, gbc);
+    advancedOptions.add(pane1, BorderLayout.NORTH);
+
+    // make the most important pane2    
+
+       // construct the extra information
+       runType = new JComboBox(new String[]{"energy", "optimize", 
+                                            "engmta", "optmta",
+                                            "hessian", "hessmta"});
+       gbc.gridx = gbc.gridy = 0;
+       pane2.add(new JLabel("Run Type:"), gbc);
+       gbc.gridx = 1;
+       runType.setEditable(true);
+       pane2.add(runType, gbc);
+
+       gbc.gridx = 2; gbc.gridy = 0;
+       level = new JComboBox(new String[]{"RHF", "RMP2", "RDFT"});
+       pane2.add(new JLabel("Level:"), gbc);
+       gbc.gridx = 3;
+       level.setEditable(true);
+       pane2.add(level, gbc);
+
+       gbc.gridx = 4; gbc.gridy = 0;
+       basis = new JComboBox(new String[]{"sto-3g", "3-21g", "6-31g", "6-31g*",
+                                          "6-31g**", "6-31+g*", "6-31++g*",
+                                          "6-31++g**", "6-311++g**"});
+       pane2.add(new JLabel("Basis:"), gbc);
+       gbc.gridx = 5;
+       basis.setEditable(true);
+       pane2.add(basis, gbc);
+
+       gbc.gridx = 0; gbc.gridy = 1;
+       pane2.add(new JLabel("Charge:"), gbc);
+       gbc.gridx = 1;
+       charge = new JSpinner(new SpinnerNumberModel(0, Integer.MIN_VALUE, 
+                                                       Integer.MAX_VALUE, 1));
+       pane2.add(charge, gbc);
+
+       gbc.gridx = 2;
+       pane2.add(new JLabel("Multiplicity:"), gbc);
+       gbc.gridx = 3;
+       multiplicity = new JSpinner(new SpinnerNumberModel(1, 1, 
+                                                         Integer.MAX_VALUE, 1));
+       pane2.add(multiplicity, gbc);
+
+       gbc.gridx = 4;
+       pane2.add(new JLabel("Memory (words/mb):"), gbc);
+       gbc.gridx = 5;
+       memory = new JSpinner(new SpinnerNumberModel(50000000, 1, 
+                                                    Integer.MAX_VALUE, 1));
+       pane2.add(memory, gbc);
+
+    // add the advanced pane    
+    advancedOptions.add(pane2, BorderLayout.CENTER);        
+    
+    advancedPanel.add(fileChooser, BorderLayout.CENTER);
+    advancedPanel.add(advancedOptions, BorderLayout.SOUTH);
+    advancedOptions.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Fine tune multiple exports:"));
+
+    // and setup the dialog
+    ideInstance = getIDEInstance();
+    dialog = new JDialog(ideInstance, 
+                        "Choose a location, file suffix, and format...", true);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.getContentPane().add(advancedPanel, BorderLayout.CENTER);
+    dialog.pack();    
+    pane2.setVisible(false);
+    advanced.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            pane2.setVisible(!pane2.isVisible());
+            if (pane2.isVisible()) advanced.setText("Hide Advanced Options <<");
+            else advanced.setText("Show Advanced Options >>");
+        }
+    });     
+    dialog.setLocationRelativeTo(ideInstance);    
+    dialog.setVisible(true);
+
+    return;
+}

@@ -1,0 +1,157 @@
+<!-- 
+    Document   : FindLanguage.html
+    Created on : 20 May, 2008, 7:32:15 AM
+    Author     : Ganesh
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+  </head>
+  <body>
+      <h3>Background:</h3>
+Molecule viewer is one of the tools that is frequently used by chemists,
+biologists and physicists alike. Though there are numerous molecule
+viewers available, none of them provide simple yet powerful find/
+query tool to find microlevel information like bonding, distance etc. for
+a large molecule. Many of the modern molecule viewers do come with
+an inbuilt scripting interface, but to do simple things like searching and
+highlighting an atom requires you to write quite a few lines of script.
+Also this kind of information is extremely useful while developing new
+theoretical methods, analyzing results of calculations or experiments
+etc. MeTA Studio offers one such simple but elegant and powerful find/
+query tool built upon a simple one line interpreted language with
+immediate visual feedback.
+
+<h3>What is the <i>Find</i> tool?</h3>
+The <i>Find</i> tool is defined by a small language and is closely coupled 
+with the GUI of MoleculeViewer for visual feedback.
+
+The tool GUI consists of three major parts:
+<ol>
+<li> The Find language input box, where the user enters short commands
+(described later) for querying micro level information about the
+selected molecule. This input box also keeps a history of all previous
+valid find commands entered by the user, so that they can be
+directly used at a later stage. </li>
+<li> The tool can query multiple molecules; the molecule to be queried
+can be accessed via. the molecule chooser combo box. </li>
+<li> A notification area for informing the user of any query results or
+possible errors in the find command that the user has issued. </li>
+</ol>
+
+The find language is a simple one-line interpreted language which can
+be defined using the following regular expression:
+
+<center> <code> &lt;[&lt;atom-index&gt;&lt;,&gt;]?[&lt;atom-symbol&gt;&lt;,&gt;]&gt;[&lt;,&gt;[keyword]] </code> </center>
+
+The above expression is interpreted as zero or more occurrences of valid atom indices (or atomic 
+symbol) in a molecule separated by a ',' followed by none or one valid keyword.
+If no keyword is specified, then the atom indices are visually highlighted,
+zoomed and translated for appropriate view. Note that if no keyword is specified
+a user will have to atleast specify a atom index.
+
+<h3>List of <i>Find</i> queries and its syntax</h3>
+
+<table border="0">
+<thead>
+<tr>
+    <th><i>Find</i> command</th>
+<th>Syntax and description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>dist</td>
+<td>&lt;<i>atomIndex1,atomIndex2</i>&gt;,<b>dist</b> Finds the distance between 2 specified atom indices.</td>
+</tr>
+<tr>
+<td>ang</td>
+<td>&lt;<i>atomIndex1,atomIndex2,atomIndex3</i>&gt;,<b>ang</b> Finds the angle defined by 3 atom indices.</td>
+</tr>
+<tr>
+<td>dihed</td>
+<td>&lt;<i>atomIndex1,atomIndex2,atomIndex3,atomIndex4</i>&gt;,<b>dihed</b> Finds the dihedral defined by 4 atom indices.</td>
+</tr>
+<tr>
+<td>bond</td>
+<td>&lt;<i>atomIndex1,atomIndex2</i>&gt;,<b>bond</b> Finds the type of bonds between the 2 specified atom indices.</td>
+</tr>
+<tr>
+<td>conn</td>
+<td>&lt;<i>atomIndex1</i>&gt;,<b>conn</b> Finds the number and type of connected atoms to atom with index <i>atomIndex1</i>.</td>
+</tr>
+<tr>
+<td>near</td>
+<td>&lt;<i>x,y,z</i>&gt;,<b>near</b> Finds an atom that is closest to the point (x, y, z).</td>
+</tr>
+<tr>
+<td>prop</td>
+<td>&lt;<i>x,y,z,propertyIndex</i>&gt;,<b>prop</b> Finds the value of the volumetric property labelled propertyIndex at (or nearest to) point (x, y, z).</td>
+</tr>
+<tr>
+<td>subvol</td>
+<td>&lt;<i>minx,miny,minz,maxx,maxy,maxz,propertyIndex</i>&gt;,<b>subvol</b> Generate a new sub-volume property from volumetric property labelled propertyIndex and the new bounding box specifications.</td>
+</tr>
+<tr>
+<td>intrep</td>
+<td>&lt;<i>x,y,z,propertyIndex</i>&gt;,<b>intrep</b> Finds the interpolated value of the volumetric property labelled propertyIndex at point (x, y, z).</td>
+</tr>
+<tr>
+<td>showall</td>
+<td>&lt;<i>[atomsymbol,...]</i>&gt;,<b>showall</b> Show one or more types of atoms. If no atomsymbol is specified, the complete molecule is shown. Atoms that are already visible are not hidden.</td>
+</tr>
+<tr>
+<td>showonly</td>
+<td>&lt;<i>[atomsymbol,...]</i>&gt;,<b>showonly</b> Show only one or more types of atoms, any other atoms that are already visible are hidden.</td>
+</tr>
+<tr>
+<td>hideall</td>
+<td>&lt;<i>[atomsymbol,...]</i>&gt;,<b>hideall</b> Hide one or more types of atoms. If no atomsymbol is specified, the complete molecule is hidden.</td>
+</tr>
+<tr>
+<td>show</td>
+<td>&lt;<i>[atomIndex,...]</i>&gt;,<b>show</b> Show one or more atoms with specified indices. Atoms that are already visible are not hidden.</td>
+</tr>
+<tr>
+<td>hide</td>
+<td>&lt;<i>[atomIndex,...]</i>&gt;,<b>hide</b> Hide one or more atoms with specified indices.</td>
+</tr>
+<tr>
+<td>formula</td>
+<td><b>formula</b> Show the molecular formula of the the current molecule.</td>
+</tr>
+<tr>
+<td>atomcount</td>
+<td>&lt;<i>[atomsymbol]</i>&gt;,<b>atomcount</b> Count the number of atoms of a particular type. If no atomsymbol is specified, then total number of atoms in the molecule is displayed.</td>
+</tr>
+<tr>
+<td>eleccount</td>
+<td>&lt;<i>[atomsymbol,...]</i>&gt;,<b>eleccount</b> Count the number of electrons of a particular type of atom in the molecule. If no atomsymbol is specified, then total number of electrons in the molecule is displayed.</td>
+</tr>
+<tr>
+<td>pick</td>
+<td>&lt;<i>[atomsymbol|atomIndex,...]</i>&gt;,<b>pick</b> Select the specified atom indices or atoms of a particular type.</td>
+</tr>
+<tr>
+<td>clearpick</td>
+<td><b>clearpick</b> Remove the selection on all the atoms.</td>
+</tr>
+<tr>
+<td>invertpick</td>
+<td><b>invertpick</b> Invert the current selection.</td>
+</tr>
+<tr>
+<td>hideunpicked</td>
+<td><b>hideunpicked</b> Hide the unpicked atoms.</td>
+</tr>
+<tr>
+<td>list</td>
+<td>&lt;<i>[FindCommand,...]</i>&gt;,<b>list</b> Specify multiple find commands in a single line.</td>
+</tr>
+</tbody>
+</table>
+
+  </body>
+</html>

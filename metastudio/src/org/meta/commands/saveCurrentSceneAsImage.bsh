@@ -1,0 +1,86 @@
+/**
+ * saveCurrentSceneAsImage - save the currently active molecule scene 
+ * as an image to a file specified by the user. The file name is quried using a 
+ * IDEFileChooser dialog.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import javax.imageio.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+/**
+ * save the currently active scene, with the current geometry to a user
+ * specified file.
+ */
+saveCurrentSceneAsImage() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frame = wsDesktop.getActiveFrame();
+
+    // no active frame?
+    if (frame == null) return;
+
+    // not appropriate instance?
+    if (!(frame instanceof MoleculeViewerFrame)) return;
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the image file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+    
+    String [] writerFormats = ImageIO.getWriterFormatNames();
+    
+    for(wForamt : writerFormats) {
+        fileChooser.addChoosableFileFilter(new IDEFileFilter(wForamt,
+                                           wForamt + " image file format"));
+    } // end for
+
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+
+    // now show the stuff to the user, and pray he gives good files names ;)
+    if (fileChooser.showSaveDialog(ideInstance)
+                    == IDEFileChooser.APPROVE_OPTION) {        
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        String format   = fileChooser.getFileFilter().getDescription();
+
+        // a big hack... be careful!
+        format = format.substring(0, format.indexOf(" image file format"));
+
+        // make of for the file extension..
+        if (fileName.indexOf(format) < 0) {
+            fileName += "." + format;
+        } // end if
+
+        if (frame.isSelected()) {  // found the one that is active?
+            // write the image file
+            frame.getMoleculeViewer().writeImageToFile(fileName, format);
+        } // end if
+    } // end if
+}

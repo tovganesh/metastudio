@@ -1,0 +1,87 @@
+// Contributed by Ritwik Kavathekar
+// Modified by V. Ganesh to show angle value
+
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import org.meta.common.*;
+import org.meta.shell.idebeans.*;
+import org.meta.math.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+planeAngles()  {
+     fornorm=null;
+     panel = getWidgetsPanel();
+     planeAngles = widget("planeAnglesWidget");
+     planeAngles.setLayout(layout());
+
+     info = label("<html><body>The active window must<br>"
+                  + "be a MoleculeViewerFrame <br> with "
+                  + "<html><body><b>6 atoms selected</b></body></html>");
+     planeAngles.add(info);
+     b=button("Compute Angle");     
+     planeAngles.add(b);
+     b.addActionListener(new ActionListener() {
+          public void actionPerformed(ActionEvent ae) {
+                 ideinst = getIDEInstance();
+                 desktop = ideinst.getWorkspaceDesktop();
+                 CurFr = desktop.getActiveFrame();  
+
+                 if (CurFr == null) {
+                    messageBox("Select a molecular viewer");
+                    return;
+                 }
+ 
+                 var = (CurFr instanceof MoleculeViewerFrame);
+                 tit = CurFr.getTitle();
+
+                 if (var==true){ 
+                    print("Loaded " + tit); 
+                 } else { 
+                    messageBox("This is not a Molecule Viewer"); return; 
+                 }
+                 mol = getSelectionStack(CurFr);
+                 v1 = vector3d(mol.get(0).getAtomCenter());
+                 v2 = vector3d(mol.get(1).getAtomCenter());  
+                 v3 = vector3d(mol.get(2).getAtomCenter());
+                 v4 = vector3d(mol.get(3).getAtomCenter());
+                 v5 = vector3d(mol.get(4).getAtomCenter());
+                 v6 = vector3d(mol.get(5).getAtomCenter());
+                 v21 = v1.sub(v2);
+                 v32 = v3.sub(v2);
+                 v54 = v4.sub(v5);
+                 v65 = v5.sub(v6);     
+                 norm1 = v21.normalize().cross(v32.normalize());
+                 norm2 = v54.normalize().cross(v65.normalize());
+                 print(norm1);
+                 a = norm1.normalize().angleWith(norm2.normalize());
+                 msg = "";
+                 if(MathUtil.toDegrees(a) > 90.00) {
+                     msg = strformat("#.###", 180.00-(MathUtil.toDegrees(a)))
+                           + Utility.DEGREE_SYMBOL
+                           + " is the plane angle.";                     
+                 } else {
+                     msg = strformat("#.###", MathUtil.toDegrees(a))
+                           + Utility.DEGREE_SYMBOL
+                           + " is the plane angle.";
+                 } // end if
+
+                 System.out.println(msg);
+                 messageBox(msg); 
+     // showing off...
+     fornorm = scratchpad();
+     ms = new MoleculeScene(CurFr.getSceneList().get(0).getMolecule());   
+     sl = new ScreenLabel(msg);
+     sl.setX(20); sl.setY(20);
+     sl.setFont(sl.getFont().deriveFont(Font.BOLD).deriveFont(14));
+     ms.addLabel(sl);
+
+     fornorm.getMoleculeViewer().setRotationMatrix(CurFr.getMoleculeViewer().getRotationMatrix());
+     fornorm.addScene(ms);
+     fornorm.drawVector3D(norm1.mul(2),v2.toPoint3D(), color("#FF0000"));
+     fornorm.drawVector3D(norm2.mul(2),v5.toPoint3D(), color("#FF0000"));
+   }
+  }); //ActionEvent
+     panel.addWidget(planeAngles);
+ }
+ planeAngles();

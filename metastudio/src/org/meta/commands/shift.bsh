@@ -1,0 +1,32 @@
+/**
+ * shift() - shift an entity by a specified scalar
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.math.geom.Point3D;
+import org.meta.molecule.Atom;
+import org.meta.molecule.Molecule;
+
+shift(Point3D point, double shiftBy) {
+    return point.add(shiftBy);
+}
+
+shift(Point3D point, Point3D shiftBy) {
+    return point.add(shiftBy);
+}
+
+shift(Atom atom, double shiftBy) {
+    Atom newAtom = atom.clone();
+    newAtom.setAtomCenter(newAtom.getAtomCenter().add(shiftBy));
+
+    return newAtom;
+}
+
+shift(Atom atom, Point3D shiftBy) {
+    Atom newAtom = atom.clone();
+    newAtom.setAtomCenter(newAtom.getAtomCenter().add(shiftBy));
+
+    return newAtom;
+}

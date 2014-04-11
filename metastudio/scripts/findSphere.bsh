@@ -1,0 +1,26 @@
+//
+// print all the atoms in a sphere of given radius and centered on
+// atomIndex in molecule, and check whether it is there in the fragment
+
+import org.meta.molecule.*;
+
+findSphere(Molecule molecule, Molecule frag, double radius, int atomIndex) {
+    atom = molecule.getAtom(atomIndex);
+    
+    for(int i=0; i<molecule.getNumberOfAtoms(); i++) {
+        if (atom.distanceFrom(molecule.getAtom(i)) <= radius) {
+           print(molecule.getAtom(i).getIndex() + ". " + molecule.getAtom(i) 
+                 + "\t" + checkPresence(molecule.getAtom(i), frag));
+        } // end if
+    } // end for
+} // end of function findSphere()
+
+String checkPresence(Atom atom, Molecule molecule) {
+    for(int i=0; i<molecule.getNumberOfAtoms(); i++) {
+        if (atom.distanceFrom(molecule.getAtom(i)) <= 0.0001) {
+            return "Present";
+        } // end if
+    } // end for
+
+    return "Not present";
+} // end of function checkPresence()

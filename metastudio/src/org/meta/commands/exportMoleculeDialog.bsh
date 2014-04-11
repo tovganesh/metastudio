@@ -1,0 +1,222 @@
+/**
+ * exportMoleculeDialog - create an instance of dialog to act as an 
+ * interface to export molecule objects as external file.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+exportMoleculeDialog(molecule) {
+    boolean isXYZ = false;
+    boolean isVIS = false;
+    boolean isINP = false;
+    boolean isCOM = false;
+    boolean isGJF = false;
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of the file...");        
+    // add the filters
+    fileChooser.removeChoosableFileFilter(fileChooser.getAcceptAllFileFilter());
+    
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("inp",
+                                    "GAMESS input file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("com",
+                                    "Gaussian input file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("gjf",
+                                    "Gaussian job file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("vis",
+                                    "VIS molecule file format"));
+    fileChooser.addChoosableFileFilter(new IDEFileFilter("xyz",
+                                    "XYZ molecule file format"));    
+        
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+    
+    fileChooser.addActionListener(new ActionListener() {        
+      public void actionPerformed(ActionEvent ae) {        
+        if (ae.getActionCommand().equals("CancelSelection")) {
+            // close the dialog 
+            getDialogParent(fileChooser.getParent()).dispose();
+            return;
+        } // end if 
+    
+        String fileName = fileChooser.getSelectedFile().getAbsolutePath();
+        
+        // make up for file extension, if it is not already there
+        if ((!fileName.endsWith(".xyz")) && (!fileName.endsWith(".vis")) 
+            && (!fileName.endsWith(".inp")) && (!fileName.endsWith(".com"))
+            && (!fileName.endsWith(".gjf"))) {
+          if (fileChooser.getFileFilter().getDescription().indexOf("XYZ")>=0) {
+              fileName += ".xyz";
+              isXYZ = true;
+          } else if (fileChooser.getFileFilter()
+                                .getDescription().indexOf("VIS")>=0) {
+              fileName += ".vis";
+              isVIS = true;
+          } else if (fileChooser.getFileFilter()
+                                .getDescription().indexOf("job")>=0) {
+              fileName += ".gjf";
+              isGJF = true;
+          } else if (fileChooser.getFileFilter()
+                                .getDescription().indexOf("GAMESS")>=0) {
+              fileName += ".inp";
+              isINP = true;
+          } else if (fileChooser.getFileFilter()
+                                .getDescription().indexOf("Gaussian")>=0) {
+              fileName += ".com";
+              isCOM = true;
+          } // end if
+        } else {
+            if (fileName.endsWith(".xyz")) isXYZ = true;
+            else if (fileName.endsWith(".vis")) isVIS = true;
+            else if (fileName.endsWith(".inp")) isINP = true;
+            else if (fileName.endsWith(".com")) isCOM = true;
+            else if (fileName.endsWith(".gjf")) isGJF = true;
+        } // end if
+        
+        System.out.println("Molecule will be written to : " + fileName);
+        
+        FileWriter fos = new FileWriter(fileName);
+        if (isVIS) {
+            fos.write("$angstrom\n");
+        } // end if
+
+        ideInstance.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));       
+        if (isXYZ) {
+            saveAsXYZ(molecule, fos);
+        } else if (isVIS) {
+            saveAsVIS(molecule, fos);
+        } else if (isINP) {
+            saveAsGAMESSInp(molecule, fos, runType.getSelectedItem(), 
+                            level.getSelectedItem(), basis.getSelectedItem(),
+                            ((Integer) charge.getValue()).intValue(),
+                            ((Integer) multiplicity.getValue()).intValue(),
+                            ((Integer) memory.getValue()).intValue());
+        } else if (isCOM || isGJF) {
+            saveAsGaussianInp(molecule, fos, runType.getSelectedItem(), 
+                              level.getSelectedItem(), basis.getSelectedItem(),
+                              isCOM, isGJF,
+                              ((Integer) charge.getValue()).intValue(),
+                              ((Integer) multiplicity.getValue()).intValue(),
+                              ((Integer) memory.getValue()).intValue());
+        } // end if
+
+        ideInstance.setCursor(Cursor.getDefaultCursor());
+
+        fos.close();
+
+        // close the dialog too        
+        getDialogParent(fileChooser.getParent()).dispose();
+      }
+    });     
+
+    fileChooser.setApproveButtonText("Save");
+
+    infoLabel = new JLabel("<html><head></head><body><b><u>Note:</u></b> "
+                           + "You have selected "
+                           + molecule.getNumberOfAtoms() + " atoms as "
+                           + molecule.getFormula().getHTMLFormula() + ".",
+                           JLabel.LEFT); 
+    infoLabel.setBorder(BorderFactory.createLineBorder(Color.darkGray));
+
+    // the new file chooser panel
+    JPanel advancedPanel = new JPanel();
+    advancedPanel.setLayout(new BorderLayout());
+    
+    // and the extra options panel
+    JPanel advancedOptions = new JPanel(new BorderLayout());
+    JPanel pane1 = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+    JPanel pane2 = new JPanel(new GridBagLayout());
+    
+    JButton advanced = new JButton("Show Advanced Options >>");
+    pane1.add(advanced);
+    advancedOptions.add(pane1, BorderLayout.NORTH);
+
+    // make the most important pane2
+    GridBagConstraints gbc = new GridBagConstraints();
+    gbc.fill = GridBagConstraints.BOTH;
+    gbc.insets = new Insets(0, 5, 0, 5);
+        
+       // construct the extra information
+       runType = new JComboBox(new String[]{"energy", "optimize", 
+                                            "engmta", "optmta",
+                                            "hessian", "hessmta"});
+       gbc.gridx = gbc.gridy = 0;
+       pane2.add(new JLabel("Run Type:"), gbc);
+       gbc.gridx = 1;
+       runType.setEditable(true);
+       pane2.add(runType, gbc);
+
+       gbc.gridx = 2; gbc.gridy = 0;
+       level = new JComboBox(new String[]{"RHF", "RMP2", "RDFT"});
+       pane2.add(new JLabel("Level:"), gbc);
+       gbc.gridx = 3;
+       level.setEditable(true);
+       pane2.add(level, gbc);
+
+       gbc.gridx = 4; gbc.gridy = 0;
+       basis = new JComboBox(new String[]{"sto-3g", "3-21g", "6-31g", "6-31g*",
+                                          "6-31g**", "6-31+g*", "6-31++g*",
+                                          "6-31++g**", "6-311++g**"});
+       pane2.add(new JLabel("Basis:"), gbc);
+       gbc.gridx = 5;
+       basis.setEditable(true);
+       pane2.add(basis, gbc);
+
+       gbc.gridx = 0; gbc.gridy = 1;
+       pane2.add(new JLabel("Charge:"), gbc);
+       gbc.gridx = 1;
+       charge = new JSpinner(new SpinnerNumberModel(0, Integer.MIN_VALUE, 
+                                                       Integer.MAX_VALUE, 1));
+       pane2.add(charge, gbc);
+
+       gbc.gridx = 2;
+       pane2.add(new JLabel("Multiplicity:"), gbc);
+       gbc.gridx = 3;
+       multiplicity = new JSpinner(new SpinnerNumberModel(1, 1, 
+                                                         Integer.MAX_VALUE, 1));
+       pane2.add(multiplicity, gbc);
+
+       gbc.gridx = 4;
+       pane2.add(new JLabel("Memory (words/mb):"), gbc);
+       gbc.gridx = 5;
+       memory = new JSpinner(new SpinnerNumberModel(50000000, 1, 
+                                                    Integer.MAX_VALUE, 1));
+       pane2.add(memory, gbc);
+
+    // add the advanced pane    
+    advancedOptions.add(pane2, BorderLayout.CENTER);        
+    advancedOptions.add(infoLabel, BorderLayout.SOUTH);
+    
+    advancedPanel.add(fileChooser, BorderLayout.CENTER);
+    advancedPanel.add(advancedOptions, BorderLayout.SOUTH);
+    advancedOptions.setBorder(BorderFactory.createTitledBorder(
+                   BorderFactory.createLineBorder(Color.black), 
+                   "Advanced options (for GAMESS/Gaussian files only):"));
+
+    // and setup the dialog
+    ideInstance = getIDEInstance();
+    dialog = new JDialog(ideInstance, "Specify name of the file...", true);
+    dialog.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+    dialog.getContentPane().add(advancedPanel, BorderLayout.CENTER);            
+    dialog.pack();    
+    pane2.setVisible(false);
+    advanced.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent ae) {
+            pane2.setVisible(!pane2.isVisible());
+            if (pane2.isVisible()) advanced.setText("Hide Advanced Options <<");
+            else advanced.setText("Show Advanced Options >>");
+        }
+    });     
+    dialog.setLocationRelativeTo(ideInstance);    
+    dialog.setVisible(true);
+} // end of exportMoleculeDialog()

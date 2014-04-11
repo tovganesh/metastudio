@@ -1,0 +1,96 @@
+/**
+ * save the supplied molecule to the specified stream in GAMESS input format
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.util.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+import org.meta.config.impl.AtomInfo;
+
+getControlString(runType, level, charge, multiplicity) {
+    ctrlStr = "";
+
+    level = level.toLowerCase();
+    runType = runType.toLowerCase();
+
+    if (level.indexOf("rhf") >= 0)
+        ctrlStr = " $contrl scftyp=rhf runtyp=" + runType + " $end\n";
+    else if (level.indexOf("mp2") >= 0)
+        ctrlStr = " $contrl scftyp=rhf mplevl=2 runtyp=" + runType + " $end\n";
+    else if (level.indexOf("dft") >= 0) {
+        ctrlStr = " $contrl scftyp=rhf runtyp=" + runType + " $end\n"
+                   + " $dft dfttyp=b3lyp $end\n";
+    } // end if
+
+    return ctrlStr;
+}
+
+getSystemString(memory) {
+    return " $system timlim=100000000 memory=" + memory + " $end\n";
+}
+
+getBasis(basis) {
+    basStr = "";
+
+    basis = basis.toLowerCase();
+
+    if (basis.indexOf("sto-3g") >= 0)
+        basStr = " $basis gbasis=sto ngauss=3 $end\n";
+    else if (basis.indexOf("3-21g") >= 0)
+        basStr = " $basis gbasis=n21 ngauss=3 $end\n";
+    else if (basis.indexOf("6-31g**") >= 0)
+        basStr = " $basis gbasis=n31 ngauss=6 ndfunc=1 npfunc=1 $end\n";
+    else if (basis.indexOf("6-31g*") >= 0)
+        basStr = " $basis gbasis=n31 ngauss=6 ndfunc=1 $end\n";
+    else if (basis.indexOf("6-31g") >= 0)
+        basStr = " $basis gbasis=n31 ngauss=6 $end\n";
+    else if (basis.indexOf("6-311++g**") >= 0)
+        basStr = " $basis gbasis=n311 ngauss=6 ndfunc=1 npfunc=1 diffs=.t. diffsp=.t. $end\n";
+    else if (basis.indexOf("6-31++g**") >= 0)
+        basStr = " $basis gbasis=n31 ngauss=6 ndfunc=1 npfunc=1 diffs=.t. diffsp=.t. $end\n";
+    else if (basis.indexOf("6-31++g*") >= 0)
+        basStr = " $basis gbasis=n31 ngauss=6 ndfunc=1 diffs=.t. diffsp=.t. $end\n";
+    else if (basis.indexOf("6-31+g*") >= 0)
+        basStr = " $basis gbasis=n31 ngauss=6 ndfunc=1 diffsp=.t. $end\n";
+    else
+        basStr = basis;
+
+    return basStr;
+}
+
+saveAsGAMESSInp(Molecule molecule, fos, runType, level, basis,
+                charge, multiplicity, memory) {
+
+    fos.write(getControlString(runType, level, charge, multiplicity));
+    fos.write(getSystemString(memory));
+    fos.write(getBasis(basis));
+    
+    if (runType.indexOf("optimize") >= 0) {
+        fos.write(" $statpt nstep=500 $end\n");
+    } // end if
+
+    fos.write(" $scf dirscf=.t. $end\n");
+
+    fos.write(" $data\n");
+    fos.write(" " + molecule.getTitle() + "\n");
+    fos.write(" C1\n");
+
+    Iterator atoms = molecule.getAtoms();       
+    ai = AtomInfo.getInstance();
+
+    for(atom : atoms) {          
+      fos.write(" " + atom.getSymbol() + " "
+                    + ai.getAtomicNumber(atom.getSymbol()) + " "
+                    + " " + atom.getAtomCenter() + "\n");
+    } // end for
+    
+    fos.write(" $end\n");
+}
+
+

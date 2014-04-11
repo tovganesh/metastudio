@@ -1,0 +1,12 @@
+/**
+ * getIDEInstance() - get the current instance of IDE.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.shell.idebeans.eventhandlers.*;
+
+getIDEInstance() {
+    return MainMenuEventHandlers.getInstance(null).getIdeInstance();
+}

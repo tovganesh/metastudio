@@ -1,0 +1,24 @@
+import org.meta.config.impl.*;
+
+nuclearPart(mol) {
+  n = mol.getNumberOfAtoms();
+  atomInfo = AtomInfo.getInstance();
+  au2ang = org.meta.common.Utility.AU_TO_ANGSTROM_FACTOR;
+  au2ang = 1.0 / (au2ang*au2ang);
+  for(a=0; a<n; a++) {
+      atom1 = mol.getAtom(a);
+      za = atomInfo.getAtomicNumber(atom1.getSymbol());
+      gx = gy = gz = 0.0;      
+      for(b=0; b<n; b++) {
+         if (b==a) continue;
+         atom2 = mol.getAtom(b);
+         zb = atomInfo.getAtomicNumber(atom2.getSymbol());         
+         rab = atom1.distanceFrom(atom2); rab = rab*rab*rab;
+         gx += (zb * (atom2.getX() - atom1.getX())) / rab;
+         gy += (zb * (atom2.getY() - atom1.getY())) / rab;
+         gz += (zb * (atom2.getZ() - atom1.getZ())) / rab;
+      }
+      gx *= za/au2ang; gy *= za/au2ang; gz *= za/au2ang;       
+      print(a + " " + gx + " " + gy + " " + gz);
+  }
+}

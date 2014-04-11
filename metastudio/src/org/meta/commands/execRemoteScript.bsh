@@ -1,0 +1,27 @@
+/**
+ * execRemoteScript() - execute a remote script using federation framework
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.net.*;
+
+import org.meta.common.*;
+import org.meta.net.*;
+import org.meta.net.impl.service.*;
+import org.meta.net.impl.consumer.*;
+
+execRemoteScript(String scriptFileName, String metaHostName) {
+    execRemoteScript(scriptFileName, InetAddress.getByName(metaHostName));    
+}
+
+execRemoteScript(String scriptFileName, FederationNode metaNode) {
+    execRemoteScript(scriptFileName, metaNode.getIpAddress());
+}
+
+execRemoteScript(String scriptFileName, InetAddress metaHost) {
+    FederationServiceConsumer consumer = new FederationServiceUserScriptConsumer(scriptFileName);
+    FederationRequest fedRequest = consumer.discover(metaHost);
+    consumer.consume(fedRequest);
+}

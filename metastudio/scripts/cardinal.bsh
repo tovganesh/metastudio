@@ -1,0 +1,17 @@
+fl=getMolecule(0).getDefaultFragmentationScheme().getFragmentList();
+
+f = molecularformula(fl.getFragment(0)); // supposidly positive
+str = "e1 ";
+for(int i=1; i<fl.size(); i++) {
+   if (fl.getFragment(i).getCardinalitySign() > 0) {
+      f = f.add(molecularformula(fl.getFragment(i)));
+      str += " + " + "e" + (i+1) ;
+   } else if (fl.getFragment(i).getCardinalitySign() < 0) {
+      f = f.sub(molecularformula(fl.getFragment(i)));
+      str += " - " + "e" + (i+1);
+   } // end if
+} // end for
+
+print(f);
+print(str);
+

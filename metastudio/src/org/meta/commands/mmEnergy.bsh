@@ -1,0 +1,26 @@
+/**
+ * mmEnergy() - perform MM Energy calculation for the given molecule
+ *
+ * Usage: mmEnergy(<molecule object>)
+ *
+ * @author  J. Milthorpe
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+import java.text.DecimalFormat;
+
+import org.meta.math.mm.*;
+import org.meta.molecule.*;
+
+mmEnergy(Molecule molecule) {
+    print("Starting MM Energy for " + molecule);
+    mm  = MMEnergyMethodFactory.getInstance().getMMEnergyMethod(molecule);
+    
+    t1  = System.currentTimeMillis();
+    energy = mm.getEnergy();
+    t2  = System.currentTimeMillis();
+
+    df = new DecimalFormat("#.########");
+    df.setMinimumFractionDigits(9);
+    print("Energy = " + df.format(energy) + " a.u.");
+    print("Total Time : " + (t2-t1) + " ms");
+}

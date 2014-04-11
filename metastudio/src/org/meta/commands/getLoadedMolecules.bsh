@@ -1,0 +1,42 @@
+/**
+ * getLoadedMolecules() - get a list of all the molecules in the current 
+ * workspace.
+ *
+ * usage:
+ *  molecules = getLoadedMolecules();
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.util.*;
+
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+getLoadedMolecules() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return null;
+    
+    // else get the current workspace
+    currentWorkspace = ideInstance.getCurrentWorkspace();
+    
+    if (currentWorkspace == null) return null;
+    
+    // get all the items associated with it
+    workspaceItems = currentWorkspace.getWorkspaceItems();
+    
+    moleculeList = new Vector();
+    // iterate through the list and check for the instances of MoleculeItem  
+    for (item : workspaceItems) {
+        if (item instanceof MoleculeItem) {
+            moleculeList.add(item.getItemData().getData());
+        } // end if
+    } // end for
+    
+    // return the list
+    return moleculeList;
+}

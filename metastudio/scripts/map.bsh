@@ -1,0 +1,18 @@
+mymap() {
+  data = getData();
+  
+  print("map entry: " + data);
+ 
+  res = 0;
+  for(da : data) { 
+    for(d : da) res += d;
+  }
+
+  pdata = arraylist();
+  pdata.add(res);
+
+  print("map exit: " + pdata);
+  setData(pdata);
+}
+
+mymap();

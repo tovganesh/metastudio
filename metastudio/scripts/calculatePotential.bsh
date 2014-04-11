@@ -1,0 +1,59 @@
+import org.meta.config.impl.AtomInfo;
+import org.meta.shell.idebeans.MoleculeViewerFrame;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.graphicsengine.surfaces.PropertyScene;
+
+dt = getDesktopInstance();
+fl = dt.getFrameList();
+
+mvf = null;
+for(f:fl) {
+  if (f instanceof MoleculeViewerFrame) { mvf = f; break; }
+} // end for
+
+if (mvf != null) {
+  mv = mvf.getMoleculeViewer();
+  ms = mv.getSceneList().get(0);
+  mol = ms.getMolecule();
+  gp = mv.getScreenGridProperty();
+
+  print(gp.toString());
+
+  double [] fVals = new double[gp.getNumberOfGridPoints()];
+  double x1 = gp.getBoundingBox().getUpperLeft().getX(),
+         y1 = gp.getBoundingBox().getUpperLeft().getY(),
+         z1 = gp.getBoundingBox().getUpperLeft().getZ();
+  double xinc = gp.getXIncrement(),
+         yinc = gp.getYIncrement(),
+         zinc = gp.getZIncrement();
+  int noOfAtoms = mol.getNumberOfAtoms();
+
+  ai = AtomInfo.getInstance();
+
+  potIdx = 0;
+  for(i=0; i<gp.getNoOfPointsAlongX(); i++) {
+    x = x1 + (i*xinc);
+    for(j=0; j<gp.getNoOfPointsAlongY(); j++) {
+        y = y1 + (j*yinc);
+        for(k=0; k<gp.getNoOfPointsAlongZ(); k++) {
+            z = z1 + (k*zinc);
+
+            p = vector3d(x, y, z);
+            fVals[potIdx] = 0.0;
+            for(l=0; l<noOfAtoms; l++) {
+                v = p.sub(mol.getAtom(l).getAtomCenter());
+                d = v.magnitude();
+
+                if (d != 0) {
+                   fVals[potIdx] += ai.getAtomicNumber(mol.getAtom(l).getSymbol()) / d;
+                } // end if
+            } // end for
+            
+            potIdx++;
+        }
+    }
+  }
+
+  gp.setFunctionValues(fVals);
+  ps = new PropertyScene(ms, gp);
+  ms.addPropertyScene(ps);
+} // end if

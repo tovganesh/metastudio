@@ -1,0 +1,43 @@
+/**
+ * moleculeReaderWidget.bsh  - Templace for creating molecule reader widget.
+ *
+ * Usage:
+ * <pre>
+ *      myReader() {
+ *          readMoleculeFile(String file) {
+ *             mol = molecule("t");
+ *             ....
+ *             buildSimpleConnectivity(mol);
+ *
+ *             return mol;
+ *          }
+ *
+ *          return this;
+ *      }
+ *
+ *      moleculeReaderWidget(title, buttonText, myReader());
+ * </pre>
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+moleculeReaderWidget(String title, String buttonText, readerFunction) {
+   panel  = getWidgetsPanel();
+   mrw    = widget(title);
+   openIt = button(buttonText);
+
+   actionPerformed(e) {
+       fileName = showFileDialog();
+       if (fileName != null) 
+          showMolecule(readerFunction.readMoleculeFile(fileName));
+   }
+
+   openIt.addActionListener(this);
+   mrw.add(openIt);
+
+   panel.addWidget(mrw);
+   panel.updateUI();
+
+   return mrw;
+}

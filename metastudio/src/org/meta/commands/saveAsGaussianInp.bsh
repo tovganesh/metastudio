@@ -1,0 +1,40 @@
+/**
+ * save the supplied molecule to the specified stream in Gaussian input format
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.util.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+
+saveAsGaussianInp(Molecule molecule, fos, runType, level, basis, 
+                  isCOM, isGJF, charge, multiplicity, memory) {
+
+    if (level.equals("RDFT")) level = "B3LYP";
+
+    fos.write("%mem=" + memory + "mb\n");
+    fos.write("#p " + level + "/" + basis + " scf=tight density=current pop=full ");
+
+    if (runType.indexOf("energy") >= 0)        fos.write("sp\n");
+    else if (runType.indexOf("optimize") >=0 ) fos.write("opt\n");
+    else if (runType.indexOf("hessian") >=0 )  fos.write("freq\n");
+    else                                       fos.write(runType + "\n");
+    
+    fos.write("\n");
+    fos.write(molecule.getTitle() + "\n\n");
+    fos.write(charge + " " +  multiplicity + " \n");
+
+    Iterator atoms = molecule.getAtoms();       
+    
+    for(atom : atoms) {          
+      fos.write(atom.getSymbol() + " " + atom.getAtomCenter() + "\n");
+    } // end for
+    
+    if (isCOM || isGJF) {
+        fos.write("\n");
+    } // end if
+}

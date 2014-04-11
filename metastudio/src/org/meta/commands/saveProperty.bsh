@@ -1,0 +1,132 @@
+/**
+ * saveProperty() - Save a requested property in WebProp Property file format.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.io.*;
+import java.awt.*;
+import java.util.*;
+import java.text.*;
+
+import javax.swing.*;
+import javax.swing.filechooser.*;
+
+import org.meta.common.*;
+import org.meta.molecule.*;
+import org.meta.workspace.impl.*;
+import org.meta.shell.idebeans.*;
+import org.meta.propertyreader.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+import org.meta.common.resource.CursorResource;
+
+/**
+ * Save a requested property in WebProp Property file format.
+ */
+saveProperty(propIdx) {
+    idx = Integer.parseInt(propIdx);
+
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+    
+    // then get the active frame of this desktop
+    frame = wsDesktop.getActiveFrame();
+
+    // no active frame?
+    if (frame == null) return;
+
+    // not appropriate instance?
+    if (!(frame instanceof MoleculeViewerFrame)) return;
+
+    // first grab the file name .. and the format
+    IDEFileChooser fileChooser = new IDEFileChooser();
+                    
+    fileChooser.setDialogTitle("Specify name of property file...");        
+    // add the filters        
+    fileChooser.addChoosableFileFilter(new IDEFileFilter(
+                new String[] {"prop"},
+                "WebProp Property File"));
+    
+    // and add the iconic stuff
+    fileChooser.setFileView(new IDEFileView());
+    
+    // now show the stuff to the user, and pray he gives good files names ;)
+    if (fileChooser.showSaveDialog(ideInstance)
+                    == IDEFileChooser.APPROVE_OPTION) {        
+       String fileName = fileChooser.getSelectedFile().getAbsolutePath();                
+                                                            
+       if (frame.isSelected()) {  // found the one that is active?
+            scenes = frame.getSceneList();            
+
+            // we can handle only one-to-one relations at this time!
+            if (scenes.size() > 1) return;
+
+            if (!fileName.endsWith(".prop")) fileName += ".prop";
+
+            System.out.println("Property data will be saved to : " + fileName);
+
+            saveProperty(fileName, scenes.get(0), idx, ideInstance);
+       } else {
+            // default the coursor
+            ideInstance.setCursor(
+                           Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+       } // end if                     
+    } else {
+       // default the coursor
+       ideInstance.setCursor(Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+    } // end if
+}
+
+saveProperty(String fileName, scene, idx, ideInstance) {
+    // prepare the reader objects
+    Thread saveThread = new Thread() {
+        public void run() {
+            ideInstance.setCursor(Cursor.WAIT_CURSOR);
+            status = ideInstance.getStatusBar();
+
+            try {                
+                propScenes = scene.getAllPropertyScene();
+
+                i=0; ps = null;
+                for(ps : propScenes) {
+                   if (i == idx) break;
+                   
+                   i++;
+                } // end if
+
+                if (ps != null) {
+                   status.setStatusText("Writing property file, please wait!");
+
+                   writePropertyFile(fileName, ps.getGridProperty());
+                } else {
+                   status.setStatusText("Warning! Requested property not found!");
+                } // end if
+
+                // default the coursor
+                ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));
+
+                status.setStatusText("Written property file: " + fileName);
+            } catch(Exception e) {
+                ideInstance.setCursor(
+                            Cursor.getPredefinedCursor(Cursor.DEFAULT_CURSOR));                
+                e.printStackTrace();
+                status.setStatusText("Error opening file : " + fileName + "!"
+                      + " Please look into Runtime log for more information.");
+            } // end of try .. catch block
+        }
+    };
+
+    saveThread.setName("Save property Thread");
+    saveThread.start(); 
+}

@@ -1,0 +1,24 @@
+/**
+ * openJythonShell() - opens up Jython shell
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import java.util.Properties;
+import org.python.util.PythonInterpreter;
+import org.meta.common.resource.StringResource;
+
+openJythonShell() {
+  Properties props = new Properties();
+  props.setProperty("python.home", "../lib/ext/meta-jython");
+  props.setProperty("python.path", "../lib/ext/meta-jython");
+  props.setProperty("python.cachedir", StringResource.getInstance().getRemoteAppDir());
+  PythonInterpreter.initialize(System.getProperties(), props, new String[] {""});
+
+  PythonInterpreter interp = new PythonInterpreter();
+  interp.setOut(System.out);
+  interp.setErr(System.err);
+  interp.execfile("../lib/ext/meta-jython/Console.py");
+}
+

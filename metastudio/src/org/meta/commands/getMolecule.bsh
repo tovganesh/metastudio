@@ -1,0 +1,10 @@
+/**
+ * getMolecule() - get the specified molecule (index)
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+getMolecule(int index) {
+   return getLoadedMoleculeScenes().get(index).getMolecule();
+}

@@ -1,0 +1,33 @@
+/**
+ * play() - plays an mp3 file using JLayer apis
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+pl = null;
+
+initPlayer(String fileName) {
+    fis = new java.io.FileInputStream(fileName);
+    pl  = new javazoom.jl.player.Player(fis);    
+}
+
+run() {    
+    pl.play();
+}
+
+play(String fileName, boolean useThread) {
+    pl = initPlayer(fileName);
+
+    if (useThread) {
+      Thread playThread = new Thread(this);
+      playThread.setName("MP3 playing Thread");
+      playThread.start();
+    }
+
+    return pl;
+}
+
+play(String fileName) {
+    return play(fileName, true);
+}

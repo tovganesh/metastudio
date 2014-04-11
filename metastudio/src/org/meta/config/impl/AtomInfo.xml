@@ -1,0 +1,743 @@
+<?xml version="1.0" standalone="yes" ?>
+<!--
+AtomInfo.xml - default configuration file for atomic properties like 
+atomic number, covalent radius etc.
+
+@author  V.Ganesh
+@version 2.0 (Part of MeTA v2.0)
+@since 2.0.09022009 Josh Milthorpe (Corrected some atomic weights
+                          (Na, P, Cl, Cu, Bi) and default valencies (Na, Cl)
+                          and spelling of Be)
+-->
+<atominfo>
+   <atom>
+       <physical symbol="H" name="Hydrogen" atomicNumber="1" 
+                 atomicWeight="1.0079" covalentRadius="0.23" vdwRadius="1.2" 
+                 defaultValency="1" weakBondAngle="0.6981317"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="207" g="207" b="207"/>
+       </display>
+   </atom>
+
+   <atom>
+       <physical symbol="He" name="Helium" atomicNumber="2" 
+                 atomicWeight="4.0026" covalentRadius="0.32" vdwRadius="1.4" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="192" b="203"/>
+       </display>
+   </atom>
+
+   <atom>
+       <physical symbol="Li" name="Lithium" atomicNumber="3" 
+                 atomicWeight="6.941" covalentRadius="1.34" vdwRadius="1.4"
+                 defaultValency="1" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="178" g="34" b="34"/>
+       </display>
+   </atom>
+
+   <atom>
+       <physical symbol="Be" name="Beryllium" atomicNumber="4"
+                 atomicWeight="9.0122" covalentRadius="0.90" vdwRadius="1.3725" 
+                 defaultValency="2" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="34" g="139" b="34"/>
+       </display>
+   </atom>
+
+   <atom>
+       <physical symbol="B" name="Boron" atomicNumber="5" 
+                 atomicWeight="10.81" covalentRadius="0.82" vdwRadius="0.795" 
+                 defaultValency="3" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="0" g="255" b="0"/>
+       </display>
+   </atom>
+
+   <atom>
+       <physical symbol="C" name="Carbon" atomicNumber="6" 
+                 atomicWeight="12.011" covalentRadius="0.77" vdwRadius="1.7" 
+                 defaultValency="4" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="130" g="130" b="130"/>
+       </display>       
+   </atom>
+
+   <atom>
+       <physical symbol="N" name="Nitrogen" atomicNumber="7" 
+                 atomicWeight="14.007" covalentRadius="0.75" vdwRadius="1.55" 
+                 defaultValency="5" weakBondAngle="0.6981317"
+                 doubleBondOverlap="0.80" />
+       <display>
+           <color r="0" g="0" b="255"/>
+       </display>       
+   </atom>
+
+   <atom>
+       <physical symbol="O" name="Oxygen" atomicNumber="8" 
+                 atomicWeight="15.999" covalentRadius="0.70" vdwRadius="1.52" 
+                 defaultValency="2" weakBondAngle="1.221730476"
+                 doubleBondOverlap="0.85" />
+       <display>
+           <color r="255" g="0" b="0"/>
+       </display>  
+   </atom>
+   
+   <atom>
+      <physical symbol="F" name="Fluorine" atomicNumber="9" 
+                atomicWeight="18.998" covalentRadius="0.71" vdwRadius="1.47" 
+                defaultValency="1" weakBondAngle="1.047197551"
+                doubleBondOverlap="0.0" />
+      <display>
+           <color r="218" g="165" b="32"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Ne" name="Neon" atomicNumber="10" 
+                 atomicWeight="20.180" covalentRadius="0.69" vdwRadius="1.47"
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="105" b="180"/>
+       </display> 
+   </atom>
+
+   <atom>
+       <physical symbol="Na" name="Sodium" atomicNumber="11" 
+                 atomicWeight="22.99" covalentRadius="1.54" vdwRadius="2.27"
+                 defaultValency="1" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="0" g="234" b="58"/>
+       </display>       
+   </atom>
+   
+   <atom>
+       <physical symbol="Mg" name="Magnesium" atomicNumber="12" 
+                 atomicWeight="24.3050" covalentRadius="1.30" vdwRadius="1.73" 
+                 defaultValency="2" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="193" g="104" b="62"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Al" name="Aluminium" atomicNumber="13" 
+                 atomicWeight="26.982" covalentRadius="1.18" vdwRadius="1.7" 
+                 defaultValency="3" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="187" g="198" b="193"/>
+       </display> 
+   </atom>      
+   
+   <atom>
+       <physical symbol="Si" name="Silicon" atomicNumber="14" 
+                 atomicWeight="28.086" covalentRadius="1.11" vdwRadius="2.1" 
+                 defaultValency="4" weakBondAngle="0.0"
+                 doubleBondOverlap="0.80" />
+       <display>
+           <color r="135" g="157" b="121"/>
+       </display> 
+   </atom> 
+   
+   <atom>
+       <physical symbol="P" name="Phosphorous" atomicNumber="15" 
+                 atomicWeight="30.97" covalentRadius="1.06" vdwRadius="1.06"
+                 defaultValency="5" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="128" g="128" b="0"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="S" name="Sulfur" atomicNumber="16" 
+                 atomicWeight="32.066" covalentRadius="1.02" vdwRadius="1.8" 
+                 defaultValency="6" weakBondAngle="1.221730476"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="255" b="0"/>
+       </display>        
+   </atom>
+
+   <atom>
+       <physical symbol="Cl" name="Chlorine" atomicNumber="17" 
+                 atomicWeight="35.453" covalentRadius="0.99" vdwRadius="1.75"
+                 defaultValency="7" weakBondAngle="1.047197551"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="0" g="232" b="232"/>
+       </display>        
+   </atom>
+   
+   <atom>
+       <physical symbol="Ar" name="Argon" atomicNumber="18" 
+                 atomicWeight="39.948" covalentRadius="0.97" vdwRadius="1.88" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="200" g="255" b="255"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="K" name="Potassium" atomicNumber="19" 
+                 atomicWeight="39.098" covalentRadius="1.96" vdwRadius="2.75" 
+                 defaultValency="1" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="128" g="0" b="128"/>
+       </display>  
+   </atom>
+   
+   <atom>
+       <physical symbol="Ca" name="Calcium" atomicNumber="20" 
+                 atomicWeight="40.078" covalentRadius="1.74" vdwRadius="2.45" 
+                 defaultValency="2" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="230" g="230" b="230"/>
+       </display>         
+   </atom>      
+   
+   <atom>
+       <physical symbol="Sc" name="Scandium" atomicNumber="21" 
+                 atomicWeight="44.956" covalentRadius="1.44" vdwRadius="1.37" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="230" g="230" b="230"/>
+       </display>         
+   </atom> 
+
+   <!--
+   TODO: Need to edit the stuff below:
+   -->   
+   
+   <atom>
+       <physical symbol="Ti" name="Titanium" atomicNumber="22" 
+                 atomicWeight="47.867" covalentRadius="1.36" vdwRadius="1.37" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>      
+   
+   <atom>
+       <physical symbol="V" name="Vanadium" atomicNumber="23" 
+                 atomicWeight="50.942" covalentRadius="1.25" vdwRadius="1.37" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>   
+   
+   <atom>
+       <physical symbol="Cr" name="Chromium" atomicNumber="24" 
+                 atomicWeight="51.996" covalentRadius="1.27" vdwRadius="1.37" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Mn" name="Manganese" atomicNumber="25" 
+                 atomicWeight="54.938" covalentRadius="1.39" vdwRadius="1.37" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Fe" name="Iron" atomicNumber="26" 
+                 atomicWeight="55.845" covalentRadius="1.25" vdwRadius="1.456" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="165" b="0"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Co" name="Cobalt" atomicNumber="27" 
+                 atomicWeight="58.933" covalentRadius="1.26" vdwRadius="0.88" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Ni" name="Nickel" atomicNumber="28" 
+                 atomicWeight="58.693" covalentRadius="1.21" vdwRadius="1.63" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Cu" name="Copper" atomicNumber="29" 
+                 atomicWeight="63.546" covalentRadius="1.38" vdwRadius="1.40"
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="204" g="66" b="0"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Zn" name="Zinc" atomicNumber="30" 
+                 atomicWeight="65.409" covalentRadius="1.31" vdwRadius="1.39" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Ga" name="Gallium" atomicNumber="31" 
+                 atomicWeight="69.723" covalentRadius="1.26" vdwRadius="1.87" 
+                 defaultValency="3" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Ge" name="Germanium" atomicNumber="32" 
+                 atomicWeight="72.64" covalentRadius="1.22" vdwRadius="1.95" 
+                 defaultValency="4" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="85" g="107" b="47"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="As" name="Arsenic" atomicNumber="33" 
+                 atomicWeight="74.923" covalentRadius="1.19" vdwRadius="1.85" 
+                 defaultValency="5" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="253" g="245" b="230"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Se" name="Selenium" atomicNumber="34" 
+                 atomicWeight="78.96" covalentRadius="1.16" vdwRadius="1.90" 
+                 defaultValency="6" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="152" g="251" b="152"/>
+       </display>         
+   </atom>      
+   
+   <atom>
+       <physical symbol="Br" name="Bromium" atomicNumber="35" 
+                 atomicWeight="79.904" covalentRadius="1.14" vdwRadius="1.85" 
+                 defaultValency="5" weakBondAngle="1.047"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Kr" name="Krypton" atomicNumber="36" 
+                 atomicWeight="83.798" covalentRadius="1.10" vdwRadius="2.02" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="50" g="205" b="50"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Rb" name="Rubidium" atomicNumber="37" 
+                 atomicWeight="85.468" covalentRadius="2.11" vdwRadius="1.58" 
+                 defaultValency="1" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Sr" name="Strontium" atomicNumber="38" 
+                 atomicWeight="87.62" covalentRadius="1.92" vdwRadius="2.151" 
+                 defaultValency="2" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Y" name="Yttrium" atomicNumber="39" 
+                 atomicWeight="88.91" covalentRadius="1.62" vdwRadius="1.801" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Zr" name="Zirconium" atomicNumber="40" 
+                 atomicWeight="91.224" covalentRadius="1.48" vdwRadius="1.602" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Nb" name="Niobium" atomicNumber="41" 
+                 atomicWeight="92.906" covalentRadius="1.37" vdwRadius="1.468" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Mo" name="Molybdenum" atomicNumber="42" 
+                 atomicWeight="95.94" covalentRadius="1.45" vdwRadius="1.526" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="127" b="80"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Tc" name="Technetium" atomicNumber="43" 
+                 atomicWeight="98" covalentRadius="1.56" vdwRadius="1.360" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Ru" name="Ruthenium" atomicNumber="44" 
+                 atomicWeight="101.07" covalentRadius="1.26" vdwRadius="1.339" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Rh" name="Rhodium" atomicNumber="45" 
+                 atomicWeight="102.91" covalentRadius="1.35" vdwRadius="1.345" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Pd" name="Palladium" atomicNumber="46" 
+                 atomicWeight="106.42" covalentRadius="1.31" vdwRadius="1.63" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Ag" name="Silver" atomicNumber="47" 
+                 atomicWeight="107.87" covalentRadius="1.53" vdwRadius="1.72" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Cd" name="Cadmium" atomicNumber="48" 
+                 atomicWeight="112.41" covalentRadius="1.48" vdwRadius="1.72"
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="140" b="0"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="In" name="Indium" atomicNumber="49" 
+                 atomicWeight="114.818" covalentRadius="1.44" vdwRadius="1.72"
+                 defaultValency="3" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Sn" name="Tin" atomicNumber="50" 
+                 atomicWeight="118.710" covalentRadius="1.41" vdwRadius="2.17" 
+                 defaultValency="4" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Sb" name="Antimony" atomicNumber="51" 
+                 atomicWeight="121.760" covalentRadius="1.38" vdwRadius="2.05" 
+                 defaultValency="5" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Te" name="Tellurium" atomicNumber="52" 
+                 atomicWeight="127.60" covalentRadius="1.35" vdwRadius="2.06" 
+                 defaultValency="6" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="I" name="Iodine" atomicNumber="53" 
+                 atomicWeight="126.9" covalentRadius="1.33" vdwRadius="1.98" 
+                 defaultValency="7" weakBondAngle="1.047"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="160" g="32" b="240"/>
+       </display> 
+   </atom>      
+   
+   <atom>
+       <physical symbol="Xe" name="Xenon" atomicNumber="54" 
+                 atomicWeight="131.293" covalentRadius="1.30" vdwRadius="2.16" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="105" b="180"/>
+       </display>         
+   </atom>
+   
+   <atom>
+       <physical symbol="Cs" name="Caesium" atomicNumber="55" 
+                 atomicWeight="132.905" covalentRadius="2.25" vdwRadius="1.8" 
+                 defaultValency="1" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="165" g="42" b="42"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Ba" name="Barium" atomicNumber="56" 
+                 atomicWeight="137.33" covalentRadius="1.98" vdwRadius="2.243" 
+                 defaultValency="2" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="La" name="Lanthanum" atomicNumber="57" 
+                 atomicWeight="137.33" covalentRadius="1.69" vdwRadius="1.877"
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Lu" name="Lutetium" atomicNumber="71" 
+                 atomicWeight="174.967" covalentRadius="1.60" vdwRadius="2.17" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Hf" name="Hafnium" atomicNumber="72" 
+                 atomicWeight="179.49" covalentRadius="1.50" vdwRadius="1.580" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Ta" name="Tantalum" atomicNumber="73" 
+                 atomicWeight="180.95" covalentRadius="1.38" vdwRadius="1.467" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="W" name="Tungsten" atomicNumber="74" 
+                 atomicWeight="183.85" covalentRadius="1.46" vdwRadius="1.534" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="64" g="224" b="208"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Re" name="Rhenium" atomicNumber="75" 
+                 atomicWeight="186.207" covalentRadius="1.59" vdwRadius="1.375" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Os" name="Osmium" atomicNumber="76" 
+                 atomicWeight="190.23" covalentRadius="1.28" vdwRadius="1.353" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Ir" name="Iridium" atomicNumber="77" 
+                 atomicWeight="192.217" covalentRadius="1.37" vdwRadius="1.357" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Pt" name="Platinum" atomicNumber="78" 
+                 atomicWeight="195.078" covalentRadius="1.28" vdwRadius="1.72" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="190" g="190" b="190"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Au" name="Gold" atomicNumber="79" 
+                 atomicWeight="196.967" covalentRadius="1.44" vdwRadius="1.66" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="215" b="0"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Hg" name="Mercury" atomicNumber="80" 
+                 atomicWeight="200.59" covalentRadius="1.49" vdwRadius="1.55" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="215" b="0"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Tl" name="Thallium" atomicNumber="81" 
+                 atomicWeight="204.383" covalentRadius="1.48" vdwRadius="1.96" 
+                 defaultValency="3" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="215" b="0"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Pb" name="Lead" atomicNumber="82" 
+                 atomicWeight="207.2" covalentRadius="1.47" vdwRadius="2.02" 
+                 defaultValency="4" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="100" g="100" b="100"/>
+       </display> 
+   </atom>
+   
+   <atom>
+       <physical symbol="Bi" name="Bismuth" atomicNumber="83" 
+                 atomicWeight="208.980" covalentRadius="1.46" vdwRadius="2.15"
+                 defaultValency="5" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="255" g="181" b="197"/>
+       </display> 
+   </atom>
+   
+   <!--
+   The fallback atom that should always exist!
+   -->
+   <atom>
+       <physical symbol="X" name="Default" atomicNumber="0" 
+                 atomicWeight="0.0" covalentRadius="0.2" vdwRadius="0.2" 
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="254" g="254" b="254"/>
+       </display> 
+   </atom>
+   
+   <!--
+   The Vector!
+   -->
+   <atom>
+       <physical symbol="Vec" name="Vector" atomicNumber="0" 
+                 atomicWeight="1.0" covalentRadius="0.2" vdwRadius="0.2"
+                 defaultValency="0" weakBondAngle="0.0"
+                 doubleBondOverlap="0.0" />
+       <display>
+           <color r="0" g="254" b="0"/>
+       </display> 
+   </atom>
+</atominfo>
+

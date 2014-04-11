@@ -1,0 +1,19 @@
+// Purpose: to make a backbone molecule template
+// @author V. Ganesh
+
+molTemplate(points, atomSymbol) {
+   m = molecule("unknown");
+   idx=0;
+   for(point : points) { 
+      atm = atom(atomSymbol, 0.0, point);
+      atm.setIndex(idx++);
+      m.addAtom(atm);
+   }
+   return m;
+}
+
+// test
+t=new org.meta.math.geom.Tetrahedron(point(0,0,0), 3.12);
+m=molTemplate(t.getVertices(), "Ne");
+showMolecule(m);
+

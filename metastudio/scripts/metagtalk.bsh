@@ -1,0 +1,21 @@
+// Smack library is used here. Note that smack is not a part of MeTA Studio distribution
+// it should be separately obtained from 
+// http://www.igniterealtime.org/downloads/download-landing.jsp?file=smack/smack_3_0_4.tar.gz
+// and then put smack.jar and smackx.jar into meta/lib/ext directory. Then load smack external 
+// library using (this is needed to be done only once):
+//   java -jar MeTA.jar --addlibs smack smackx 
+// before using this script.
+
+import org.jivesoftware.smack.*;
+import org.jivesoftware.smack.packet.*;
+
+XMPPConnection connection = new XMPPConnection("gmail.com");
+connection.connect();
+connection.login("user", "passwd");
+Chat chat = connection.getChatManager().createChat("friend@gmail.com", new MessageListener() {
+    public void processMessage(Chat chat, Message message) {
+        System.out.println("Received message: " + message);
+    }
+});
+chat.sendMessage("Howdy!");
+

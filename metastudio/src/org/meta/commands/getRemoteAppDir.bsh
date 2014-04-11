@@ -1,0 +1,10 @@
+/**
+ * getRemoteAppDir() - get the remote apps directory storage
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+getRemoteAppDir() {
+   return org.meta.common.resource.StringResource.getInstance().getRemoteAppDir();
+}

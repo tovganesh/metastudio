@@ -1,0 +1,22 @@
+/**
+ * editMolecule() - open the molecule object in a molecule editor
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.molecule.*;
+import org.meta.shell.idebeans.MoleculeEditorFrame;
+
+editMolecule(Molecule mol) {
+    ideInstance = getIDEInstance();
+    MoleculeEditorFrame mef = new MoleculeEditorFrame(ideInstance);
+
+    // add a dummy molecule scene as a starter
+    mef.getMoleculeEditor().disableUndo();
+    mef.addScene(moleculeScene(mol));
+    mef.getMoleculeEditor().enableUndo();
+
+    // add the frame to studio desktop
+    ideInstance.getWorkspaceDesktop().addInternalFrame(mef, false, true);
+}

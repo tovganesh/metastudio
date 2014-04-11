@@ -1,0 +1,14 @@
+/**
+ * moleculeScene() - creates an instance of MoleculeScene
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0)
+ */
+
+import org.meta.molecule.*;
+import org.meta.shell.idebeans.viewers.impl.moleculeviewer.*;
+
+moleculeScene(Molecule mol) {
+    return new MoleculeScene(mol);
+}
+

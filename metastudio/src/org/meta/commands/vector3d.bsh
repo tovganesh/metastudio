@@ -1,0 +1,17 @@
+/**
+ * vector3d() - creates an instance of Vector3D class
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.math.*;
+import org.meta.math.geom.*;
+
+Vector3D vector3d(double x, double y, double z) {
+    return new Vector3D(x, y, z);
+}
+
+Vector3D vector3d(Point3D point) {
+    return new Vector3D(point);
+}

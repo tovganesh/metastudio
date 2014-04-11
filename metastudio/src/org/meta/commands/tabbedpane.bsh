@@ -1,0 +1,10 @@
+/**
+ * tabbedpane() - creates an instance of JTabbedPane.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+tabbedpane() {
+    return new javax.swing.JTabbedPane();
+}

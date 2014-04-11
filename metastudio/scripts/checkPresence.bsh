@@ -1,0 +1,9 @@
+import org.meta.molecule.*;
+
+checkPresence(String m1, String f1, double radius, int atomIndex) {
+    mol=readMoleculeFile(m1);
+    buildConnectivity(mol);
+    mol2=readMoleculeFile(f1);
+    buildConnectivity(mol2);
+    findSphere(mol, mol2, radius, atomIndex);
+}

@@ -1,0 +1,16 @@
+/**
+ * showMoleculeListDialog() - the list of molecules currently loaded, and return 
+ * the currently selected molecule object.
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import org.meta.shell.idebeans.*;
+
+showMoleculeListDialog() {
+    ml = new MoleculeListDialog(getIDEInstance());
+
+    return ml.showListDialog();
+}
+

@@ -1,0 +1,45 @@
+import java.io.*;
+
+import org.meta.common.*;
+import org.meta.config.impl.*;
+import org.meta.molecule.*;
+import org.meta.shell.idebeans.*;
+import org.meta.shell.idebeans.eventhandlers.*;
+
+import org.meta.math.Vector3D;
+import org.meta.math.Matrix3D;
+import org.meta.math.MathUtil;
+
+getLoadedMoleculeFrames() {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = MainMenuEventHandlers.getInstance(null).getIdeInstance();
+    
+    if (ideInstance == null) return null;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return null;
+    
+    // then get the frame list of this desktop
+    frameList = wsDesktop.getFrameList();
+    
+    if (frameList == null) return null;
+    
+    molFrameList = new Vector();
+    
+    // iterate throught the frames and get the list of mol viewers
+    for(frame : frameList) {
+        if (frame instanceof MoleculeViewerFrame) {
+            molFrameList.add(frame);
+        } // end if
+    } // end for
+    
+    return molFrameList;
+} 
+
+m = getLoadedMoleculeFrames().get(0);
+g = m.getMoleculeViewer().getGraphics();
+g.setColor(Color.white);
+g.drawLine(0, 0, 100, 100);
+

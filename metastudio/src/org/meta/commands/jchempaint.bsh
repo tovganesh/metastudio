@@ -1,0 +1,49 @@
+/**
+ * jchempaint() - opens up JChemPaint editor
+ *
+ * @author  V.Ganesh
+ * @version 2.0 (Part of MeTA v2.0) 
+ */
+
+import javax.swing.*;
+import javax.imageio.*;
+import org.meta.common.resource.*;
+
+import org.openscience.cdk.ChemModel;
+import org.openscience.jchempaint.JChemPaintPanel;
+import org.openscience.jchempaint.application.JChemPaint;
+
+jchempaint() {
+   jChemPaintPanel = new JChemPaintPanel(new ChemModel(), JChemPaint.GUI_APPLICATION, false, null);
+   jChemPaintPanel.setShowMenuBar(false);
+
+   ideInstance = getIDEInstance();
+
+   jmolFrame = new JInternalFrame("JChemPaint editor"
+               + "Configured for: " + StringResource.getInstance().getVersion(),
+                                            true, true, true, true);
+   jmolFrame.setFrameIcon(new ImageIcon(Toolkit.getDefaultToolkit()
+                                .getImage(ideInstance.getClass().getResource(
+                                      "/org/openscience/jmol/images/icon.png"))
+                                .getScaledInstance(16,16,Image.SCALE_SMOOTH)));
+
+   jmolFrame.add(jChemPaintPanel, BorderLayout.CENTER);
+
+   addToIDE(jmolFrame);
+}
+
+addToIDE(editor) {
+    // get the current IDE instance ... hoping that this is already inited
+    ideInstance = getIDEInstance();
+    
+    if (ideInstance == null) return;
+    
+    // then get the workspace desktop instance
+    wsDesktop = ideInstance.getWorkspaceDesktop();
+    
+    if (wsDesktop == null) return;
+
+    // then add it to the desktop
+    wsDesktop.addInternalFrame(editor, false, true);    
+}
+
