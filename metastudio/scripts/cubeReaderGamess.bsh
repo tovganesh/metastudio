@@ -115,7 +115,7 @@ cubeReader(cubeFileName) {
     return property;
 }
 
-p = cubeReader("/home/ganesh/Downloads/Lin_2C_1_EP.dat");
+p = cubeReader(showFileDialog());
 
 sc = getLoadedMoleculeScenes().get(0);
 ps = new PropertyScene(sc, p);
