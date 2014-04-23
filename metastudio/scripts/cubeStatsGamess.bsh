@@ -1,0 +1,255 @@
+/**
+ * surface stats from a GAMESS (2009) .dat file with a grid property
+ * @author V.Ganesh
+ * Lic: LGPL
+ * Cite: "MeTA studio: A cross platform, programmable IDE for computational chemist", V. Ganesh, J. Comput. Chem., 30, 661 (2009). (Web: http://code.google.com/p/metastudio/)
+ */
+import java.io.*;
+import java.util.StringTokenizer;
+
+import org.meta.common.*;
+import org.meta.math.geom.*;
+import org.meta.molecule.impl.*;
+import org.meta.propertyreader.*;
+import org.meta.molecule.property.electronic.*;
+import org.meta.shell.idebeans.graphics.surfaces.*;
+
+class PropStat {
+   public double vdwSurfaceArea;
+   public double posSurfaceArea;
+   public double negSurfaceArea;
+   public double maxValue;
+   public double minValue;
+   public double avgValue;
+   public double avgPosValue;
+   public double avgNegValue;
+   public double maxMinDistance;
+   public int noOfPos;
+   public int noOfNeg;
+   public int noOfVals;
+
+   public PropStat() {
+      vdwSurfaceArea = posSurfaceArea = negSurfaceArea = 0.0;
+      maxValue = Double.MIN_VALUE;
+      minValue = Double.MAX_VALUE;
+      avgValue = avgPosValue = avgNegValue = maxMinDistance = 0.0;
+      noOfPos = noOfNeg = noOfVals = 0;
+   }
+}
+
+cubeReader(cubeFileName) {
+    reader=openFile(cubeFileName);
+
+    // keep reading till the required line reached
+    while(true) {
+      line = reader.readLine();
+      if (line == null) continue;
+      if (line.trim().equals("----- START OF CUBE FORMAT -----")) break;
+    }
+
+    reader.readLine(); reader.readLine();
+
+    // then the grid property starts
+    GridProperty property = new GridProperty();
+    StringTokenizer tokenizer;
+    String line;
+    
+    line = reader.readLine();    
+
+    tokenizer = new StringTokenizer(line);
+
+    int noOfAtoms = Math.abs(Integer.parseInt(tokenizer.nextToken()));
+
+    // print("Number of atoms: " + noOfAtoms);
+
+    BoundingBox bb = new BoundingBox();
+    bb.getUpperLeft().setX(angstroms(Double.parseDouble(tokenizer.nextToken())));
+    bb.getUpperLeft().setY(angstroms(Double.parseDouble(tokenizer.nextToken())));
+    bb.getUpperLeft().setZ(angstroms(Double.parseDouble(tokenizer.nextToken())));      
+
+    // read NX, NY, NZ
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+    
+    property.setNoOfPointsAlongX(Integer.parseInt(tokenizer.nextToken()));
+    property.setXIncrement(angstroms(Double.parseDouble(tokenizer.nextToken())));
+
+    // NY
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+    
+    property.setNoOfPointsAlongY(Integer.parseInt(tokenizer.nextToken()));
+    tokenizer.nextToken();
+    property.setYIncrement(angstroms(Double.parseDouble(tokenizer.nextToken())));
+
+    // NZ
+    line = reader.readLine();
+    tokenizer = new StringTokenizer(line);
+    
+    property.setNoOfPointsAlongZ(Integer.parseInt(tokenizer.nextToken()));
+    tokenizer.nextToken(); tokenizer.nextToken();
+    property.setZIncrement(angstroms(Double.parseDouble(tokenizer.nextToken())));
+
+    // bottom right
+    bb.getBottomRight().setX(bb.getUpperLeft().getX() 
+                   + ((property.getNoOfPointsAlongX()+1)*property.getXIncrement()));
+    bb.getBottomRight().setY(bb.getUpperLeft().getY()
+                   + ((property.getNoOfPointsAlongY()+1)*property.getYIncrement()));
+    bb.getBottomRight().setZ(bb.getUpperLeft().getZ()
+                   + ((property.getNoOfPointsAlongZ()+1)*property.getZIncrement()));
+
+    property.setBoundingBox(bb);
+
+    // print(property);
+
+    mol = molecule("gamess-molecule");
+
+    ai = atomInfo();
+
+    // from the next line the Molecule entry starts
+    for(i=0; i<noOfAtoms; i++) { 
+      line = reader.readLine().trim();
+      // print("mol:] " + line);
+      words = line.split("\\s+");
+      mol.addAtom(atom(ai.getSymbol(Integer.parseInt(words[0])), 0.0, 
+                       point(angstroms(Double.parseDouble(words[2])), angstroms(Double.parseDouble(words[3])), angstroms(Double.parseDouble(words[4])))));
+    }
+
+    // buildSimpleConnectivity(mol);
+    // showMolecule(mol);
+
+    // set up the grid array to copy the function values
+    int noOfGridPoints = property.getNumberOfGridPoints();
+        
+    double [] functionValues = new double[noOfGridPoints];
+
+    // start a tokeniser to obtain all the values in the grid
+    ScientificStreamTokenizer sTokenizer = new ScientificStreamTokenizer(reader.getStream()); 
+        
+    try {
+        int ijkl = 0;
+        N1 = property.getNoOfPointsAlongX();
+        N2 = property.getNoOfPointsAlongY();
+        N3 = property.getNoOfPointsAlongZ();
+        for(int i=0; i<N1; i++) {
+            for(int j=0; j<N2; j++) {
+                for(int k=0; k<N3; k++) {
+                   if (sTokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
+                         throw new IOException("Could not understand format : " 
+                                               + sTokenizer + " => " + sTokenizer.sval);
+                   } else {
+                     functionValues[ijkl] = sTokenizer.nval;
+                   } // end  if
+                   ijkl++;
+                } // end for
+            } // end for
+         } // end for
+    } catch (Exception e) {
+         // TODO: ignore reading problems
+         // print("may be an error " + e.toString());
+    } // end of try ... catch block
+
+    // setup the function values in property object
+    property.setFunctionValues(functionValues);
+
+    reader.close();
+
+    // map to vdw property
+    vdwProperty = (new VdwGridPropertyGenerator(mol)).getGridProperty();
+    ijkl = 0;
+    noOfPointsAlongX = vdwProperty.getNoOfPointsAlongX();
+    noOfPointsAlongY = vdwProperty.getNoOfPointsAlongY();
+    noOfPointsAlongZ = vdwProperty.getNoOfPointsAlongZ();
+    noOfPointsInXY   = noOfPointsAlongY*noOfPointsAlongZ;
+
+    xInc = vdwProperty.getXIncrement();
+    yInc = vdwProperty.getYIncrement();
+    zInc = vdwProperty.getZIncrement();
+
+    bb = vdwProperty.getBoundingBox();
+
+    xMin = bb.getUpperLeft().getX();
+    yMin = bb.getUpperLeft().getY();
+    zMin = bb.getUpperLeft().getZ();
+
+    propStat = new PropStat();
+
+    minPoint = point(0.0, 0.0, 0.0);
+    maxPoint = point(0.0, 0.0, 0.0);
+
+    for(int x=0; x<noOfPointsAlongX; x++) {
+       xx = x * noOfPointsInXY;
+       xpt = xMin + x * xInc;
+       for(int y=0; y<noOfPointsAlongY; y++) {
+          yy = y * noOfPointsAlongZ;
+          ypt = yMin + y * yInc;
+          for(int z=0; z<noOfPointsAlongZ; z++) {
+             zpt = zMin + z * zInc;
+             ii = xx + yy + z;
+             fVal = vdwProperty.getFunctionValueAt(xpt, ypt, zpt);
+             if (fVal < 0.0) { 
+               eFVal = property.getFunctionValueAt(xpt, ypt, zpt);
+
+               if (eFVal > propStat.maxValue) {
+                 propStat.maxValue = eFVal; 
+                 maxPoint = point(xpt, ypt, zpt);
+               }
+              
+               if (eFVal < propStat.minValue) {
+                 propStat.minValue = eFVal; 
+                 minPoint = point(xpt, ypt, zpt);
+               }
+
+               propStat.noOfVals++;
+               propStat.avgValue += eFVal;
+
+               if (eFVal >= 0) {
+                 propStat.noOfPos++;
+                 propStat.avgPosValue += eFVal;
+               } else {
+                 propStat.noOfNeg++;
+                 propStat.avgNegValue += eFVal;
+               }
+             }
+           }
+        }
+     }
+
+     propStat.avgPosValue /= propStat.noOfPos;
+     propStat.avgNegValue /= propStat.noOfNeg;
+     propStat.avgValue    /= propStat.noOfVals; 
+
+     propStat.maxMinDistance = minPoint.distanceFrom(maxPoint);
+    
+     p = (xInc + yInc + zInc) / 2.0;
+     unitSqA = Math.sqrt(p * (p-xInc) * (p-yInc) * (p-zInc)) * 2.0;  // TODO: better estimate
+
+     propStat.vdwSurfaceArea = unitSqA * propStat.noOfVals;
+     propStat.posSurfaceArea = unitSqA * propStat.noOfPos;
+     propStat.negSurfaceArea = unitSqA * propStat.noOfNeg;
+     
+
+    return propStat;
+}
+
+printStats(p) {
+    print((new File(fl)).getName() + ", " + 
+           p.vdwSurfaceArea + ", " +
+           p.posSurfaceArea + ", " +
+           p.negSurfaceArea + ", " +
+           p.maxValue + ", " +
+           p.minValue + ", " +
+           p.avgValue + ", " +
+           p.avgPosValue + ", " +
+           p.avgNegValue + ", " +
+           p.maxMinDistance + ", " +
+           p.noOfPos + ", " +
+           p.noOfNeg + ", " +
+           p.noOfVals + ", " +
+           "\n");
+}
+
+fl = showFileDialog();
+p = cubeReader(fl);
+printStats(p);
+
