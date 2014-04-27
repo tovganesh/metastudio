@@ -159,6 +159,8 @@ public class FilePanel extends JPanel {
     private void initComponents() {
         setLayout(new BorderLayout());
         
+        fileSystems = new JTree(dirTree);
+        
         // make the initial tree ... as a separate thread
         dirTree = new DefaultMutableTreeNode("Filesystems");
         Thread treeMaker = new Thread() {
@@ -171,7 +173,7 @@ public class FilePanel extends JPanel {
                                    new DefaultMutableTreeNode("User home");
             
             dirTree.add(loading); // indicate user that some thing is on ..
-            fileSystems = new JTree(dirTree);
+            
             fileSystems.setCellRenderer(new TreeCellRenderer());        
         
             add(new JScrollPane(fileSystems), BorderLayout.CENTER);

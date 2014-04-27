@@ -140,13 +140,7 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
         // and load the external libraries
         System.out.print("Loading external libs...");
         loadExternalLibs();
-        System.out.println(" Done.");
-
-        // and initiate the BeanShell so that startup widgets can be loaded
-        System.out.print("Loading widgets and plugins...");
-        startupScriptEngine = new BeanShellScriptEngineGUI();
-        startupScriptEngine.getShellUI();
-        System.out.println(" Done.");
+        System.out.println(" Done.");        
 
         // set devider sizes
         mainSplitPane.setDividerLocation(0.0);
@@ -161,6 +155,15 @@ public class MeTA extends JFrame implements WorkspaceChangeListener {
         workspaceSplitPane.setResizeWeight(1.0);
         mainSplitPane.setDividerLocation(0.0);
         workspaceSplitPane.setDividerLocation(1.0);
+        
+        // finally start the aux panels of explorer
+        workspaceExplorer.addAuxPanels();
+        
+        // and initiate the BeanShell so that startup widgets can be loaded
+        System.out.print("Loading widgets and plugins...");
+        startupScriptEngine = new BeanShellScriptEngineGUI();
+        startupScriptEngine.getShellUI();
+        System.out.println(" Done.");
     }
     
     /**

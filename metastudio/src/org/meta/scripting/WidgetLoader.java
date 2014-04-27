@@ -65,6 +65,7 @@ public class WidgetLoader {
                     try {
                         ScriptEngine scriptEngine = theEngine.getNewInstance();
                         scriptEngine.init();
+                        scriptEngine.loadBuiltInModules();
 
                         // each widget needs to be loaded in a new instance of the
                         // engine ..

@@ -55,8 +55,15 @@ public class LogWindow extends JInternalFrame {
         // and then init the logger 
         logger = Logger.getLogger(StringResource.getInstance().
                                                  getIdeLoggerName());                
-        logger.addHandler(new TextAreaLogHandler(workSpaceLogArea));  
+        logger.addHandler(new TextAreaLogHandler(workSpaceLogArea));
         
+        enableStdStreamCapture();
+    }
+    
+    /**
+     * Enable capturing of std streams
+     */
+    public void enableStdStreamCapture() {
         try { captureStdStreams(); } catch (Exception e) { 
             runtimeLogArea.append("\nError in redirection thread.");
             runtimeLogArea.append("\nException is : " + e.toString());

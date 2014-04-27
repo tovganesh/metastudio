@@ -466,11 +466,16 @@ public class RDFJobNotificationPanel extends JPanel {
                         }
                     }); // addMouseListener
                 
-                    if (doRemoveElements) removeAll();
-
-                    add(new JScrollPane(rdfTree), BorderLayout.CENTER);
-                    
-                    updateUI();
+                    SwingUtilities.invokeLater(new Runnable() {
+                        @Override
+                        public void run() {
+                            if (doRemoveElements) {
+                                removeAll();
+                            }
+                            add(new JScrollPane(rdfTree), BorderLayout.CENTER);
+                            updateUI();
+                        }
+                    });
                 }
             }; // end of thread treeMaker
             
