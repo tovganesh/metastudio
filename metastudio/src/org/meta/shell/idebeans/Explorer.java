@@ -215,6 +215,18 @@ public class Explorer extends JInternalFrame {
                             "Manage the current workspace using"
                             + " the hierarchial setup");
         
+        // finally add the panel!
+        getContentPane().setLayout(new BorderLayout());
+        getContentPane().add(explorerPane);
+    }
+    
+    /**
+     * add aux panels
+     */
+    public void addAuxPanels() {
+        ImageResource images = ImageResource.getInstance();
+        StringResource strings = StringResource.getInstance();
+        
         filePanel = new FilePanel(ideInstance);       
         explorerPane.addTab(null, 
         new CompositeIcon(images.getFileSystem(), 
@@ -243,11 +255,7 @@ public class Explorer extends JInternalFrame {
                          VerticalTextIcon.ROTATE_LEFT), CompositeIcon.BOTTOM), 
                          widgetsPanel);                
         explorerPane.setToolTipTextAt(4, 
-           "Expand the functionality of MeTA Studio with useful widgets.");
-        
-        // finally add the panel!
-        getContentPane().setLayout(new BorderLayout());
-        getContentPane().add(explorerPane);
+           "Expand the functionality of MeTA Studio with useful widgets.");        
     }
     
     /** Getter for property widgetsPanel.

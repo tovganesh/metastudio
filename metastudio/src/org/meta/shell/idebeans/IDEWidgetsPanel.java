@@ -264,7 +264,7 @@ public class IDEWidgetsPanel extends JPanel {
     }
 
     /**
-     * overriden removeAll() method
+     * overridden removeAll() method
      */
     @Override
     public void removeAll() {
