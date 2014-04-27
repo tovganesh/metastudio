@@ -17,7 +17,7 @@ import java.io.File;
  */
 public class StringResource implements Resource {
     
-    private static final String BUILD_NUMBER = "18032014";
+    private static final String BUILD_NUMBER = "27042014";
     private static final String IDE_VERSION = "MeTA Studio v2.0." 
                                               + BUILD_NUMBER;
 
