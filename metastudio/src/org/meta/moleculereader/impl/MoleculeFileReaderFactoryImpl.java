@@ -17,8 +17,7 @@ import org.meta.moleculereader.MoleculeFileReaderFactory;
  * @author  V.Ganesh
  * @version 2.0 (Part of MeTA v2.0)
  */
-public class MoleculeFileReaderFactoryImpl 
-                                      implements MoleculeFileReaderFactory {
+public class MoleculeFileReaderFactoryImpl implements MoleculeFileReaderFactory {
     
     private ResourceBundle resources;
     private Vector<String> theKeys;
@@ -50,7 +49,7 @@ public class MoleculeFileReaderFactoryImpl
      * of the MoleculeFileReader interface.
      *
      * @return an Iterator of string objects, each indicating an available 
-     *         implimentaion of MoleculeFileReader interface.
+     *         implementation of MoleculeFileReader interface.
      */
     public Iterator<String> getAllSupportedTypes() {
         return theKeys.iterator();
