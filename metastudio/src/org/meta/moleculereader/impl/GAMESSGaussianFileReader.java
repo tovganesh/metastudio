@@ -174,7 +174,7 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
     }
 
     /**
-     * reader gaussian cube file
+     * reader Gaussian cube file
      */
      private void readGaussianCube(BufferedReader reader, Molecule molecule,
                                    boolean readDeep) throws IOException {
@@ -274,8 +274,11 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
             if ((line = reader.readLine()).indexOf("Coordinates (") >= 0) break;
         } // end if
         
-        // skip next FOUR lines
-        for(int i=0; i<2; i++, reader.readLine());
+        // check if there is Atom Type specification
+        line = reader.readLine();
+        boolean hasAtomType = line.contains("Type");
+        // skip next line
+        reader.readLine();
         
         String symbol;
         double x, y, z;
@@ -301,7 +304,7 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
                     symbol = "X"; // ghost atom
             } // end if           
             
-            tokenizer.nextToken(); // skip token this is atom type
+            if (hasAtomType) tokenizer.nextToken(); // skip token this is atom type
             
             //  b) the x coordinate               
             if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
