@@ -523,6 +523,19 @@ public abstract class Molecule {
         sb.append("Bounding box            : ").append(getBoundingBox())
                 .append("\n");
         
+        if (isAdditionalInformationAvailable()) {
+            AdditionalInformation ai = getAdditionalInformation();
+            
+            if (ai != null) { // just to be extra sure!
+                sb.append("Energy                  : ").append(ai.getEnergy())
+                        .append("\n");
+                sb.append("ZP corrected Energy     : ").append(ai.getZpEnergy())
+                        .append("\n");
+                sb.append("Dipole Moment           : ").append(ai.getDipole().toString())
+                        .append("\n");                
+            } // end if
+        } // end if
+        
         return sb.toString();
     }
     
@@ -720,12 +733,14 @@ public abstract class Molecule {
     public static final class AdditionalInformation {
         public AdditionalInformation() { 
             energy = 0.0;
+            zpEnergy = 0.0;
             rmsGradient = 0.0;
             maxGradient = 0.0;
 
             readConnectivity = false;
             pdb = false;
             energyAvailable   = false;
+            zpEnergyAvailable = false;
             gradientAvailable = false;
             dipoleAvailable   = false;
             frequencyDataAvailable  = false;
@@ -761,6 +776,27 @@ public abstract class Molecule {
             this.energy = energy;
         }
 
+        /**
+         * Holds value of property energy.
+         */
+        private double zpEnergy;
+
+        /**
+         * Getter for property zpEnergy.
+         * @return Value of property zpEnergy.
+         */
+        public double getZpEnergy() {
+            return this.zpEnergy;
+        }
+
+        /**
+         * Setter for property zpEnergy.
+         * @param zpEnergy New value of property zpEnergy.
+         */
+        public void setZpEnergy(double zpEnergy) {
+            this.zpEnergy = zpEnergy;
+        }
+        
         /**
          * Holds value of property rmsGradient.
          */
@@ -1015,6 +1051,29 @@ public abstract class Molecule {
             this.energyAvailable = energyAvailable;
         }
 
+        /**
+         * Holds the property energyAvailable
+         */
+        private boolean zpEnergyAvailable;
+
+        /**
+         * Get the value of zpEnergyAvailable
+         *
+         * @return the value of zpEnergyAvailable
+         */
+        public boolean isZpEnergyAvailable() {
+            return zpEnergyAvailable;
+        }
+
+        /**
+         * Set the value of zpEnergyAvailable
+         *
+         * @param zpEnergyAvailable new value of zpEnergyAvailable
+         */
+        public void setZpEnergyAvailable(boolean zpEnergyAvailable) {
+            this.zpEnergyAvailable = zpEnergyAvailable;
+        }
+        
         /**
          * Holds the property gradientAvailable
          */
