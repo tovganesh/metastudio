@@ -373,6 +373,16 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
                 adi.setMaxGradient(Double.parseDouble(words[3]));
                 adi.setRmsGradient(Double.parseDouble(words[5]));
             } // end if
+            
+            // extract ZP corrected energy
+            if (line.indexOf("Sum of electronic and zero-point Energies=") >= 0) {
+                molecule.setAdditionalInformationAvailable(true);
+
+                adi.setZpEnergyAvailable(true);
+
+                String [] words = line.split("\\s+");
+                adi.setZpEnergy(Double.parseDouble(words[1]));
+            }
 
             // extract Dipole moment
             if (line.indexOf("Dipole moment (") >= 0) {
