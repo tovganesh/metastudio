@@ -355,6 +355,7 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
             if (line.indexOf("Z-Matrix orientation:") >= 0) break;
 
             line = line.trim();
+            
             // extract energy
             if (line.indexOf("Done") >= 0) {
                 molecule.setAdditionalInformationAvailable(true);
@@ -375,14 +376,13 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
             } // end if
             
             // extract ZP corrected energy
-            if (line.indexOf("Sum of electronic and zero-point Energies=") >= 0) {
-                molecule.setAdditionalInformationAvailable(true);
+            if (line.indexOf("Zero-point correction=") >= 0) {                
+                molecule.setAdditionalInformationAvailable(true);                
 
                 adi.setZpEnergyAvailable(true);
 
-                String [] words = line.split("\\s+");
-                adi.setZpEnergy(Double.parseDouble(words[1]));
-            }
+                adi.setZpEnergy(Double.parseDouble(line.split("=")[1].trim().split("\\s")[0]));
+            } // end if
 
             // extract Dipole moment
             if (line.indexOf("Dipole moment (") >= 0) {
@@ -428,7 +428,7 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
                 while(true) {
                   // then check to see if we have more data?
                   line = reader.readLine().trim();
-
+         
                   if (line.indexOf("Atom") >= 0) break;
 
                   // reduced mass

@@ -30,6 +30,17 @@ showFileDialog(String title, String type) {
        } else {
            return null;
        } // end if
+    } else if (type.equals("opendir")) {   
+       IDEFileChooser fileChooser = new IDEFileChooser();
+       fileChooser.setDialogTitle(title);    
+       fileChooser.setFileSelectionMode(IDEFileChooser.FILES_AND_DIRECTORIES);
+
+       if (fileChooser.showOpenDialog(getIDEInstance()) 
+            == JFileChooser.APPROVE_OPTION) {
+           return fileChooser.getSelectedFile().getAbsolutePath();
+       } else {
+           return null;
+       } // end if
     } else if (type.equals("save")) {   
        IDEFileChooser fileChooser = new IDEFileChooser();
        fileChooser.setDialogTitle(title);    
