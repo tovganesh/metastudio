@@ -11,8 +11,10 @@
             <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/MoleculeFileReaderFactoryImpl.java</file>
             <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/molecule/Molecule.java</file>
             <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/GAMESSGaussianFileReader.java</file>
+            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/shell/idebeans/IDEFileChooser.java</file>
             <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/commands/readMultiMoleculeFile.bsh</file>
             <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/common/resource/StringResource.java</file>
+            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/commands/showFileDialog.bsh</file>
         </group>
     </open-files>
 </project-private>
