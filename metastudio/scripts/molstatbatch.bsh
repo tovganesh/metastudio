@@ -111,7 +111,7 @@ molStat(fil, log) {
   printIt("======");
 }
 
-fil  = showFileDialog("opendir");
+fil  = showFileDialog("Open", "opendir");
 log  = openFile("molstat.log", "w");
 f = new File(fil);
 if (f.isFile()) {
