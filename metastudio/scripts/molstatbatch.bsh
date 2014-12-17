@@ -1,0 +1,127 @@
+molStat(fil, log) {
+  printIt(str) {
+    print(str);
+    log.write(str + "\n");
+  }
+
+  mols = readMultiMoleculeFile(fil, "false", "false", "true");
+  printIt("File : " + fil);
+  printIt("Geometries : " + mols.size());
+
+  lastMol = mols.get(mols.size()-1);
+  printIt(lastMol.toExtendedString());
+
+  class BondStat {
+     public String a, b;
+     public double dist;
+
+     public BondStat(a, b, dist) {
+       this.a = a; this.b = b; this.dist = dist;
+     }
+
+     public String toString() {
+       return a + " " + b + " " + dist;
+     } 
+  }
+
+  class AngleStat {
+     public String a, b, c;
+     public double angle;
+
+     public AngleStat(a, b, c, angle) {
+       this.a = a; this.b = b; this.c = c; this.angle = angle;
+     }
+
+     public String toString() {
+       return a + " " + b + " " + c + " " + angle;
+     } 
+  }
+
+  getBondStats(mol) {
+     h = new Hashtable();
+
+     for(idx=0; idx<mol.getNumberOfAtoms(); idx++) {
+       atm = mol.getAtom(idx);
+       con = atm.getConnectedList();
+     
+       for(c : con.keys()) {
+          if (c > idx) continue;
+
+          bt = con.get(c);
+          btm = mol.getAtom(c);
+        
+          if (!h.containsKey(bt)) {
+            h.put(bt, new Vector());
+          } 
+
+          h.get(bt).add(new BondStat(atm.getSymbol() + atm.getIndex(), btm.getSymbol() + btm.getIndex(), atm.distanceFrom(btm)));
+       } 
+     } 
+
+     return h;
+  }
+
+  getAngleStats(mol) {
+     h = new Vector();
+
+     for(idx=0; idx<mol.getNumberOfAtoms(); idx++) {
+       atm = mol.getAtom(idx);
+       con = atm.getConnectedList();
+     
+       for(c : con.keys()) {
+          if (c > idx) continue;
+
+          bt = con.get(c);
+          if (!bt.isStrongBond()) continue;
+          btm = mol.getAtom(c);
+          conb = btm.getConnectedList();
+        
+          for(cb : conb.keys()) {
+             if (cb == idx) continue;
+           
+             ct = conb.get(cb);
+             if (!ct.isStrongBond()) continue;
+             ctm = mol.getAtom(cb);
+           
+             str = atm.getSymbol() + atm.getIndex() + "-" + btm.getSymbol() + btm.getIndex() + "-" + ctm.getSymbol() + ctm.getIndex();
+             str2 = "\t" + str + " " + findAngle(mol, atm.getIndex(), btm.getIndex(), ctm.getIndex());
+             printIt(str2);
+          } 
+       } 
+     } 
+
+     return h;
+  }
+
+  printBondStats(stats) {
+     for(k : stats.keys()) {
+       printIt(k);
+       for(itm : stats.get(k)) {
+         printIt("\t" + itm);
+       } 
+     } 
+  }
+
+  stats = getBondStats(lastMol);
+  printBondStats(stats);
+
+  printIt("Angles");
+  getAngleStats(lastMol);
+
+  printIt("======");
+}
+
+fil  = showFileDialog("opendir");
+log  = openFile("molstat.log", "w");
+f = new File(fil);
+if (f.isFile()) {
+  molStat(fil, log);
+} else if (f.isDirectory()) {
+  files = f.listFiles();
+
+  for(fl : files) {
+    molStat(fl.getAbsolutePath(), log);
+  } 
+}
+
+log.close();

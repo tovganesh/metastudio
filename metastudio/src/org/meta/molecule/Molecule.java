@@ -527,12 +527,22 @@ public abstract class Molecule {
             AdditionalInformation ai = getAdditionalInformation();
             
             if (ai != null) { // just to be extra sure!
-                sb.append("Energy                  : ").append(ai.getEnergy())
+                if (ai.isEnergyAvailable()) {
+                  sb.append("Energy                  : ").append(ai.getEnergy())
                         .append("\n");
-                sb.append("ZP corrected Energy     : ").append(ai.getZpEnergy())
+                }
+                
+                if (ai.isZpEnergyAvailable()) { 
+                  sb.append("ZP Correction           : ").append(ai.getZpEnergy())
                         .append("\n");
-                sb.append("Dipole Moment           : ").append(ai.getDipole().toString())
+                }
+                
+                if (ai.isDipoleAvailable()) {
+                  sb.append("Dipole Moment           : ").append(ai.getDipole().toString())
                         .append("\n");                
+                  sb.append("Total Dipole Moment     : ").append(ai.getDipole().magnitude())
+                        .append("\n");                
+                }
             } // end if
         } // end if
         
