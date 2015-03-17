@@ -1,0 +1,1 @@
+For information on NetBeans, visit http://www.netbeans.org

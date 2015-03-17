@@ -1,0 +1,1 @@
+Currently MeTA Studio uses http://skydrive.live.com to host binary distributions.

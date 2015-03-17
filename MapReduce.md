@@ -1,0 +1,1 @@
+MapReduce is an elegant, distributed software framework originally introduced by Google for processing large data sets on a distributed cluster. See http://en.wikipedia.org/wiki/Mapreduce for more information.
