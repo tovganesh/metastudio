@@ -54,15 +54,3 @@ Installation and other information:
 > "MeTA studio: A cross platform, programmable IDE for computational chemist", V. Ganesh, _J. Comput. Chem._, **30**, 661 (2009). (Web: http://code.google.com/p/metastudio/)
 
 
----
-
-
-[Ohloh](http://www.ohloh.net/p/metastudio) Stats:
-&lt;wiki:gadget url="http://www.ohloh.net/p/48277/widgets/project\_users\_logo.xml" height="43"  border="0" /&gt;
-&lt;wiki:gadget url="http://www.ohloh.net/p/48277/widgets/project\_partner\_badge.xml" height="53"  border="0" /&gt;
-
-
----
-
-
-**Note**: I have moved the repository from SVN to Mercurial. Unfortunately, this change removes a lot of commit statements and history, however, its good to restart once in a while ;)
