@@ -1,7 +1,7 @@
 MeTA Studio is programmable IDE tailored for a computational chemist.
 Main features include:
 
-  * A programmable interface primarily through BeanShell with support for  [other languages](http://code.google.com/p/metastudio/wiki/PythonSupportForMeTAStudio)
+  * A programmable interface primarily through BeanShell with support for  [other languages](https://github.com/tovganesh/metastudio/blob/wiki/ProjectHome.md)
   * Workspace support
   * Visualization and Rendering (through JRman)
   * Support for 3-D scalar field visualization
@@ -24,15 +24,15 @@ Ahead in future:
 
 Installation and other information:
 
-  * For installation instructions check http://code.google.com/p/metastudio/wiki/Installation.
-  * Also check http://code.google.com/p/metastudio/wiki/ for general help articles on various topics related to MeTA Studio.
+  * For installation instructions check https://github.com/tovganesh/metastudio/blob/wiki/Installation.md.
+  * Also check https://github.com/tovganesh/metastudio/tree/wiki for general help articles on various topics related to MeTA Studio.
   * For latest updates and screen shots check out my blog at http://tovganesh.blogspot.com/search/label/MeTA
 
   * Latest Version: 2.0.15122014
   * Online Update Release Date (no longer supported): 14 January, 2013
   * Full Binary Release Date: 27 August, 2011
-  * Daily source update (HG access): http://code.google.com/p/metastudio/source/browse/
-  * To get involved check: [How you can help](http://code.google.com/p/metastudio/wiki/HelpNeeded)
+  * Daily source update (GitHub): https://github.com/tovganesh/metastudio/
+  * To get involved check: [How you can help](https://github.com/tovganesh/metastudio/blob/wiki/HelpNeeded.md)
   * Due to change in policies of Google Code, I will no longer support online updates. The last available online update will be v. 2.0.14012013. Henceforth, the updates and any future downloads will be provided on the Google Drive from: https://drive.google.com/folderview?id=0B6SbW3GtHMN5blNzd3hrcHhDbGc&usp=sharing
 
 
