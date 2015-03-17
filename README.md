@@ -1,4 +1,7 @@
 MeTA Studio is programmable IDE tailored for a computational chemist.
+
+(This project was orginally hosted at: https://code.google.com/p/metastudio/, has moved to GitHub as Google Code is closing down.)
+
 Main features include:
 
   * A programmable interface primarily through BeanShell with support for  [other languages](https://github.com/tovganesh/metastudio/blob/wiki/ProjectHome.md)
