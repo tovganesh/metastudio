@@ -33,7 +33,11 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
         this.graphics2d = null;
     }
 
-    /** Creates a new instance of Graphics2D */
+    /** 
+     * Creates a new instance of Graphics2D
+     * 
+     * @param graphics2d the instance of graphics 2d context
+     */
     public PaintGlyphObjectJ2DImpl(Graphics2D graphics2d) {
         this.graphics2d = graphics2d;
     }
@@ -42,7 +46,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Set the current drawing color for this paint object
      *
      * @param color the required color
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void setDrawingColor(Color color) throws GlyphPaintingException {
@@ -53,7 +57,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Get the current drawing color for this paint object
      *
      * @return the current drawing color
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public Color getDrawingColor() throws GlyphPaintingException {
@@ -64,7 +68,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Set the current text font
      *
      * @param font the new text rendering font object
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void setTextFont(Font font) throws GlyphPaintingException {
@@ -75,7 +79,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Get the current text font
      *
      * @return the current text rendering font
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public Font getTextFont() throws GlyphPaintingException {
@@ -87,7 +91,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      *
      * @param a the starting point of line
      * @param b the ending point of line
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawLine(Point3D a, Point3D b) throws GlyphPaintingException {
@@ -99,7 +103,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Draw a Vector
      *
      * @param vec the vector object
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawVector(Vector3D vec) throws GlyphPaintingException {
@@ -111,7 +115,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      *
      * @param vec the vector object
      * @param basePoint the base point from where the vector is to be drawn
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawVector(Vector3D vec, Point3D basePoint) throws GlyphPaintingException {
@@ -123,7 +127,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      *
      * @param text the text the be drawn
      * @param pos the position of the text in space
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawText(String text, Point3D pos) throws GlyphPaintingException {
@@ -135,7 +139,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      *
      * @param center the center the circle
      * @param radius the radius of the this circle
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawCircle(Point3D center, double radius) throws GlyphPaintingException {        
@@ -152,7 +156,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * @param startingPoint the starting point    
      * @param width the width of this Oval
      * @param height the height of this Oval
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawOval(Point3D startingPoint,
@@ -166,7 +170,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Draw a rectangle
      *
      * @param rect the Rectangle2D object to be drawn
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawRectangle(Rectangle2D rect) throws GlyphPaintingException {
@@ -177,7 +181,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Draw a polygon
      *
      * @param polygon the polygon object
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void drawPolygon(Polygon polygon) throws GlyphPaintingException {
@@ -190,7 +194,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      *
      * @param center the center the circle
      * @param radius the radius of the this circle
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void fillCircle(Point3D center, double radius) throws GlyphPaintingException {
@@ -207,7 +211,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * @param startingPoint the starting point
      * @param height the height of this Oval
      * @param width the width of this Oval
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void fillOval(Point3D startingPoint,
@@ -221,7 +225,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Draw a rectangle, and fill it with current drawing color
      *
      * @param rect the Rectangle2D object to be drawn
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void fillRectangle(Rectangle2D rect) throws GlyphPaintingException {
@@ -232,7 +236,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * Draw a polygon, and fill it with current drawing color
      *
      * @param polygon the polygon object
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void fillPolygon(Polygon polygon) throws GlyphPaintingException {
@@ -246,7 +250,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * change its position.
      *
      * @param radius the radius of the sphere
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void fillShpere(double radius) throws GlyphPaintingException {
@@ -262,7 +266,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      * @param height
      * @param baseRadius
      * @param topRadius
-     * @throws org.meta.shell.idebeans.viewers.impl.moleculeviewer.GlyphPaintingException
+     * @throws org.meta.shell.idebeans.graphics.GlyphPaintingException
      */
     @Override
     public void fillCylinder(double height, double baseRadius, double topRadius)
@@ -281,7 +285,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
     @Override
     public void setAdditionalProperty(String propertyName, Object propertyValue) {
         if (additonalProperties == null)
-            additonalProperties = new HashMap<String, Object>();
+            additonalProperties = new HashMap<>();
 
         additonalProperties.put(propertyName, propertyValue);
 
@@ -328,7 +332,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
     /**
      * Get all the properties associated with this paint object
      *
-     * @return A hashmap of all the properties associated with this paint object
+     * @return A HashMap of all the properties associated with this paint object
      */
     @Override
     public HashMap<String, Object> getAllAdditionalProperties() {
