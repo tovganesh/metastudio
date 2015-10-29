@@ -22,6 +22,7 @@ import org.meta.molecule.BondType;
 import org.meta.molecule.MolecularFormula;
 import org.meta.molecule.Molecule;
 import org.meta.molecule.SpecialStructureRecognizer;
+import org.meta.molecule.UserDefinedAtomProperty;
 import org.meta.molecule.event.MoleculeStateChangeEvent;
 
 /**
@@ -214,6 +215,26 @@ public class MoleculeImpl extends Molecule {
     @Override
     public void addAtom(String symbol, double x, double y, double z) {
         addAtom(new Atom(symbol, 0.0, new Point3D(x, y, z)));
+    }
+    
+    /** 
+     * Adds an atom to this molecule object.
+     *
+     * @param symbol the atom symbol
+     * @param x X coordinate of the atom 
+     * @param y Y coordinate of the atom 
+     * @param z Z coordinate of the atom 
+     * @param xi X coordinate of the atom base (vector)
+     * @param yj Y coordinate of the atom base (vector)
+     * @param zk Z coordinate of the atom base (vector)
+     * @param index the atom index
+     */    
+    public void addAtom(String symbol, double x, double y, double z, 
+                                 double xi, double yj, double zk, 
+                                 int index) {
+        Atom atm = new Atom(symbol, 0.0, new Point3D(x, y, z));
+        atm.addUserDefinedAtomProperty(new UserDefinedAtomProperty("baseCenter", new Point3D(xi, yj, zk)));
+        addAtom(atm);
     }
     
     /** 

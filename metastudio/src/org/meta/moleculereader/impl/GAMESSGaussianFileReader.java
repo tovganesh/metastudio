@@ -535,7 +535,7 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
         if (line.trim().equals("")) reader.readLine();
                 
         String symbol;
-        double x, y, z;
+        double x, y, z, xi, yj, zk;
         int atomIndex = 0;
         
         // not read coordinates
@@ -560,9 +560,18 @@ public class GAMESSGaussianFileReader extends AbstractMoleculeFileReader {
             x = Double.parseDouble(words[1]);
             y = Double.parseDouble(words[2]);
             z = Double.parseDouble(words[3]);
-
-            // and now we can safely add this atom to our list            
-            molecule.addAtom(symbol, x, y, z, atomIndex);            
+            
+            if (words.length >= 7) {
+                xi = Double.parseDouble(words[4]);
+                yj = Double.parseDouble(words[5]);
+                zk = Double.parseDouble(words[6]);
+                
+                // and now we can safely add this atom to our list            
+                molecule.addAtom(symbol, x, y, z, xi, yj, zk, atomIndex);   
+            } else {
+                // and now we can safely add this atom to our list            
+                molecule.addAtom(symbol, x, y, z, atomIndex);            
+            } // end if
             
             atomIndex++;            
         } // end while        

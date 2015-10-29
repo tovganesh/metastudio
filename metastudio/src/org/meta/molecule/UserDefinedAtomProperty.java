@@ -8,7 +8,7 @@ package org.meta.molecule;
 import java.io.Serializable;
 
 /**
- * A simple framework for adding arbitary user defined property to Atom instance.
+ * A simple framework for adding arbitrary user defined property to Atom instance.
  *
  * @author  V.Ganesh
  * @version 2.0 (Part of MeTA v2.0)

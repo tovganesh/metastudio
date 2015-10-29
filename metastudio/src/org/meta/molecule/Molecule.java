@@ -110,6 +110,22 @@ public abstract class Molecule {
                                  int index);    
     
     /** 
+     * Adds an atom to this molecule object.
+     *
+     * @param symbol the atom symbol
+     * @param x X coordinate of the atom 
+     * @param y Y coordinate of the atom 
+     * @param z Z coordinate of the atom 
+     * @param xi X coordinate of the atom base (vector)
+     * @param yj Y coordinate of the atom base (vector)
+     * @param zk Z coordinate of the atom base (vector)
+     * @param index the atom index
+     */    
+    public abstract void addAtom(String symbol, double x, double y, double z, 
+                                 double xi, double yj, double zk, 
+                                 int index);  
+    
+    /** 
      * Overloaded addAtom() method.
      *
      * @param symbol the atom symbol   

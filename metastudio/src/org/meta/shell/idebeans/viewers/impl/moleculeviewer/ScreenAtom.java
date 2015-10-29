@@ -18,6 +18,7 @@ import org.meta.config.impl.AtomInfo;
 import org.meta.common.resource.ColorResource;
 import org.meta.fragment.FragmentAtom;
 import org.meta.molecule.Atom;
+import org.meta.molecule.UserDefinedAtomProperty;
 import org.meta.shell.idebeans.graphics.PaintGlyphObject;
 
 /**
@@ -106,8 +107,16 @@ public class ScreenAtom extends AbstractGlyph {
         transform.unit();
         
         if (atom.getSymbol().equals("Vec")) {
-            vector = new ScreenVector(new Vector3D(atom.getAtomCenter()));
-            vector.setSelectionColor(selectionColor);
+            UserDefinedAtomProperty ua = atom.getUserDefinedAtomProperty("baseCenter");
+            
+            if (ua == null) {
+                vector = new ScreenVector(new Vector3D(atom.getAtomCenter()));
+                vector.setSelectionColor(selectionColor);
+            } else {
+                Point3D baseCenter = (Point3D) ua.getValue();    
+                vector = new ScreenVector(new Vector3D(atom.getAtomCenter()), new Point3DI(baseCenter));
+                vector.setSelectionColor(selectionColor);
+            }
         } // end if      
         
         covalentRadius = AtomInfo.getInstance()

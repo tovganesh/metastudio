@@ -270,7 +270,7 @@ public class PaintGlyphObjectJ2DImpl implements PaintGlyphObject {
      */
     @Override
     public void fillCylinder(double height, double baseRadius, double topRadius)
-                             throws GlyphPaintingException {
+                              throws GlyphPaintingException {
         // TODO:
     }
 
