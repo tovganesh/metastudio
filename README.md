@@ -51,6 +51,7 @@ Installation and other information:
 ---
 
 **License**
+
 MeTA Studio was originally licensed under LGPL. I am now, re-licensing the whole code base of MeTA Studio under MIT license. Moving forward, the new distribution license of MeTA Studio will be MIT license (https://opensource.org/licenses/MIT).
 
 Since the original hosting of MeTA Studio project was on Google code, which has since shut down, and has listed all its projects as "archived", I won't be able to change the licensing information there.
