@@ -106,7 +106,7 @@ public class ScreenAtom extends AbstractGlyph {
         transform = new Matrix3D();
         transform.unit();
         
-        if (atom.getSymbol().equals("Vec")) {
+        if (atom.isVector()) {
             UserDefinedAtomProperty ua = atom.getUserDefinedAtomProperty("baseCenter");
             
             if (ua == null) {

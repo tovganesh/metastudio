@@ -81,8 +81,8 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
     }        
     
     /**
-     * The implementation of this structure should preferablly use the
-     * list of SpecialStructureRecognizer's and delagte the job to these
+     * The implementation of this structure should preferably use the
+     * list of SpecialStructureRecognizer's and delegate the job to these
      * implementations.
      *
      * @param molecule The molecule object instance in which the special 
@@ -109,7 +109,7 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
      * The implementation of this method should write the best possible
      * algorithms for identifying the required simple bonds as fast as possible. 
      * Also the implementation should *not* worry about how the connectivity is
-     * to be stored, this is taken care of by the implimentors of
+     * to be stored, this is taken care of by the implementors of
      * Molecule class.
      *
      * @param molecule The instance of the Molecule class which needs to be 
@@ -155,12 +155,14 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
         
         for(i=0; i<noOfAtoms; i++) {
             a1 = molecule.getAtom(i);
+            if (a1.isVector()) continue;
             atomCenter1 = a1.getAtomCenter();            
             
             // >>> This is the place where defaultValency needs to be checked
             // >>> for a1
             for(j=0; j<i; j++) {
                 a2 = molecule.getAtom(j);
+                if (a2.isVector()) continue;
                 atomCenter2 = a2.getAtomCenter();                
                 
                 // we only identify single bonds here
@@ -190,7 +192,7 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
      * The implementation of this method should write the best possible
      * algorithms for identifying the required type of bonds. Also the
      * implementation should *not* worry about how the connectivity is
-     * to be stored, this is taken care of by the implimentors of
+     * to be stored, this is taken care of by the implementors of
      * Molecule class.
      *
      * @param molecule The instance of the Molecule class which needs to be 
@@ -251,12 +253,14 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
         
         for(i=0; i<noOfAtoms; i++) {
             a1 = molecule.getAtom(i);
+            if (a1.isVector()) continue;
             atomCenter1 = a1.getAtomCenter();            
             
             // >>> This is the place where defaultValency needs to be checked
             // >>> for a1
             for(j=0; j<i; j++) {
                 a2 = molecule.getAtom(j);
+                if (a2.isVector()) continue;
                 atomCenter2 = a2.getAtomCenter();                
                 
                 // the first level of defence for checking the existance 
@@ -336,7 +340,7 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
      * The implementation of this method should write the best possible
      * algorithms for identifying the required type of bonds. Also the
      * implementation should *not* worry about how the connectivity is
-     * to be stored, this is taken care of by the implimentors of
+     * to be stored, this is taken care of by the implementors of
      * Molecule class. <br>
      *
      * This method, behaves similar to simple <code>makeConnectivity(molecule)
@@ -392,12 +396,14 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
         for(Integer i : atomIndices) {
             try {
                 a1 = molecule.getAtom(i);
+                if (a1.isVector()) continue;
                 atomCenter1 = a1.getAtomCenter();
 
                 // >>> This is the place where defaultValency needs to be checked
                 // >>> for a1
                 for(j=0; j<noOfAtoms; j++) {
                     a2 = molecule.getAtom(j);
+                    if (a2.isVector()) continue;
                     atomCenter2 = a2.getAtomCenter();
 
                     // the first level of defence for checking the existance
@@ -512,12 +518,14 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
 
         for(i=0; i<noOfAtoms; i++) {
             a1 = molecule.getAtom(i);
+            if (a1.isVector()) continue;
             atomCenter1 = a1.getAtomCenter();
 
             // >>> This is the place where defaultValency needs to be checked
             // >>> for a1
             for(j=0; j<i; j++) {
                 a2 = molecule.getAtom(j);
+                if (a2.isVector()) continue;
                 atomCenter2 = a2.getAtomCenter();
 
                 // the first level of defence for checking the existance
@@ -604,12 +612,14 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
 
         for(i=0; i<noOfAtoms; i++) {
             a1 = molecule.getAtom(i);
+            if (a1.isVector()) continue;
             atomCenter1 = a1.getAtomCenter();
 
             // >>> This is the place where defaultValency needs to be checked
             // >>> for a1
             for(j=0; j<i; j++) {
                 a2 = molecule.getAtom(j);
+                if (a2.isVector()) continue;
                 atomCenter2 = a2.getAtomCenter();
 
                 // the first level of defence for checking the existance
@@ -892,7 +902,7 @@ public class MoleculeBuilderImpl extends MoleculeBuilder {
     
     /**
      * method to compute the resultant axis w.r.t an atom center, based on its
-     * connectivity with the neighbouring atoms
+     * connectivity with the neighboring atoms
      *
      * @param atom - the atom to be used for defining the axis
      * @param atomIndex - and the related atom index

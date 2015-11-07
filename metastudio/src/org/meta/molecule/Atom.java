@@ -25,6 +25,9 @@ public class Atom implements Cloneable {
 
     /** Holds value of property atomCenter. */
     private Point3D atomCenter;
+    
+    /** Holds value of property isVector */
+    private Boolean isVector;
 
     /** Holds information on all the connected atoms and the cardinalities, 
      * the atomIndices to which the present atom is connected serves 
@@ -93,6 +96,11 @@ public class Atom implements Cloneable {
 
         // by default all atom centers are in angstrom units
         atomCenterUnits = Units.ANGSTROM;
+ 
+        if (symbol.toLowerCase().startsWith("vec")) 
+            isVector = Boolean.TRUE;
+        else 
+            isVector = Boolean.FALSE;
     }
 
     /** initialize the ZMatrix Items */
@@ -118,6 +126,11 @@ public class Atom implements Cloneable {
      */
     public void setSymbol(String symbol) {
         this.symbol = symbol;
+        
+        if (symbol.toLowerCase().startsWith("vec")) 
+            isVector = Boolean.TRUE;
+        else 
+            isVector = Boolean.FALSE;
     }
 
     /** Getter for property charge.
@@ -286,7 +299,7 @@ public class Atom implements Cloneable {
     }
 
     /** Method to add a connection between the present atom and the atom
-     * specified by atomIndex as specified by the implimentation of
+     * specified by atomIndex as specified by the implementation of
      * Molecule interface.
      * @param atomIndex the integer index of atom to be connected
      * @param bondType the bond type
@@ -496,6 +509,14 @@ public class Atom implements Cloneable {
     public ZMatrixItem getDihedralReference() {
         initZMatrixItems();
         return zMatrixElement.get(DIHEDRAL_REFERENCE_POS);
+    }
+    
+    /**
+     * Getter for property isVector
+     * @return value (boolean of) isVector
+     */
+    public boolean isVector() {
+        return isVector.booleanValue();
     }
 
     /**

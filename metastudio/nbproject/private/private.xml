@@ -4,17 +4,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/config/impl/AtomInfo.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/molecule/Atom.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/molecule/graph/BitMol.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/molecule/graph/MaximumCommonSubstructure.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/MoleculeFileReaderFactoryImpl.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/molecule/Molecule.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/GAMESSGaussianFileReader.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/shell/idebeans/IDEFileChooser.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/commands/readMultiMoleculeFile.bsh</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/common/resource/StringResource.java</file>
-            <file>file:/C:/Users/Ganesh/projects/metastudio/metastudio/src/org/meta/commands/showFileDialog.bsh</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/XYZMoleculeFileReader.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/viewers/impl/moleculeviewer/ScreenVector.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/viewers/impl/moleculeviewer/ScreenAtom.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/ScratchPad.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/graphics/j2d/PaintGlyphObjectJ2DImpl.java</file>
         </group>
     </open-files>
 </project-private>

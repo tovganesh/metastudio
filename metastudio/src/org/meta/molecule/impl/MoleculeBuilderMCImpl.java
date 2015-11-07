@@ -17,7 +17,7 @@ import org.meta.parallel.SimpleParallelTaskExecuter;
 
 /**
  * This is a special implementation of MoleculeBuilder which is specifically
- * targetted towards multi core processors (so the attached MC). If a multi
+ * targeted towards multi core processors (so the attached MC). If a multi
  * core version of the required algorithm is not present, this class 
  * automatically uses the serial version provided by its super class.
  *
@@ -45,11 +45,11 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
      * The implementation of this method should write the best possible
      * algorithms for identifying the required type of bonds. Also the
      * implementation should *not* worry about how the connectivity is
-     * to be stored, this is taken care of by the implimentors of
+     * to be stored, this is taken care of by the implementors of
      * Molecule class.
      *
      * This is the multi core processor version of the <code>makeConnectivity()
-     * </code> interface that aims to use avalilable cores to substantially 
+     * </code> interface that aims to use available cores to substantially 
      * fasten up the process of identifying bonds (strong and weak) and 
      * any special structures.
      *
@@ -162,7 +162,7 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
      * The implementation of this method should write the best possible
      * algorithms for identifying the required simple bonds as fast as possible.
      * Also the implementation should *not* worry about how the connectivity is
-     * to be stored, this is taken care of by the implimentors of
+     * to be stored, this is taken care of by the implementors of
      * Molecule class.
      *
      * @param molecule The instance of the Molecule class which needs to be
@@ -258,7 +258,7 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
            setTaskName("MoleculeBuilder Thread");
         }
 
-        /** overriden run() */
+        /** overridden run() */
         @Override
         public void run() {
             Point3D atomCenter1, atomCenter2;
@@ -266,12 +266,14 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
 
             for(i=startAtomIndex; i<endAtomIndex; i++) {
                 a1 = molecule.getAtom(i);
+                if (a1.isVector()) continue;
                 atomCenter1 = a1.getAtomCenter();            
 
                 // >>> This is the place where defaultValency needs to be checked
                 // >>> for a1
                 for(j=0; j<i; j++) {
                     a2 = molecule.getAtom(j);
+                    if (a2.isVector()) continue;
                     atomCenter2 = a2.getAtomCenter();                
 
                     // the first level of defence for checking the existance 
@@ -405,7 +407,7 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
            setTaskName("MoleculeBuilder Thread");
         }
 
-        /** overriden run() */
+        /** overridden run() */
         @Override
         public void run() {
             Point3D atomCenter1, atomCenter2;
@@ -413,12 +415,14 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
 
             for(i=startAtomIndex; i<endAtomIndex; i++) {
                 a1 = molecule.getAtom(i);
+                if (a1.isVector()) continue;
                 atomCenter1 = a1.getAtomCenter();
 
                 // >>> This is the place where defaultValency needs to be checked
                 // >>> for a1
                 for(j=0; j<i; j++) {
                     a2 = molecule.getAtom(j);
+                    if (a2.isVector()) continue;
                     atomCenter2 = a2.getAtomCenter();
 
                     // we only identify single bonds here
