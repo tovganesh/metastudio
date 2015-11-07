@@ -1,3 +1,5 @@
+[TODO: This page needs update, pertaining to moving of the source code to GitHub]
+
 # Installation Guide #
 
 Pre-requisites:
