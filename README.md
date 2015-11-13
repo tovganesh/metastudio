@@ -62,6 +62,6 @@ Since the original hosting of MeTA Studio project was on Google code, which has 
 **Citation**
 > If you use MeTA Studio in a research publication, you may cite the following:
 
-> "MeTA studio: A cross platform, programmable IDE for computational chemist", V. Ganesh, _J. Comput. Chem._, **30**, 661 (2009). (Web: http://code.google.com/p/metastudio/)
+> "MeTA studio: A cross platform, programmable IDE for computational chemist", V. Ganesh, _J. Comput. Chem._, **30**, 661 (2009). (Web: https://github.com/tovganesh/metastudio/)
 
 
