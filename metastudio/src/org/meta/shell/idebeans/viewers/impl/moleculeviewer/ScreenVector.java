@@ -86,7 +86,7 @@ public class ScreenVector extends AbstractGlyph {
         vLength = (float) Math.sqrt(m1*m1 + m2*m2);
         
         th = (float) (arrowWidth / (2.0f * vLength));
-	    ta = (float) (arrowWidth / (2.0f * (Math.tan(theta) / 2.0f) * vLength));
+	ta = (float) (arrowWidth / (2.0f * (Math.tan(theta) / 2.0f) * vLength));
          
         x1 = (int) (x[0] + -ta*m1);
         y1 = (int) (y[0] + -ta*m2);         

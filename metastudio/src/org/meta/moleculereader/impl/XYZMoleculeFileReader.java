@@ -57,7 +57,7 @@ public class XYZMoleculeFileReader extends AbstractMoleculeFileReader {
     }
     
     /**
-     * This method returns an list of all the extensions suppoted by this
+     * This method returns an list of all the extensions supported by this
      * implementation.
      *
      * @return Returns an Iterator of string objects (case insensitive),
@@ -147,10 +147,11 @@ public class XYZMoleculeFileReader extends AbstractMoleculeFileReader {
         // and now we are in a position to read all the atoms!
         String symbol;
         double x, y, z;
+        double xi, yj, zk;
         String [] words;
 
         try {
-            for(int i=0; i<noOfAtoms; i++) {
+            for (int i = 0; i < noOfAtoms; i++) {
                 words = reader.readLine().trim().split("\\s+");
 
                 symbol = words[0];
@@ -159,8 +160,17 @@ public class XYZMoleculeFileReader extends AbstractMoleculeFileReader {
                 y = Double.parseDouble(words[2]);
                 z = Double.parseDouble(words[3]);
 
-                // and now we can safely add this atom to our list
-                molecule.addAtom(symbol, x, y, z, i);
+                if (words.length >= 7) {
+                    xi = Double.parseDouble(words[4]);
+                    yj = Double.parseDouble(words[5]);
+                    zk = Double.parseDouble(words[6]);
+
+                    // and now we can safely add this atom to our list            
+                    molecule.addAtom(symbol, x, y, z, xi, yj, zk, i);
+                } else {
+                    // and now we can safely add this atom to our list            
+                    molecule.addAtom(symbol, x, y, z, i);
+                } // end if
             } // end for
         } catch (Exception e) {
             e.printStackTrace();
