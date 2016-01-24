@@ -4,11 +4,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/molecule/impl/MoleculeBuilderImpl.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/math/geom/Point3DI.java</file>
             <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/XYZMoleculeFileReader.java</file>
             <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/viewers/impl/moleculeviewer/ScreenVector.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/molecule/UserDefinedAtomProperty.java</file>
             <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/viewers/impl/moleculeviewer/ScreenAtom.java</file>
             <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/ScratchPad.java</file>
             <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/shell/idebeans/graphics/j2d/PaintGlyphObjectJ2DImpl.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/molecule/impl/MoleculeBuilderMCImpl.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/math/geom/Point3D.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/molecule/Molecule.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/molecule/Atom.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/molecule/impl/MoleculeImpl.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/moleculereader/impl/GAMESSGaussianFileReader.java</file>
+            <file>file:/Users/ganeshv/projects/metastudio/metastudio/src/org/meta/common/resource/StringResource.java</file>
         </group>
     </open-files>
 </project-private>

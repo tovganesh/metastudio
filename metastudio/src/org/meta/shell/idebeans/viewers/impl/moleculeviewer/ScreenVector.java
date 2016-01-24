@@ -70,7 +70,31 @@ public class ScreenVector extends AbstractGlyph {
         transform.transformPoint(screenPointOrigin);
         transform.transformPoint(screenPointEnd);
         
-        g2d.setColor(color);                
+        double magnitude = vector.magnitude();
+        
+        Stroke currentStroke = g2d.getStroke();
+        
+        if (magnitude < 0.1) {
+          arrowWidth = 2.0;  
+          g2d.setStroke(new BasicStroke(1));
+          g2d.setColor(color.darker().darker().darker().darker().darker());           
+        } else if (magnitude >= 0.1 && magnitude < 0.5) {
+          arrowWidth = 4.0;  
+          g2d.setStroke(new BasicStroke(2));
+          g2d.setColor(color.darker().darker().darker()); 
+        } else if (magnitude >= 0.5 && magnitude < 1.0) {
+          arrowWidth = 6.0;
+          g2d.setStroke(new BasicStroke(3));
+          g2d.setColor(color.darker());    
+        } else if (magnitude >= 1.0 && magnitude < 5.0) {
+          arrowWidth = 8.0;
+          g2d.setStroke(new BasicStroke(4));  
+          g2d.setColor(color.brighter());     
+        } else {
+          arrowWidth = 10.0;
+          g2d.setStroke(new BasicStroke(5));
+          g2d.setColor(color.brighter().brighter().brighter());   
+        } 
         
         g2d.drawLine(x1=screenPointOrigin.getCurrentX(), 
                      y1=screenPointOrigin.getCurrentY(),
@@ -107,6 +131,8 @@ public class ScreenVector extends AbstractGlyph {
                          screenPointEnd.getCurrentY());            
             g2d.fillPolygon(x, y, 3);
         } // end if
+        
+        g2d.setStroke(currentStroke);
     }
 
     /**
