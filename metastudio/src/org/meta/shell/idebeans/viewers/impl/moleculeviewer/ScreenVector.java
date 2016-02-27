@@ -72,8 +72,13 @@ public class ScreenVector extends AbstractGlyph {
         
         double magnitude = vector.magnitude();
         
+        // not showing "null" vectors
+        if (magnitude == 0) return;
+        
         Stroke currentStroke = g2d.getStroke();
         
+        // else scale the arrow size, the color and stroke width based on 
+        // the magnitude
         if (magnitude < 0.1) {
           arrowWidth = 2.0;  
           g2d.setStroke(new BasicStroke(1));

@@ -125,71 +125,36 @@ public class VISMoleculeFileReader extends AbstractMoleculeFileReader {
         // then start reading the file carefully and construct the 
         // Molecule object
         
-        // instantiate a tokenizer
-        ScientificStreamTokenizer tokenizer = 
-                                  new ScientificStreamTokenizer(reader);
-        
-        int tokenID, noOfAtoms;
         boolean convertToAngstrom; // flag to check if conversion to angstrom
                                    // unit is necessary
         
         // the molecule title is not defined in VIS file - so give it
         // an arbitary name
         molecule.setTitle("Untitled");
-            
-        // the first two tokens have to be read carefully
-        // they determine how to read the rest of the file
-        tokenID = tokenizer.nextToken();
         
-        convertToAngstrom = false;
+        String line = reader.readLine().trim();
         
-        if (tokenID == StreamTokenizer.TT_WORD) {
-            // the first token should be either of the following:
-            // {$angstrom | $au | $molecule | $atom}
-            if (tokenizer.sval.compareToIgnoreCase("$angstrom") == 0) {
-                convertToAngstrom = false;
-                
-                // the next token has to be $molecule or $atom in this case
-                tokenID = tokenizer.nextToken();
-                
-                if (tokenID != StreamTokenizer.TT_WORD) {
-                    throw new IOException("Could not understand format : "
-                    + tokenizer);
-                } else {
-                    if ((tokenizer.sval.compareToIgnoreCase("$molecule") != 0)
-                       && (tokenizer.sval.compareToIgnoreCase("$atom") != 0)) {
-                        throw new IOException("Could not understand format : "
-                                               + tokenizer);
-                    } // end if
-                } // end if
-            } else if (tokenizer.sval.compareToIgnoreCase("$au") == 0) {                   
-                convertToAngstrom = true; // ;)  
-                
-                // the next token has to be $molecule or $atom in this case
-                tokenID = tokenizer.nextToken();
-                
-                if (tokenID != StreamTokenizer.TT_WORD) {
-                    throw new IOException("Could not understand format : "
-                    + tokenizer);
-                } else {
-                    if ((tokenizer.sval.compareToIgnoreCase("$molecule") != 0)
-                       && (tokenizer.sval.compareToIgnoreCase("$atom") != 0)) {
-                        throw new IOException("Could not understand format : "
-                                               + tokenizer);
-                    } // end if
-                } // end if
-            } else if ((tokenizer.sval.compareToIgnoreCase("$molecule") == 0)
-                        || (tokenizer.sval.compareToIgnoreCase("$atom") == 0)) {
-                convertToAngstrom = true; // ;)                         
-            } else {               
-                throw new IOException("Could not understand format : " 
-                                      + tokenizer);
-            } // end if                                    
+        if (line.compareToIgnoreCase("$angstrom") == 0) {
+            convertToAngstrom = false;
+            line = reader.readLine().trim();
+            if (line.compareToIgnoreCase("$molecule") != 0
+                && line.compareToIgnoreCase("$atom") != 0) {
+                throw new IOException("Could not understand format : " + line);
+            } // end if
+        } else if (line.compareToIgnoreCase("$au") == 0) {
+            convertToAngstrom = true; // ;) 
+            line = reader.readLine().trim();
+            if (line.compareToIgnoreCase("$molecule") != 0
+                && line.compareToIgnoreCase("$atom") != 0) {
+                throw new IOException("Could not understand format : " + line);
+            } // end if
+        } else if (line.compareToIgnoreCase("$molecule") == 0
+                   || line.compareToIgnoreCase("$atom") == 0) {
+            convertToAngstrom = true; // ;)
         } else {
-            // error in format!
-            throw new IOException("Could not understand format : " + tokenizer);
+            throw new IOException("Could not understand format : " + line);
         } // end if
-        
+
         // save/retrive the reader state
         if ((readerState != null) && (readerState == reader)) {
             convertToAngstrom = convertToAngstromState;
@@ -202,62 +167,57 @@ public class VISMoleculeFileReader extends AbstractMoleculeFileReader {
         // and now we are in a position to read all the atoms!
         String symbol;
         double x, y, z;
+        double xi, yj, zk;
+        String [] words;
         int atomIndex = 0;
         
         try {
-            while(true) {                
-                // a set of four tokens constitute the atom
-                //  a) the symbol                
-                if (tokenizer.nextToken() != StreamTokenizer.TT_WORD) {
-                    throw new IOException("Could not understand format : " 
-                                           + tokenizer);
-                } else {
-                    if (tokenizer.sval.compareToIgnoreCase("$end") == 0) {
-                        // we have reached end of file!
-                        break;
+            while(true) {   
+                line = reader.readLine().trim();
+                if (line == null) break;
+                if (line.compareTo("") == 0) break;
+                if (line.compareToIgnoreCase("$end") == 0) break;
+                
+                words = line.split("\\s+");
+
+                symbol = words[0];
+
+                x = Double.parseDouble(words[1]);
+                y = Double.parseDouble(words[2]);
+                z = Double.parseDouble(words[3]);
+
+                if (words.length >= 7) {
+                    System.out.println("vec detected" + line);
+                    xi = Double.parseDouble(words[4]);
+                    yj = Double.parseDouble(words[5]);
+                    zk = Double.parseDouble(words[6]);
+
+                    // and now we can safely add this atom to our list  
+                    if (convertToAngstrom) {
+                        molecule.addAtom(symbol, x * Utility.AU_TO_ANGSTROM_FACTOR, 
+                                                 y * Utility.AU_TO_ANGSTROM_FACTOR, 
+                                                 z * Utility.AU_TO_ANGSTROM_FACTOR,
+                                                 xi * Utility.AU_TO_ANGSTROM_FACTOR, 
+                                                 yj * Utility.AU_TO_ANGSTROM_FACTOR,
+                                                 zk * Utility.AU_TO_ANGSTROM_FACTOR,
+                                                 atomIndex);
+                    } else {
+                        molecule.addAtom(symbol, x, y, z, xi, yj, zk, atomIndex);
                     } // end if
-                    
-                    symbol = tokenizer.sval;
-                } // end if
-                
-                //  b) the x coordinate               
-                if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
-                    throw new IOException("Could not understand format : " 
-                                           + tokenizer);
                 } else {
-                    x = tokenizer.nval;
+                    // and now we can safely add this atom to our list  
+                    if (convertToAngstrom) {
+                        molecule.addAtom(symbol, x * Utility.AU_TO_ANGSTROM_FACTOR, 
+                                                 y * Utility.AU_TO_ANGSTROM_FACTOR, 
+                                                 z * Utility.AU_TO_ANGSTROM_FACTOR,
+                                                 atomIndex);
+                    } else {
+                        molecule.addAtom(symbol, x, y, z, atomIndex);
+                    } // end if
                 } // end if
-                
-                //  c) the y coordinate               
-                if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
-                    throw new IOException("Could not understand format : " 
-                                           + tokenizer);
-                } else {
-                    y = tokenizer.nval;
-                } // end if
-                
-                //  d) the z coordinate               
-                if (tokenizer.nextToken() != StreamTokenizer.TT_NUMBER) {
-                    throw new IOException("Could not understand format : " 
-                                           + tokenizer);
-                } else {
-                    z = tokenizer.nval;
-                } // end if
-                
-                // and now we can safely add this atom to our list
-                if (convertToAngstrom) {
-                    molecule.addAtom(symbol, x * Utility.AU_TO_ANGSTROM_FACTOR, 
-                                             y * Utility.AU_TO_ANGSTROM_FACTOR, 
-                                             z * Utility.AU_TO_ANGSTROM_FACTOR,
-                                             atomIndex);                    
-                } else {
-                    molecule.addAtom(symbol, x, y, z, atomIndex);
-                } // end if 
-                
-                atomIndex++;
             } // end while
         } catch (Exception e) {
-            throw new IOException("Error reading file : " + tokenizer
+            throw new IOException("Error reading file : "
                                   + "\n Exception is : " + e.toString());
         } // end of try .. catch block
         
