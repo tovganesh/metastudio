@@ -201,8 +201,10 @@ public class VISMoleculeFileReader extends AbstractMoleculeFileReader {
                                                  yj * Utility.AU_TO_ANGSTROM_FACTOR,
                                                  zk * Utility.AU_TO_ANGSTROM_FACTOR,
                                                  atomIndex);
+                        atomIndex++;
                     } else {
                         molecule.addAtom(symbol, x, y, z, xi, yj, zk, atomIndex);
+                        atomIndex++;
                     } // end if
                 } else {
                     // and now we can safely add this atom to our list  
@@ -211,8 +213,10 @@ public class VISMoleculeFileReader extends AbstractMoleculeFileReader {
                                                  y * Utility.AU_TO_ANGSTROM_FACTOR, 
                                                  z * Utility.AU_TO_ANGSTROM_FACTOR,
                                                  atomIndex);
+                        atomIndex++;
                     } else {
                         molecule.addAtom(symbol, x, y, z, atomIndex);
+                        atomIndex++;
                     } // end if
                 } // end if
             } // end while
