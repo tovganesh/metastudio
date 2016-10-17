@@ -520,6 +520,17 @@ public class Atom implements Cloneable {
     }
 
     /**
+     * Check if this atom is a dummy atom
+     * 
+     * @return true / false depending on if the atom is a dummy 
+     */
+    public boolean isDummy() {
+        return (symbol.equals("X") || symbol.equals("x") 
+                || symbol.equals("Bq") || symbol.equals("bq") 
+                || symbol.equals("dum") || symbol.equals("dummy"));
+    }
+    
+    /**
      * Setter for property dihedralReference.
      * @param dihedralReference New value of property dihedralReference.
      */

@@ -266,14 +266,14 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
 
             for(i=startAtomIndex; i<endAtomIndex; i++) {
                 a1 = molecule.getAtom(i);
-                if (a1.isVector()) continue;
+                if (a1.isVector() || a1.isDummy()) continue;
                 atomCenter1 = a1.getAtomCenter();            
 
                 // >>> This is the place where defaultValency needs to be checked
                 // >>> for a1
                 for(j=0; j<i; j++) {
                     a2 = molecule.getAtom(j);
-                    if (a2.isVector()) continue;
+                    if (a2.isVector() || a2.isDummy()) continue;
                     atomCenter2 = a2.getAtomCenter();                
 
                     // the first level of defence for checking the existance 
@@ -415,14 +415,14 @@ public class MoleculeBuilderMCImpl extends MoleculeBuilderImpl {
 
             for(i=startAtomIndex; i<endAtomIndex; i++) {
                 a1 = molecule.getAtom(i);
-                if (a1.isVector()) continue;
+                if (a1.isVector() || a1.isDummy()) continue;
                 atomCenter1 = a1.getAtomCenter();
 
                 // >>> This is the place where defaultValency needs to be checked
                 // >>> for a1
                 for(j=0; j<i; j++) {
                     a2 = molecule.getAtom(j);
-                    if (a2.isVector()) continue;
+                    if (a2.isVector() || a2.isDummy()) continue;
                     atomCenter2 = a2.getAtomCenter();
 
                     // we only identify single bonds here
