@@ -1,3 +1,5 @@
+NOTE: The installer hosted on Google Code is no longer supported/available. Use this link to download the generic installer: https://www.dropbox.com/s/wdj5l09eyj9rc33/meta.tar.gz?dl=0
+
 [TODO: This page needs update, pertaining to moving of the source code to GitHub]
 
 # Installation Guide #
