@@ -7,6 +7,7 @@
 package org.meta.common.resource;
 
 import java.awt.Font;
+import java.awt.Toolkit;
 
 import javax.swing.UIManager;
 import javax.swing.UIDefaults;
@@ -22,6 +23,8 @@ import javax.swing.UIDefaults;
 public class FontResource implements Resource {
     
     private static FontResource _fontResource;
+    
+    private final static double DESIGN_DPI = 96;
     
     /** Holds value of property menuFont. */
     private Font menuFont;
@@ -59,17 +62,19 @@ public class FontResource implements Resource {
     
     /** Creates a new instance of FontResource -- private! */
     private FontResource() {
+        double scaleFactor = Toolkit.getDefaultToolkit().getScreenResolution() / DESIGN_DPI;
+        
         // default initilizations :
-        menuFont        = new Font("sansserif",  Font.PLAIN, 11);
-        frameFont       = new Font("sansserif",  Font.PLAIN, 11);
-        statusFont      = new Font("sansserif",  Font.PLAIN, 11);
-        descriptionFont = new Font("sansserif",  Font.BOLD,  14);
-        codeFont        = new Font("monospaced", Font.PLAIN, 11);
-        screenLabelFont = new Font("sansserif",  Font.PLAIN, 12);
-        taskGroupFont   = new Font("sansserif",  Font.BOLD,  12);
-        taskFont        = new Font("sansserif",  Font.PLAIN, 12);
-        axisFont        = new Font("sansserif",  Font.PLAIN, 10);
-        smallFont       = new Font("sansserif",  Font.PLAIN, 10);
+        menuFont        = new Font("sansserif",  Font.PLAIN, (int) (11*scaleFactor));
+        frameFont       = new Font("sansserif",  Font.PLAIN, (int) (11*scaleFactor));
+        statusFont      = new Font("sansserif",  Font.PLAIN, (int) (11*scaleFactor));
+        descriptionFont = new Font("sansserif",  Font.BOLD,  (int) (14*scaleFactor));
+        codeFont        = new Font("monospaced", Font.PLAIN, (int) (11*scaleFactor));
+        screenLabelFont = new Font("sansserif",  Font.PLAIN, (int) (12*scaleFactor));
+        taskGroupFont   = new Font("sansserif",  Font.BOLD,  (int) (12*scaleFactor));
+        taskFont        = new Font("sansserif",  Font.PLAIN, (int) (12*scaleFactor));
+        axisFont        = new Font("sansserif",  Font.PLAIN, (int) (10*scaleFactor));
+        smallFont       = new Font("sansserif",  Font.PLAIN, (int) (10*scaleFactor));
         
         // set some swing defaults..
         UIDefaults defaults = UIManager.getDefaults();
