@@ -1,5 +1,7 @@
 _(under construction)_
 
+For the latest visit Google Scholar (https://scholar.google.co.in/scholar?oi=bibs&hl=en&cites=186524516176416110) 
+
   1. "Structuring and Destructuring Effects Along a Pathway toward Formation of Zwitterionic Glycine(H2O)2 Complex: Many Body Analysis of Clusters and Molecular Electrostatic Potential Investigations", AD. Kulkarni, D. Rai, SP. Gejji, LJ. Bartolotti, RK. Pathak, Int. J. Quantum Chem. (2012), DOI: 10.1002/qua.24287
   1. "Acetylene aggregates via cluster-building algorithm and molecular tailoring approach", Anuja P. Rahalkar, Sachin D. Yeole and Shridhar R. Gadre, 131, 1095 (2012)
   1. "Topography of Scalar Fields: Molecular Clusters and π-Conjugated Systems", Sachin D. Yeole and Shridhar R. Gadre, J. Phys. Chem. A, 2011, 115 (45), 12769 (2011)
