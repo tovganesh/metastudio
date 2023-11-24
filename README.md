@@ -58,6 +58,12 @@ Since the original hosting of MeTA Studio project was on Google code, which has 
 
 ---
 
+**Related**
+
+The QM code library in MeTA Studio is probably the first attempt at writing QM code from ground up in Java. This forms the basis of the code that is currently maintained by Mark Williamson, see JQuantee (https://github.com/mjw99/jquante). 
+
+---
+
 
 **Citation**
 > If you use MeTA Studio in a research publication, you may cite the following:
